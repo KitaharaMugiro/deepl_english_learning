@@ -1,0 +1,45 @@
+.question_mark {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgb(17, 17, 17);
+    color:white;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.write_japanese_box {
+    position:relative;
+}
+
+.write_english_box {
+    position:relative;
+    margin-top: 20px;
+}
+
+.ready_modal{
+    position:absolute;
+    width:103%;
+    height:103%;
+    left:-5px;
+    top:-5px;
+    z-index:100;
+    background-color: gray;
+    background-color: rgba(34, 136, 238, .3);
+    backdrop-filter: blur(1px);
+    padding:20px;
+    text-align: center;
+}
+
+.arrow_box {
+    height: 50px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}

@@ -1,0 +1,23 @@
+
+.depositContext {
+    flex: 1;
+}
+
+.seeMore {
+    margin-top: 30px;
+}
+
+.appBarShift {
+    visibility:hidden;
+}
+
+.drawerPaperClose {
+    visibility:hidden;
+}
+
+.drawerPaper {
+    visibility: visible;
+    position: 'relative';
+    white-space: 'nowrap';
+    width: 240px;
+  }
