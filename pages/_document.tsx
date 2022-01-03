@@ -1,12 +1,29 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
-
+import { GA_ID, existsGaId } from '../models/gtag'
 export default class MyDocument extends Document {
     render() {
         return (
             <Html lang="ja">
                 <Head>
+                    {/* Google Analytics */}
+                    {existsGaId && (
+                        <>
+                            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+                            <script
+                                dangerouslySetInnerHTML={{
+                                    __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', {
+                    page_path: window.location.pathname,
+                  });`,
+                                }}
+                            />
+                        </>
+                    )}
                     {/* PWA primary color */}
                     <link
                         rel="stylesheet"

@@ -1,6 +1,4 @@
 import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
-import { StudyRecordDetail } from "../models/type/StudyRecordDetail";
-import { Score } from "../pages/api/study/record/list_score";
 import { ApiClient } from "./ApiClient";
 
 export class StudyApi {

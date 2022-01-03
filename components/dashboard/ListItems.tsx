@@ -9,9 +9,12 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Link from 'next/link';
 
 interface Props {
     onClickStartStudy: () => void
+    onClickDashboard: () => void
+    onClickPay: () => void
 }
 
 export const MainListItems = (props: Props) => {
@@ -23,18 +26,28 @@ export const MainListItems = (props: Props) => {
                 </ListItemIcon>
                 <ListItemText primary="勉強を再開する" />
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={props.onClickDashboard}>
                 <ListItemIcon>
                     <ShoppingCartIcon />
                 </ListItemIcon>
-                <ListItemText primary="復習する<未実装>" />
+                <ListItemText primary="ダッシュボード" />
             </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="学習履歴を見る<未実装>" />
-            </ListItem>
+            <Link href="https://docs.google.com/forms/d/e/1FAIpQLScbacRgBLm8sw_s28KEQOJWUqB5M8mV4xFBt3Br25WM2KpKuA/viewform?usp=sf_link">
+                <ListItem button>
+                    <ListItemIcon>
+                        <PeopleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Questionリクエスト" />
+                </ListItem>
+            </Link>
+            <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform?usp=sf_link">
+                <ListItem button >
+                    <ListItemIcon>
+                        <PeopleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="有料版" />
+                </ListItem>
+            </Link>
             {/* <ListItem button>
             <ListItemIcon>
                 <BarChartIcon />

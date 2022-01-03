@@ -1,3 +1,4 @@
+import { Fab } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -11,22 +12,8 @@ import resumeOrStartStudy from '../models/process/resumeOrStartStudy';
 
 
 export default function Album() {
-  const router = useRouter()
-
-  const startStudy = async () => {
-    resumeOrStartStudy()
-    LocalStorageHelper.setFirstStudyFlag()
-  }
-
-  useEffect(() => {
-    if (LocalStorageHelper.isFirstStudyFlagAcquired()) {
-      router.push("/dashboard")
-    }
-  }, [])
-
   return (
     <React.Fragment>
-      <MyHeader />
       <main>
         {/* Hero unit */}
         <div style={{
@@ -41,7 +28,7 @@ export default function Album() {
               自分の考えたことを英語にすると拙い英語になってしまう、そんな悩みを抱えている方に効果的な勉強法があります。<br />
               ステップは単純な３ステップ。<br />
               日本語で自分の意見を書く → 英語にする → お手本を覚える。<br />
-              これであなたもネイティブレベルの英語力を手に入れよう。
+              とりあえずやってみよう。
             </Typography>
             <div style={{
               marginTop: "40px",
@@ -49,7 +36,7 @@ export default function Album() {
               <Grid container spacing={2} justify="center">
                 <Grid item>
                   <Link href="/question/1_question">
-                    <Button variant="contained" color="primary" onClick={startStudy}>
+                    <Button variant="contained" color="primary">
                       早速始める
                     </Button>
                   </Link>
@@ -58,6 +45,16 @@ export default function Album() {
             </div>
           </Container>
         </div>
+        <Fab
+          variant="extended"
+          color="primary"
+          style={{ position: "absolute", right: 30, bottom: 30 }}
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link" >
+          <Typography variant="h5" style={{ fontWeight: 40, padding: 20 }}>
+            事前登録受付中
+          </Typography>
+
+        </Fab>
       </main>
     </React.Fragment>
   );

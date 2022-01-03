@@ -1,29 +1,17 @@
-import AppBar from '@material-ui/core/AppBar';
+import { Fab, Typography } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
-import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
-import { MainListItems } from '../../components/dashboard/ListItems';
-import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
 import classes from "./style.module.css";
 
 export default function Dashboard() {
-    const router = useRouter()
-    const [open, setOpen] = React.useState(false);
+
     const [scores, setScores] = useState<number[]>([])
 
 
@@ -38,62 +26,12 @@ export default function Dashboard() {
 
     const averageScore = scores.length === 0 ? 0 : Math.round(scores.reduce((a, b) => (a + b)) / scores.length * 10) / 10
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    const startStudy = async () => {
-        await resumeOrStartStudy()
-        router.push("/question/1_question")
-    }
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="absolute">
-                <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-
-                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
-                    </Typography>
-
-                    {/* <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton> */}
-
-                </Toolbar>
-            </AppBar>
-
-            <Drawer
-                open={open}
-            >
-                <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    <MainListItems onClickStartStudy={startStudy} />
-                </List>
-                {/* <Divider />
-                <List>{secondaryListItems}</List> */}
-            </Drawer>
 
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
@@ -121,6 +59,16 @@ export default function Dashboard() {
                         </Grid> */}
                     </Grid>
                 </Container>
+                <Fab
+                    variant="extended"
+                    color="primary"
+                    style={{ position: "absolute", right: 30, bottom: 30 }}
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link" >
+                    <Typography variant="h5" style={{ fontWeight: 40, padding: 20 }}>
+                        事前登録受付中
+                    </Typography>
+
+                </Fab>
             </main>
         </div>
     );
