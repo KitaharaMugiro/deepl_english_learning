@@ -1,0 +1,44 @@
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px){
+    .container {
+    max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+.wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    color:white;
+}
+
+.link {
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    
+}
+
+.link:hover {
+    color:#1976d2
+}

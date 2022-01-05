@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import MyFooter from '../components/footer/MyFooter';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
 
@@ -26,6 +27,8 @@ export default function Album() {
         </Grid>
 
         <div style={{ height: 200 }}></div>
+        <MyFooter />
+
         <Fab
           variant="extended"
           color="primary"
@@ -34,7 +37,6 @@ export default function Album() {
           <Typography variant="h5" style={{ fontWeight: 40, padding: 20 }}>
             事前登録受付中
           </Typography>
-
         </Fab>
       </main>
     </React.Fragment >

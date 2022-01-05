@@ -4,7 +4,7 @@ import { HeroCardWidth } from "./HeroCardConst"
 
 export default () => {
     return (
-        <Card elevation={1} style={{ padding: 20, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
+        <Card elevation={1} style={{ padding: 20, paddingBottom: 30, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
             <Typography
                 component="h1" variant="h4"
                 align="center" color="textPrimary"

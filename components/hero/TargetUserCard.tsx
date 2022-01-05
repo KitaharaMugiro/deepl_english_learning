@@ -5,7 +5,7 @@ import style from "./style.module.css"
 
 export default () => {
     return (
-        <Card elevation={1} style={{ padding: 20, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
+        <Card elevation={1} style={{ padding: 20, paddingBottom: 40, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
             <Typography
                 component="h1" variant="h4"
                 align="center" color="textPrimary"
