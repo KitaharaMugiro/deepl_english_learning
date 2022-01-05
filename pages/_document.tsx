@@ -1,6 +1,6 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@mui/styles'
 import { GA_ID, existsGaId } from '../models/gtag'
 export default class MyDocument extends Document {
     render() {
@@ -33,7 +33,8 @@ export default class MyDocument extends Document {
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
                 </Head>
-                <body>
+                {/* WARN: 背景色ここでつけてる */}
+                <body style={{ backgroundColor: "#fafafa" }}>
                     <Main />
                     <NextScript />
                 </body>

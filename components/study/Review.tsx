@@ -1,12 +1,11 @@
-import { Paper, Typography } from '@material-ui/core';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Paper, Typography } from '@mui/material';
+import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
-import DetailsIcon from '@material-ui/icons/Details';
-import classes from "./style.module.css"
-import { useAtom } from 'jotai';
-import { AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
-import { StudyApi } from '../../api/StudyApi';
 import { RecordApi } from '../../api/RecordApi';
+import { AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import classes from "./style.module.css";
 
 var similarity = require('string-cosine-similarity')
 
@@ -62,7 +61,7 @@ export default function Review() {
                     </Paper>
 
                     <div className={classes.arrow_box} >
-                        <DetailsIcon />
+                        <ArrowDownwardIcon />
                         <span>お手本の英語</span>
                     </div>
 

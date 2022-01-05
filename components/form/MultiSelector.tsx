@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, Input, Chip, MenuItem } from "@material-ui/core";
+import { FormControl, InputLabel, Select, Input, Chip, MenuItem, SelectChangeEvent } from "@mui/material";
 import React from "react"
 
 
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChange = (event: SelectChangeEvent<string[]>) => {
         props.onChange(event.target.value as string[]);
     };
 

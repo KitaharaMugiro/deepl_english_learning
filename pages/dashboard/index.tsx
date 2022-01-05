@@ -1,8 +1,8 @@
-import { Fab, Typography } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { Fab, Typography } from '@mui/material';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';

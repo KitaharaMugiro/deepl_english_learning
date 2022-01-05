@@ -1,5 +1,5 @@
-import { Paper } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Paper } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 import { useCountdownTimer } from 'use-countdown-timer';

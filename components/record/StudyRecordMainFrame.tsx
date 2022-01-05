@@ -1,6 +1,6 @@
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
@@ -61,7 +61,7 @@ export default function StudyMainFrame() {
                     <React.Fragment>
                         <ProgressBar
                             value={doneTopicNum}
-                            maximum={10}
+                            maximum={20}
                         />
                         <div style={{
                             display: 'flex',
