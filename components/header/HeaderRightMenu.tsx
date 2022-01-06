@@ -75,9 +75,9 @@ export default () => {
             </div>
         } else {
             return <Button
-                onClick={openSignin}
+                // onClick={openSignin}
                 style={{ marginRight: 20, textTransform: "none" }} size="small" variant="contained" disableElevation>
-                Log in
+                Log in(未実装)
             </Button>
         }
     }

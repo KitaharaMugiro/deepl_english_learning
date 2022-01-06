@@ -5,13 +5,8 @@ import awsConfig from '../src/aws-exports';
 
 function findUrlForEnv(urlStrings: Array<string>, isLocal: boolean): string {
     if (urlStrings.length === 1) return urlStrings[0];
-
-    const re: RegExp = isLocal ? /^http:\/\/localhost/ : /^https:\/\//;
-    const [url]: Array<URL> = urlStrings
-        .filter((urlString) => urlString.match(re))
-        .map((urlString) => new URL(urlString));
-    if (!url) throw new Error("No valid URL found: " + urlStrings.join(","));
-    return url.href;
+    if (isLocal) return new URL("http://localhost:3000/").href
+    return new URL("https://english.yunomy.com/").href
 }
 
 function isDevelopment() {

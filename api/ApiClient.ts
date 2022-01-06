@@ -1,3 +1,4 @@
+import { Auth } from "aws-amplify";
 import axios, { AxiosInstance } from "axios";
 
 //const BASE_URL = "http://localhost:3000/api"
@@ -13,15 +14,33 @@ export class ApiClient {
     }
 
     public async get(path: string, params: Object) {
-        return this.instance.get(path, {
-            params
-        })
+        try {
+            const token = await Auth.currentSession()
+            return this.instance.get(path, {
+                params,
+                headers: { "Authorization": `Bearer ${token.getIdToken().getJwtToken()}` }
+            })
+        } catch {
+            return this.instance.get(path, {
+                params,
+            })
+        }
+
+
     }
 
     public async post(path: string, body: Object) {
-        return this.instance.post(path, {
-            data: body
-        })
+        try {
+            const token = await Auth.currentSession()
+            return this.instance.post(path, {
+                data: body,
+                headers: { "Authorization": `Bearer ${token.getIdToken().getJwtToken()}` }
+            })
+        } catch {
+            return this.instance.post(path, {
+                data: body,
+            })
+        }
     }
 
 }

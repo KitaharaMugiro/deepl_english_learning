@@ -6,10 +6,11 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
-import { AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
+import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
 import { Copyright } from '../footer/Copyright';
 import Review from './Review';
 import WriteEnglish from './WriteEnglish';
@@ -42,6 +43,15 @@ export default function StudyMainFrame() {
     const [translation, setTranslation] = useAtom(AtomTranslation)
     const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
 
+    const [__, setActiveQuestion] = useAtom(AtomActiveQuestion)
+    useEffect(() => {
+        const getTopic = async () => {
+            await resumeOrStartStudy()
+            const res = await StudyApi.getTopic()
+            setActiveQuestion({ title: res.topicTitle, description: res.topicDescription })
+        }
+        getTopic()
+    }, [])
 
     //router
     const router = useRouter()

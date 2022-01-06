@@ -9,7 +9,7 @@ import { Copyright } from '../footer/Copyright';
 import ProgressBar from '../progress/ProgressBar';
 
 
-export default function StudyMainFrame() {
+export default () => {
     const router = useRouter()
     const [doneTopicNum, setDoneTopicNum] = useState(0)
 
