@@ -11,8 +11,6 @@ import Link from 'next/link';
 
 interface Props {
     onClickStartStudy: () => void
-    onClickDashboard: () => void
-    onClickPay: () => void
 }
 
 export const MainListItems = (props: Props) => {
@@ -24,12 +22,23 @@ export const MainListItems = (props: Props) => {
                 </ListItemIcon>
                 <ListItemText primary="勉強を再開する" />
             </ListItem>
-            <ListItem button onClick={props.onClickDashboard}>
-                <ListItemIcon>
-                    <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="ダッシュボード" />
-            </ListItem>
+            <Link href="/dashboard">
+                <ListItem button >
+                    <ListItemIcon>
+                        <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="ダッシュボード" />
+                </ListItem>
+            </Link>
+
+        </div>
+    )
+}
+
+export const SecondaryMainListItems = () => {
+    return (
+        <div>
+            {/* <ListSubheader inset>Saved reports</ListSubheader> */}
             <Link href="https://docs.google.com/forms/d/e/1FAIpQLScbacRgBLm8sw_s28KEQOJWUqB5M8mV4xFBt3Br25WM2KpKuA/viewform?usp=sf_link">
                 <ListItem button>
                     <ListItemIcon>
@@ -46,42 +55,5 @@ export const MainListItems = (props: Props) => {
                     <ListItemText primary="有料版" />
                 </ListItem>
             </Link>
-            {/* <ListItem button>
-            <ListItemIcon>
-                <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Reports" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <LayersIcon />
-            </ListItemIcon>
-            <ListItemText primary="Integrations" />
-        </ListItem> */}
-        </div>
-    )
+        </div>);
 }
-
-export const secondaryListItems = (
-    <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
-        </ListItem>
-    </div>
-);

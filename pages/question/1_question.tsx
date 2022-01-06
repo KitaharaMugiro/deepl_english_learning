@@ -5,7 +5,6 @@ import { StudyApi } from '../../api/StudyApi';
 import MyHeader from '../../components/header/MyHeader';
 import StudyMainFrame from '../../components/study/StudyMainFrame';
 import { AtomActiveQuestion } from '../../models/jotai/StudyJotai';
-import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
 
 export default () => {

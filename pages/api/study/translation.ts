@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from "axios"
 
-const KEY = "8f837031-c317-7bec-390c-12703e546161:fx"
-const url = "https://api-free.deepl.com/v2/translate"
+const KEY = "XXXX"
+const url = "XXXX"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const reqBody: { userId: string, studySessionId: string, japanese: string } = req.body.data

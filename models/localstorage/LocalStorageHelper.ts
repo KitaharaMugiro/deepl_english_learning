@@ -2,15 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { PachiFilter } from '../type/Secrets';
 export class LocalStorageHelper {
 
-    static setFirstStudyFlag() {
-        localStorage.setItem("FirstStudyFlag", "yes")
-    }
-
-    static isFirstStudyFlagAcquired() {
-        return localStorage.getItem("FirstStudyFlag")
-    }
-
-
     static saveStudySessionId(sessionId: string) {
         localStorage.setItem("StudySessionId", sessionId)
     }

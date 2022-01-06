@@ -29,7 +29,7 @@ export default () => {
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
                         <Link href="/question/1_question">
-                            <Button variant="contained" color="primary">
+                            <Button variant="contained" color="primary" >
                                 さっそくやってみる
                             </Button>
                         </Link>

@@ -1,6 +1,5 @@
 import { Fab, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
@@ -31,8 +30,6 @@ export default function Dashboard() {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
-
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>

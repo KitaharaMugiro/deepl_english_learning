@@ -1,15 +1,10 @@
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
-import { StudyApi } from '../../api/StudyApi';
-import { AtomJapanse, AtomEnglish } from '../../models/jotai/StudyJotai';
-import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
-import { StudyRecordDetail } from '../../models/type/StudyRecordDetail';
 import { Copyright } from '../footer/Copyright';
 import ProgressBar from '../progress/ProgressBar';
 

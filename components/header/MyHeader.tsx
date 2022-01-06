@@ -1,16 +1,18 @@
-import { AppBar, Divider, Drawer, IconButton, List, Toolbar, Typography } from "@mui/material"
-import React from "react"
-import { useRouter } from 'next/dist/client/router';
-import MenuIcon from '@mui/icons-material/Menu';
-import clsx from 'clsx';
-import classes from "./style.module.css";
-import resumeOrStartStudy from "../../models/process/resumeOrStartStudy";
-import { MainListItems } from "../dashboard/ListItems";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Link from "next/link"
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Divider, Drawer, IconButton, List, Toolbar, Typography } from "@mui/material";
+import clsx from 'clsx';
+import { useRouter } from 'next/dist/client/router';
+import Link from "next/link";
+import React from "react";
+import resumeOrStartStudy from "../../models/process/resumeOrStartStudy";
+import { MainListItems, SecondaryMainListItems } from "../dashboard/ListItems";
+import HeaderRightMenu from "./HeaderRightMenu";
+import classes from "./style.module.css";
 export default () => {
     const router = useRouter()
     const [open, setOpen] = React.useState(false);
+
     const startStudy = async () => {
         await resumeOrStartStudy()
         router.push("/question/1_question")
@@ -22,6 +24,8 @@ export default () => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+
 
 
     return <>
@@ -46,17 +50,13 @@ export default () => {
                     </Typography>
                 </Link>
 
-                {/* <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-            </Badge>
-        </IconButton> */}
-
+                <HeaderRightMenu />
             </Toolbar>
         </AppBar>
 
         <Drawer
             open={open}
+            onClose={() => setOpen(false)}
         >
             <div className={classes.toolbarIcon}>
                 <IconButton onClick={handleDrawerClose} size="large">
@@ -67,12 +67,10 @@ export default () => {
             <List>
                 <MainListItems
                     onClickStartStudy={startStudy}
-                    onClickDashboard={() => router.push("/dashboard")}
-                    onClickPay={() => window.alert("未実装です")}
                 />
             </List>
-            {/* <Divider />
-    <List>{secondaryListItems}</List> */}
+            <Divider />
+            <List><SecondaryMainListItems /></List>
         </Drawer>
     </>;
 }

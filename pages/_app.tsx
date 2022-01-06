@@ -1,42 +1,37 @@
-import React, { useEffect } from 'react';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
 import {
-    AppBar,
-    CssBaseline,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ThemeProvider,
-    Theme,
-    StyledEngineProvider,
-    Toolbar,
-    Typography,
+    CssBaseline, Theme
 } from '@mui/material';
-import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
-import MyHeader from '../components/header/MyHeader';
+import { Auth } from 'aws-amplify';
+import { AppProps } from 'next/app';
 import { useRouter } from 'next/dist/client/router';
-import { pageview } from '../models/gtag';
-import { GA_ID, existsGaId } from '../models/gtag'
-
-
+import Head from 'next/head';
+import React, { useEffect } from 'react';
+import MyHeader from '../components/header/MyHeader';
+import SigninModal from '../components/signin/SigninModal';
+import { GA_ID, pageview } from '../models/gtag';
+import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
+import useUser from '../models/util-hooks/useUser';
+import { useRedirect } from "../src/amplify"
+import "./global.css"
 
 declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface DefaultTheme extends Theme { }
 }
 
 
 
 declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface DefaultTheme extends Theme { }
 }
 
 
 export default function MyApp(props: AppProps) {
     const { Component, pageProps } = props;
+
+    //ログインする前のページにリダイレクトする
+    useRedirect()
 
     useEffect(() => {
         // Remove the server-side injected CSS.
@@ -49,6 +44,24 @@ export default function MyApp(props: AppProps) {
     useEffect(() => {
         LocalStorageHelper.initializeUserId()
     }, [])
+
+
+    const { setUser, setLoadingUser } = useUser()
+    useEffect(() => {
+        const getUser = async () => {
+            setLoadingUser(true)
+            try {
+                const user = await Auth.currentAuthenticatedUser()
+                setUser(user)
+            } catch {
+                console.log("No User info")
+            }
+            setLoadingUser(false)
+        }
+        getUser()
+    }, [])
+
+
     const router = useRouter();
     useEffect(() => {
         // GA_TRACKING_ID が設定されていない場合は、処理終了
@@ -87,6 +100,7 @@ export default function MyApp(props: AppProps) {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <MyHeader />
+            <SigninModal />
             <div style={{ height: 60 }} />
             <Component {...pageProps} />
         </React.Fragment>
