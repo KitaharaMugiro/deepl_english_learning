@@ -3,21 +3,28 @@ import { ApiClient } from "./ApiClient";
 
 export class StudyApi {
 
-    static async studyStart() {
+    static async studyStart(categorySlug?: string) {
         const client = new ApiClient()
         const res = await client.post(
             "/study/start",
-            { userId: LocalStorageHelper.getUserId() }
+            { userId: LocalStorageHelper.getUserId(), categorySlug: categorySlug || "" }
         )
         const { studySessionId, startTime } = res.data
         return { studySessionId, startTime }
     }
 
     static async getTopic() {
+        const userId = LocalStorageHelper.getUserId()
+        const studySessionId = LocalStorageHelper.getStudySessionId()
+        if (!userId || !studySessionId) throw Error("userIdもしくはstudySessionIdがありません")
+
         const client = new ApiClient()
         const res = await client.post(
             "/study/topic",
-            { userId: LocalStorageHelper.getUserId(), studySessionId: LocalStorageHelper.getStudySessionId() }
+            {
+                userId: LocalStorageHelper.getUserId(),
+                studySessionId: LocalStorageHelper.getStudySessionId()
+            }
         )
         const { topicTitle, topicDescription, topicId } = res.data
         return { topicTitle, topicDescription, topicId }

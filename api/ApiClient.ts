@@ -1,9 +1,13 @@
 import { Auth } from "aws-amplify";
 import axios, { AxiosInstance } from "axios";
 
-//const BASE_URL = "http://localhost:3000/api"
-//const BASE_URL = "https://d33a2u3dm2hqzc.cloudfront.net/api"
-const BASE_URL = "https://7m3mn2chy9.execute-api.ap-northeast-1.amazonaws.com/dev"
+
+//デプロイミスするので環境で必ず分ける
+const { NODE_ENV } = process.env;
+let BASE_URL = "https://7m3mn2chy9.execute-api.ap-northeast-1.amazonaws.com/dev"
+if (NODE_ENV === "development") {
+    BASE_URL = "http://localhost:8080/dev"
+}
 export class ApiClient {
     private instance: AxiosInstance
     constructor() {

@@ -4,33 +4,46 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
-import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
+import { TopicApi } from '../../api/TopicApi';
+import startStudy from '../../models/process/startStudy';
 import { Copyright } from '../footer/Copyright';
 import ProgressBar from '../progress/ProgressBar';
 
 
-export default () => {
+interface Props {
+    categorySlug: string
+}
+
+export default (props: Props) => {
     const router = useRouter()
     const [doneTopicNum, setDoneTopicNum] = useState(0)
+    const [allTopicNum, setAllTopicNum] = useState<number | undefined>(undefined)
 
     useEffect(() => {
         const setDoneTopic = async () => {
-            const result = await RecordApi.getDoneTopics()
+            const result = await TopicApi.getDoneTopicIds(props.categorySlug)
             setDoneTopicNum(result.length)
         }
-        setDoneTopic()
-    }, [])
+        const setAllTopic = async () => {
+            const result = await TopicApi.getAllTopicId(props.categorySlug)
+            setAllTopicNum(result.length)
+        }
+        if (props.categorySlug) {
+            setDoneTopic()
+            setAllTopic()
+        }
+    }, [props.categorySlug])
 
     const handleNext = async () => {
-        await resumeOrStartStudy()
-        router.push("/question/1_question")
+        await startStudy(props.categorySlug)
+        router.push(`/q/${props.categorySlug}`)
     }
 
     const goDashboard = () => {
         router.push("/dashboard")
     }
 
-
+    if (allTopicNum === undefined) return <div />
     return (
         <React.Fragment>
             <main style={{
@@ -56,7 +69,7 @@ export default () => {
                     <React.Fragment>
                         <ProgressBar
                             value={doneTopicNum}
-                            maximum={20}
+                            maximum={allTopicNum}
                         />
                         <div style={{
                             display: 'flex',

@@ -27,29 +27,11 @@ export class LocalStorageHelper {
         return localStorage.getItem("UserId")
     }
 
+    static clearUserId() {
+        localStorage.removeItem("UserId")
+    }
+
     static saveSecretUserId(userId: string) {
         localStorage.setItem("SecretUserId", userId)
-    }
-
-    static getSecretUserId() {
-        return localStorage.getItem("SecretUserId")
-    }
-
-    static clearSecretUserSession() {
-        localStorage.removeItem("SecretUserId")
-    }
-
-    static setCustomFilterList(customFilterList: PachiFilter[]) {
-        const json = JSON.stringify(customFilterList)
-        localStorage.setItem("Filters", json)
-    }
-
-    static getCustomFilterList() {
-        const json = localStorage.getItem("Filters")
-        if (json) {
-            const filterList = JSON.parse(json)
-            return filterList as PachiFilter[]
-        }
-        return []
     }
 }

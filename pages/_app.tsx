@@ -1,18 +1,19 @@
 import {
     CssBaseline, Theme
 } from '@mui/material';
-import { Auth } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
+import { UserApi } from '../api/UserApi';
 import MyHeader from '../components/header/MyHeader';
 import SigninModal from '../components/signin/SigninModal';
 import { GA_ID, pageview } from '../models/gtag';
 import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
 import useUser from '../models/util-hooks/useUser';
-import { useRedirect } from "../src/amplify"
-import "./global.css"
+import "../src/amplify" //消しちゃだめ
+import "./global.css" //消しちゃだめ
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -31,7 +32,21 @@ export default function MyApp(props: AppProps) {
     const { Component, pageProps } = props;
 
     //ログインする前のページにリダイレクトする
-    useRedirect()
+    const router = useRouter()
+    useEffect(() => {
+        Hub.listen('auth', ({ payload: { event, data } }) => {
+            console.log(event)
+            switch (event) {
+                case 'signIn':
+                    // console.log('User has signed in!', data);
+                    break
+                case 'customOAuthState':
+                    console.log("you logged in ", data)
+                    router.push(data)
+                    break;
+            }
+        })
+    }, [])
 
     useEffect(() => {
         // Remove the server-side injected CSS.
@@ -56,13 +71,14 @@ export default function MyApp(props: AppProps) {
             } catch {
                 console.log("No User info")
             }
+            const result = await UserApi.signin()
+            console.log(result.result)
             setLoadingUser(false)
         }
         getUser()
     }, [])
 
 
-    const router = useRouter();
     useEffect(() => {
         // GA_TRACKING_ID が設定されていない場合は、処理終了
         if (!GA_ID) return;

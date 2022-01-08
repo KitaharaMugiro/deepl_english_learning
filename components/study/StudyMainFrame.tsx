@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
-import resumeOrStartStudy from '../../models/process/resumeOrStartStudy';
 import { Copyright } from '../footer/Copyright';
 import Review from './Review';
 import WriteEnglish from './WriteEnglish';
@@ -33,7 +32,11 @@ function getStepContent(step: number) {
     }
 }
 
-export default function StudyMainFrame() {
+interface Props {
+    categorySlug?: string
+}
+
+export default function StudyMainFrame(props: Props) {
     const [activeStep, setActiveStep] = useState(0);
     const [needRetry] = useAtom(AtomQuestionNeedRetry)
     const [errorMessage, setErrorMessage] = useState("")
@@ -43,12 +46,17 @@ export default function StudyMainFrame() {
     const [translation, setTranslation] = useAtom(AtomTranslation)
     const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
 
-    const [__, setActiveQuestion] = useAtom(AtomActiveQuestion)
+    const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+
     useEffect(() => {
         const getTopic = async () => {
-            await resumeOrStartStudy()
-            const res = await StudyApi.getTopic()
-            setActiveQuestion({ title: res.topicTitle, description: res.topicDescription })
+            try {
+                const res = await StudyApi.getTopic()
+                setActiveQuestion({ topicId: res.topicId, title: res.topicTitle, description: res.topicDescription })
+            } catch (e) {
+                console.warn(e)
+                router.push(`/q/${props.categorySlug || "free"}/start`)
+            }
         }
         getTopic()
     }, [])
@@ -65,9 +73,9 @@ export default function StudyMainFrame() {
             setEnglish("")
             setTranslation("")
             setNeedRetry(false)
-            endStudy()
+            await endStudy(activeQuestion.topicId)
 
-            router.push("/record")
+            router.push(`/record/${props.categorySlug}`)
             return
         }
 
@@ -173,7 +181,7 @@ export default function StudyMainFrame() {
                     marginLeft: "auto"
                 }}>
                     {/* タイトル(ご希望あれば) */}
-                    <Typography component="h1" variant="h4" align="center">
+                    <Typography component="h1" variant="h4" align="center" style={{ marginBottom: 10 }}>
                         {stepTitles[activeStep]}
                     </Typography>
 

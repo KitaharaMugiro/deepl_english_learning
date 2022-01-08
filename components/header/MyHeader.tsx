@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/dist/client/router';
 import Link from "next/link";
 import React from "react";
-import resumeOrStartStudy from "../../models/process/resumeOrStartStudy";
+import startStudy from '../../models/process/startStudy';
 import { MainListItems, SecondaryMainListItems } from "../dashboard/ListItems";
 import HeaderRightMenu from "./HeaderRightMenu";
 import classes from "./style.module.css";
@@ -13,9 +13,9 @@ export default () => {
     const router = useRouter()
     const [open, setOpen] = React.useState(false);
 
-    const startStudy = async () => {
-        await resumeOrStartStudy()
-        router.push("/question/1_question")
+    const startFree = async () => {
+        await startStudy("free")
+        router.push("/q/free")
     }
 
     const handleDrawerOpen = () => {
@@ -66,7 +66,7 @@ export default () => {
             <Divider />
             <List>
                 <MainListItems
-                    onClickStartStudy={startStudy}
+                    onClickStartStudy={startFree}
                 />
             </List>
             <Divider />

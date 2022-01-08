@@ -1,0 +1,45 @@
+.box {
+    border: 3px solid #1976d2;
+    margin-top: 16px;
+    padding-top: 48px;
+    padding-left: 32px;
+    border-radius: 8px;
+    padding-right: 32px;
+    padding-bottom: 48px;
+    cursor: pointer;
+
+    transition: all .2s ease-out;
+    background-color: white;
+}
+
+.title {
+    color : #1976d2;
+    font-weight: bold;
+}
+
+.checkIcon {
+    color: #1976d2;
+}
+
+.box:hover {
+    transform: scale(1.1);
+    background-color: #1976d2;
+    color:white;
+  }
+
+
+.box:hover .title {
+    color : white;
+}
+
+.box:hover .checkIcon {
+    color : white;
+}
+
+
+
+.check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}

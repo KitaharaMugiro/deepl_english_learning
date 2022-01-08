@@ -1,8 +1,16 @@
 import { Card, Typography, Divider, Grid, Button } from "@mui/material"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import startStudy from "../../models/process/startStudy"
 import { HeroCardWidth } from "./HeroCardConst"
 
 export default () => {
+    const router = useRouter()
+    const startFree = async () => {
+        await startStudy("free")
+        router.push("/q/free")
+    }
+
     return (
         <Card elevation={1} style={{ padding: 20, paddingBottom: 30, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
             <Typography
@@ -28,11 +36,11 @@ export default () => {
             }}>
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
-                        <Link href="/question/1_question">
-                            <Button variant="contained" color="primary" >
-                                さっそくやってみる
-                            </Button>
-                        </Link>
+
+                        <Button onClick={startFree} variant="contained" color="primary" >
+                            さっそくやってみる
+                        </Button>
+
                     </Grid>
                 </Grid>
             </div>

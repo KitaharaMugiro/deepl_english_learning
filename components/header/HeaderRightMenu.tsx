@@ -5,11 +5,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import React from "react";
 import { Auth } from "aws-amplify";
 import useSignin from "../../models/util-hooks/useSignin";
+import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper";
+import { UserApi } from "../../api/UserApi";
 
 export default () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+    const { user, loadingUser } = useUser()
     const { openSignin } = useSignin()
+
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -21,6 +24,9 @@ export default () => {
 
     const signOut = async () => {
         try {
+            await UserApi.signin()
+            LocalStorageHelper.clearStudySessionId()
+            LocalStorageHelper.clearUserId()
             await Auth.signOut();
             window.location.href = "/"
         } catch (error) {
@@ -29,58 +35,54 @@ export default () => {
     }
 
 
-    const { user, loadingUser } = useUser()
-    const renderSigninOrOutButton = () => {
-        if (loadingUser) return <div />
-        if (user) {
-            //return <Button color="inherit" onClick={signOut}>Logout</Button>
-            return <div>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    <Link href="/dashboard">
-                        <a rel="noreferrer">
-                            <MenuItem href="/dashboard" onClick={handleClose} >ダッシュボード</MenuItem>
-                        </a>
-                    </Link>
-                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform">
-                        <a rel="noreferrer">
-                            <MenuItem href="/dashboard" onClick={handleClose} >プラン変更</MenuItem>
-                        </a>
-                    </Link>
-                    <MenuItem onClick={signOut}>ログアウト</MenuItem>
-                </Menu>
-            </div>
-        } else {
-            return <Button
-                // onClick={openSignin}
-                style={{ marginRight: 20, textTransform: "none" }} size="small" variant="contained" disableElevation>
-                Log in(未実装)
-            </Button>
-        }
+    if (loadingUser) return <div />
+    if (user) {
+        return <div>
+            <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+            >
+                <AccountCircle />
+            </IconButton>
+            <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                <Link href="/dashboard">
+                    <a rel="noreferrer">
+                        <MenuItem href="/dashboard" onClick={handleClose} >ダッシュボード</MenuItem>
+                    </a>
+                </Link>
+                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform">
+                    <a rel="noreferrer">
+                        <MenuItem onClick={handleClose} >プラン変更</MenuItem>
+                    </a>
+                </Link>
+                <MenuItem onClick={signOut}>ログアウト</MenuItem>
+            </Menu>
+        </div>
+    } else {
+        return <Button
+            //onClick={openSignin}
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link"
+            style={{ marginRight: 20, textTransform: "none" }} size="small" variant="contained" disableElevation>
+            Log in
+        </Button>
     }
 
-    return renderSigninOrOutButton()
 }

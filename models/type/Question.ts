@@ -1,4 +1,5 @@
 export interface Question {
+    topicId: string
     title: string
     description: string
 }

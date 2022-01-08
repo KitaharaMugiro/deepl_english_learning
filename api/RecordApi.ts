@@ -1,6 +1,5 @@
 import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
 import { StudyRecordDetail } from "../models/type/StudyRecordDetail";
-import { Score } from "../pages/api/study/record/list_score";
 import { ApiClient } from "./ApiClient";
 
 export class RecordApi {
@@ -26,7 +25,7 @@ export class RecordApi {
                 userId: LocalStorageHelper.getUserId(),
             }
         )
-        return res.data as Array<Score>
+        return res.data as Array<{ studySessionId: string, score: number, createdAt: number }>
     }
 
 
@@ -38,17 +37,6 @@ export class RecordApi {
                 userId: LocalStorageHelper.getUserId(),
                 studySessionId: LocalStorageHelper.getStudySessionId(),
                 score: score
-            }
-        )
-        return res.data
-    }
-
-    static async getDoneTopics() {
-        const client = new ApiClient()
-        const res = await client.post(
-            "/study/record/done_topic",
-            {
-                userId: LocalStorageHelper.getUserId()
             }
         )
         return res.data

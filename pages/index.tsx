@@ -8,6 +8,7 @@ import React from 'react';
 import MyFooter from '../components/footer/MyFooter';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
+import PlanBoxGroup from '../components/price/PlanBoxGroup';
 
 
 export default function Album() {
@@ -25,6 +26,8 @@ export default function Album() {
         <Grid container alignItems="center" justifyContent="center">
           <TargetUserCard />
         </Grid>
+
+        <PlanBoxGroup />
 
         <div style={{ height: 200 }}></div>
         <MyFooter />
