@@ -45,6 +45,7 @@ export default (props: Props) => {
         resetTranscript()
     }
 
+
     return (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
             <ListeningMicrophone pulsing={listening} onClick={onClickMicrophone} />

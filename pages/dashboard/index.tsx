@@ -67,11 +67,14 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
 
-                    <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
-                        学習履歴
-                    </Typography>
+                    <Container maxWidth="xl" >
+                        <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
+                            学習履歴
+                        </Typography>
 
-                    <StudyRecordList />
+                        <StudyRecordList />
+                    </Container>
+
                 </Container>
 
                 <FloatingLoginButton />

@@ -72,41 +72,43 @@ export default () => {
 
                     </ListItem>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ padding: 20 }}>
-                            <Typography variant="subtitle2">{i.questionDescription}</Typography>
-                            <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
-                                {i.firstEnglish}
-                            </Paper>
-
-                            <div className={classes.arrow_box} >
-                                <ArrowDownwardIcon />
-                                <span>お手本の英語</span>
-                            </div>
-
-                            {openOpenOtehonIds.includes(i.studySessionId) ?
-                                <div style={{ position: "relative" }}>
-                                    <Paper elevation={0} style={{
-                                        backgroundColor: "#e6ffed",
-                                        padding: "20px"
-                                    }} onClick={() => handleClickOtehon(i.studySessionId)}>
-                                        {i.translation}
-                                    </Paper>
-                                    <TextToSpeechButton text={i.translation} />
-                                </div>
-
-                                : <Paper elevation={0} style={{
-                                    backgroundColor: "#FF6347",
-                                    opacity: 0.9,
-                                    padding: "20px", textAlign: "center", color: "white"
-                                }}
-                                    onClick={() => handleClickOtehon(i.studySessionId)}>
-                                    お手本を見る
+                        <Container maxWidth="sm">
+                            <List component="div" disablePadding style={{ padding: 20 }}>
+                                <Typography variant="subtitle2">{i.questionDescription}</Typography>
+                                <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
+                                    {i.firstEnglish}
                                 </Paper>
 
-                            }
+                                <div className={classes.arrow_box} >
+                                    <ArrowDownwardIcon />
+                                    <span>お手本の英語</span>
+                                </div>
+
+                                {openOpenOtehonIds.includes(i.studySessionId) ?
+                                    <div style={{ position: "relative" }}>
+                                        <Paper elevation={0} style={{
+                                            backgroundColor: "#e6ffed",
+                                            padding: "20px"
+                                        }} onClick={() => handleClickOtehon(i.studySessionId)}>
+                                            {i.translation}
+                                        </Paper>
+                                        <TextToSpeechButton text={i.translation} />
+                                    </div>
+
+                                    : <Paper elevation={0} style={{
+                                        backgroundColor: "#FF6347",
+                                        opacity: 0.9,
+                                        padding: "20px", textAlign: "center", color: "white"
+                                    }}
+                                        onClick={() => handleClickOtehon(i.studySessionId)}>
+                                        お手本を見る
+                                    </Paper>
+
+                                }
 
 
-                        </List>
+                            </List>
+                        </Container>
                     </Collapse>
                     <Divider />
                 </div>

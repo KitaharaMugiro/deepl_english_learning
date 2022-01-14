@@ -2,7 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { RecordApi } from '../../api/RecordApi';
 import { AtomActiveQuestion, AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import TextToSpeechButton from '../speech/TextToSpeechButton';

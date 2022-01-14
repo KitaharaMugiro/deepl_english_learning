@@ -11,6 +11,7 @@ export default (props: Props) => {
         <button id="speech" className={style.btn} onClick={props.onClick}>
             {props.pulsing ? <div className={style.pulseRing} /> : <div />}
             <MicNoneIcon style={{ width: 100, height: 100, padding: 20 }} />
+            {!props.pulsing ? <div>click to start</div> : <div />}
         </button>
     )
 }

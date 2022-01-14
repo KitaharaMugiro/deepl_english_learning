@@ -16,6 +16,7 @@ import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
 import useUser from '../models/util-hooks/useUser';
 import "../src/amplify" //消しちゃだめ
 import "./global.css" //消しちゃだめ
+import 'regenerator-runtime/runtime' //消しちゃだめ
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
