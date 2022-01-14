@@ -3,20 +3,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Divider, Drawer, IconButton, List, Toolbar, Typography } from "@mui/material";
 import clsx from 'clsx';
 import { useRouter } from 'next/dist/client/router';
-import Link from "next/link";
 import React from "react";
-import startStudy from '../../models/process/startStudy';
+import useNavigation from '../../models/util-hooks/useNavigation';
 import { MainListItems, SecondaryMainListItems } from "../dashboard/ListItems";
 import HeaderRightMenu from "./HeaderRightMenu";
 import classes from "./style.module.css";
 export default () => {
     const router = useRouter()
     const [open, setOpen] = React.useState(false);
-
-    const startFree = async () => {
-        await startStudy("free")
-        router.push("/q/free")
-    }
+    const { goHome } = useNavigation()
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -42,13 +37,12 @@ export default () => {
                     <MenuIcon />
                 </IconButton>
 
-                <Link href="/">
-                    <Typography
-                        component="h1" variant="h6" color="inherit"
-                        noWrap className={classes.title}>
-                        Englister
-                    </Typography>
-                </Link>
+                <Typography
+                    onClick={goHome}
+                    component="h1" variant="h6" color="inherit"
+                    noWrap className={classes.title}>
+                    <span style={{ cursor: "pointer" }} onClick={goHome}>Englister</span>
+                </Typography>
 
                 <HeaderRightMenu />
             </Toolbar>
@@ -65,9 +59,7 @@ export default () => {
             </div>
             <Divider />
             <List>
-                <MainListItems
-                    onClickStartStudy={startFree}
-                />
+                <MainListItems closeMenu={() => setOpen(false)} />
             </List>
             <Divider />
             <List><SecondaryMainListItems /></List>

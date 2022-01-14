@@ -30,6 +30,7 @@ export default () => {
             padding: 30,
             width: "100%",
             backgroundColor: "#273132",
+            marginTop: 140,
             minHeight: 360
         }}>
 
@@ -42,9 +43,6 @@ export default () => {
 
             </div>
 
-            <div style={{ marginTop: 30 }}>
-                <Copyright />
-            </div>
         </div>
     )
 }

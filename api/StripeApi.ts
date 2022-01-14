@@ -13,4 +13,11 @@ export class StripeApi {
         return { redirectUrl }
     }
 
+    static async getPortalUrl() {
+        const client = new ApiClient()
+        const res = await client.post(
+            "/stripe/portal", {}
+        )
+        return res.data as { redirectUrl: string }
+    }
 }

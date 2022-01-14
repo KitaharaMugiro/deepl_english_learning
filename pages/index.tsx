@@ -4,14 +4,18 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import { Router, useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import FloatingLoginButton from '../components/common/FloatingLoginButton';
 import MyFooter from '../components/footer/MyFooter';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
 import PlanBoxGroup from '../components/price/PlanBoxGroup';
+import useUser from '../models/util-hooks/useUser';
 
 
 export default function Album() {
+
   return (
     <React.Fragment>
       <main>
@@ -30,17 +34,8 @@ export default function Album() {
         <PlanBoxGroup />
 
         <div style={{ height: 200 }}></div>
-        <MyFooter />
 
-        <Fab
-          variant="extended"
-          color="primary"
-          style={{ position: "fixed", right: 30, bottom: 30 }}
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link" >
-          <Typography variant="h5" style={{ fontWeight: 40, padding: 20 }}>
-            事前登録受付中
-          </Typography>
-        </Fab>
+        <FloatingLoginButton />
       </main>
     </React.Fragment >
   );

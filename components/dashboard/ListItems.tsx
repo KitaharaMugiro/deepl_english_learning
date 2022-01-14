@@ -10,20 +10,22 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from 'next/link';
 
 interface Props {
-    onClickStartStudy: () => void
+    closeMenu: () => void;
 }
-
 export const MainListItems = (props: Props) => {
     return (
         <div>
-            <ListItem button onClick={props.onClickStartStudy}>
-                <ListItemIcon>
-                    <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="勉強を再開する" />
-            </ListItem>
-            <Link href="/dashboard">
-                <ListItem button >
+            <Link href="/home">
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <DashboardIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="勉強する" />
+                </ListItem>
+            </Link>
+
+            <Link href="/dashboard" >
+                <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>
@@ -52,7 +54,7 @@ export const SecondaryMainListItems = () => {
                     <ListItemIcon>
                         <PeopleIcon />
                     </ListItemIcon>
-                    <ListItemText primary="有料版" />
+                    <ListItemText primary="追加機能リクエスト" />
                 </ListItem>
             </Link>
         </div>);

@@ -19,16 +19,45 @@ interface Props {
 export default function Chart(props: Props) {
     const options = {
         title: {
-            text: 'スコア履歴'
+            text: ''
         },
         series: [{
             data: props.data
-        }]
+        }],
+        xAxis: {
+            categories: [
+                '1', '2', '3'
+            ]
+        },
+        yAxis: {
+            title: {
+                text: 'Score'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: true
+        },
+        legend: {
+            enabled: false,
+        },
+        tooltip: {
+            enabled: false
+        }
     }
 
     return (
         <React.Fragment>
-            <Title></Title>
+            <Title>スコア履歴</Title>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}

@@ -7,7 +7,9 @@ import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { UserApi } from '../api/UserApi';
+import MyFooter from '../components/footer/MyFooter';
 import MyHeader from '../components/header/MyHeader';
+import PlanGroupModal from '../components/price/PlanGroupModal';
 import SigninModal from '../components/signin/SigninModal';
 import { GA_ID, pageview } from '../models/gtag';
 import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
@@ -92,8 +94,8 @@ export default function MyApp(props: AppProps) {
         };
     }, [router.events]);
 
-    const image = "https://english.yunomy.com/static/top.png"
-    const title = "Englister"
+    const image = "https://english.yunomy.com/static/otehon.png"
+    const title = "Englister | 英語で意見を言えるようになるAI添削アプリ"
     const description = "自分の意見を英語で言えるようになる最高の勉強法"
     return (
         <React.Fragment>
@@ -117,8 +119,10 @@ export default function MyApp(props: AppProps) {
             <CssBaseline />
             <MyHeader />
             <SigninModal />
+            <PlanGroupModal />
             <div style={{ height: 60 }} />
             <Component {...pageProps} />
+            <MyFooter />
         </React.Fragment>
     );
 }

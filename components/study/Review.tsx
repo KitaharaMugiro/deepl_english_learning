@@ -4,7 +4,8 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 import { RecordApi } from '../../api/RecordApi';
-import { AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import TextToSpeechButton from '../speech/TextToSpeechButton';
 import classes from "./style.module.css";
 
 var similarity = require('string-cosine-similarity')
@@ -14,6 +15,7 @@ export default function Review() {
 
     const [english] = useAtom(AtomEnglish)
     const [translation] = useAtom(AtomTranslation)
+    const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const [visibleDiff, setVisibleDiff] = useState(false)
     const [needRetry, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
@@ -25,6 +27,7 @@ export default function Review() {
 
         //初回のスコアを送信する
         RecordApi.submitScore(_score)
+        RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId)
 
         console.log({ _score })
 
@@ -40,16 +43,20 @@ export default function Review() {
     const renderDiffOrReview = () => {
         if (visibleDiff) {
             return (
-                <ReactDiffViewer
-                    oldValue={english}
-                    newValue={translation}
-                    splitView={true}
-                    hideLineNumbers={true}
-                    showDiffOnly={false}
-                    leftTitle="Yours"
-                    rightTitle="お手本"
-                    compareMethod={DiffMethod.WORDS}
-                />
+                <div style={{ position: "relative" }}>
+                    <ReactDiffViewer
+                        oldValue={english}
+                        newValue={translation}
+                        splitView={true}
+                        hideLineNumbers={true}
+                        showDiffOnly={false}
+                        leftTitle="Yours"
+                        rightTitle="お手本"
+                        compareMethod={DiffMethod.WORDS}
+                    />
+                    <TextToSpeechButton text={translation} />
+                </div>
+
             )
         } else {
             return (
@@ -65,9 +72,13 @@ export default function Review() {
                         <span>お手本の英語</span>
                     </div>
 
-                    <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px" }}>
-                        {translation}
-                    </Paper>
+                    <div style={{ position: "relative" }}>
+                        <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px" }}>
+                            {translation}
+                        </Paper>
+                        <TextToSpeechButton text={translation} />
+                    </div>
+
                 </>
             )
         }

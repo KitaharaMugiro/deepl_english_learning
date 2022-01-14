@@ -50,6 +50,7 @@
     display: 'flex';
     overflow: 'auto';
     flex-direction: 'column';
+    margin-bottom: 20px;
 }
 
 .fixedHeight {

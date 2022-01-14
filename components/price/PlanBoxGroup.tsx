@@ -1,45 +1,26 @@
 import { Container, Grid, Typography } from "@mui/material"
 import { StripeApi } from "../../api/StripeApi"
+import { Tier1Plan, Tier2Plan, Tier3Plan, FreePlan } from "../../models/const/PlanConst"
+import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
 import PlanBox from "./PlanBox"
 
-const FreePlan = {
-    title: "Freeプラン",
-    price: 0,
-    features: ["Trial問題解き放題", "登録不要", "Englisterを試したい人",],
-    priceId: undefined
-}
-const Tier3Plan = {
-    title: "継続プラン",
-    price: 330,
-    features: ["3問/日まで", "目安15分(1問約5分)", "コツコツ継続したい人"],
-    priceId: process.env.NODE_ENV === "development" ? "price_1KFP2gFZt1qcfPgxhqpUz2az" : "price_1KFP5kFZt1qcfPgxKao0ExVC"
-}
-const Tier2Plan = {
-    title: "がっつりプラン",
-    price: 1100,
-    features: ["10問/日まで", "目安1時間(1問約5分)", "復習しっかりしたい人", "本気の人向け"],
-    priceId: process.env.NODE_ENV === "development" ? "price_1KFP2FFZt1qcfPgxjw7MlkW1" : "price_1KFP5oFZt1qcfPgxnkm5UlvI"
-}
-const Tier1Plan = {
-    title: "Unlimitedプラン",
-    price: 2200,
-    features: ["問題解き放題", "復習し放題", "制限が嫌いな人", "もっとEnglister開発して欲しい人"],
-    priceId: process.env.NODE_ENV === "development" ? "price_1KFP15FZt1qcfPgxHlnLFBKo" : "price_1KFP5sFZt1qcfPgx9DimiUnU"
-}
 const plans = [Tier1Plan, Tier2Plan, Tier3Plan, FreePlan,]
 const numberOfFeatures = Math.max(FreePlan.features.length, Tier3Plan.features.length, Tier2Plan.features.length, Tier1Plan.features.length)
 
 export default () => {
     const { user } = useUser()
+    const { isPremium } = usePlan()
     const { openSignin } = useSignin()
     const payment = async (priceId: string | undefined) => {
-        if (!priceId) return
         if (!user) {
             openSignin()
             return
         }
+        if (isPremium) return
+        if (!priceId) return
+
         const { redirectUrl } = await StripeApi.createSession(priceId)
         window.location.href = redirectUrl
     }
@@ -64,12 +45,12 @@ export default () => {
             align="center" color="textPrimary"
             style={{ marginTop: 40 }}
             gutterBottom>
-            プラン
+            <b>プラン</b>
         </Typography>
         <Typography
             align="center" color="textSecondary"
             gutterBottom>
-            圧倒的に継続しやすい価格
+            圧倒的に継続しやすい価格。いつでも解約可能。
         </Typography>
         <Grid container spacing={3}>
             {alignPlanBox()}

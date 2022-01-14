@@ -25,6 +25,7 @@ export default (timer: number) => {
         return <span>{minuteStr}:{secondStr}:{millsecStr}</span>
     }
 
+
     const view = formatTime(countdown)
 
 

@@ -3,14 +3,27 @@ import { ApiClient } from "./ApiClient";
 
 export class StudyApi {
 
+    static async restudyStart(studySessionId: string) {
+        const client = new ApiClient()
+        const res = await client.post(
+            "/study/restudy",
+            {
+                userId: LocalStorageHelper.getUserId(),
+                studySessionId: studySessionId
+            }
+        )
+        const { topicTitle, topicDescription, topicId, japanese } = res.data
+        return { topicTitle, topicDescription, topicId, japanese }
+    }
+
     static async studyStart(categorySlug?: string) {
         const client = new ApiClient()
         const res = await client.post(
             "/study/start",
             { userId: LocalStorageHelper.getUserId(), categorySlug: categorySlug || "" }
         )
-        const { studySessionId, startTime } = res.data
-        return { studySessionId, startTime }
+        const { studySessionId } = res.data
+        return { studySessionId }
     }
 
     static async getTopic() {
@@ -74,4 +87,15 @@ export class StudyApi {
         return { translation }
     }
 
+    static async leftHeart() {
+        const client = new ApiClient()
+        const res = await client.post(
+            "/study/left_heart",
+            {
+                userId: LocalStorageHelper.getUserId()
+            }
+        )
+        const { leftHeart } = res.data
+        return { leftHeart }
+    }
 }

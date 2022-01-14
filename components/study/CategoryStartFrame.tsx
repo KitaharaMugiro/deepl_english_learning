@@ -1,4 +1,7 @@
 import { Button, Card, CardMedia, Divider, Grid, Paper, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import { CategoryApi } from "../../api/CategoryApi"
+import { Category } from "../../models/type/Category"
 import HowToPlayEnglister from "./HowToPlayEnglister"
 
 interface Props {
@@ -7,15 +10,17 @@ interface Props {
 }
 
 export default (props: Props) => {
-    let imageUrl = "/static/category/playful_cat.svg"
-    let categoryTitle = "Englister Basic"
-    let description = "日常的な会話や簡単な質問を集めました。気軽に答えてね！"
-    if (props.categorySlug === "free") {
-        imageUrl = "/static/category/playful_cat.svg"
-        categoryTitle = "Englister Free"
-        description = "無料でEnglisterを試し放題。英語力がガンガン上がることを実感してください。"
-    }
+    const [category, setCategory] = useState<Category | undefined>(undefined)
 
+    useEffect(() => {
+        const getCategory = async () => {
+            if (props.categorySlug) {
+                const category = await CategoryApi.getCategoryDetail(props.categorySlug)
+                setCategory(category)
+            }
+        }
+        getCategory()
+    }, [props.categorySlug])
 
     return <div>
 
@@ -34,7 +39,7 @@ export default (props: Props) => {
             }}>
                 <CardMedia
                     component="img"
-                    image={imageUrl}
+                    image={category?.categoryImageUrl}
                 />
 
                 <Typography
@@ -42,11 +47,11 @@ export default (props: Props) => {
                     align="center" color="textPrimary"
                     style={{ marginTop: 20 }}
                     gutterBottom>
-                    <b>{categoryTitle}</b>
+                    <b>{category?.categoryName}</b>
                 </Typography>
                 <Divider style={{ margin: 10 }} />
                 <Typography align="center" color="textSecondary" paragraph>
-                    {description}
+                    {category?.categoryDescription}
                 </Typography>
 
 

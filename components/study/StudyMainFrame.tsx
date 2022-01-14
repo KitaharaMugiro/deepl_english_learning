@@ -64,6 +64,17 @@ export default function StudyMainFrame(props: Props) {
     //router
     const router = useRouter()
 
+    const skipStudy = async () => {
+        setJapanese("")
+        setEnglish("")
+        setTranslation("")
+        setNeedRetry(false)
+        await endStudy(activeQuestion.topicId)
+
+        router.push(`/record/${props.categorySlug}`)
+        return
+    }
+
     const handleNext = async () => {
         if (activeStep === steps.length - 1) {
             //最後のステップ
@@ -174,7 +185,6 @@ export default function StudyMainFrame(props: Props) {
             }}>
                 <Paper style={{
                     marginTop: "30px",
-                    marginBottom: "30px",
                     padding: "20px",
                     maxWidth: "600px",
                     marginRight: "auto",
@@ -207,6 +217,18 @@ export default function StudyMainFrame(props: Props) {
                         </div>
                     </React.Fragment>
                 </Paper>
+                <div style={{ textAlign: "right", marginRight: 10 }}>
+                    <Typography
+                        onClick={skipStudy}
+                        variant="overline"
+                        style={{ cursor: "pointer", fontSize: 18 }}>
+                        skip→
+                    </Typography>
+                    <br />
+                    <Typography variant="caption">
+                        (※Skipした場合もハートを消費します)
+                    </Typography>
+                </div>
                 <Copyright />
             </main>
         </React.Fragment >

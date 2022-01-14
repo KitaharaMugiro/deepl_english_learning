@@ -5,8 +5,10 @@ import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
+import FloatingLoginButton from '../../components/common/FloatingLoginButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
+import StudyRecordList from '../../components/dashboard/StudyRecordList';
 import classes from "./style.module.css";
 
 export default function Dashboard() {
@@ -32,41 +34,49 @@ export default function Dashboard() {
         <div className={classes.root}>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
+                <Container maxWidth="xl" className={classes.container}>
+                    <Typography variant="h4" gutterBottom component="h2">
+                        <b>Recent Study Record</b>
+                    </Typography>
                     <Grid container spacing={3}>
                         {/* Chart */}
-
-                        <Grid item xs={12} md={8} lg={9}>
+                        <Grid item xs={12} md={12} lg={9}>
                             <Paper className={fixedHeightPaper}>
                                 <Chart data={scores} />
                             </Paper>
                         </Grid>
+
                         {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            <Paper className={fixedHeightPaper}>
-                                <Deposits
-                                    score={averageScore} />
-                            </Paper>
+                        <Grid item xs={12} md={12} lg={3}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={6} md={6} lg={12}>
+                                    <Paper className={fixedHeightPaper}>
+                                        <Deposits
+                                            title='Average Score'
+                                            score={averageScore} />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={6} md={6} lg={12}>
+                                    <Paper className={fixedHeightPaper}>
+                                        <Deposits
+                                            title='Exam Taken'
+                                            score={scores.length} />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        {/* Recent Orders */}
-                        {/* <Grid item xs={12}>
-                            <Paper className={classes.paper}>
-                                <Orders />
-                            </Paper>
-                        </Grid> */}
                     </Grid>
-                </Container>
-                <Fab
-                    variant="extended"
-                    color="primary"
-                    style={{ position: "absolute", right: 30, bottom: 30 }}
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link" >
-                    <Typography variant="h5" style={{ fontWeight: 40, padding: 20 }}>
-                        事前登録受付中
+
+                    <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
+                        学習履歴
                     </Typography>
 
-                </Fab>
+                    <StudyRecordList />
+                </Container>
+
+                <FloatingLoginButton />
             </main>
+
         </div>
     );
 }

@@ -1,17 +1,42 @@
-import { IconButton, Menu, MenuItem, Button } from "@mui/material"
+import { IconButton, Menu, MenuItem, Button, Container, Grid, Typography, Tooltip } from "@mui/material"
 import Link from "next/link"
 import useUser from "../../models/util-hooks/useUser"
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import useSignin from "../../models/util-hooks/useSignin";
 import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper";
 import { UserApi } from "../../api/UserApi";
+import { Subscriptions } from "@mui/icons-material";
+import { SubscriptionApi } from "../../api/SubscriptionApi";
+import { StripeApi } from "../../api/StripeApi";
+import LeftHearts from "../hearts/LeftHearts";
+import { useAtom } from "jotai";
+import { LeftHeartsAtom, MaxHeartsAtom } from "../../models/jotai/LeftHearts";
+import { StudyApi } from "../../api/StudyApi";
+import usePlan from "../../models/util-hooks/usePlan";
 
 export default () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const { user, loadingUser } = useUser()
     const { openSignin } = useSignin()
+    const { openPlanModal } = usePlan()
+    const { planName, maxHearts } = usePlan()
+
+    const [leftHearts, setLeftHearts] = useAtom(LeftHeartsAtom)
+
+
+    useEffect(() => {
+        const getLeftHearts = async () => {
+            const { leftHeart } = await StudyApi.leftHeart();
+            setLeftHearts(leftHeart)
+        }
+        getLeftHearts()
+    }, [])
+
+    const onClickChangePlan = async () => {
+        openPlanModal()
+    }
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -33,7 +58,6 @@ export default () => {
             console.log('error signing out: ', error);
         }
     }
-
 
     if (loadingUser) return <div />
     if (user) {
@@ -62,24 +86,38 @@ export default () => {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+
+
             >
+                <div style={{ padding: 5 }}>
+
+                    <Typography variant="subtitle2">
+                        <Tooltip title="毎日18:00回復" placement="top-start">
+                            <span>残りライフ</span>
+                        </Tooltip>
+                    </Typography>
+
+                    <Grid container alignItems="center" justifyContent="center" >
+                        <LeftHearts
+                            hearts={leftHearts} maxHearts={maxHearts}
+                            showText={true} />
+                    </Grid>
+                </div>
+
                 <Link href="/dashboard">
                     <a rel="noreferrer">
                         <MenuItem href="/dashboard" onClick={handleClose} >ダッシュボード</MenuItem>
                     </a>
                 </Link>
-                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform">
-                    <a rel="noreferrer">
-                        <MenuItem onClick={handleClose} >プラン変更</MenuItem>
-                    </a>
-                </Link>
+                <MenuItem onClick={onClickChangePlan} >{planName} プラン変更</MenuItem>
+
                 <MenuItem onClick={signOut}>ログアウト</MenuItem>
             </Menu>
-        </div>
+        </div >
     } else {
         return <Button
-            //onClick={openSignin}
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link"
+            onClick={openSignin}
+            //href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link"
             style={{ marginRight: 20, textTransform: "none" }} size="small" variant="contained" disableElevation>
             Log in
         </Button>

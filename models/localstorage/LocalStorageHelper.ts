@@ -2,6 +2,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { PachiFilter } from '../type/Secrets';
 export class LocalStorageHelper {
 
+    static setConfirmed(key: string) {
+        return localStorage.setItem("Confirmed" + key, "true")
+    }
+
+    static getConfirmed(key: string) {
+        return localStorage.getItem("Confirmed" + key)
+    }
+
     static saveStudySessionId(sessionId: string) {
         localStorage.setItem("StudySessionId", sessionId)
     }
