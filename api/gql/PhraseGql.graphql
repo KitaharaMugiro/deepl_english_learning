@@ -1,0 +1,29 @@
+mutation SavePhrase($phrase: String!, $description: String!) {
+  insert_englister_Phrase_one(object:{phrase:$phrase, description:$description}) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
+
+mutation UpdatePhrase($id: Int!, $phrase: String!, $description: String!) {
+  update_englister_Phrase_by_pk(pk_columns:{id:$id}, _set:{phrase:$phrase, description:$description}) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
+
+subscription ListPhrase {
+  englister_Phrase {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}

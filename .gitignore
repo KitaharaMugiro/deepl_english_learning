@@ -3,3 +3,5 @@
 .serverless_nextjs
 node_modules
 package-lock.json
+
+secrets.json

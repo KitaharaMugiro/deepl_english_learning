@@ -1,0 +1,18 @@
+.svg {
+    fill: white;
+  }
+
+.button {
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #7289da;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #6a7fc9;
+}

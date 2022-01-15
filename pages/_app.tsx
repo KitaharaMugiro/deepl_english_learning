@@ -17,6 +17,8 @@ import useUser from '../models/util-hooks/useUser';
 import "../src/amplify" //消しちゃだめ
 import "./global.css" //消しちゃだめ
 import 'regenerator-runtime/runtime' //消しちゃだめ
+import MyApolloClient from '../api/MyApolloClient';
+import { ApolloProvider } from '@apollo/client';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -118,12 +120,15 @@ export default function MyApp(props: AppProps) {
             </Head>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <MyHeader />
-            <SigninModal />
-            <PlanGroupModal />
-            <div style={{ height: 60 }} />
-            <Component {...pageProps} />
-            <MyFooter />
+            <ApolloProvider client={MyApolloClient}>
+                <MyHeader />
+                <SigninModal />
+                <PlanGroupModal />
+                <div style={{ height: 60 }} />
+                <Component {...pageProps} />
+                <MyFooter />
+            </ApolloProvider>
+
         </React.Fragment>
     );
 }

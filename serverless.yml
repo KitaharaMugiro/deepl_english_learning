@@ -1,2 +1,6 @@
 myNextApplication:
   component: "@sls-next/serverless-component"
+  inputs:
+    memory: 1024
+    # bucketRegion: ap-northeast-1
+    logLambdaExecutionTimes: true

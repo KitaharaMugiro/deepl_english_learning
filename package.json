@@ -9,7 +9,8 @@
     "start": "next start",
     "deploy": "serverless",
     "deplo-staging": "serverless --stage staging",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "graphql-codegen"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/KitaharaMugiro/TypeScript-Next.js-template#readme",
   "dependencies": {
+    "@apollo/client": "^3.5.7",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
@@ -53,6 +55,12 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.1",
+    "@graphql-codegen/introspection": "^2.1.1",
+    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript-graphql-request": "^4.3.3",
+    "@graphql-codegen/typescript-operations": "^2.2.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.4",
     "@types/react-speech-recognition": "^3.9.0",
     "@types/uuid": "^8.3.3",
     "serveless": "^0.0.2"
