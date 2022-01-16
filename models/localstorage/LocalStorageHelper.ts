@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PachiFilter } from '../type/Secrets';
 export class LocalStorageHelper {
 
     static setConfirmed(key: string) {

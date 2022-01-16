@@ -11,6 +11,8 @@ import { LeftHeartsAtom, MaxHeartsAtom } from '../../models/jotai/LeftHearts';
 import startStudy from '../../models/process/startStudy';
 import useOnClick from '../../models/util-hooks/useOnClick';
 import usePlan from '../../models/util-hooks/usePlan';
+import useSignupActivation from '../../models/util-hooks/useSignupActivation';
+import useUser from '../../models/util-hooks/useUser';
 import { Copyright } from '../footer/Copyright';
 import LeftHearts from '../hearts/LeftHearts';
 import ProgressBar from '../progress/ProgressBar';
@@ -27,7 +29,9 @@ export default (props: Props) => {
     const [leftHeart, setLeftHearts] = useAtom(LeftHeartsAtom)
     const [maxHeart] = useAtom(MaxHeartsAtom)
     const [loading, setLoading] = useState(false)
+    const { user, loadingUser } = useUser()
     const { openPlanModal } = usePlan()
+    const { openSignupActivationModal } = useSignupActivation()
 
     useEffect(() => {
         const setDoneTopic = async () => {
@@ -43,6 +47,16 @@ export default (props: Props) => {
             setAllTopic()
         }
     }, [props.categorySlug])
+
+
+    useEffect(() => {
+        if (loadingUser) return
+        if (!user) {
+            if (doneTopicNum === 2 || doneTopicNum >= 5) {
+                openSignupActivationModal()
+            }
+        }
+    }, [user, doneTopicNum])
 
 
     const handleNext = async () => {

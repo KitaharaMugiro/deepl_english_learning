@@ -19,6 +19,7 @@ import "./global.css" //消しちゃだめ
 import 'regenerator-runtime/runtime' //消しちゃだめ
 import MyApolloClient from '../api/MyApolloClient';
 import { ApolloProvider } from '@apollo/client';
+import SignupActivationModal from '../components/signin/SignupActivationModal';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -124,6 +125,7 @@ export default function MyApp(props: AppProps) {
                 <MyHeader />
                 <SigninModal />
                 <PlanGroupModal />
+                <SignupActivationModal />
                 <div style={{ height: 60 }} />
                 <Component {...pageProps} />
                 <MyFooter />

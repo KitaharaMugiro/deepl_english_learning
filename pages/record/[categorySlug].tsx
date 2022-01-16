@@ -9,7 +9,6 @@ export default () => {
     const { categorySlug } = router.query
     return (
         <>
-            <MyHeader />
             <StudyRecordMainFrame categorySlug={categorySlug as string} />
         </>
     )
