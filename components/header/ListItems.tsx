@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ForumIcon from '@mui/icons-material/Forum';
+import TranslateIcon from '@mui/icons-material/Translate';
 import Link from 'next/link';
 import React from 'react';
 interface Props {
@@ -41,6 +42,16 @@ export const MainListItems = (props: Props) => {
                     <ListItemText primary="解いた問題" />
                 </ListItem>
             </Link>
+
+            <Link href="/phrase" >
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <TranslateIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="フレーズ" />
+                </ListItem>
+            </Link>
+
 
             <Link href="/quest" >
                 <ListItem button onClick={props.closeMenu}>

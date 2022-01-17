@@ -11,6 +11,7 @@ import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
 import { Copyright } from '../footer/Copyright';
+import PhraseList from '../phrase/PhraseList';
 import Review from './Review';
 import WriteEnglish from './WriteEnglish';
 import WriteJapanese from './WriteJapanese';
@@ -217,11 +218,11 @@ export default function StudyMainFrame(props: Props) {
                         </div>
                     </React.Fragment>
                 </Paper>
-                <div style={{ textAlign: "right", marginRight: 10 }}>
+                <div style={{ textAlign: "right", marginRight: 10, marginTop: 10, marginBottom: 10 }}>
                     <Typography
                         onClick={skipStudy}
                         variant="overline"
-                        style={{ cursor: "pointer", fontSize: 18 }}>
+                        style={{ cursor: "pointer", fontSize: 18, lineHeight: 1 }}>
                         skip→
                     </Typography>
                     <br />
@@ -229,6 +230,8 @@ export default function StudyMainFrame(props: Props) {
                         (※Skipした場合もハートを消費します)
                     </Typography>
                 </div>
+                <PhraseList />
+                <div style={{ height: 10 }} />
                 <Copyright />
             </main>
         </React.Fragment >

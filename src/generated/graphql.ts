@@ -4280,10 +4280,22 @@ export type UpdatePhraseMutationVariables = Exact<{
 
 export type UpdatePhraseMutation = { __typename?: 'mutation_root', update_englister_Phrase_by_pk?: { __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined } | null | undefined };
 
-export type ListPhraseQueryVariables = Exact<{ [key: string]: never; }>;
+export type DeletePhraseMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
 
 
-export type ListPhraseQuery = { __typename?: 'query_root', englister_Phrase: Array<{ __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined }> };
+export type DeletePhraseMutation = { __typename?: 'mutation_root', delete_englister_Phrase_by_pk?: { __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined } | null | undefined };
+
+export type ListPhraseQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListPhraseQueryQuery = { __typename?: 'query_root', englister_Phrase: Array<{ __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined }> };
+
+export type ListPhraseSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListPhraseSubscription = { __typename?: 'subscription_root', englister_Phrase: Array<{ __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined }> };
 
 
 export const SavePhraseDocument = gql`
@@ -4368,9 +4380,46 @@ export function useUpdatePhraseMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdatePhraseMutationHookResult = ReturnType<typeof useUpdatePhraseMutation>;
 export type UpdatePhraseMutationResult = Apollo.MutationResult<UpdatePhraseMutation>;
 export type UpdatePhraseMutationOptions = Apollo.BaseMutationOptions<UpdatePhraseMutation, UpdatePhraseMutationVariables>;
-export const ListPhraseDocument = gql`
-    query ListPhrase {
-  englister_Phrase {
+export const DeletePhraseDocument = gql`
+    mutation DeletePhrase($id: Int!) {
+  delete_englister_Phrase_by_pk(id: $id) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
+    `;
+export type DeletePhraseMutationFn = Apollo.MutationFunction<DeletePhraseMutation, DeletePhraseMutationVariables>;
+
+/**
+ * __useDeletePhraseMutation__
+ *
+ * To run a mutation, you first call `useDeletePhraseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePhraseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePhraseMutation, { data, loading, error }] = useDeletePhraseMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeletePhraseMutation(baseOptions?: Apollo.MutationHookOptions<DeletePhraseMutation, DeletePhraseMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePhraseMutation, DeletePhraseMutationVariables>(DeletePhraseDocument, options);
+      }
+export type DeletePhraseMutationHookResult = ReturnType<typeof useDeletePhraseMutation>;
+export type DeletePhraseMutationResult = Apollo.MutationResult<DeletePhraseMutation>;
+export type DeletePhraseMutationOptions = Apollo.BaseMutationOptions<DeletePhraseMutation, DeletePhraseMutationVariables>;
+export const ListPhraseQueryDocument = gql`
+    query ListPhraseQuery {
+  englister_Phrase(order_by: {created_at: desc}) {
     id
     phrase
     description
@@ -4381,28 +4430,61 @@ export const ListPhraseDocument = gql`
     `;
 
 /**
- * __useListPhraseQuery__
+ * __useListPhraseQueryQuery__
  *
- * To run a query within a React component, call `useListPhraseQuery` and pass it any options that fit your needs.
- * When your component renders, `useListPhraseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useListPhraseQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListPhraseQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useListPhraseQuery({
+ * const { data, loading, error } = useListPhraseQueryQuery({
  *   variables: {
  *   },
  * });
  */
-export function useListPhraseQuery(baseOptions?: Apollo.QueryHookOptions<ListPhraseQuery, ListPhraseQueryVariables>) {
+export function useListPhraseQueryQuery(baseOptions?: Apollo.QueryHookOptions<ListPhraseQueryQuery, ListPhraseQueryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ListPhraseQuery, ListPhraseQueryVariables>(ListPhraseDocument, options);
+        return Apollo.useQuery<ListPhraseQueryQuery, ListPhraseQueryQueryVariables>(ListPhraseQueryDocument, options);
       }
-export function useListPhraseLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListPhraseQuery, ListPhraseQueryVariables>) {
+export function useListPhraseQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListPhraseQueryQuery, ListPhraseQueryQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ListPhraseQuery, ListPhraseQueryVariables>(ListPhraseDocument, options);
+          return Apollo.useLazyQuery<ListPhraseQueryQuery, ListPhraseQueryQueryVariables>(ListPhraseQueryDocument, options);
         }
-export type ListPhraseQueryHookResult = ReturnType<typeof useListPhraseQuery>;
-export type ListPhraseLazyQueryHookResult = ReturnType<typeof useListPhraseLazyQuery>;
-export type ListPhraseQueryResult = Apollo.QueryResult<ListPhraseQuery, ListPhraseQueryVariables>;
+export type ListPhraseQueryQueryHookResult = ReturnType<typeof useListPhraseQueryQuery>;
+export type ListPhraseQueryLazyQueryHookResult = ReturnType<typeof useListPhraseQueryLazyQuery>;
+export type ListPhraseQueryQueryResult = Apollo.QueryResult<ListPhraseQueryQuery, ListPhraseQueryQueryVariables>;
+export const ListPhraseDocument = gql`
+    subscription ListPhrase {
+  englister_Phrase(order_by: {created_at: desc}) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useListPhraseSubscription__
+ *
+ * To run a query within a React component, call `useListPhraseSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useListPhraseSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListPhraseSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListPhraseSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ListPhraseSubscription, ListPhraseSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ListPhraseSubscription, ListPhraseSubscriptionVariables>(ListPhraseDocument, options);
+      }
+export type ListPhraseSubscriptionHookResult = ReturnType<typeof useListPhraseSubscription>;
+export type ListPhraseSubscriptionResult = Apollo.SubscriptionResult<ListPhraseSubscription>;

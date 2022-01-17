@@ -18,8 +18,28 @@ mutation UpdatePhrase($id: Int!, $phrase: String!, $description: String!) {
   }
 }
 
+mutation DeletePhrase($id: Int!) {
+  delete_englister_Phrase_by_pk( id: $id) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
+
+
+query ListPhraseQuery {
+  englister_Phrase(order_by: {created_at: desc}) {
+    id
+    phrase
+    description
+    created_at
+    updated_at
+  }
+}
 subscription ListPhrase {
-  englister_Phrase {
+  englister_Phrase(order_by: {created_at: desc}) {
     id
     phrase
     description
