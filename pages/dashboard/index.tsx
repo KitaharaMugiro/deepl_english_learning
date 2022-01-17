@@ -3,16 +3,18 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
 import FloatingLoginButton from '../../components/common/FloatingLoginButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
+import QuestList from '../../components/quest/QuestList';
 import classes from "./style.module.css";
 
 export default function Dashboard() {
-
+    const router = useRouter()
     const [scores, setScores] = useState<number[]>([])
 
 
@@ -36,7 +38,7 @@ export default function Dashboard() {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="xl" className={classes.container}>
                     <Typography variant="h4" gutterBottom component="h2">
-                        <b>Recent Study Record</b>
+                        <b>ダッシュボード</b>
                     </Typography>
                     <Grid container spacing={3}>
                         {/* Chart */}
@@ -67,16 +69,28 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
 
-                    <Container maxWidth="xl" >
-                        <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
-                            学習履歴
-                        </Typography>
+                    <Grid container>
+                        <Grid item xs={12} md={6} lg={6}>
+                            <Container maxWidth="md" >
+                                <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
+                                    学習履歴
+                                </Typography>
 
-                        <StudyRecordList />
-                    </Container>
+                                <StudyRecordList displayMaxSize={5} onClickMore={() => router.push("/restudy")} />
+                            </Container>
+                        </Grid>
 
-                </Container>
+                        <Grid item xs={12} md={6} lg={6}>
+                            <Container maxWidth="md" >
+                                <Typography variant="h5" component="h3" style={{ marginTop: 20 }}>
+                                    クエスト
+                                </Typography>
 
+                                <QuestList displayMaxSize={3} onClickMore={() => router.push("/quest")} />
+                            </Container>
+                        </Grid>
+                    </Grid>
+                </Container >
                 <FloatingLoginButton />
             </main>
 

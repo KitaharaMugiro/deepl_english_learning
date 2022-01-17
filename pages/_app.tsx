@@ -20,6 +20,8 @@ import 'regenerator-runtime/runtime' //消しちゃだめ
 import MyApolloClient from '../api/MyApolloClient';
 import { ApolloProvider } from '@apollo/client';
 import SignupActivationModal from '../components/signin/SignupActivationModal';
+import MyBackdrop from '../components/common/MyBackdrop';
+import MySnackbar from '../components/common/MySnackbar';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -123,6 +125,8 @@ export default function MyApp(props: AppProps) {
             <CssBaseline />
             <ApolloProvider client={MyApolloClient}>
                 <MyHeader />
+                <MyBackdrop />
+                <MySnackbar />
                 <SigninModal />
                 <PlanGroupModal />
                 <SignupActivationModal />

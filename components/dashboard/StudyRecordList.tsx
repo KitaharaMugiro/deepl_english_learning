@@ -9,16 +9,26 @@ import { useRouter } from "next/router";
 import useUseHeartConfirmation from "../../models/util-hooks/useUseHeartConfirmation";
 import usePlan from "../../models/util-hooks/usePlan";
 import TextToSpeechButton from "../speech/TextToSpeechButton";
+import useEventSubmit from "../../models/util-hooks/useEventSubmit";
 
-export default () => {
+interface Props {
+    displayMaxSize?: number
+    onClickMore?: () => void
+}
+
+export default (props: Props) => {
     const router = useRouter()
     const { isPremium, openPlanModal } = usePlan()
     const [openStudySessionIds, setOpenStudySessionIds] = useState<string[]>([]);
     const [openOpenOtehonIds, setOpenOtehonIds] = useState<string[]>([]);
     const [items, setItems] = useState<DashboardListItem[]>([]);
+    const { submitRestudy } = useEventSubmit()
     const { dialog, openDialog, setCallbackParameter } = useUseHeartConfirmation("restudy", (studySessionId: string) => {
+        submitRestudy()
         router.push("/restudy/" + studySessionId)
     })
+
+    const isOverflow = props.displayMaxSize && items.length > props.displayMaxSize
 
     const handleClick = (studySessionId: string) => {
         const newOpenStudySessionIds = openStudySessionIds.includes(studySessionId) ?
@@ -44,6 +54,12 @@ export default () => {
         setCallbackParameter(studySessionId)
     }
 
+    const onClickMore = () => {
+        if (props.onClickMore) {
+            props.onClickMore()
+        }
+    }
+
     useEffect(() => {
         const getData = async () => {
             const data = await RecordApi.getDashboardList()
@@ -53,19 +69,20 @@ export default () => {
     }, [])
 
     const renderItems = () => {
-        return items.map(i => {
+        return items.map((i, index) => {
             const open = openStudySessionIds.includes(i.studySessionId)
+            if (props.displayMaxSize && index >= props.displayMaxSize) return null
             return (
                 <div key={i.studySessionId}>
                     <ListItem disableGutters>
-                        <ListItemText primary={i.questionTitle} style={{ marginRight: 20 }} onClick={() => handleClick(i.studySessionId)} />
+                        <ListItemText primary={i.questionTitle} style={{ marginRight: 20, cursor: "pointer" }} onClick={() => handleClick(i.studySessionId)} />
 
                         <div style={{ display: "flex", width: 160, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", flexShrink: 0 }}>
                             <Typography variant="subtitle1" style={{ marginRight: 10 }}>
                                 {i.score}
                             </Typography>
                             <Button variant="outlined" onClick={() => restudy(i.studySessionId)}>再挑戦</Button>
-                            <div onClick={() => handleClick(i.studySessionId)} style={{ marginLeft: 10 }}>
+                            <div onClick={() => handleClick(i.studySessionId)} style={{ marginLeft: 10, cursor: "pointer" }} >
                                 {open ? <ExpandLess /> : <ExpandMore />}
                             </div>
                         </div>
@@ -105,8 +122,6 @@ export default () => {
                                     </Paper>
 
                                 }
-
-
                             </List>
                         </Container>
                     </Collapse>
@@ -120,6 +135,9 @@ export default () => {
         {dialog}
         <List>
             {renderItems()}
+            {isOverflow && <div style={{ textAlign: "center", marginTop: 20 }}>
+                <Button variant="outlined" onClick={onClickMore}>もっと見る</Button>
+            </div>}
         </List>
 
     </div>

@@ -9,6 +9,7 @@ import { StudyApi } from '../../api/StudyApi';
 import { TopicApi } from '../../api/TopicApi';
 import { LeftHeartsAtom, MaxHeartsAtom } from '../../models/jotai/LeftHearts';
 import startStudy from '../../models/process/startStudy';
+import useEventSubmit from '../../models/util-hooks/useEventSubmit';
 import useOnClick from '../../models/util-hooks/useOnClick';
 import usePlan from '../../models/util-hooks/usePlan';
 import useSignupActivation from '../../models/util-hooks/useSignupActivation';
@@ -32,6 +33,7 @@ export default (props: Props) => {
     const { user, loadingUser } = useUser()
     const { openPlanModal } = usePlan()
     const { openSignupActivationModal } = useSignupActivation()
+    const { submitTrial } = useEventSubmit()
 
     useEffect(() => {
         const setDoneTopic = async () => {
@@ -54,6 +56,11 @@ export default (props: Props) => {
         if (!user) {
             if (doneTopicNum === 2 || doneTopicNum >= 5) {
                 openSignupActivationModal()
+            }
+        }
+        if (props.categorySlug === "free") {
+            if (doneTopicNum >= 10) {
+                submitTrial()
             }
         }
     }, [user, doneTopicNum])

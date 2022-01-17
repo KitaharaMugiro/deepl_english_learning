@@ -1,5 +1,6 @@
 import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
 import { DashboardListItem } from "../models/type/DashboardListItem";
+import { EventItem } from "../models/type/EventItem";
 import { StudyRecordDetail } from "../models/type/StudyRecordDetail";
 import { ApiClient } from "./ApiClient";
 
@@ -13,14 +14,7 @@ export class EventApi {
                 userId: LocalStorageHelper.getUserId(),
             }
         )
-        return res.data as Array<{
-            eventId: string,
-            eventTitle: string,
-            eventDescription: string,
-            importance: number,
-            isActive: boolean,
-            done: boolean
-        }>
+        return res.data as Array<EventItem>
     }
 
 
@@ -34,6 +28,6 @@ export class EventApi {
                 eventValue: eventValue
             }
         )
-        return res.data
+        return res.data as { firstTime: boolean }
     }
 }

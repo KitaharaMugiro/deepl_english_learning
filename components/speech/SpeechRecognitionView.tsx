@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import useEventSubmit from '../../models/util-hooks/useEventSubmit';
 import ListeningMicrophone from './ListeningMicrophone';
 
 interface Props {
@@ -15,6 +16,8 @@ export default (props: Props) => {
         resetTranscript,
         browserSupportsSpeechRecognition
     } = useSpeechRecognition();
+    const { submitSpeechRecognition } = useEventSubmit()
+
 
     if (!browserSupportsSpeechRecognition) {
         return <span>Browser doesn't support speech recognition.</span>;
@@ -25,6 +28,7 @@ export default (props: Props) => {
             language: props.language || "en-US",
             continuous: true
         })
+        submitSpeechRecognition()
     }
 
     const stopListening = () => {
