@@ -4,7 +4,7 @@ import React from "react"
 import MyHeader from "../../components/header/MyHeader"
 import StudyRecordMainFrame from "../../components/record/StudyRecordMainFrame"
 
-export default () => {
+const RecordPage = () => {
     const router = useRouter()
     const { categorySlug } = router.query
     return (
@@ -13,3 +13,5 @@ export default () => {
         </>
     )
 }
+
+export default RecordPage

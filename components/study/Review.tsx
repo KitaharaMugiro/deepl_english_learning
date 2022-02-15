@@ -1,12 +1,15 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Paper, Typography } from '@mui/material';
+import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { RecordApi } from '../../api/RecordApi';
-import { AtomActiveQuestion, AtomEnglish, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
+import DetailScoreBoard from './DetailScoreBoard';
 import classes from "./style.module.css";
+
 
 var similarity = require('string-cosine-similarity')
 
@@ -14,6 +17,7 @@ export default function Review() {
     const [scoreValue, setScore] = useState(0)
 
     const [english] = useAtom(AtomEnglish)
+    const [japanese] = useAtom(AtomJapanse)
     const [translation] = useAtom(AtomTranslation)
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
@@ -27,11 +31,11 @@ export default function Review() {
 
         //初回のスコアを送信する
         RecordApi.submitScore(_score)
-        RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId)
+        RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese)
 
         console.log({ _score })
 
-        if (_score > 90) {
+        if (_score > 85) {
             setNeedRetry(false)
             setVisibleDiff(true)
         } else {
@@ -39,6 +43,16 @@ export default function Review() {
             setVisibleDiff(false)
         }
     }, [])
+
+    const onSearchOnDictionary = (html: any, text: string) => {
+        window.open('https://ejje.weblio.jp/content/' + text, '_blank');
+    }
+
+    const renderJapanese = () => {
+        return <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
+            {japanese}
+        </Paper>
+    }
 
     const renderDiffOrReview = () => {
         if (visibleDiff) {
@@ -61,7 +75,7 @@ export default function Review() {
         } else {
             return (
                 <>
-                    <Typography variant="h6" style={{ marginBottom: "10px" }}>お手本の英語を暗記して復習しよう</Typography>
+                    <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>お手本の英語を暗記して復習しよう</Typography>
 
                     <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
                         {english}
@@ -86,8 +100,20 @@ export default function Review() {
 
     return (
         <React.Fragment>
-            <Typography variant="h5">English Score: <span color="#3f51b5">{scoreValue}</span></Typography>
+
+            <DetailScoreBoard
+                text={english}
+                translation={translation}
+            />
+
+            <Typography variant="body1">English Score: {scoreValue}</Typography>
+
+            <div style={{ height: 15 }} />
+            {renderJapanese()}
             {renderDiffOrReview()}
+
+            <DictionarySearchSelector />
         </React.Fragment>
     );
 }
+

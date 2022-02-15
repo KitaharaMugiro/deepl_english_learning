@@ -1,5 +1,5 @@
 import { useAtom } from "jotai"
-import { BackdropAtom, BackdropMessageAtom, SnackbarAtom, SnackbarColorAtom, SnackbarLinkAtom, SnackbarMessageAtom } from "../jotai/Backdrop"
+import { SnackbarAtom, SnackbarColorAtom, SnackbarLinkAtom, SnackbarMessageAtom } from "../jotai/Backdrop"
 
 export const useSnackMessage = () => {
     const [open, setOpen] = useAtom(SnackbarAtom)

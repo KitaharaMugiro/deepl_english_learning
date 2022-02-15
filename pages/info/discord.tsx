@@ -30,7 +30,7 @@ export default () => {
                     }}>
                         <Grid container spacing={1} justifyContent="center">
                             <Grid item>
-                                <DiscordButton url="https://discord.gg/eAscQ5eh" />
+                                <DiscordButton url="https://discord.gg/rAKVpKjZ8c" />
                             </Grid>
                         </Grid>
                     </div>

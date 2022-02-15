@@ -8,7 +8,7 @@ export default () => {
         { title: "お問い合わせ", link: "https://docs.google.com/forms/d/e/1FAIpQLSfpVp24DmJSR5IvLVqy0AuXSt1ZNxyAMxONMSZMEebh2EYqxw/viewform?usp=sf_link" },
         { title: "利用規約", link: "/t/terms_of_service" },
         { title: "プライバシーポリシー", link: "/t/privacy_policy" },
-
+        { title: "特定商取引法に基づく表記", link: "/t/legal" },
     ]
 
     const renderMenu = () => {

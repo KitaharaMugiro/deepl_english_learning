@@ -1,4 +1,5 @@
 import { EventApi } from "../../api/EventApi"
+import { FireGaEvent } from "../gtag"
 import { useSnackMessage } from "./useSnackMessage"
 
 export default () => {
@@ -10,6 +11,7 @@ export default () => {
                 displaySuccessMessage("クエストを完了しました！", "/quest")
             }
         })
+        FireGaEvent({ action: "click", category: "event", label: "discord" })
     }
 
     const submitTrial = () => {
@@ -18,6 +20,7 @@ export default () => {
                 displaySuccessMessage("クエストを完了しました！", "/quest")
             }
         })
+        FireGaEvent({ action: "click", category: "event", label: "10 trial question" })
     }
 
     const submitSpeechRecognition = () => {
@@ -26,6 +29,7 @@ export default () => {
                 displaySuccessMessage("クエストを完了しました！", "/quest")
             }
         })
+        FireGaEvent({ action: "click", category: "event", label: "speech recognition" })
     }
 
     const submitPhrase = () => {
@@ -34,6 +38,7 @@ export default () => {
                 displaySuccessMessage("クエストを完了しました！", "/quest")
             }
         })
+        FireGaEvent({ action: "click", category: "event", label: "phrase" })
     }
 
     const submitTextToSpeech = () => {
@@ -43,6 +48,7 @@ export default () => {
             }
         })
 
+        FireGaEvent({ action: "click", category: "event", label: "textToSpeech" })
     }
 
     const submitRestudy = () => {
@@ -51,6 +57,8 @@ export default () => {
                 displaySuccessMessage("クエストを完了しました！", "/quest")
             }
         })
+
+        FireGaEvent({ action: "click", category: "event", label: "restudy" })
     }
 
     return { submitDiscord, submitTrial, submitSpeechRecognition, submitPhrase, submitTextToSpeech, submitRestudy }

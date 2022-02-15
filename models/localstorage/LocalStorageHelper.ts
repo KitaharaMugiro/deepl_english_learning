@@ -23,12 +23,15 @@ export class LocalStorageHelper {
 
     static initializeUserId() {
         const userId = this.getUserId() || uuidv4()
+        if (!userId) {
+            var S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            var N = 16
+            const uuid = Array.from(crypto.getRandomValues(new Uint8Array(N))).map((n) => S[n % S.length]).join('')
+            localStorage.setItem("UserId", uuid)
+        }
         localStorage.setItem("UserId", userId)
     }
 
-    static saveUserId(userId: string) {
-        localStorage.setItem("UserId", userId)
-    }
 
     static getUserId() {
         return localStorage.getItem("UserId")
@@ -38,7 +41,12 @@ export class LocalStorageHelper {
         localStorage.removeItem("UserId")
     }
 
-    static saveSecretUserId(userId: string) {
-        localStorage.setItem("SecretUserId", userId)
+    static savePreviousStudiedCategorySlug(categorySlug: string) {
+        localStorage.setItem("PrevCategorySlug", categorySlug)
     }
+
+    static getPreviousStudiedCategorySlug() {
+        return localStorage.getItem("PrevCategorySlug")
+    }
+
 }

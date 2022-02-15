@@ -1,16 +1,16 @@
-import { VisibilityOff, Visibility } from '@mui/icons-material';
-import { IconButton, InputAdornment, Paper } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { IconButton, Paper } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { useCountdownTimer } from 'use-countdown-timer';
+import { useSpeechRecognition } from 'react-speech-recognition';
 import { AtomEnglish, AtomJapanse } from '../../models/jotai/StudyJotai';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import QuestionText from './QuestionText';
 import styles from "./style.module.css";
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 
 export default function WriteEnglish() {
     const [displayModal, setDisplayModal] = useState(true)
@@ -18,6 +18,7 @@ export default function WriteEnglish() {
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [japanese] = useAtom(AtomJapanse)
     const { browserSupportsSpeechRecognition } = useSpeechRecognition();
+    const displayRecordButton = browserSupportsSpeechRecognition && english.length === 0;
 
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
     const onClickStartSpeechRecognition = () => {
@@ -33,6 +34,11 @@ export default function WriteEnglish() {
     const onClickModal = () => {
         start()
         setDisplayModal(false)
+    }
+
+    const [displayTime, setDisplayTIme] = useState(true)
+    const onClickTimeGetAway = () => {
+        setDisplayTIme(!displayTime)
     }
 
 
@@ -67,10 +73,9 @@ export default function WriteEnglish() {
                             style={{ width: "100%" }}
                             value={english}
                             onChange={e => setEnglish(e.target.value)}
-
                         >
                         </TextField>
-                        {browserSupportsSpeechRecognition ?
+                        {displayRecordButton ?
                             <IconButton
                                 onClick={onClickStartSpeechRecognition}
                                 style={{
@@ -87,7 +92,12 @@ export default function WriteEnglish() {
                     </div>
                 }
 
-                残り {view}
+                {displayTime ?
+                    <div><span style={{ width: 50 }}>
+                        残り {view}
+                    </span><IconButton size="small" onClick={onClickTimeGetAway}><RemoveCircleIcon /></IconButton> </div>
+                    : <IconButton size="small" onClick={onClickTimeGetAway}><AddCircleIcon /></IconButton>}
+
             </div>
         </React.Fragment >
     );

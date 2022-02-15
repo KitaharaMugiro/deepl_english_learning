@@ -1,0 +1,54 @@
+query queryPublciAnswers($topicId: Int!) {
+  englister_PublicAnswers(
+      where:{topicId:{_eq:$topicId}}, 
+      order_by:{createdAt:desc},
+      limit:5) {
+    id
+    topicId
+    answer
+    japanese
+    translation
+    age
+    createdBy
+    createdAt
+  }
+}
+
+query queryPublicJapanese($topicId: Int!) {
+  englister_PublicAnswers(
+      where:{topicId:{_eq:$topicId}, japanese:{_neq:""} }, 
+      order_by:{createdAt:desc},
+      limit:5) {
+    id
+    topicId
+    japanese
+    createdBy
+    createdAt
+  }
+}
+
+
+mutation SubmitPublicAnswer($topicId: Int!, $answer: String!, $japanese: String!, $translation: String!, $age: Int!) {
+  insert_englister_PublicAnswers_one(object:{
+    topicId:$topicId, 
+    answer:$answer,
+    japanese: $japanese,
+    translation: $translation,
+    age: $age}) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}
+
+mutation deletePublicAnswer($id: Int!) {
+  delete_englister_PublicAnswers_by_pk(id:$id) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}

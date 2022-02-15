@@ -18,6 +18,7 @@ export default (props: Props) => {
                     imageUrl={category.categoryImageUrl}
                     linkTo={`/q/${category.categorySlug}/start`}
                     content={category.categoryName}
+                    description={category.categoryDescription}
                 />
             </div>
         })

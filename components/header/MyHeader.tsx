@@ -38,7 +38,6 @@ export default () => {
                 </IconButton>
 
                 <Typography
-                    onClick={goHome}
                     component="h1" variant="h6" color="inherit"
                     noWrap className={classes.title}>
                     <span style={{ cursor: "pointer" }} onClick={goHome}>Englister</span>

@@ -5,11 +5,13 @@ export class StudyApi {
 
     static async restudyStart(studySessionId: string) {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません") //ローカルではエラーにする
         const res = await client.post(
             "/study/restudy",
             {
-                userId: LocalStorageHelper.getUserId(),
-                studySessionId: studySessionId
+                userId,
+                studySessionId
             }
         )
         const { topicTitle, topicDescription, topicId, japanese } = res.data
@@ -18,25 +20,28 @@ export class StudyApi {
 
     static async studyStart(categorySlug?: string) {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) console.error("userIdがありません")
         const res = await client.post(
             "/study/start",
-            { userId: LocalStorageHelper.getUserId(), categorySlug: categorySlug || "" }
+            { userId, categorySlug: categorySlug || "" }
         )
         const { studySessionId } = res.data
+
+        LocalStorageHelper.saveStudySessionId(studySessionId)
         return { studySessionId }
     }
 
     static async getTopic() {
         const userId = LocalStorageHelper.getUserId()
         const studySessionId = LocalStorageHelper.getStudySessionId()
-        if (!userId || !studySessionId) throw Error("userIdもしくはstudySessionIdがありません")
-
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません")
         const client = new ApiClient()
         const res = await client.post(
             "/study/topic",
             {
-                userId: LocalStorageHelper.getUserId(),
-                studySessionId: LocalStorageHelper.getStudySessionId()
+                userId: userId,
+                studySessionId: studySessionId
             }
         )
         const { topicTitle, topicDescription, topicId } = res.data
@@ -47,6 +52,8 @@ export class StudyApi {
         const client = new ApiClient()
         const userId = LocalStorageHelper.getUserId()
         const studySessionId = LocalStorageHelper.getStudySessionId()
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません")
+
         const res = await client.post(
             "/study/japanese",
             {
@@ -61,12 +68,16 @@ export class StudyApi {
 
     static async sendEnglish(english: string) {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        const studySessionId = LocalStorageHelper.getStudySessionId()
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません")
+
         const res = await client.post(
             "/study/english",
             {
-                userId: LocalStorageHelper.getUserId(),
-                studySessionId: LocalStorageHelper.getStudySessionId(),
-                english: english
+                userId,
+                studySessionId,
+                english
             }
         )
         const { success, message } = res.data
@@ -75,11 +86,15 @@ export class StudyApi {
 
     static async translate(japanese: string) {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        const studySessionId = LocalStorageHelper.getStudySessionId()
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません")
+
         const res = await client.post(
             "/study/translation",
             {
-                userId: LocalStorageHelper.getUserId(),
-                studySessionId: LocalStorageHelper.getStudySessionId(),
+                userId,
+                studySessionId,
                 japanese: japanese
             }
         )
@@ -89,10 +104,13 @@ export class StudyApi {
 
     static async leftHeart() {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) console.error("userIdがありません")
+
         const res = await client.post(
             "/study/left_heart",
             {
-                userId: LocalStorageHelper.getUserId()
+                userId
             }
         )
         const { leftHeart } = res.data

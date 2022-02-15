@@ -4,7 +4,7 @@ import { CategoryApi } from "../../api/CategoryApi"
 import TopCategoryRow from "../../components/top/TopCategoryRow"
 import { Category } from "../../models/type/Category"
 
-export default ({ categoryInfo }: {
+const HomePage = ({ categoryInfo }: {
     categoryInfo: {
         "new": Category[],
         "popular": Category[],
@@ -22,9 +22,10 @@ export default ({ categoryInfo }: {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const categoryInfo = await CategoryApi.getCategoryList()
     return {
-
         props: {
             categoryInfo
         }
     }
 }
+
+export default HomePage;

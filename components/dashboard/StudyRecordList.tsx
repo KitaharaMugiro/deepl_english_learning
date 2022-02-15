@@ -23,10 +23,10 @@ export default (props: Props) => {
     const [openOpenOtehonIds, setOpenOtehonIds] = useState<string[]>([]);
     const [items, setItems] = useState<DashboardListItem[]>([]);
     const { submitRestudy } = useEventSubmit()
-    const { dialog, openDialog, setCallbackParameter } = useUseHeartConfirmation("restudy", (studySessionId: string) => {
-        submitRestudy()
-        router.push("/restudy/" + studySessionId)
-    })
+    // const { dialog, openDialog, setCallbackParameter } = useUseHeartConfirmation("restudy", (studySessionId: string) => {
+    //     submitRestudy()
+    //     router.push("/restudy/" + studySessionId)
+    // })
 
     const isOverflow = props.displayMaxSize && items.length > props.displayMaxSize
 
@@ -50,8 +50,10 @@ export default (props: Props) => {
             openPlanModal()
             return
         }
-        openDialog(studySessionId)
-        setCallbackParameter(studySessionId)
+        // openDialog(studySessionId)
+        // setCallbackParameter(studySessionId)
+        submitRestudy()
+        router.push("/restudy/" + studySessionId)
     }
 
     const onClickMore = () => {
@@ -78,9 +80,6 @@ export default (props: Props) => {
                         <ListItemText primary={i.questionTitle} style={{ marginRight: 20, cursor: "pointer" }} onClick={() => handleClick(i.studySessionId)} />
 
                         <div style={{ display: "flex", width: 160, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", flexShrink: 0 }}>
-                            <Typography variant="subtitle1" style={{ marginRight: 10 }}>
-                                {i.score}
-                            </Typography>
                             <Button variant="outlined" onClick={() => restudy(i.studySessionId)}>再挑戦</Button>
                             <div onClick={() => handleClick(i.studySessionId)} style={{ marginLeft: 10, cursor: "pointer" }} >
                                 {open ? <ExpandLess /> : <ExpandMore />}
@@ -91,7 +90,7 @@ export default (props: Props) => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Container maxWidth="sm">
                             <List component="div" disablePadding style={{ padding: 20 }}>
-                                <Typography variant="subtitle2">{i.questionDescription}</Typography>
+                                <Typography variant="subtitle2">{i.japanese}</Typography>
                                 <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
                                     {i.firstEnglish}
                                 </Paper>
@@ -132,7 +131,7 @@ export default (props: Props) => {
     }
 
     return <div>
-        {dialog}
+        {/* {dialog} */}
         <List>
             {renderItems()}
             {isOverflow && <div style={{ textAlign: "center", marginTop: 20 }}>

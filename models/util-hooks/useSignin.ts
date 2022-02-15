@@ -1,5 +1,6 @@
 import { useAtom } from "jotai"
 import { useRouter } from "next/dist/client/router"
+import { FireGaEvent } from "../gtag"
 import { IsOpenSigninModalAtom, PreviousUrlAtom } from "../jotai/PreviousUrl"
 
 export default () => {
@@ -7,18 +8,17 @@ export default () => {
     const [url, setUrl] = useAtom(PreviousUrlAtom)
     const router = useRouter()
 
-    const goSignin = () => {
-        setUrl(router.asPath)
-        router.push("/signin")
-    }
-
     const openSignin = () => {
+        setUrl(router.asPath)
+        FireGaEvent({ action: "click", category: "signin", label: "modal open" })
         setOpen(true)
     }
 
     const closeSignin = () => {
+        setUrl(router.asPath)
+        FireGaEvent({ action: "click", category: "signin", label: "modal close" })
         setOpen(false)
     }
 
-    return { url, goSignin, isOpen, openSignin, closeSignin }
+    return { url, isOpen, openSignin, closeSignin }
 }

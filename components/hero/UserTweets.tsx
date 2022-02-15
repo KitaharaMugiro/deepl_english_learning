@@ -16,8 +16,7 @@ const TweetIdList: string[] = [
     "1479426574852272128",
     "1481184913856819200",
     "1481067692551553027",
-    "1478714330728513536",
-    "1478198155066093569"]
+    "1478714330728513536"]
 export default () => {
     const tweets = () => TweetIdList.map(id => {
         return <UserTweet key={id} tweetId={id} />

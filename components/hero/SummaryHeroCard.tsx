@@ -1,13 +1,15 @@
 import { Card, Typography, Divider, Grid, Button } from "@mui/material"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import startStudy from "../../models/process/startStudy"
+import { StudyApi } from "../../api/StudyApi"
+import { FireGaEvent } from "../../models/gtag"
 import { HeroCardWidth } from "./HeroCardConst"
 
 export default () => {
     const router = useRouter()
     const startFree = async () => {
-        await startStudy("free")
+        FireGaEvent({ action: "click", category: "startFree", label: "startFree" })
+        await StudyApi.studyStart("free")
         router.push("/q/free")
     }
 
@@ -18,7 +20,7 @@ export default () => {
                 align="center" color="textPrimary"
                 gutterBottom>
                 <b>英語で意見を言えるようになる<br />
-                    AI添削アプリ</b>
+                    AI英作文添削アプリ</b>
             </Typography>
             <Divider style={{ margin: 20 }} />
             <Typography align="center" color="textSecondary" paragraph>

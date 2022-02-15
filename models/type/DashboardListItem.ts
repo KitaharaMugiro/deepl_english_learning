@@ -1,5 +1,6 @@
 export type DashboardListItem = {
     studySessionId: string
+    japanese: string
     score: number
     questionTitle: string
     questionDescription: string

@@ -2,6 +2,7 @@ import { useAtom } from "jotai"
 import { useRouter } from "next/dist/client/router"
 import { useEffect, useState } from "react"
 import { SubscriptionApi } from "../../api/SubscriptionApi"
+import { FireGaEvent } from "../gtag"
 import { MaxHeartsAtom } from "../jotai/LeftHearts"
 import { IsOpenPlanModalAtom } from "../jotai/PlanModalJotai"
 import { IsOpenSigninModalAtom, PreviousUrlAtom } from "../jotai/PreviousUrl"
@@ -13,10 +14,12 @@ export default () => {
     const [isPremium, setIsPremium] = useState(false)
 
     const openPlanModal = () => {
+        FireGaEvent({ action: "click", category: "plan", label: "modal open" })
         setOpenPlanModal(true)
     }
 
     const closePlanModal = () => {
+        FireGaEvent({ action: "click", category: "plan", label: "modal close" })
         setOpenPlanModal(false)
     }
 

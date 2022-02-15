@@ -12,8 +12,10 @@ export default (props: Props) => {
     const { submitTextToSpeech } = useEventSubmit()
 
     const onClick = () => {
-        speak(props.text)
-        submitTextToSpeech()
+        if (speak) {
+            speak(props.text)
+            submitTextToSpeech()
+        }
     }
 
     if (!isTextToSpeechSupported) return <div />

@@ -18,7 +18,7 @@ export default (props: Props) => {
     const onClickItem = () => {
         if (props.done) return
         router.push(props.url)
-        displayInfoMessage(props.eventTitle)
+        displayInfoMessage("クエスト: " + props.eventTitle)
     }
 
     return (

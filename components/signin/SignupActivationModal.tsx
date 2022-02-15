@@ -28,16 +28,16 @@ export default () => {
         <div style={{ padding: 30 }}>
 
             <Typography
-                variant="h3"
+                variant="h4"
                 align="center" color="textPrimary"
                 style={{ marginTop: 40 }}
                 gutterBottom>
-                気に入りましたか？
+                学習記録や他の様々な機能を使いませんか？
             </Typography>
             <Typography
                 align="center" color="textSecondary"
                 gutterBottom>
-                ５秒で終わる会員登録をして本格的に勉強しましょう！
+                このまま会員登録をしなくてもOKです！しかし会員登録は5秒で完了できます！
             </Typography>
             <SigninFrame />
         </div>

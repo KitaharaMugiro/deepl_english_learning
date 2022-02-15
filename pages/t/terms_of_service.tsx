@@ -126,6 +126,5 @@ export default () => {
 
             <p >以上</p>
         </div>
-        <MyFooter />
     </div>
 }

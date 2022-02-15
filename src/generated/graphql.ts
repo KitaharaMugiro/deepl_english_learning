@@ -521,6 +521,84 @@ export enum Englister_Phrase_Update_Column {
   Phrase = 'phrase'
 }
 
+/** columns and relationships of "englister.PublicAnswers" */
+export type Englister_PublicAnswers = {
+  __typename?: 'englister_PublicAnswers';
+  age?: Maybe<Scalars['Int']>;
+  answer: Scalars['String'];
+  createdAt: Scalars['timestamptz'];
+  createdBy: Scalars['String'];
+  id: Scalars['Int'];
+  japanese?: Maybe<Scalars['String']>;
+  topicId: Scalars['Int'];
+  translation?: Maybe<Scalars['String']>;
+};
+
+/** Boolean expression to filter rows from the table "englister.PublicAnswers". All fields are combined with a logical 'AND'. */
+export type Englister_PublicAnswers_Bool_Exp = {
+  _and?: InputMaybe<Array<Englister_PublicAnswers_Bool_Exp>>;
+  _not?: InputMaybe<Englister_PublicAnswers_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_PublicAnswers_Bool_Exp>>;
+  age?: InputMaybe<Int_Comparison_Exp>;
+  answer?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  createdBy?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  japanese?: InputMaybe<String_Comparison_Exp>;
+  topicId?: InputMaybe<Int_Comparison_Exp>;
+  translation?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "englister.PublicAnswers" */
+export type Englister_PublicAnswers_Insert_Input = {
+  age?: InputMaybe<Scalars['Int']>;
+  answer?: InputMaybe<Scalars['String']>;
+  japanese?: InputMaybe<Scalars['String']>;
+  topicId?: InputMaybe<Scalars['Int']>;
+  translation?: InputMaybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "englister.PublicAnswers" */
+export type Englister_PublicAnswers_Mutation_Response = {
+  __typename?: 'englister_PublicAnswers_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Englister_PublicAnswers>;
+};
+
+/** Ordering options when selecting data from "englister.PublicAnswers". */
+export type Englister_PublicAnswers_Order_By = {
+  age?: InputMaybe<Order_By>;
+  answer?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  createdBy?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  japanese?: InputMaybe<Order_By>;
+  topicId?: InputMaybe<Order_By>;
+  translation?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "englister.PublicAnswers" */
+export enum Englister_PublicAnswers_Select_Column {
+  /** column name */
+  Age = 'age',
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  CreatedBy = 'createdBy',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Japanese = 'japanese',
+  /** column name */
+  TopicId = 'topicId',
+  /** column name */
+  Translation = 'translation'
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -534,6 +612,10 @@ export type Mutation_Root = {
   delete_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** delete single row from the table: "englister.Phrase" */
   delete_englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** delete data from the table: "englister.PublicAnswers" */
+  delete_englister_PublicAnswers?: Maybe<Englister_PublicAnswers_Mutation_Response>;
+  /** delete single row from the table: "englister.PublicAnswers" */
+  delete_englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
   /** delete data from the table: "slideshare.Bookmark" */
   delete_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** delete single row from the table: "slideshare.Bookmark" */
@@ -586,6 +668,10 @@ export type Mutation_Root = {
   insert_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** insert a single row into the table: "englister.Phrase" */
   insert_englister_Phrase_one?: Maybe<Englister_Phrase>;
+  /** insert data into the table: "englister.PublicAnswers" */
+  insert_englister_PublicAnswers?: Maybe<Englister_PublicAnswers_Mutation_Response>;
+  /** insert a single row into the table: "englister.PublicAnswers" */
+  insert_englister_PublicAnswers_one?: Maybe<Englister_PublicAnswers>;
   /** insert data into the table: "slideshare.Bookmark" */
   insert_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** insert a single row into the table: "slideshare.Bookmark" */
@@ -732,6 +818,18 @@ export type Mutation_RootDelete_Englister_PhraseArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Englister_Phrase_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_PublicAnswersArgs = {
+  where: Englister_PublicAnswers_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -894,6 +992,18 @@ export type Mutation_RootInsert_Englister_PhraseArgs = {
 export type Mutation_RootInsert_Englister_Phrase_OneArgs = {
   object: Englister_Phrase_Insert_Input;
   on_conflict?: InputMaybe<Englister_Phrase_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_PublicAnswersArgs = {
+  objects: Array<Englister_PublicAnswers_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_PublicAnswers_OneArgs = {
+  object: Englister_PublicAnswers_Insert_Input;
 };
 
 
@@ -1336,6 +1446,10 @@ export type Query_Root = {
   englister_Phrase: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Phrase" using primary key columns */
   englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** fetch data from the table: "englister.PublicAnswers" */
+  englister_PublicAnswers: Array<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
+  englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -1441,6 +1555,20 @@ export type Query_RootEnglister_PhraseArgs = {
 
 
 export type Query_RootEnglister_Phrase_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type Query_RootEnglister_PublicAnswersArgs = {
+  distinct_on?: InputMaybe<Array<Englister_PublicAnswers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_PublicAnswers_Order_By>>;
+  where?: InputMaybe<Englister_PublicAnswers_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -3904,6 +4032,10 @@ export type Subscription_Root = {
   englister_Phrase: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Phrase" using primary key columns */
   englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** fetch data from the table: "englister.PublicAnswers" */
+  englister_PublicAnswers: Array<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
+  englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -4009,6 +4141,20 @@ export type Subscription_RootEnglister_PhraseArgs = {
 
 
 export type Subscription_RootEnglister_Phrase_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_PublicAnswersArgs = {
+  distinct_on?: InputMaybe<Array<Englister_PublicAnswers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_PublicAnswers_Order_By>>;
+  where?: InputMaybe<Englister_PublicAnswers_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -4297,6 +4443,38 @@ export type ListPhraseSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type ListPhraseSubscription = { __typename?: 'subscription_root', englister_Phrase: Array<{ __typename?: 'englister_Phrase', id: number, phrase: string, description: string, created_at?: any | null | undefined, updated_at?: any | null | undefined }> };
 
+export type QueryPublciAnswersQueryVariables = Exact<{
+  topicId: Scalars['Int'];
+}>;
+
+
+export type QueryPublciAnswersQuery = { __typename?: 'query_root', englister_PublicAnswers: Array<{ __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, japanese?: string | null | undefined, translation?: string | null | undefined, age?: number | null | undefined, createdBy: string, createdAt: any }> };
+
+export type QueryPublicJapaneseQueryVariables = Exact<{
+  topicId: Scalars['Int'];
+}>;
+
+
+export type QueryPublicJapaneseQuery = { __typename?: 'query_root', englister_PublicAnswers: Array<{ __typename?: 'englister_PublicAnswers', id: number, topicId: number, japanese?: string | null | undefined, createdBy: string, createdAt: any }> };
+
+export type SubmitPublicAnswerMutationVariables = Exact<{
+  topicId: Scalars['Int'];
+  answer: Scalars['String'];
+  japanese: Scalars['String'];
+  translation: Scalars['String'];
+  age: Scalars['Int'];
+}>;
+
+
+export type SubmitPublicAnswerMutation = { __typename?: 'mutation_root', insert_englister_PublicAnswers_one?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null | undefined };
+
+export type DeletePublicAnswerMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeletePublicAnswerMutation = { __typename?: 'mutation_root', delete_englister_PublicAnswers_by_pk?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null | undefined };
+
 
 export const SavePhraseDocument = gql`
     mutation SavePhrase($phrase: String!, $description: String!) {
@@ -4488,3 +4666,172 @@ export function useListPhraseSubscription(baseOptions?: Apollo.SubscriptionHookO
       }
 export type ListPhraseSubscriptionHookResult = ReturnType<typeof useListPhraseSubscription>;
 export type ListPhraseSubscriptionResult = Apollo.SubscriptionResult<ListPhraseSubscription>;
+export const QueryPublciAnswersDocument = gql`
+    query queryPublciAnswers($topicId: Int!) {
+  englister_PublicAnswers(
+    where: {topicId: {_eq: $topicId}}
+    order_by: {createdAt: desc}
+    limit: 5
+  ) {
+    id
+    topicId
+    answer
+    japanese
+    translation
+    age
+    createdBy
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useQueryPublciAnswersQuery__
+ *
+ * To run a query within a React component, call `useQueryPublciAnswersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryPublciAnswersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryPublciAnswersQuery({
+ *   variables: {
+ *      topicId: // value for 'topicId'
+ *   },
+ * });
+ */
+export function useQueryPublciAnswersQuery(baseOptions: Apollo.QueryHookOptions<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>(QueryPublciAnswersDocument, options);
+      }
+export function useQueryPublciAnswersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>(QueryPublciAnswersDocument, options);
+        }
+export type QueryPublciAnswersQueryHookResult = ReturnType<typeof useQueryPublciAnswersQuery>;
+export type QueryPublciAnswersLazyQueryHookResult = ReturnType<typeof useQueryPublciAnswersLazyQuery>;
+export type QueryPublciAnswersQueryResult = Apollo.QueryResult<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>;
+export const QueryPublicJapaneseDocument = gql`
+    query queryPublicJapanese($topicId: Int!) {
+  englister_PublicAnswers(
+    where: {topicId: {_eq: $topicId}, japanese: {_neq: ""}}
+    order_by: {createdAt: desc}
+    limit: 5
+  ) {
+    id
+    topicId
+    japanese
+    createdBy
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useQueryPublicJapaneseQuery__
+ *
+ * To run a query within a React component, call `useQueryPublicJapaneseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryPublicJapaneseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryPublicJapaneseQuery({
+ *   variables: {
+ *      topicId: // value for 'topicId'
+ *   },
+ * });
+ */
+export function useQueryPublicJapaneseQuery(baseOptions: Apollo.QueryHookOptions<QueryPublicJapaneseQuery, QueryPublicJapaneseQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryPublicJapaneseQuery, QueryPublicJapaneseQueryVariables>(QueryPublicJapaneseDocument, options);
+      }
+export function useQueryPublicJapaneseLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryPublicJapaneseQuery, QueryPublicJapaneseQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryPublicJapaneseQuery, QueryPublicJapaneseQueryVariables>(QueryPublicJapaneseDocument, options);
+        }
+export type QueryPublicJapaneseQueryHookResult = ReturnType<typeof useQueryPublicJapaneseQuery>;
+export type QueryPublicJapaneseLazyQueryHookResult = ReturnType<typeof useQueryPublicJapaneseLazyQuery>;
+export type QueryPublicJapaneseQueryResult = Apollo.QueryResult<QueryPublicJapaneseQuery, QueryPublicJapaneseQueryVariables>;
+export const SubmitPublicAnswerDocument = gql`
+    mutation SubmitPublicAnswer($topicId: Int!, $answer: String!, $japanese: String!, $translation: String!, $age: Int!) {
+  insert_englister_PublicAnswers_one(
+    object: {topicId: $topicId, answer: $answer, japanese: $japanese, translation: $translation, age: $age}
+  ) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}
+    `;
+export type SubmitPublicAnswerMutationFn = Apollo.MutationFunction<SubmitPublicAnswerMutation, SubmitPublicAnswerMutationVariables>;
+
+/**
+ * __useSubmitPublicAnswerMutation__
+ *
+ * To run a mutation, you first call `useSubmitPublicAnswerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitPublicAnswerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [submitPublicAnswerMutation, { data, loading, error }] = useSubmitPublicAnswerMutation({
+ *   variables: {
+ *      topicId: // value for 'topicId'
+ *      answer: // value for 'answer'
+ *      japanese: // value for 'japanese'
+ *      translation: // value for 'translation'
+ *      age: // value for 'age'
+ *   },
+ * });
+ */
+export function useSubmitPublicAnswerMutation(baseOptions?: Apollo.MutationHookOptions<SubmitPublicAnswerMutation, SubmitPublicAnswerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SubmitPublicAnswerMutation, SubmitPublicAnswerMutationVariables>(SubmitPublicAnswerDocument, options);
+      }
+export type SubmitPublicAnswerMutationHookResult = ReturnType<typeof useSubmitPublicAnswerMutation>;
+export type SubmitPublicAnswerMutationResult = Apollo.MutationResult<SubmitPublicAnswerMutation>;
+export type SubmitPublicAnswerMutationOptions = Apollo.BaseMutationOptions<SubmitPublicAnswerMutation, SubmitPublicAnswerMutationVariables>;
+export const DeletePublicAnswerDocument = gql`
+    mutation deletePublicAnswer($id: Int!) {
+  delete_englister_PublicAnswers_by_pk(id: $id) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}
+    `;
+export type DeletePublicAnswerMutationFn = Apollo.MutationFunction<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>;
+
+/**
+ * __useDeletePublicAnswerMutation__
+ *
+ * To run a mutation, you first call `useDeletePublicAnswerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePublicAnswerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePublicAnswerMutation, { data, loading, error }] = useDeletePublicAnswerMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeletePublicAnswerMutation(baseOptions?: Apollo.MutationHookOptions<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>(DeletePublicAnswerDocument, options);
+      }
+export type DeletePublicAnswerMutationHookResult = ReturnType<typeof useDeletePublicAnswerMutation>;
+export type DeletePublicAnswerMutationResult = Apollo.MutationResult<DeletePublicAnswerMutation>;
+export type DeletePublicAnswerMutationOptions = Apollo.BaseMutationOptions<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>;

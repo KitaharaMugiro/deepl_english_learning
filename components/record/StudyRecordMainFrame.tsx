@@ -8,15 +8,14 @@ import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
 import { TopicApi } from '../../api/TopicApi';
 import { LeftHeartsAtom, MaxHeartsAtom } from '../../models/jotai/LeftHearts';
-import startStudy from '../../models/process/startStudy';
 import useEventSubmit from '../../models/util-hooks/useEventSubmit';
-import useOnClick from '../../models/util-hooks/useOnClick';
 import usePlan from '../../models/util-hooks/usePlan';
 import useSignupActivation from '../../models/util-hooks/useSignupActivation';
 import useUser from '../../models/util-hooks/useUser';
 import { Copyright } from '../footer/Copyright';
 import LeftHearts from '../hearts/LeftHearts';
 import ProgressBar from '../progress/ProgressBar';
+import SuggestedCategoryList from './SuggestedCategoryList';
 
 
 interface Props {
@@ -25,6 +24,7 @@ interface Props {
 
 export default (props: Props) => {
     const router = useRouter()
+    const [noMore, setNoMore] = useState(false)
     const [doneTopicNum, setDoneTopicNum] = useState(0)
     const [allTopicNum, setAllTopicNum] = useState<number | undefined>(undefined)
     const [leftHeart, setLeftHearts] = useAtom(LeftHeartsAtom)
@@ -54,7 +54,7 @@ export default (props: Props) => {
     useEffect(() => {
         if (loadingUser) return
         if (!user) {
-            if (doneTopicNum === 2 || doneTopicNum >= 5) {
+            if (doneTopicNum === 3 || doneTopicNum >= 5) {
                 openSignupActivationModal()
             }
         }
@@ -65,11 +65,20 @@ export default (props: Props) => {
         }
     }, [user, doneTopicNum])
 
+    useEffect(() => {
+        if (doneTopicNum === allTopicNum) {
+            setNoMore(true)
+        } else {
+            setNoMore(false)
+        }
+    }, [doneTopicNum, allTopicNum])
+
+
 
     const handleNext = async () => {
         setLoading(true)
         try {
-            await startStudy(props.categorySlug)
+            await StudyApi.studyStart(props.categorySlug)
             router.push(`/q/${props.categorySlug}`)
         } catch (e) {
             console.warn(e)
@@ -112,38 +121,40 @@ export default (props: Props) => {
                             hearts={leftHeart} maxHearts={maxHeart}
                             showText={false} />
                     </Grid>
-                    <React.Fragment>
-                        <ProgressBar
-                            value={doneTopicNum}
-                            maximum={allTopicNum}
-                        />
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                        }}>
-                            <Button
-                                onClick={goDashboard}
-                                style={{
-                                    marginTop: "30px",
-                                    marginLeft: "10px",
-                                }}
-                            >
-                                ダッシュボードへ行く
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                disabled={loading}
-                                onClick={handleNext}
-                                style={{
-                                    marginTop: "30px",
-                                    marginLeft: "10px",
-                                }}
-                            >
-                                次の課題もやる
-                            </Button>
-                        </div>
-                    </React.Fragment>
+                    <ProgressBar
+                        value={doneTopicNum}
+                        maximum={allTopicNum}
+                    />
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                    }}>
+                        <Button
+                            onClick={goDashboard}
+                            style={{
+                                marginTop: "30px",
+                                marginLeft: "10px",
+                            }}
+                        >
+                            ダッシュボードへ行く
+                        </Button>
+                        {!noMore && <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={loading}
+                            onClick={handleNext}
+                            style={{
+                                marginTop: "30px",
+                                marginLeft: "10px",
+                            }}
+                        >
+                            次の課題もやる
+                        </Button>}
+                    </div>
+
+                    <div style={{ height: 30 }} />
+                    <Typography variant="h5">別のお題に変えてみる</Typography>
+                    <SuggestedCategoryList excludeCategorySlugs={[props.categorySlug]} />
 
                 </Paper>
                 <Copyright />
@@ -151,3 +162,4 @@ export default (props: Props) => {
         </React.Fragment >
     );
 }
+

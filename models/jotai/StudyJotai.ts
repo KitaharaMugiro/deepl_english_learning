@@ -4,5 +4,15 @@ import { Question, StudyRecord } from '../type/Question'
 export const AtomActiveQuestion = atom<Question>({ topicId: "", title: "", description: "" })
 export const AtomJapanse = atom("")
 export const AtomEnglish = atom("")
-export const AtomTranslation = atom("I agree with his ideas that the reason why programming is taught in schools is because software is getting important in our society. We should think about how to teach them so that they will be able to deal with software in the future.")
+export const AtomTranslation = atom("")
 export const AtomQuestionNeedRetry = atom(false)
+export const AtomAge = atom(0)
+
+export const AtomName = atom(localStorage.getItem('user_name') ?? '')
+export const AtomNameWithPersistence = atom(
+    (get) => get(AtomName),
+    (get, set, newStr) => {
+        set(AtomName, newStr as string)
+        localStorage.setItem('user_name', newStr as string)
+    }
+)

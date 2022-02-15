@@ -1,5 +1,6 @@
 export default () => {
-    const isTextToSpeechSupported = 'speechSynthesis' in window
+    if (!process.browser) return {}
+    const isTextToSpeechSupported = window && 'speechSynthesis' in window
 
     const speak = (text: string, language?: string) => {
         const uttr = new SpeechSynthesisUtterance(text)

@@ -10,9 +10,9 @@ import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
 import { LeftHeartsAtom } from '../../models/jotai/LeftHearts';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
-import endStudy from '../../models/process/endStudy';
 import usePlan from '../../models/util-hooks/usePlan';
 import { Copyright } from '../footer/Copyright';
+import PhraseList from '../phrase/PhraseList';
 import Review from './Review';
 import WriteEnglish from './WriteEnglish';
 import WriteJapanese from './WriteJapanese';
@@ -50,6 +50,7 @@ export default function ReStudyMainFrame(props: Props) {
 
     const [leftHearts, setLeftHearts] = useAtom(LeftHeartsAtom)
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+    const [nextButtonLoading, setNextButtonLoading] = useState(false)
     const { openPlanModal } = usePlan()
 
     useEffect(() => {
@@ -76,6 +77,7 @@ export default function ReStudyMainFrame(props: Props) {
     const router = useRouter()
 
     const handleNext = async () => {
+        setNextButtonLoading(true)
         if (activeStep === steps.length - 1) {
             //最後のステップ
 
@@ -86,6 +88,7 @@ export default function ReStudyMainFrame(props: Props) {
             setNeedRetry(false)
 
             router.push(`/dashboard`)
+            setNextButtonLoading(false)
             return
         }
 
@@ -94,12 +97,14 @@ export default function ReStudyMainFrame(props: Props) {
             const res = await StudyApi.sendJapanese(japanese)
             if (!res.success) {
                 setErrorMessage(res.message)
+                setNextButtonLoading(false)
                 return
             }
         } else if (activeStep === 1) {
             const res = await StudyApi.sendEnglish(english)
             if (!res.success) {
                 setErrorMessage(res.message)
+                setNextButtonLoading(false)
                 return
             }
             const resTranslation = await StudyApi.translate(japanese)
@@ -108,6 +113,7 @@ export default function ReStudyMainFrame(props: Props) {
 
         setErrorMessage("")
         setActiveStep(activeStep + 1);
+        setNextButtonLoading(false)
     };
 
     const handleBack = () => {
@@ -117,6 +123,7 @@ export default function ReStudyMainFrame(props: Props) {
 
     const NextButton = (text: string) => (
         <Button
+            disabled={nextButtonLoading}
             variant="contained"
             color="primary"
             onClick={handleNext}
@@ -217,6 +224,8 @@ export default function ReStudyMainFrame(props: Props) {
                         </div>
                     </React.Fragment>
                 </Paper>
+                <PhraseList />
+                <div style={{ height: 10 }} />
                 <Copyright />
             </main>
         </React.Fragment >

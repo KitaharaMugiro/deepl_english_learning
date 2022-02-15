@@ -1,7 +1,7 @@
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 import { Typography } from '@mui/material';
 import { Auth } from 'aws-amplify';
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import { AppleLoginButton, FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import useSignin from "../../models/util-hooks/useSignin";
 
 interface Props {
@@ -15,5 +15,7 @@ export default ({ url }: Props) => {
         <GoogleLoginButton onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google, customState: url })} />
         <div style={{ height: 5 }} />
         <FacebookLoginButton onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook, customState: url })} />
+        <div style={{ height: 5 }} />
+        <AppleLoginButton onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Apple, customState: url })} />
     </div>
 }

@@ -1,6 +1,7 @@
 import { Container, Grid, Typography } from "@mui/material"
 import { StripeApi } from "../../api/StripeApi"
 import { Tier1Plan, Tier2Plan, Tier3Plan, FreePlan } from "../../models/const/PlanConst"
+import { FireGaEvent } from "../../models/gtag"
 import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
@@ -21,6 +22,7 @@ export default () => {
         if (isPremium) return
         if (!priceId) return
 
+        FireGaEvent({ action: "click", category: "payment", label: `priceId=${priceId}` })
         const { redirectUrl } = await StripeApi.createSession(priceId)
         window.location.href = redirectUrl
     }

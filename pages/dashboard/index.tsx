@@ -1,4 +1,4 @@
-import { Fab, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { RecordApi } from '../../api/RecordApi';
-import FloatingLoginButton from '../../components/common/FloatingLoginButton';
+import FloatingStartStudyButton from '../../components/common/FloatingStartStudyButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
@@ -91,7 +91,7 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
                 </Container >
-                <FloatingLoginButton />
+                <FloatingStartStudyButton />
             </main>
 
         </div>

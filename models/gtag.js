@@ -11,7 +11,7 @@ export const pageview = (path) => {
 }
 
 // GAイベントを発火させる
-export const event = ({ action, category, label, value = '' }) => {
+export const FireGaEvent = ({ action, category, label, value = '' }) => {
     if (!existsGaId) {
         return
     }

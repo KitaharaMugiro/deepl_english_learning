@@ -8,10 +8,12 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
-import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
+import useStudy from '../../models/util-hooks/useStudy';
 import { Copyright } from '../footer/Copyright';
 import PhraseList from '../phrase/PhraseList';
+import PublicAnswers from '../publicAnswers/PublicAnswers';
 import Review from './Review';
 import WriteEnglish from './WriteEnglish';
 import WriteJapanese from './WriteJapanese';
@@ -45,9 +47,16 @@ export default function StudyMainFrame(props: Props) {
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [translation, setTranslation] = useAtom(AtomTranslation)
+    const [___, setAtomAge] = useAtom(AtomAge)
     const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
-
+    const { savePrevStudiedCategory } = useStudy()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+
+    useEffect(() => {
+        if (props.categorySlug) {
+            savePrevStudiedCategory(props.categorySlug)
+        }
+    }, [props.categorySlug])
 
     useEffect(() => {
         const getTopic = async () => {
@@ -70,6 +79,8 @@ export default function StudyMainFrame(props: Props) {
         setEnglish("")
         setTranslation("")
         setNeedRetry(false)
+        setAtomAge(0)
+
         await endStudy(activeQuestion.topicId)
 
         router.push(`/record/${props.categorySlug}`)
@@ -85,8 +96,7 @@ export default function StudyMainFrame(props: Props) {
             setEnglish("")
             setTranslation("")
             setNeedRetry(false)
-            await endStudy(activeQuestion.topicId)
-
+            setAtomAge(0)
             router.push(`/record/${props.categorySlug}`)
             return
         }
@@ -106,6 +116,9 @@ export default function StudyMainFrame(props: Props) {
             }
             const resTranslation = await StudyApi.translate(japanese)
             setTranslation(resTranslation.translation)
+
+            //ここに持っていく
+            await endStudy(activeQuestion.topicId)
         }
 
         setErrorMessage("")
@@ -131,6 +144,14 @@ export default function StudyMainFrame(props: Props) {
         </Button>
     )
 
+    const renderPublicAnswers = () => {
+        if (activeStep === 2) {
+            return <div style={{ marginTop: 30 }}>
+                <PublicAnswers />
+            </div>
+        }
+    }
+
     const renderButtons = () => {
         if (activeStep === 0) {
             return (
@@ -151,15 +172,19 @@ export default function StudyMainFrame(props: Props) {
         } else if (activeStep === 2) {
             if (needRetry) {
                 return (
-                    <Button onClick={handleBack}
-                        variant="contained"
-                        color="primary"
-                        style={{
-                            marginTop: "30px",
-                            marginLeft: "10px",
-                        }}>
-                        お手本を暗記してもう一回挑戦
-                    </Button>
+                    <>
+                        {NextButton("終了")}
+                        <Button onClick={handleBack}
+                            variant="contained"
+                            color="primary"
+                            style={{
+                                marginTop: "30px",
+                                marginLeft: "10px",
+                            }}>
+                            お手本を暗記してもう一回挑戦
+                        </Button>
+                    </>
+
                 )
             }
             return (
@@ -216,6 +241,8 @@ export default function StudyMainFrame(props: Props) {
                         }}>
                             {renderButtons()}
                         </div>
+
+                        {renderPublicAnswers()}
                     </React.Fragment>
                 </Paper>
                 <div style={{ textAlign: "right", marginRight: 10, marginTop: 10, marginBottom: 10 }}>

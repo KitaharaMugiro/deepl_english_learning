@@ -22,6 +22,7 @@ import { ApolloProvider } from '@apollo/client';
 import SignupActivationModal from '../components/signin/SignupActivationModal';
 import MyBackdrop from '../components/common/MyBackdrop';
 import MySnackbar from '../components/common/MySnackbar';
+import CommonMetaTags from '../components/common/CommonMetaTags';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -64,11 +65,6 @@ export default function MyApp(props: AppProps) {
         }
     }, []);
 
-    useEffect(() => {
-        LocalStorageHelper.initializeUserId()
-    }, [])
-
-
     const { setUser, setLoadingUser } = useUser()
     useEffect(() => {
         const getUser = async () => {
@@ -84,6 +80,7 @@ export default function MyApp(props: AppProps) {
             setLoadingUser(false)
         }
         getUser()
+        LocalStorageHelper.initializeUserId()
     }, [])
 
 
@@ -100,27 +97,9 @@ export default function MyApp(props: AppProps) {
         };
     }, [router.events]);
 
-    const image = "https://english.yunomy.com/static/otehon.png"
-    const title = "Englister | 英語で意見を言えるようになるAI添削アプリ"
-    const description = "自分の意見を英語で言えるようになる最高の勉強法"
     return (
         <React.Fragment>
-            <Head>
-
-                <title>{title}</title>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-                <meta property="og:title" content={title} />
-                <meta property="og:description" content={description} />
-                <meta property="og:url" content="https://english.yunomy.com/" />
-                <meta property="og:image" content={image} />
-                <meta property="og:site_name" content={title} />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:site" content="@yuno_miyako2" />
-                <meta name="twitter:url" content={image} />
-                <meta name="twitter:title" content={title} />
-                <meta name="twitter:description" content={description} />
-                <meta name="twitter:image" content={image} />
-            </Head>
+            <CommonMetaTags />
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <ApolloProvider client={MyApolloClient}>
@@ -134,7 +113,6 @@ export default function MyApp(props: AppProps) {
                 <Component {...pageProps} />
                 <MyFooter />
             </ApolloProvider>
-
         </React.Fragment>
     );
 }

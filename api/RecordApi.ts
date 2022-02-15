@@ -1,3 +1,4 @@
+import WriteJapanese from "../components/study/WriteJapanese";
 import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
 import { DashboardListItem } from "../models/type/DashboardListItem";
 import { StudyRecordDetail } from "../models/type/StudyRecordDetail";
@@ -55,7 +56,7 @@ export class RecordApi {
         return res.data as DashboardListItem[]
     }
 
-    static async submitDashboard(score: number, english: string, translation: string, topicId: string) {
+    static async submitDashboard(score: number, english: string, translation: string, topicId: string, japanese: string) {
         const client = new ApiClient()
         const res = await client.post(
             "/study/record/submit_dashboard",
@@ -66,6 +67,7 @@ export class RecordApi {
                 english: english,
                 translation: translation,
                 topicId: topicId,
+                japanese: japanese,
                 isOpen: false
             }
         )
