@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import { GetTodayTopicResponse, TodayApi } from "../../api/TodayApi"
 import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedMetaTags"
 import TodayStudyMainFrame from "../../components/today/TodayStudyMainFrame"
-import TodayResultPage from "./[resultId]"
 
 const TodayPage = ({ ogpInfo }: { ogpInfo: OgpInfo }) => {
 

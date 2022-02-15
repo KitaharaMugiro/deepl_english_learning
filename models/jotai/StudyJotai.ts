@@ -8,11 +8,13 @@ export const AtomTranslation = atom("")
 export const AtomQuestionNeedRetry = atom(false)
 export const AtomAge = atom(0)
 
-export const AtomName = atom(localStorage.getItem('user_name') ?? '')
+// export const AtomName = atom(localStorage.getItem('user_name') ?? '')
+export const AtomName = atom('')
 export const AtomNameWithPersistence = atom(
     (get) => get(AtomName),
     (get, set, newStr) => {
+        if (!process.browser) return;
         set(AtomName, newStr as string)
-        localStorage.setItem('user_name', newStr as string)
+        //localStorage.setItem('user_name', newStr as string)
     }
 )

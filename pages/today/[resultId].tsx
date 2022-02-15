@@ -1,6 +1,4 @@
 import { GetServerSideProps } from "next"
-import { Router, useRouter } from "next/router"
-import { useEffect } from "react"
 import { TodayApi, GetTodayTopicResponse } from "../../api/TodayApi"
 import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedMetaTags"
 import TodayStudyReviewFrame from "../../components/today/TodayStudyReviewFrame"
@@ -25,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const ogpInfo: OgpInfo = {
         title: "英語年齢診断 | あなたはネイティブ何歳並みの英語を話せますか？ | Englister",
         description: todayTopicResult.question.title,
-        image: `https://english.yunomy.com/static/ogp/スライド${(todayTopicResult.answer?.age || 0) + 1}.png`
+        image: `https://english.yunomy.com/static/ogp/slide${(todayTopicResult.answer?.age || 0) + 1}.png`
     }
     return {
         props: {
@@ -35,3 +33,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 }
 export default TodayResultPage
+

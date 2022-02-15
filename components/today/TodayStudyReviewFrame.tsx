@@ -1,19 +1,15 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Button, Fab, Paper, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
-import TextToSpeechButton from '../speech/TextToSpeechButton';
-import Image from "next/image"
-import PublicAnswers from '../publicAnswers/PublicAnswers';
-import TodayPublicAnswers from './TodayPublicAnswers';
-import DictionarySearchSelector from '../common/DictionarySearchSelector';
-import { TwitterShareButton, TwitterIcon } from "react-share";
-import TodayShareButtons from './TodayShareButtons';
-import { AtomName } from '../../models/jotai/StudyJotai';
-import { useAtom } from 'jotai';
-import { useCountdownTimer } from 'use-countdown-timer';
 import SchoolIcon from '@mui/icons-material/School';
-import { Router, useRouter } from 'next/router';
+import { Fab, Paper, Typography } from '@mui/material';
+import { useAtom } from 'jotai';
+import React, { useEffect, useState } from 'react';
+import { useCountdownTimer } from 'use-countdown-timer';
+import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
+import { AtomName } from '../../models/jotai/StudyJotai';
+import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import TextToSpeechButton from '../speech/TextToSpeechButton';
+import TodayPublicAnswers from './TodayPublicAnswers';
+import TodayShareButtons from './TodayShareButtons';
 interface Props {
     todayTopicResult: GetTodayTopicResponse
 }
@@ -110,7 +106,7 @@ export default (props: Props) => {
                     marginRight: "auto",
                     marginLeft: "auto"
                 }}>
-                    <img src={`/static/ogp/スライド${(answer?.age || 0) + 1}.png`} style={{ width: "100%" }} />
+                    <img src={`/static/ogp/slide${(answer?.age || 0) + 1}.png`} style={{ width: "100%" }} />
                     <div style={{ height: 15 }} />
 
                     <h2 style={{ fontWeight: 700 }} >

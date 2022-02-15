@@ -14,6 +14,7 @@ import classes from "./style.module.css";
 var similarity = require('string-cosine-similarity')
 
 export default function Review() {
+
     const [scoreValue, setScore] = useState(0)
 
     const [english] = useAtom(AtomEnglish)

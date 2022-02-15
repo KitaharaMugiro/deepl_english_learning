@@ -1,4 +1,3 @@
-import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
 import { ApiClient } from "./ApiClient";
 
 export class StripeApi {

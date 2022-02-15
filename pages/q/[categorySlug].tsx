@@ -1,5 +1,4 @@
 import { useRouter } from "next/router"
-import PhraseList from "../../components/phrase/PhraseList"
 import StudyMainFrame from "../../components/study/StudyMainFrame"
 
 export default () => {
@@ -10,3 +9,4 @@ export default () => {
         <StudyMainFrame categorySlug={categorySlug as string} />
     </div>
 }
+

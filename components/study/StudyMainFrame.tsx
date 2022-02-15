@@ -40,6 +40,7 @@ interface Props {
 }
 
 export default function StudyMainFrame(props: Props) {
+
     const [activeStep, setActiveStep] = useState(0);
     const [needRetry] = useAtom(AtomQuestionNeedRetry)
     const [errorMessage, setErrorMessage] = useState("")
@@ -81,7 +82,7 @@ export default function StudyMainFrame(props: Props) {
         setNeedRetry(false)
         setAtomAge(0)
 
-        await endStudy(activeQuestion.topicId)
+        //     await endStudy(activeQuestion.topicId)
 
         router.push(`/record/${props.categorySlug}`)
         return
