@@ -52,7 +52,9 @@ export default (props: Props) => {
     const renderTry = () => {
         if (alreadyTestTaken) {
             return <Fab
-                variant="extended" color="primary"
+                variant="extended"
+                color="primary"
+                style={{ backgroundColor: '#ffc107' }}
                 disabled
             >
                 <SchoolIcon sx={{ mr: 1 }} />
