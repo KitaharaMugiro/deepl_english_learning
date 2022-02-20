@@ -7,7 +7,7 @@ export default () => {
 
     const goHome = () => {
         if (user) {
-            router.push("/home")
+            router.push("/dashboard")
         } else {
             router.push("/")
         }

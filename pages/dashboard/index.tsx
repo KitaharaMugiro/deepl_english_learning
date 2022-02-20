@@ -3,17 +3,27 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { CategoryApi } from '../../api/CategoryApi';
 import { RecordApi } from '../../api/RecordApi';
 import FloatingStartStudyButton from '../../components/common/FloatingStartStudyButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
 import QuestList from '../../components/quest/QuestList';
+import TopCategoryRow from '../../components/top/TopCategoryRow';
+import { Category } from '../../models/type/Category';
 import classes from "./style.module.css";
 
-export default function Dashboard() {
+function Dashboard({ categoryInfo }: {
+    categoryInfo: {
+        "new": Category[],
+        "popular": Category[],
+        "free": Category[]
+    }
+}) {
     const router = useRouter()
     const [scores, setScores] = useState<number[]>([])
 
@@ -35,8 +45,8 @@ export default function Dashboard() {
     return (
         <div className={classes.root}>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
                 <Container maxWidth="xl" className={classes.container}>
+                    <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強する" />
                     <Typography variant="h4" gutterBottom component="h2">
                         <b>ダッシュボード</b>
                     </Typography>
@@ -97,3 +107,14 @@ export default function Dashboard() {
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const categoryInfo = await CategoryApi.getCategoryList()
+    return {
+        props: {
+            categoryInfo
+        }
+    }
+}
+
+export default Dashboard;

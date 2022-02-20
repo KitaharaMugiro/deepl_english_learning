@@ -17,15 +17,6 @@ interface Props {
 export const MainListItems = (props: Props) => {
     return (
         <div>
-            <Link href="/home">
-                <ListItem button onClick={props.closeMenu}>
-                    <ListItemIcon>
-                        <LocalLibraryIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="勉強する" />
-                </ListItem>
-            </Link>
-
             <Link href="/today">
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>

@@ -6,7 +6,7 @@ export default () => {
     const router = useRouter()
     useEffect(() => {
         FireGaEvent({ action: "conversion", category: "payment", label: `success` })
-        router.push("/home")
+        router.push("/")
     }, [])
     return <div>
 
