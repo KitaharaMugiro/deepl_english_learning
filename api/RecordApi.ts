@@ -27,18 +27,19 @@ export class RecordApi {
                 userId: LocalStorageHelper.getUserId(),
             }
         )
-        return res.data as Array<{ studySessionId: string, score: number, createdAt: number }>
+        return res.data as Array<{ studySessionId: string, score: number, age: number, createdAt: number }>
     }
 
 
-    static async submitScore(score: number) {
+    static async submitScore(score: number, age: number) {
         const client = new ApiClient()
         const res = await client.post(
             "/study/record/submit_score",
             {
                 userId: LocalStorageHelper.getUserId(),
                 studySessionId: LocalStorageHelper.getStudySessionId(),
-                score: score
+                score: score,
+                age: age
             }
         )
         return res.data
@@ -56,7 +57,7 @@ export class RecordApi {
         return res.data as DashboardListItem[]
     }
 
-    static async submitDashboard(score: number, english: string, translation: string, topicId: string, japanese: string) {
+    static async submitDashboard(score: number, english: string, translation: string, topicId: string, japanese: string, age: number) {
         const client = new ApiClient()
         const res = await client.post(
             "/study/record/submit_dashboard",
@@ -68,6 +69,7 @@ export class RecordApi {
                 translation: translation,
                 topicId: topicId,
                 japanese: japanese,
+                age: age,
                 isOpen: false
             }
         )

@@ -24,21 +24,20 @@ function Dashboard({ categoryInfo }: {
     }
 }) {
     const router = useRouter()
-    const [scores, setScores] = useState<number[]>([])
-
-
+    const [scores, setScores] = useState<{ score: number, createdAt: Date, age: number }[]>([])
     useEffect(() => {
         const getScoreList = async () => {
             const scoreList = await RecordApi.getScoreList()
-            const _data = scoreList.map(s => s.score)
-            setScores(_data)
+            const _scores = scoreList.map(s => {
+                return { score: s.score, createdAt: new Date(s.createdAt), age: s.age || 0 }
+            }).filter(s => s.score)
+            setScores(_scores)
         }
         getScoreList()
     }, [])
 
-    const averageScore = scores.length === 0 ? 0 : Math.round(scores.reduce((a, b) => (a + b)) / scores.length * 10) / 10
-
-
+    const averageScore = scores.length === 0 ? 0 : Math.round(scores.map(r => r.score).reduce((a, b) => (a + b)) / scores.length * 10) / 10
+    const averageAge = scores.length === 0 ? 0 : Math.round(scores.filter(r => r.age).map(r => r.age).reduce((a, b) => (a + b)) / scores.filter(r => r.age).length)
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
@@ -53,21 +52,31 @@ function Dashboard({ categoryInfo }: {
                         {/* Chart */}
                         <Grid item xs={12} md={12} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                                <Chart data={scores} />
+                                <Chart data={scores.map(s => s.score)} date={scores.map(s => s.createdAt.toDateString())} title="スコア推移" />
+                            </Paper>
+                            <Paper className={fixedHeightPaper}>
+                                <Chart data={scores.filter(s => s.age).map(s => s.age)} date={scores.filter(s => s.age).map(s => s.createdAt.toDateString())} title="年齢推移" />
                             </Paper>
                         </Grid>
 
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={12} lg={3}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6} md={6} lg={12}>
+                            <Grid container spacing={1}>
+                                <Grid item xs={4} md={4} lg={12}>
                                     <Paper className={fixedHeightPaper}>
                                         <Deposits
                                             title='Average Score'
                                             score={averageScore} />
                                     </Paper>
                                 </Grid>
-                                <Grid item xs={6} md={6} lg={12}>
+                                <Grid item xs={4} md={4} lg={12}>
+                                    <Paper className={fixedHeightPaper}>
+                                        <Deposits
+                                            title='Average Age'
+                                            score={averageAge} />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={12}>
                                     <Paper className={fixedHeightPaper}>
                                         <Deposits
                                             title='Exam Taken'

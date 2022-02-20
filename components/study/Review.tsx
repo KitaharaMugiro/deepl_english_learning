@@ -27,15 +27,14 @@ export default function Review() {
         //スコアや年齢を取得する
         const client = new ApiSpecialClient()
         client.englishScore(english, translation).then(res => {
-            const _score = res.score_num
-            setAge(res.age + "歳")
-            setAtomAge(res.age)
+            const _score = Math.round(res.scoreRaw)
+            const _age = res.age
 
             //初回のスコアを送信する
-            RecordApi.submitScore(_score)
-            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese)
+            RecordApi.submitScore(_score, _age)
+            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
-            console.log({ _score })
+            setScore(_score)
 
             if (_score > 85) {
                 setNeedRetry(false)
