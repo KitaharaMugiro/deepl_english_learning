@@ -36,9 +36,10 @@ function Dashboard({ categoryInfo }: {
         getScoreList()
     }, [])
 
-    const averageScore = scores.length === 0 ? 0 : Math.round(scores.map(r => r.score).reduce((a, b) => (a + b)) / scores.length * 10) / 10
-    const averageAge = scores.length === 0 ? 0 : Math.round(scores.filter(r => r.age).map(r => r.age).reduce((a, b) => (a + b)) / scores.filter(r => r.age).length)
+    const averageScore = scores.length === 0 ? 0 : Math.round(scores.map(r => r.score).reduce((a, b) => (a + b), 0) / scores.length * 10) / 10
+    const averageAge = scores.length === 0 ? 0 : Math.round(scores.filter(r => r.age).map(r => r.age).reduce((a, b) => (a + b), 0) / scores.filter(r => r.age).length)
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const ages = scores.map(s => s.age).filter(s => s)
 
     return (
         <div className={classes.root}>
@@ -54,9 +55,10 @@ function Dashboard({ categoryInfo }: {
                             <Paper className={fixedHeightPaper}>
                                 <Chart data={scores.map(s => s.score)} date={scores.map(s => s.createdAt.toDateString())} title="スコア推移" />
                             </Paper>
-                            <Paper className={fixedHeightPaper}>
-                                <Chart data={scores.filter(s => s.age).map(s => s.age)} date={scores.filter(s => s.age).map(s => s.createdAt.toDateString())} title="年齢推移" />
-                            </Paper>
+                            {ages.length > 0 &&
+                                <Paper className={fixedHeightPaper}>
+                                    <Chart data={scores.filter(s => s.age).map(s => s.age)} date={scores.filter(s => s.age).map(s => s.createdAt.toDateString())} title="年齢推移" />
+                                </Paper>}
                         </Grid>
 
                         {/* Recent Deposits */}
@@ -69,13 +71,15 @@ function Dashboard({ categoryInfo }: {
                                             score={averageScore} />
                                     </Paper>
                                 </Grid>
-                                <Grid item xs={4} md={4} lg={12}>
-                                    <Paper className={fixedHeightPaper}>
-                                        <Deposits
-                                            title='Average Age'
-                                            score={averageAge} />
-                                    </Paper>
-                                </Grid>
+                                {ages.length > 0 &&
+                                    <Grid item xs={4} md={4} lg={12}>
+                                        <Paper className={fixedHeightPaper}>
+                                            <Deposits
+                                                title='Average Age'
+                                                score={averageAge} />
+                                        </Paper>
+                                    </Grid>
+                                }
                                 <Grid item xs={4} md={4} lg={12}>
                                     <Paper className={fixedHeightPaper}>
                                         <Deposits
