@@ -104,6 +104,7 @@ export default (props: Props) => {
                             variant="contained"
                             onClick={props.onClickStart}>スタート
                         </Button>}
+                        {noMore && <Typography align="center" color="textSecondary">すべての問題を終えました😁</Typography>}
                     </Grid>
                     <div style={{ marginBottom: 50 }}>
                         {noMore && <>

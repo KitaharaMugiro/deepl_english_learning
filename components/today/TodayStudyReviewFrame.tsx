@@ -3,13 +3,17 @@ import SchoolIcon from '@mui/icons-material/School';
 import { Fab, Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
+import Confetti from 'react-confetti'
+import { useWindowSize } from 'react-use';
 import { useCountdownTimer } from 'use-countdown-timer';
-import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
+import { GetTodayTopicResponse, ListTodayTopicResultResponse, TodayApi } from '../../api/TodayApi';
 import { AtomName } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import TodayPublicAnswers from './TodayPublicAnswers';
+import TodayResultHistoryGraph from './TodayResultHistoryGraph';
 import TodayShareButtons from './TodayShareButtons';
+import TodayStudyRanking from './TodayStudyRanking';
 interface Props {
     todayTopicResult: GetTodayTopicResponse
 }
@@ -23,13 +27,14 @@ const formatTime = (time: number) => {
     const secondStr = ('00' + seconds).slice(-2)
     return <span>{hourStr}:{minuteStr}:{secondStr}</span>
 }
-
 export default (props: Props) => {
     if (!process.browser) return null;
     const { question } = props.todayTopicResult
     const { answer } = props.todayTopicResult
+    const { width, height } = useWindowSize()
 
     const [name] = useAtom(AtomName)
+    const [results, setResults] = useState<ListTodayTopicResultResponse>([])
     const [alreadyTestTaken, setAlreadyTestTaken] = useState(false)
     const isYourAnswer = name === answer?.name //WARN: この判別は正しくない・・
 
@@ -54,7 +59,7 @@ export default (props: Props) => {
             return <Fab
                 variant="extended"
                 color="primary"
-                style={{ backgroundColor: '#ffc107' }}
+                style={{ backgroundColor: 'lightgrey' }}
                 disabled
             >
                 <SchoolIcon sx={{ mr: 1 }} />
@@ -80,6 +85,16 @@ export default (props: Props) => {
         }
         getStatus()
     }, [])
+
+    useEffect(() => {
+        const listResults = async () => {
+            const results = await TodayApi.listTodayTopicResult(props.todayTopicResult.answer?.userId)
+            setResults(results)
+        }
+        listResults()
+    }, [])
+
+
 
     return (
         <>
@@ -162,15 +177,30 @@ export default (props: Props) => {
                         name={answer?.name || ""}
                         resultId={answer?.resultId || ""} />}
 
+                    <div style={{ height: 25 }} />
+
+                    <TodayResultHistoryGraph
+                        data={results.map(r => r.age)}
+                        date={results.map(r => new Date(r.createdAt).toDateString())}
+                        name={answer?.name || "anon"} />
 
                     <div style={{ height: 25 }} />
 
-                    <TodayPublicAnswers topicId={props.todayTopicResult.question.topicId} />
+                    <TodayStudyRanking todayTopicId={props.todayTopicResult.question.todayTopicId} />
+
                 </Paper>
 
 
                 <DictionarySearchSelector />
+                <Confetti
+                    width={width}
+                    height={height}
+                    run={isYourAnswer}
+                    recycle={false}
+                    tweenDuration={10000}
+                    numberOfPieces={60 * (answer?.age || 0) + 50}
 
+                />
 
             </main>
         </>

@@ -1,6 +1,15 @@
 import { LocalStorageHelper } from "../models/localstorage/LocalStorageHelper";
 import { ApiClient } from "./ApiClient";
 
+export type ListTodayTopicResultResponse = {
+    resultId: string,
+    score: number,
+    age: number,
+    topicId: string,
+    createdAt: string,
+}[]
+
+
 export type GetTodayTopicResponse = {
     question: {
         title: string
@@ -16,6 +25,7 @@ export type GetTodayTopicResponse = {
         age: number
         resultId: string
         name: string
+        userId: string
     } | null
 }
 
@@ -64,5 +74,15 @@ export class TodayApi {
         return res.data as { resultId: string }
     }
 
-
+    static async listTodayTopicResult(userId?: string) {
+        if (!userId) return []
+        const client = new ApiClient()
+        const res = await client.post(
+            "today/list_result",
+            {
+                userId: userId
+            }
+        )
+        return res.data as ListTodayTopicResultResponse
+    }
 }

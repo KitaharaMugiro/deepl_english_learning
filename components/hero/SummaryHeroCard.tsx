@@ -34,11 +34,14 @@ export default () => {
             }}>
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
-
-                        <Button onClick={startFree} variant="contained" color="primary" >
-                            さっそくやってみる(登録不要)
+                        <Button onClick={startFree} variant="outlined" color="primary" >
+                            さっそくやってみる
                         </Button>
-
+                    </Grid>
+                    <Grid item>
+                        <Button href="/today" disableElevation variant="contained" color="primary" >
+                            英語年齢診断テスト
+                        </Button>
                     </Grid>
                 </Grid>
             </div>

@@ -1,15 +1,14 @@
-import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material"
-import { List, ListItemButton, ListItemIcon, ListItemText, Collapse, Divider, Paper, Typography, ListItem, Button, FormControlLabel, FormGroup, Switch, Tooltip, Grid, Container, IconButton } from "@mui/material"
-import { useEffect, useState } from "react";
-import classes from "./styles.module.css"
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { DashboardListItem } from "../../models/type/DashboardListItem";
-import { RecordApi } from "../../api/RecordApi";
+import { Button, Collapse, Container, Divider, List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import useUseHeartConfirmation from "../../models/util-hooks/useUseHeartConfirmation";
+import { useEffect, useState } from "react";
+import { RecordApi } from "../../api/RecordApi";
+import { DashboardListItem } from "../../models/type/DashboardListItem";
+import useEventSubmit from "../../models/util-hooks/useEventSubmit";
 import usePlan from "../../models/util-hooks/usePlan";
 import TextToSpeechButton from "../speech/TextToSpeechButton";
-import useEventSubmit from "../../models/util-hooks/useEventSubmit";
+import classes from "./styles.module.css";
 
 interface Props {
     displayMaxSize?: number
@@ -23,10 +22,6 @@ export default (props: Props) => {
     const [openOpenOtehonIds, setOpenOtehonIds] = useState<string[]>([]);
     const [items, setItems] = useState<DashboardListItem[]>([]);
     const { submitRestudy } = useEventSubmit()
-    // const { dialog, openDialog, setCallbackParameter } = useUseHeartConfirmation("restudy", (studySessionId: string) => {
-    //     submitRestudy()
-    //     router.push("/restudy/" + studySessionId)
-    // })
 
     const isOverflow = props.displayMaxSize && items.length > props.displayMaxSize
 

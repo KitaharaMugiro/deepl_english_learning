@@ -8,6 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ForumIcon from '@mui/icons-material/Forum';
 import TranslateIcon from '@mui/icons-material/Translate';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import Link from 'next/link';
 import React from 'react';
 interface Props {
@@ -24,6 +25,16 @@ export const MainListItems = (props: Props) => {
                     <ListItemText primary="勉強する" />
                 </ListItem>
             </Link>
+
+            <Link href="/today">
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <CelebrationIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="今日の英語年齢診断" />
+                </ListItem>
+            </Link>
+
 
             <Link href="/dashboard" >
                 <ListItem button onClick={props.closeMenu}>

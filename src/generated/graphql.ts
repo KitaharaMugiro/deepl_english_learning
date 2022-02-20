@@ -530,6 +530,8 @@ export type Englister_PublicAnswers = {
   createdBy: Scalars['String'];
   id: Scalars['Int'];
   japanese?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  todayTopicId?: Maybe<Scalars['String']>;
   topicId: Scalars['Int'];
   translation?: Maybe<Scalars['String']>;
 };
@@ -545,6 +547,8 @@ export type Englister_PublicAnswers_Bool_Exp = {
   createdBy?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   japanese?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  todayTopicId?: InputMaybe<String_Comparison_Exp>;
   topicId?: InputMaybe<Int_Comparison_Exp>;
   translation?: InputMaybe<String_Comparison_Exp>;
 };
@@ -554,6 +558,8 @@ export type Englister_PublicAnswers_Insert_Input = {
   age?: InputMaybe<Scalars['Int']>;
   answer?: InputMaybe<Scalars['String']>;
   japanese?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  todayTopicId?: InputMaybe<Scalars['String']>;
   topicId?: InputMaybe<Scalars['Int']>;
   translation?: InputMaybe<Scalars['String']>;
 };
@@ -575,6 +581,8 @@ export type Englister_PublicAnswers_Order_By = {
   createdBy?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   japanese?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  todayTopicId?: InputMaybe<Order_By>;
   topicId?: InputMaybe<Order_By>;
   translation?: InputMaybe<Order_By>;
 };
@@ -593,6 +601,10 @@ export enum Englister_PublicAnswers_Select_Column {
   Id = 'id',
   /** column name */
   Japanese = 'japanese',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  TodayTopicId = 'todayTopicId',
   /** column name */
   TopicId = 'topicId',
   /** column name */
@@ -4450,6 +4462,13 @@ export type QueryPublciAnswersQueryVariables = Exact<{
 
 export type QueryPublciAnswersQuery = { __typename?: 'query_root', englister_PublicAnswers: Array<{ __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, japanese?: string | null | undefined, translation?: string | null | undefined, age?: number | null | undefined, createdBy: string, createdAt: any }> };
 
+export type QueryTodayPublciAnswerRankingQueryVariables = Exact<{
+  todayTopicId: Scalars['String'];
+}>;
+
+
+export type QueryTodayPublciAnswerRankingQuery = { __typename?: 'query_root', englister_PublicAnswers: Array<{ __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, japanese?: string | null | undefined, translation?: string | null | undefined, age?: number | null | undefined, name?: string | null | undefined, createdBy: string, createdAt: any }> };
+
 export type QueryPublicJapaneseQueryVariables = Exact<{
   topicId: Scalars['Int'];
 }>;
@@ -4467,6 +4486,19 @@ export type SubmitPublicAnswerMutationVariables = Exact<{
 
 
 export type SubmitPublicAnswerMutation = { __typename?: 'mutation_root', insert_englister_PublicAnswers_one?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null | undefined };
+
+export type SubmitTodayPublicAnswerMutationVariables = Exact<{
+  topicId: Scalars['Int'];
+  answer: Scalars['String'];
+  japanese: Scalars['String'];
+  translation: Scalars['String'];
+  age: Scalars['Int'];
+  todayTopicId: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type SubmitTodayPublicAnswerMutation = { __typename?: 'mutation_root', insert_englister_PublicAnswers_one?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null | undefined };
 
 export type DeletePublicAnswerMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -4671,7 +4703,7 @@ export const QueryPublciAnswersDocument = gql`
   englister_PublicAnswers(
     where: {topicId: {_eq: $topicId}}
     order_by: {createdAt: desc}
-    limit: 5
+    limit: 8
   ) {
     id
     topicId
@@ -4712,6 +4744,53 @@ export function useQueryPublciAnswersLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type QueryPublciAnswersQueryHookResult = ReturnType<typeof useQueryPublciAnswersQuery>;
 export type QueryPublciAnswersLazyQueryHookResult = ReturnType<typeof useQueryPublciAnswersLazyQuery>;
 export type QueryPublciAnswersQueryResult = Apollo.QueryResult<QueryPublciAnswersQuery, QueryPublciAnswersQueryVariables>;
+export const QueryTodayPublciAnswerRankingDocument = gql`
+    query queryTodayPublciAnswerRanking($todayTopicId: String!) {
+  englister_PublicAnswers(
+    where: {todayTopicId: {_eq: $todayTopicId}}
+    order_by: {age: desc}
+    limit: 50
+  ) {
+    id
+    topicId
+    answer
+    japanese
+    translation
+    age
+    name
+    createdBy
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useQueryTodayPublciAnswerRankingQuery__
+ *
+ * To run a query within a React component, call `useQueryTodayPublciAnswerRankingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryTodayPublciAnswerRankingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryTodayPublciAnswerRankingQuery({
+ *   variables: {
+ *      todayTopicId: // value for 'todayTopicId'
+ *   },
+ * });
+ */
+export function useQueryTodayPublciAnswerRankingQuery(baseOptions: Apollo.QueryHookOptions<QueryTodayPublciAnswerRankingQuery, QueryTodayPublciAnswerRankingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryTodayPublciAnswerRankingQuery, QueryTodayPublciAnswerRankingQueryVariables>(QueryTodayPublciAnswerRankingDocument, options);
+      }
+export function useQueryTodayPublciAnswerRankingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryTodayPublciAnswerRankingQuery, QueryTodayPublciAnswerRankingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryTodayPublciAnswerRankingQuery, QueryTodayPublciAnswerRankingQueryVariables>(QueryTodayPublciAnswerRankingDocument, options);
+        }
+export type QueryTodayPublciAnswerRankingQueryHookResult = ReturnType<typeof useQueryTodayPublciAnswerRankingQuery>;
+export type QueryTodayPublciAnswerRankingLazyQueryHookResult = ReturnType<typeof useQueryTodayPublciAnswerRankingLazyQuery>;
+export type QueryTodayPublciAnswerRankingQueryResult = Apollo.QueryResult<QueryTodayPublciAnswerRankingQuery, QueryTodayPublciAnswerRankingQueryVariables>;
 export const QueryPublicJapaneseDocument = gql`
     query queryPublicJapanese($topicId: Int!) {
   englister_PublicAnswers(
@@ -4798,6 +4877,51 @@ export function useSubmitPublicAnswerMutation(baseOptions?: Apollo.MutationHookO
 export type SubmitPublicAnswerMutationHookResult = ReturnType<typeof useSubmitPublicAnswerMutation>;
 export type SubmitPublicAnswerMutationResult = Apollo.MutationResult<SubmitPublicAnswerMutation>;
 export type SubmitPublicAnswerMutationOptions = Apollo.BaseMutationOptions<SubmitPublicAnswerMutation, SubmitPublicAnswerMutationVariables>;
+export const SubmitTodayPublicAnswerDocument = gql`
+    mutation SubmitTodayPublicAnswer($topicId: Int!, $answer: String!, $japanese: String!, $translation: String!, $age: Int!, $todayTopicId: String!, $name: String!) {
+  insert_englister_PublicAnswers_one(
+    object: {topicId: $topicId, answer: $answer, japanese: $japanese, translation: $translation, age: $age, todayTopicId: $todayTopicId, name: $name}
+  ) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}
+    `;
+export type SubmitTodayPublicAnswerMutationFn = Apollo.MutationFunction<SubmitTodayPublicAnswerMutation, SubmitTodayPublicAnswerMutationVariables>;
+
+/**
+ * __useSubmitTodayPublicAnswerMutation__
+ *
+ * To run a mutation, you first call `useSubmitTodayPublicAnswerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitTodayPublicAnswerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [submitTodayPublicAnswerMutation, { data, loading, error }] = useSubmitTodayPublicAnswerMutation({
+ *   variables: {
+ *      topicId: // value for 'topicId'
+ *      answer: // value for 'answer'
+ *      japanese: // value for 'japanese'
+ *      translation: // value for 'translation'
+ *      age: // value for 'age'
+ *      todayTopicId: // value for 'todayTopicId'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useSubmitTodayPublicAnswerMutation(baseOptions?: Apollo.MutationHookOptions<SubmitTodayPublicAnswerMutation, SubmitTodayPublicAnswerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SubmitTodayPublicAnswerMutation, SubmitTodayPublicAnswerMutationVariables>(SubmitTodayPublicAnswerDocument, options);
+      }
+export type SubmitTodayPublicAnswerMutationHookResult = ReturnType<typeof useSubmitTodayPublicAnswerMutation>;
+export type SubmitTodayPublicAnswerMutationResult = Apollo.MutationResult<SubmitTodayPublicAnswerMutation>;
+export type SubmitTodayPublicAnswerMutationOptions = Apollo.BaseMutationOptions<SubmitTodayPublicAnswerMutation, SubmitTodayPublicAnswerMutationVariables>;
 export const DeletePublicAnswerDocument = gql`
     mutation deletePublicAnswer($id: Int!) {
   delete_englister_PublicAnswers_by_pk(id: $id) {

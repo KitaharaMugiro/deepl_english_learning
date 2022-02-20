@@ -11,8 +11,6 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const [submitted, setSubmitted] = useState(false)
-    const [submitLoading, setSubmitLoading] = useState(false)
     const { data, loading, error, refetch } = useQueryPublciAnswersQuery({
         variables: { topicId: Number(props.topicId) }
     })

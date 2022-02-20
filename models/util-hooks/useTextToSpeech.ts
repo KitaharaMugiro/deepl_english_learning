@@ -5,6 +5,7 @@ export default () => {
     const speak = (text: string, language?: string) => {
         const uttr = new SpeechSynthesisUtterance(text)
         uttr.lang = language || "en-US"
+        uttr.voice = speechSynthesis.getVoices().find(v => v.lang === uttr.lang) || null
         window.speechSynthesis.speak(uttr)
     }
 

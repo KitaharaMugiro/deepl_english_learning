@@ -61,5 +61,15 @@ export default () => {
         FireGaEvent({ action: "click", category: "event", label: "restudy" })
     }
 
-    return { submitDiscord, submitTrial, submitSpeechRecognition, submitPhrase, submitTextToSpeech, submitRestudy }
+    const submitToday = () => {
+        EventApi.submitDoneEvent("Today", true).then(e => {
+            if (e.firstTime) {
+                displaySuccessMessage("クエストを完了しました！", "/quest")
+            }
+        })
+
+        FireGaEvent({ action: "click", category: "event", label: "restudy" })
+    }
+
+    return { submitDiscord, submitTrial, submitSpeechRecognition, submitPhrase, submitTextToSpeech, submitRestudy, submitToday }
 }

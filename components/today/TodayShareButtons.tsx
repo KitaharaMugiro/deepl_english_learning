@@ -12,7 +12,7 @@ export default (props: Props) => {
 
     const { displaySuccessMessage } = useSnackMessage()
 
-    const title = `英語年齢診断結果 ${props.name}さんの結果`
+    const title = `今日の英語年齢 ${props.name}さんの診断結果`
     const url = `https://english.yunomy.com/today/${props.resultId}`
     const isShareable = navigator.share !== undefined
 
@@ -32,7 +32,7 @@ export default (props: Props) => {
         <TwitterShareButton
             style={{ width: "100%" }}
             title={title}
-            hashtags={["Englister", "英語力診断", "英語年齢"]}
+            hashtags={["Englister", "英語力診断", "毎日英語年齢診断"]}
             url={url}
         >
             <Button

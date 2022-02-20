@@ -14,15 +14,17 @@ import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
 import { BackdropAtom } from '../../models/jotai/Backdrop';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomNameWithPersistence, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
+import useEventSubmit from '../../models/util-hooks/useEventSubmit';
 import useStudy from '../../models/util-hooks/useStudy';
-import { useSubmitPublicAnswerMutation } from '../../src/generated/graphql';
+import useUser from '../../models/util-hooks/useUser';
+import { useSubmitTodayPublicAnswerMutation } from '../../src/generated/graphql';
 import { Copyright } from '../footer/Copyright';
 import PhraseList from '../phrase/PhraseList';
 import WriteEnglish from '../study/WriteEnglish';
 import WriteJapanese from '../study/WriteJapanese';
 import TodayStudyTop from './TodayStudyTop';
 
-const steps = ['Your Name', 'English', "Result"];
+const steps = ['Your Name', 'Japanese', "English"];
 const stepTitles = ["今日の英語年齢診断", "日本語で意見を書く", "英語にする"]
 
 function getStepContent(step: number) {
@@ -49,8 +51,10 @@ export default function TodayStudyMainFrame(props: Props) {
     const [english] = useAtom(AtomEnglish)
     const [name] = useAtom(AtomNameWithPersistence)
     const [translation, setTranslation] = useAtom(AtomTranslation)
-    const [submitPublicAnswer] = useSubmitPublicAnswerMutation()
+    const [submitPublicAnswer] = useSubmitTodayPublicAnswerMutation()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+    const { submitToday } = useEventSubmit()
+    const { user } = useUser()
 
     const [_, setOpenLoading] = useAtom(BackdropAtom)
 
@@ -100,22 +104,22 @@ export default function TodayStudyMainFrame(props: Props) {
                 }
             )
 
-            try {
-                submitPublicAnswer({
-                    variables: {
-                        topicId: Number(props.todayTopic.question.topicId),
-                        answer: english,
-                        japanese: japanese,
-                        translation: translation,
-                        age: scores.age
-                    }
-                })
-            } catch {
-                console.warn("ログインしていないので結果を公開しませんでした")
-            }
+            submitPublicAnswer({
+                variables: {
+                    topicId: Number(props.todayTopic.question.topicId),
+                    answer: english,
+                    japanese: japanese,
+                    translation: translation,
+                    age: scores.age,
+                    todayTopicId: props.todayTopic.question.todayTopicId,
+                    name: name
+                }
+            })
+
 
 
             setOpenLoading(false)
+            submitToday()
             router.push("/today/" + resultId)
         }
 
@@ -128,11 +132,12 @@ export default function TodayStudyMainFrame(props: Props) {
         setActiveStep(activeStep - 1);
     };
 
-    const NextButton = (text: string) => (
+    const NextButton = (text: string, disable: boolean) => (
         <Button
             variant="contained"
             color="primary"
             onClick={handleNext}
+            disabled={disable}
             style={{
                 marginTop: "30px",
                 marginLeft: "10px",
@@ -145,7 +150,7 @@ export default function TodayStudyMainFrame(props: Props) {
     const renderButtons = () => {
         if (activeStep === 0) {
             return (
-                NextButton("次へ進む")
+                NextButton("次へ進む", name === "")
             )
         } else if (activeStep === 1) {
             return (<>
@@ -155,7 +160,7 @@ export default function TodayStudyMainFrame(props: Props) {
                 }}>
                     名前入力に戻る
                 </Button>
-                {NextButton("次へ進む")}
+                {NextButton("次へ進む", japanese === "")}
             </>
 
             )
@@ -168,7 +173,7 @@ export default function TodayStudyMainFrame(props: Props) {
                     }}>
                         日本語入力に戻る
                     </Button>
-                    {NextButton("結果を見る")}
+                    {NextButton("結果を見る", english === "")}
                 </>
             )
         }
@@ -217,8 +222,6 @@ export default function TodayStudyMainFrame(props: Props) {
 
                     </React.Fragment>
                 </Paper>
-                <div style={{ height: 10 }} />
-                <PhraseList />
                 <div style={{ height: 10 }} />
                 <Copyright />
             </main>

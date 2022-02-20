@@ -7,13 +7,29 @@ import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import Title from './Title';
 
+
 if (typeof Highcharts === 'object') {
     HighchartsExporting(Highcharts)
 }
 
-
 interface Props {
     data: number[]
+}
+
+function ma(series: number[], period: number) {
+    var data = [];
+    var sumForAverage = 0;
+    var i;
+    for (i = 0; i < series.length; i++) {
+        sumForAverage += series[i];
+        if (i < period) {
+            data.push(null);
+        } else {
+            sumForAverage -= series[i - period];
+            data.push(sumForAverage / period);
+        }
+    }
+    return data
 }
 
 export default function Chart(props: Props) {
@@ -23,7 +39,12 @@ export default function Chart(props: Props) {
         },
         series: [{
             data: props.data
-        }],
+        },
+            // {
+            //     data: ma(props.data, 5),
+            //     name: "MA5"
+            // }
+        ],
         xAxis: {
             categories: [
                 '1', '2', '3'

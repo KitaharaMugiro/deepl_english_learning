@@ -2,13 +2,30 @@ query queryPublciAnswers($topicId: Int!) {
   englister_PublicAnswers(
       where:{topicId:{_eq:$topicId}}, 
       order_by:{createdAt:desc},
-      limit:5) {
+      limit:8) {
     id
     topicId
     answer
     japanese
     translation
     age
+    createdBy
+    createdAt
+  }
+}
+
+query queryTodayPublciAnswerRanking($todayTopicId: String!) {
+  englister_PublicAnswers(
+      where:{todayTopicId:{_eq:$todayTopicId}}, 
+      order_by:{age:desc},
+      limit:50) {
+    id
+    topicId
+    answer
+    japanese
+    translation
+    age
+    name
     createdBy
     createdAt
   }
@@ -35,6 +52,25 @@ mutation SubmitPublicAnswer($topicId: Int!, $answer: String!, $japanese: String!
     japanese: $japanese,
     translation: $translation,
     age: $age}) {
+    id
+    topicId
+    answer
+    createdAt
+    createdBy
+  }
+}
+
+mutation SubmitTodayPublicAnswer(
+  $topicId: Int!, $answer: String!, $japanese: String!, 
+  $translation: String!, $age: Int!, $todayTopicId: String!,
+  $name: String!) {
+  insert_englister_PublicAnswers_one(object:{
+    topicId:$topicId, 
+    answer:$answer,
+    japanese: $japanese,
+    translation: $translation,
+    age: $age, todayTopicId: $todayTopicId,
+    name: $name}) {
     id
     topicId
     answer
