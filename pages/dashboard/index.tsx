@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CategoryApi } from '../../api/CategoryApi';
 import { RecordApi } from '../../api/RecordApi';
-import FloatingStartStudyButton from '../../components/common/FloatingStartStudyButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
@@ -101,7 +100,6 @@ function Dashboard({ categoryInfo }: {
                         </Grid>
                     </Grid>
                 </Container >
-                <FloatingStartStudyButton />
             </main>
 
         </div>
