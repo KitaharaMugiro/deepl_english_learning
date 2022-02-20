@@ -94,7 +94,7 @@ export default function TodayStudyMainFrame(props: Props) {
             const { resultId } = await TodayApi.submitTodayTopicResult(
                 {
                     todayTopicId: props.todayTopic.question.todayTopicId,
-                    score: scores.score_num,
+                    score: scores.scoreRaw,
                     topicId: props.todayTopic.question.topicId,
                     english: english,
                     translation: resTranslation.translation,

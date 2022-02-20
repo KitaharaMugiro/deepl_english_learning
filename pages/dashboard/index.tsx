@@ -3,40 +3,48 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { CategoryApi } from '../../api/CategoryApi';
 import { RecordApi } from '../../api/RecordApi';
-import FloatingStartStudyButton from '../../components/common/FloatingStartStudyButton';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
 import QuestList from '../../components/quest/QuestList';
+import TopCategoryRow from '../../components/top/TopCategoryRow';
+import { Category } from '../../models/type/Category';
 import classes from "./style.module.css";
 
-export default function Dashboard() {
+function Dashboard({ categoryInfo }: {
+    categoryInfo: {
+        "new": Category[],
+        "popular": Category[],
+        "free": Category[]
+    }
+}) {
     const router = useRouter()
-    const [scores, setScores] = useState<number[]>([])
-
-
+    const [scores, setScores] = useState<{ score: number, createdAt: Date, age: number }[]>([])
     useEffect(() => {
         const getScoreList = async () => {
             const scoreList = await RecordApi.getScoreList()
-            const _data = scoreList.map(s => s.score)
-            setScores(_data)
+            const _scores = scoreList.map(s => {
+                return { score: s.score, createdAt: new Date(s.createdAt), age: s.age || 0 }
+            }).filter(s => s.score)
+            setScores(_scores)
         }
         getScoreList()
     }, [])
 
-    const averageScore = scores.length === 0 ? 0 : Math.round(scores.reduce((a, b) => (a + b)) / scores.length * 10) / 10
-
-
+    const averageScore = scores.length === 0 ? 0 : Math.round(scores.map(r => r.score).reduce((a, b) => (a + b)) / scores.length * 10) / 10
+    const averageAge = scores.length === 0 ? 0 : Math.round(scores.filter(r => r.age).map(r => r.age).reduce((a, b) => (a + b)) / scores.filter(r => r.age).length)
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
         <div className={classes.root}>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
                 <Container maxWidth="xl" className={classes.container}>
+                    <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強する" />
                     <Typography variant="h4" gutterBottom component="h2">
                         <b>ダッシュボード</b>
                     </Typography>
@@ -44,21 +52,31 @@ export default function Dashboard() {
                         {/* Chart */}
                         <Grid item xs={12} md={12} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                                <Chart data={scores} />
+                                <Chart data={scores.map(s => s.score)} date={scores.map(s => s.createdAt.toDateString())} title="スコア推移" />
+                            </Paper>
+                            <Paper className={fixedHeightPaper}>
+                                <Chart data={scores.filter(s => s.age).map(s => s.age)} date={scores.filter(s => s.age).map(s => s.createdAt.toDateString())} title="年齢推移" />
                             </Paper>
                         </Grid>
 
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={12} lg={3}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6} md={6} lg={12}>
+                            <Grid container spacing={1}>
+                                <Grid item xs={4} md={4} lg={12}>
                                     <Paper className={fixedHeightPaper}>
                                         <Deposits
                                             title='Average Score'
                                             score={averageScore} />
                                     </Paper>
                                 </Grid>
-                                <Grid item xs={6} md={6} lg={12}>
+                                <Grid item xs={4} md={4} lg={12}>
+                                    <Paper className={fixedHeightPaper}>
+                                        <Deposits
+                                            title='Average Age'
+                                            score={averageAge} />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={4} md={4} lg={12}>
                                     <Paper className={fixedHeightPaper}>
                                         <Deposits
                                             title='Exam Taken'
@@ -91,9 +109,19 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
                 </Container >
-                <FloatingStartStudyButton />
             </main>
 
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const categoryInfo = await CategoryApi.getCategoryList()
+    return {
+        props: {
+            categoryInfo
+        }
+    }
+}
+
+export default Dashboard;

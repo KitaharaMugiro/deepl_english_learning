@@ -12,7 +12,7 @@ export default () => {
         if (categorySlug) {
             router.push(`/q/${categorySlug}/start`)
         } else {
-            router.push(`/home`)
+            router.push(`/q/free/start`)
         }
     }
 

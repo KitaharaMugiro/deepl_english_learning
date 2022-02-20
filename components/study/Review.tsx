@@ -3,15 +3,13 @@ import { Paper, Typography } from '@mui/material';
 import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
+import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import DetailScoreBoard from './DetailScoreBoard';
 import classes from "./style.module.css";
-
-
-var similarity = require('string-cosine-similarity')
 
 export default function Review() {
 
@@ -26,23 +24,27 @@ export default function Review() {
     const [needRetry, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
 
     useEffect(() => {
-        const similarityValue = similarity(english, translation)
-        const _score = Math.round(similarityValue * 100)
-        setScore(_score)
+        //スコアや年齢を取得する
+        const client = new ApiSpecialClient()
+        client.englishScore(english, translation).then(res => {
+            const _score = Math.round(res.scoreRaw)
+            const _age = res.age
 
-        //初回のスコアを送信する
-        RecordApi.submitScore(_score)
-        RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese)
+            //初回のスコアを送信する
+            RecordApi.submitScore(_score, _age)
+            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
-        console.log({ _score })
+            setScore(_score)
 
-        if (_score > 85) {
-            setNeedRetry(false)
-            setVisibleDiff(true)
-        } else {
-            setNeedRetry(true)
-            setVisibleDiff(false)
-        }
+            if (_score > 85) {
+                setNeedRetry(false)
+                setVisibleDiff(true)
+            } else {
+                setNeedRetry(true)
+                setVisibleDiff(false)
+            }
+        })
+
     }, [])
 
     const onSearchOnDictionary = (html: any, text: string) => {

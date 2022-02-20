@@ -1,10 +1,7 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
-import React, { useEffect, useState } from 'react';
-import { ApiClient } from '../../api/ApiClient';
-import { RecordApi } from '../../api/RecordApi';
-import { StudyApi } from '../../api/StudyApi';
+import React from 'react';
 import Title from './Title';
 
 
@@ -13,7 +10,9 @@ if (typeof Highcharts === 'object') {
 }
 
 interface Props {
-    data: number[]
+    data: number[],
+    date: string[],
+    title: string
 }
 
 function ma(series: number[], period: number) {
@@ -46,9 +45,7 @@ export default function Chart(props: Props) {
             // }
         ],
         xAxis: {
-            categories: [
-                '1', '2', '3'
-            ]
+            categories: props.date
         },
         yAxis: {
             title: {
@@ -78,7 +75,7 @@ export default function Chart(props: Props) {
 
     return (
         <React.Fragment>
-            <Title>スコア履歴</Title>
+            <Title>{props.title}</Title>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
