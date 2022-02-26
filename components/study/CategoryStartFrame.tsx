@@ -91,6 +91,7 @@ export default (props: Props) => {
                     </Typography>
 
                     <HowToPlayEnglister />
+
                     <ProgressBar
                         value={doneTopicNum}
                         maximum={allTopicNum}

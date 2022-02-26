@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
-import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import DetailScoreBoard from './DetailScoreBoard';
@@ -21,7 +21,6 @@ export default function Review() {
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const [visibleDiff, setVisibleDiff] = useState(false)
-    const [needRetry, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
 
     useEffect(() => {
         //スコアや年齢を取得する
@@ -37,10 +36,8 @@ export default function Review() {
             setScore(_score)
 
             if (_score > 85) {
-                setNeedRetry(false)
                 setVisibleDiff(true)
             } else {
-                setNeedRetry(true)
                 setVisibleDiff(false)
             }
         })

@@ -12,7 +12,7 @@ import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { StudyApi } from '../../api/StudyApi';
 import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
 import { BackdropAtom } from '../../models/jotai/Backdrop';
-import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomNameWithPersistence, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomNameWithPersistence, AtomTranslation } from '../../models/jotai/StudyJotai';
 import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import useEventSubmit from '../../models/util-hooks/useEventSubmit';
 import useStudy from '../../models/util-hooks/useStudy';

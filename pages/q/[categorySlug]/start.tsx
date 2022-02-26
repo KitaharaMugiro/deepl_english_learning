@@ -12,23 +12,6 @@ const CategoryStart = () => {
     const { openPlanModal, isPremium } = usePlan()
     const [loading, setLoading] = useState(false)
     const [leftHeart, setLeftHearts] = useAtom(LeftHeartsAtom)
-    // const { dialog, openDialog, setCallbackParameter } = useUseHeartConfirmation("study", async (categorySlug: string) => {
-    //     setLoading(true)
-    //     if (!loading) {
-    //         try {
-    //             await startStudy(categorySlug)
-    //             router.push(`/q/${categorySlug}`)
-    //         } catch (e) {
-    //             console.warn(e)
-    //             openPlanModal()
-    //         }
-    //         StudyApi.leftHeart().then(({ leftHeart }) => {
-    //             setLeftHearts(leftHeart)
-    //         })
-    //     }
-    //     setLoading(false)
-    // })
-
 
     const onClickStart = async () => {
         if (categorySlug !== "free") {

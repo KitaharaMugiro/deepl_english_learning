@@ -5,7 +5,6 @@ export const AtomActiveQuestion = atom<Question>({ topicId: "", title: "", descr
 export const AtomJapanse = atom("")
 export const AtomEnglish = atom("")
 export const AtomTranslation = atom("")
-export const AtomQuestionNeedRetry = atom(false)
 export const AtomAge = atom(0)
 
 export const AtomName = atom(process.browser ? (localStorage.getItem("user_name") || "") : "")
