@@ -1,9 +1,6 @@
-import { Button, TextField, Typography } from "@mui/material"
-import { useAtom } from "jotai"
-import { useState } from "react"
-import { AtomJapanse, AtomEnglish, AtomTranslation, AtomQuestionNeedRetry, AtomActiveQuestion, AtomAge } from "../../models/jotai/StudyJotai"
+import { Typography } from "@mui/material"
 import useUser from "../../models/util-hooks/useUser"
-import { useQueryPublciAnswersQuery, useSubmitPublicAnswerMutation } from "../../src/generated/graphql"
+import { useQueryPublciAnswersQuery } from "../../src/generated/graphql"
 import PublicAnswerCard from "../publicAnswers/PublicAnswerCard"
 
 interface Props {

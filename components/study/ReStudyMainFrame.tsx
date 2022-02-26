@@ -9,7 +9,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
 import { LeftHeartsAtom } from '../../models/jotai/LeftHearts';
-import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import usePlan from '../../models/util-hooks/usePlan';
 import { Copyright } from '../footer/Copyright';
 import PhraseList from '../phrase/PhraseList';
@@ -40,13 +40,11 @@ interface Props {
 
 export default function ReStudyMainFrame(props: Props) {
     const [activeStep, setActiveStep] = useState(0);
-    const [needRetry] = useAtom(AtomQuestionNeedRetry)
     const [errorMessage, setErrorMessage] = useState("")
 
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [translation, setTranslation] = useAtom(AtomTranslation)
-    const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
 
     const [leftHearts, setLeftHearts] = useAtom(LeftHeartsAtom)
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
@@ -85,7 +83,6 @@ export default function ReStudyMainFrame(props: Props) {
             setJapanese("")
             setEnglish("")
             setTranslation("")
-            setNeedRetry(false)
 
             router.push(`/dashboard`)
             setNextButtonLoading(false)
@@ -154,19 +151,6 @@ export default function ReStudyMainFrame(props: Props) {
                 </>
             )
         } else if (activeStep === 2) {
-            if (needRetry) {
-                return (
-                    <Button onClick={handleBack}
-                        variant="contained"
-                        color="primary"
-                        style={{
-                            marginTop: "30px",
-                            marginLeft: "10px",
-                        }}>
-                        お手本を暗記してもう一回挑戦
-                    </Button>
-                )
-            }
             return (
                 <>
                     <Button onClick={handleBack} style={{

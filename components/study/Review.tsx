@@ -1,12 +1,13 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
-import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import SwitchableEnglishCard from '../dashboard/SwitchableEnglishCard';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import DetailScoreBoard from './DetailScoreBoard';
 import classes from "./style.module.css";
@@ -21,7 +22,11 @@ export default function Review() {
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const [visibleDiff, setVisibleDiff] = useState(false)
-    const [needRetry, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
+    const [hideOtehon, setHideOtehon] = useState(false)
+
+    const changeView = () => {
+        setVisibleDiff(!visibleDiff)
+    }
 
     useEffect(() => {
         //スコアや年齢を取得する
@@ -37,10 +42,8 @@ export default function Review() {
             setScore(_score)
 
             if (_score > 85) {
-                setNeedRetry(false)
                 setVisibleDiff(true)
             } else {
-                setNeedRetry(true)
                 setVisibleDiff(false)
             }
         })
@@ -77,9 +80,7 @@ export default function Review() {
             )
         } else {
             return (
-                <>
-                    <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>お手本の英語を暗記して復習しよう</Typography>
-
+                <div>
                     <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
                         {english}
                     </Paper>
@@ -89,14 +90,13 @@ export default function Review() {
                         <span>お手本の英語</span>
                     </div>
 
-                    <div style={{ position: "relative" }}>
-                        <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px" }}>
-                            {translation}
-                        </Paper>
-                        <TextToSpeechButton text={translation} />
-                    </div>
-
-                </>
+                    <SwitchableEnglishCard
+                        hide={hideOtehon}
+                        studySessionId=""
+                        handleClickOtehon={() => setHideOtehon(!hideOtehon)}
+                        translation={translation}
+                    />
+                </div>
             )
         }
     }
@@ -113,7 +113,12 @@ export default function Review() {
 
             <div style={{ height: 15 }} />
             {renderJapanese()}
+            <div style={{ height: 15 }} />
+            <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>
+                お手本の英語を暗記して復習しよう
+            </Typography>
             {renderDiffOrReview()}
+            <Button onClick={changeView}>ビューを切り替える</Button>
 
             <DictionarySearchSelector />
         </React.Fragment>

@@ -8,7 +8,7 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { StudyApi } from '../../api/StudyApi';
-import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomQuestionNeedRetry, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
 import useStudy from '../../models/util-hooks/useStudy';
 import { Copyright } from '../footer/Copyright';
@@ -42,14 +42,12 @@ interface Props {
 export default function StudyMainFrame(props: Props) {
 
     const [activeStep, setActiveStep] = useState(0);
-    const [needRetry] = useAtom(AtomQuestionNeedRetry)
     const [errorMessage, setErrorMessage] = useState("")
 
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [translation, setTranslation] = useAtom(AtomTranslation)
     const [___, setAtomAge] = useAtom(AtomAge)
-    const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
     const { savePrevStudiedCategory } = useStudy()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
 
@@ -79,7 +77,6 @@ export default function StudyMainFrame(props: Props) {
         setJapanese("")
         setEnglish("")
         setTranslation("")
-        setNeedRetry(false)
         setAtomAge(0)
 
         //     await endStudy(activeQuestion.topicId)
@@ -96,7 +93,6 @@ export default function StudyMainFrame(props: Props) {
             setJapanese("")
             setEnglish("")
             setTranslation("")
-            setNeedRetry(false)
             setAtomAge(0)
             router.push(`/record/${props.categorySlug}`)
             return
@@ -171,23 +167,6 @@ export default function StudyMainFrame(props: Props) {
                 </>
             )
         } else if (activeStep === 2) {
-            if (needRetry) {
-                return (
-                    <>
-                        {NextButton("終了")}
-                        <Button onClick={handleBack}
-                            variant="contained"
-                            color="primary"
-                            style={{
-                                marginTop: "30px",
-                                marginLeft: "10px",
-                            }}>
-                            お手本を暗記してもう一回挑戦
-                        </Button>
-                    </>
-
-                )
-            }
             return (
                 <>
                     <Button onClick={handleBack} style={{

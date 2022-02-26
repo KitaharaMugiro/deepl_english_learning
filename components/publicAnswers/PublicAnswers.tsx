@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from "@mui/material"
 import { useAtom } from "jotai"
 import { useState } from "react"
-import { AtomJapanse, AtomEnglish, AtomTranslation, AtomQuestionNeedRetry, AtomActiveQuestion, AtomAge } from "../../models/jotai/StudyJotai"
+import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from "../../models/jotai/StudyJotai"
 import useUser from "../../models/util-hooks/useUser"
 import { useQueryPublciAnswersQuery, useSubmitPublicAnswerMutation } from "../../src/generated/graphql"
 import PublicAnswerCard from "./PublicAnswerCard"
@@ -10,7 +10,6 @@ export default () => {
     const [translation] = useAtom(AtomTranslation)
     const [english] = useAtom(AtomEnglish)
     const [age] = useAtom(AtomAge)
-    const [_, setNeedRetry] = useAtom(AtomQuestionNeedRetry)
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
 
     const [submitted, setSubmitted] = useState(false)
