@@ -1,8 +1,6 @@
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
-import { Typography } from '@mui/material';
 import { Auth } from 'aws-amplify';
 import { AppleLoginButton, FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
-import useSignin from "../../models/util-hooks/useSignin";
 
 interface Props {
     url: string

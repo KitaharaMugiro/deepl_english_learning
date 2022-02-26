@@ -1,16 +1,18 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SchoolIcon from '@mui/icons-material/School';
-import { Fab, Paper, Typography } from '@mui/material';
+import { Button, Fab, Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { useCountdownTimer } from 'use-countdown-timer';
 import { GetTodayTopicResponse, ListTodayTopicResultResponse, TodayApi } from '../../api/TodayApi';
+import { FireGaEvent } from '../../models/gtag';
 import { AtomName } from '../../models/jotai/StudyJotai';
+import useSignin from '../../models/util-hooks/useSignin';
+import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
-import TodayPublicAnswers from './TodayPublicAnswers';
 import TodayResultHistoryGraph from './TodayResultHistoryGraph';
 import TodayShareButtons from './TodayShareButtons';
 import TodayStudyRanking from './TodayStudyRanking';
@@ -36,6 +38,8 @@ export default (props: Props) => {
     const [name] = useAtom(AtomName)
     const [results, setResults] = useState<ListTodayTopicResultResponse>([])
     const [alreadyTestTaken, setAlreadyTestTaken] = useState(false)
+    const { user } = useUser()
+    const { openSignin } = useSignin()
     const isYourAnswer = name === answer?.name //WARN: この判別は正しくない・・
 
     const START_TIME = 18
@@ -94,6 +98,10 @@ export default (props: Props) => {
         listResults()
     }, [])
 
+    const conversion = () => {
+        FireGaEvent({ action: "conversion_from_today", category: "register", label: "register" })
+        openSignin()
+    }
 
 
     return (
@@ -188,6 +196,19 @@ export default (props: Props) => {
 
                     <TodayStudyRanking todayTopicId={props.todayTopicResult.question.todayTopicId} />
 
+                    {!user?.attributes.sub && <div style={{ marginTop: 25 }} >
+                        <Typography variant="h4" >
+                            もっとEnglisterで英語年齢を上げませんか？
+                        </Typography>
+                        <Typography variant="body1" >
+                            英語面接や英語環境で5歳児のようなことを言ってしまっていることに課題感を感じている人に特におすすめです。
+                            本当に自分が使う言葉で英語を覚えていく体験をしてみませんか？
+                        </Typography>
+                        <div style={{ height: 10 }}></div>
+                        <Button variant="contained" size="large" onClick={conversion}>
+                            会員登録をしてみる(5秒)
+                        </Button>
+                    </div>}
                 </Paper>
 
 

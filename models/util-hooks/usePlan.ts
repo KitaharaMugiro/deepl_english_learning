@@ -1,11 +1,9 @@
 import { useAtom } from "jotai"
-import { useRouter } from "next/dist/client/router"
 import { useEffect, useState } from "react"
 import { SubscriptionApi } from "../../api/SubscriptionApi"
 import { FireGaEvent } from "../gtag"
 import { MaxHeartsAtom } from "../jotai/LeftHearts"
 import { IsOpenPlanModalAtom } from "../jotai/PlanModalJotai"
-import { IsOpenSigninModalAtom, PreviousUrlAtom } from "../jotai/PreviousUrl"
 
 export default () => {
     const [isOpenPlanModal, setOpenPlanModal] = useAtom(IsOpenPlanModalAtom)
