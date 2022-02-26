@@ -9,6 +9,7 @@ import useEventSubmit from "../../models/util-hooks/useEventSubmit";
 import usePlan from "../../models/util-hooks/usePlan";
 import TextToSpeechButton from "../speech/TextToSpeechButton";
 import classes from "./styles.module.css";
+import SwitchableEnglishCard from "./SwitchableEnglishCard";
 
 interface Props {
     displayMaxSize?: number
@@ -95,27 +96,12 @@ export default (props: Props) => {
                                     <span>お手本の英語</span>
                                 </div>
 
-                                {openOpenOtehonIds.includes(i.studySessionId) ?
-                                    <div style={{ position: "relative" }}>
-                                        <Paper elevation={0} style={{
-                                            backgroundColor: "#e6ffed",
-                                            padding: "20px"
-                                        }} onClick={() => handleClickOtehon(i.studySessionId)}>
-                                            {i.translation}
-                                        </Paper>
-                                        <TextToSpeechButton text={i.translation} />
-                                    </div>
-
-                                    : <Paper elevation={0} style={{
-                                        backgroundColor: "#FF6347",
-                                        opacity: 0.9,
-                                        padding: "20px", textAlign: "center", color: "white"
-                                    }}
-                                        onClick={() => handleClickOtehon(i.studySessionId)}>
-                                        お手本を見る
-                                    </Paper>
-
-                                }
+                                <SwitchableEnglishCard
+                                    hide={!openOpenOtehonIds.includes(i.studySessionId)}
+                                    studySessionId={i.studySessionId}
+                                    handleClickOtehon={handleClickOtehon}
+                                    translation={i.translation}
+                                />
                             </List>
                         </Container>
                     </Collapse>
