@@ -123,7 +123,7 @@ export default (props: Props) => {
                     marginRight: "auto",
                     marginLeft: "auto"
                 }}>
-                    <img src={`/static/ogp/slide${(answer?.age || 0) + 1}.png`} style={{ width: "100%" }} />
+                    <img src={`/static/ogp/slide_${(answer?.age || 0) + 1}.png`} style={{ width: "100%" }} />
                     <div style={{ height: 15 }} />
 
                     <h2 style={{ fontWeight: 700 }} >
