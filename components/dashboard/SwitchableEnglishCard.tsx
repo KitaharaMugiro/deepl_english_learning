@@ -30,7 +30,7 @@ export default (props: Props) => {
                 {props.translation}
             </Paper>
             <div style={{ position: "absolute", right: 40, bottom: 0 }}>
-                <Button onClick={() => props.handleClickOtehon(props.studySessionId)}>隠す</Button>
+                <Button onClick={() => props.handleClickOtehon(props.studySessionId)}>お手本を隠して覚える</Button>
             </div>
             <TextToSpeechButton text={props.translation} />
         </div>

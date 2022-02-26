@@ -7,6 +7,7 @@ import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import SwitchableEnglishCard from '../dashboard/SwitchableEnglishCard';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import DetailScoreBoard from './DetailScoreBoard';
 import classes from "./style.module.css";
@@ -21,6 +22,7 @@ export default function Review() {
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const [visibleDiff, setVisibleDiff] = useState(false)
+    const [hideOtehon, setHideOtehon] = useState(false)
 
     const changeView = () => {
         setVisibleDiff(!visibleDiff)
@@ -88,12 +90,12 @@ export default function Review() {
                         <span>お手本の英語</span>
                     </div>
 
-                    <div style={{ position: "relative" }}>
-                        <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px" }}>
-                            {translation}
-                        </Paper>
-                        <TextToSpeechButton text={translation} />
-                    </div>
+                    <SwitchableEnglishCard
+                        hide={hideOtehon}
+                        studySessionId=""
+                        handleClickOtehon={() => setHideOtehon(!hideOtehon)}
+                        translation={translation}
+                    />
                 </div>
             )
         }
