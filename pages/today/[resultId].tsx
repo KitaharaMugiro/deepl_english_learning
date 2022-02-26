@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const ogpInfo: OgpInfo = {
         title: "英語年齢診断 | あなたはネイティブ何歳並みの英語を話せますか？ | Englister",
         description: todayTopicResult.question.title,
-        image: `https://english.yunomy.com/static/ogp/slide${(todayTopicResult.answer?.age || 0) + 1}.png`
+        image: `https://english.yunomy.com/static/ogp/slide_${(todayTopicResult.answer?.age || 0) + 1}.png`
     }
     return {
         props: {
