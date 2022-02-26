@@ -1,7 +1,5 @@
 import { Fab, Typography } from "@mui/material"
-import useSignin from "../../models/util-hooks/useSignin"
 import useStudy from "../../models/util-hooks/useStudy"
-import useUser from "../../models/util-hooks/useUser"
 
 export default () => {
     const { isPrevStudiedCategoryExist, goPrevStudiedCategory } = useStudy()

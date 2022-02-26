@@ -51,8 +51,6 @@ export default (props: Props) => {
 
 
     if (error) return <div />
-    if (!user?.attributes.sub) return <Typography variant="caption">ログインするとランキングを閲覧・共有できるようになります。</Typography>
-
     return (
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {renderItems()}
