@@ -1,5 +1,5 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
@@ -21,6 +21,10 @@ export default function Review() {
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const [visibleDiff, setVisibleDiff] = useState(false)
+
+    const changeView = () => {
+        setVisibleDiff(!visibleDiff)
+    }
 
     useEffect(() => {
         //スコアや年齢を取得する
@@ -74,9 +78,7 @@ export default function Review() {
             )
         } else {
             return (
-                <>
-                    <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>お手本の英語を暗記して復習しよう</Typography>
-
+                <div>
                     <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
                         {english}
                     </Paper>
@@ -92,8 +94,7 @@ export default function Review() {
                         </Paper>
                         <TextToSpeechButton text={translation} />
                     </div>
-
-                </>
+                </div>
             )
         }
     }
@@ -110,7 +111,12 @@ export default function Review() {
 
             <div style={{ height: 15 }} />
             {renderJapanese()}
+            <div style={{ height: 15 }} />
+            <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>
+                お手本の英語を暗記して復習しよう
+            </Typography>
             {renderDiffOrReview()}
+            <Button onClick={changeView}>ビューを切り替える</Button>
 
             <DictionarySearchSelector />
         </React.Fragment>
