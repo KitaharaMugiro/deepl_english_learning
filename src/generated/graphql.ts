@@ -611,6 +611,307 @@ export enum Englister_PublicAnswers_Select_Column {
   Translation = 'translation'
 }
 
+/** columns and relationships of "englister.WordleRoom" */
+export type Englister_WordleRoom = {
+  __typename?: 'englister_WordleRoom';
+  /** An object relationship */
+  WordleRow?: Maybe<Englister_WordleRows>;
+  answer: Scalars['String'];
+  created_at: Scalars['timestamptz'];
+  five: Scalars['String'];
+  four: Scalars['String'];
+  one: Scalars['String'];
+  player1: Scalars['String'];
+  player2: Scalars['String'];
+  six: Scalars['String'];
+  slug: Scalars['String'];
+  three: Scalars['String'];
+  turn?: Maybe<Scalars['String']>;
+  two: Scalars['String'];
+};
+
+/** Boolean expression to filter rows from the table "englister.WordleRoom". All fields are combined with a logical 'AND'. */
+export type Englister_WordleRoom_Bool_Exp = {
+  WordleRow?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+  _and?: InputMaybe<Array<Englister_WordleRoom_Bool_Exp>>;
+  _not?: InputMaybe<Englister_WordleRoom_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_WordleRoom_Bool_Exp>>;
+  answer?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  five?: InputMaybe<String_Comparison_Exp>;
+  four?: InputMaybe<String_Comparison_Exp>;
+  one?: InputMaybe<String_Comparison_Exp>;
+  player1?: InputMaybe<String_Comparison_Exp>;
+  player2?: InputMaybe<String_Comparison_Exp>;
+  six?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  three?: InputMaybe<String_Comparison_Exp>;
+  turn?: InputMaybe<String_Comparison_Exp>;
+  two?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "englister.WordleRoom" */
+export enum Englister_WordleRoom_Constraint {
+  /** unique or primary key constraint */
+  WordleRoomPkey = 'WordleRoom_pkey'
+}
+
+/** input type for inserting data into table "englister.WordleRoom" */
+export type Englister_WordleRoom_Insert_Input = {
+  WordleRow?: InputMaybe<Englister_WordleRows_Obj_Rel_Insert_Input>;
+  answer?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  five?: InputMaybe<Scalars['String']>;
+  four?: InputMaybe<Scalars['String']>;
+  one?: InputMaybe<Scalars['String']>;
+  player1?: InputMaybe<Scalars['String']>;
+  player2?: InputMaybe<Scalars['String']>;
+  six?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  three?: InputMaybe<Scalars['String']>;
+  turn?: InputMaybe<Scalars['String']>;
+  two?: InputMaybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "englister.WordleRoom" */
+export type Englister_WordleRoom_Mutation_Response = {
+  __typename?: 'englister_WordleRoom_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Englister_WordleRoom>;
+};
+
+/** on conflict condition type for table "englister.WordleRoom" */
+export type Englister_WordleRoom_On_Conflict = {
+  constraint: Englister_WordleRoom_Constraint;
+  update_columns?: Array<Englister_WordleRoom_Update_Column>;
+  where?: InputMaybe<Englister_WordleRoom_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "englister.WordleRoom". */
+export type Englister_WordleRoom_Order_By = {
+  WordleRow?: InputMaybe<Englister_WordleRows_Order_By>;
+  answer?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  five?: InputMaybe<Order_By>;
+  four?: InputMaybe<Order_By>;
+  one?: InputMaybe<Order_By>;
+  player1?: InputMaybe<Order_By>;
+  player2?: InputMaybe<Order_By>;
+  six?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  three?: InputMaybe<Order_By>;
+  turn?: InputMaybe<Order_By>;
+  two?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: englister_WordleRoom */
+export type Englister_WordleRoom_Pk_Columns_Input = {
+  slug: Scalars['String'];
+};
+
+/** select columns of table "englister.WordleRoom" */
+export enum Englister_WordleRoom_Select_Column {
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Five = 'five',
+  /** column name */
+  Four = 'four',
+  /** column name */
+  One = 'one',
+  /** column name */
+  Player1 = 'player1',
+  /** column name */
+  Player2 = 'player2',
+  /** column name */
+  Six = 'six',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  Three = 'three',
+  /** column name */
+  Turn = 'turn',
+  /** column name */
+  Two = 'two'
+}
+
+/** input type for updating data in table "englister.WordleRoom" */
+export type Englister_WordleRoom_Set_Input = {
+  answer?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  five?: InputMaybe<Scalars['String']>;
+  four?: InputMaybe<Scalars['String']>;
+  one?: InputMaybe<Scalars['String']>;
+  player1?: InputMaybe<Scalars['String']>;
+  player2?: InputMaybe<Scalars['String']>;
+  six?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  three?: InputMaybe<Scalars['String']>;
+  turn?: InputMaybe<Scalars['String']>;
+  two?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "englister.WordleRoom" */
+export enum Englister_WordleRoom_Update_Column {
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Five = 'five',
+  /** column name */
+  Four = 'four',
+  /** column name */
+  One = 'one',
+  /** column name */
+  Player1 = 'player1',
+  /** column name */
+  Player2 = 'player2',
+  /** column name */
+  Six = 'six',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  Three = 'three',
+  /** column name */
+  Turn = 'turn',
+  /** column name */
+  Two = 'two'
+}
+
+/** columns and relationships of "englister.WordleRows" */
+export type Englister_WordleRows = {
+  __typename?: 'englister_WordleRows';
+  five: Scalars['String'];
+  four: Scalars['String'];
+  one: Scalars['String'];
+  roomSlug: Scalars['String'];
+  six: Scalars['String'];
+  three: Scalars['String'];
+  two: Scalars['String'];
+};
+
+/** Boolean expression to filter rows from the table "englister.WordleRows". All fields are combined with a logical 'AND'. */
+export type Englister_WordleRows_Bool_Exp = {
+  _and?: InputMaybe<Array<Englister_WordleRows_Bool_Exp>>;
+  _not?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_WordleRows_Bool_Exp>>;
+  five?: InputMaybe<String_Comparison_Exp>;
+  four?: InputMaybe<String_Comparison_Exp>;
+  one?: InputMaybe<String_Comparison_Exp>;
+  roomSlug?: InputMaybe<String_Comparison_Exp>;
+  six?: InputMaybe<String_Comparison_Exp>;
+  three?: InputMaybe<String_Comparison_Exp>;
+  two?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "englister.WordleRows" */
+export enum Englister_WordleRows_Constraint {
+  /** unique or primary key constraint */
+  WordleRowsPkey = 'WordleRows_pkey'
+}
+
+/** input type for inserting data into table "englister.WordleRows" */
+export type Englister_WordleRows_Insert_Input = {
+  five?: InputMaybe<Scalars['String']>;
+  four?: InputMaybe<Scalars['String']>;
+  one?: InputMaybe<Scalars['String']>;
+  roomSlug?: InputMaybe<Scalars['String']>;
+  six?: InputMaybe<Scalars['String']>;
+  three?: InputMaybe<Scalars['String']>;
+  two?: InputMaybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "englister.WordleRows" */
+export type Englister_WordleRows_Mutation_Response = {
+  __typename?: 'englister_WordleRows_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Englister_WordleRows>;
+};
+
+/** input type for inserting object relation for remote table "englister.WordleRows" */
+export type Englister_WordleRows_Obj_Rel_Insert_Input = {
+  data: Englister_WordleRows_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
+};
+
+/** on conflict condition type for table "englister.WordleRows" */
+export type Englister_WordleRows_On_Conflict = {
+  constraint: Englister_WordleRows_Constraint;
+  update_columns?: Array<Englister_WordleRows_Update_Column>;
+  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "englister.WordleRows". */
+export type Englister_WordleRows_Order_By = {
+  five?: InputMaybe<Order_By>;
+  four?: InputMaybe<Order_By>;
+  one?: InputMaybe<Order_By>;
+  roomSlug?: InputMaybe<Order_By>;
+  six?: InputMaybe<Order_By>;
+  three?: InputMaybe<Order_By>;
+  two?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: englister_WordleRows */
+export type Englister_WordleRows_Pk_Columns_Input = {
+  roomSlug: Scalars['String'];
+};
+
+/** select columns of table "englister.WordleRows" */
+export enum Englister_WordleRows_Select_Column {
+  /** column name */
+  Five = 'five',
+  /** column name */
+  Four = 'four',
+  /** column name */
+  One = 'one',
+  /** column name */
+  RoomSlug = 'roomSlug',
+  /** column name */
+  Six = 'six',
+  /** column name */
+  Three = 'three',
+  /** column name */
+  Two = 'two'
+}
+
+/** input type for updating data in table "englister.WordleRows" */
+export type Englister_WordleRows_Set_Input = {
+  five?: InputMaybe<Scalars['String']>;
+  four?: InputMaybe<Scalars['String']>;
+  one?: InputMaybe<Scalars['String']>;
+  roomSlug?: InputMaybe<Scalars['String']>;
+  six?: InputMaybe<Scalars['String']>;
+  three?: InputMaybe<Scalars['String']>;
+  two?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "englister.WordleRows" */
+export enum Englister_WordleRows_Update_Column {
+  /** column name */
+  Five = 'five',
+  /** column name */
+  Four = 'four',
+  /** column name */
+  One = 'one',
+  /** column name */
+  RoomSlug = 'roomSlug',
+  /** column name */
+  Six = 'six',
+  /** column name */
+  Three = 'three',
+  /** column name */
+  Two = 'two'
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -628,6 +929,10 @@ export type Mutation_Root = {
   delete_englister_PublicAnswers?: Maybe<Englister_PublicAnswers_Mutation_Response>;
   /** delete single row from the table: "englister.PublicAnswers" */
   delete_englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** delete data from the table: "englister.WordleRoom" */
+  delete_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
+  /** delete single row from the table: "englister.WordleRoom" */
+  delete_englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
   /** delete data from the table: "slideshare.Bookmark" */
   delete_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** delete single row from the table: "slideshare.Bookmark" */
@@ -684,6 +989,14 @@ export type Mutation_Root = {
   insert_englister_PublicAnswers?: Maybe<Englister_PublicAnswers_Mutation_Response>;
   /** insert a single row into the table: "englister.PublicAnswers" */
   insert_englister_PublicAnswers_one?: Maybe<Englister_PublicAnswers>;
+  /** insert data into the table: "englister.WordleRoom" */
+  insert_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
+  /** insert a single row into the table: "englister.WordleRoom" */
+  insert_englister_WordleRoom_one?: Maybe<Englister_WordleRoom>;
+  /** insert data into the table: "englister.WordleRows" */
+  insert_englister_WordleRows?: Maybe<Englister_WordleRows_Mutation_Response>;
+  /** insert a single row into the table: "englister.WordleRows" */
+  insert_englister_WordleRows_one?: Maybe<Englister_WordleRows>;
   /** insert data into the table: "slideshare.Bookmark" */
   insert_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** insert a single row into the table: "slideshare.Bookmark" */
@@ -753,6 +1066,14 @@ export type Mutation_Root = {
   update_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** update single row of the table: "englister.Phrase" */
   update_englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** update data of the table: "englister.WordleRoom" */
+  update_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
+  /** update single row of the table: "englister.WordleRoom" */
+  update_englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
+  /** update data of the table: "englister.WordleRows" */
+  update_englister_WordleRows?: Maybe<Englister_WordleRows_Mutation_Response>;
+  /** update single row of the table: "englister.WordleRows" */
+  update_englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
   /** update data of the table: "slideshare.Bookmark" */
   update_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** update single row of the table: "slideshare.Bookmark" */
@@ -843,6 +1164,18 @@ export type Mutation_RootDelete_Englister_PublicAnswersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Englister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_WordleRoomArgs = {
+  where: Englister_WordleRoom_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_WordleRoom_By_PkArgs = {
+  slug: Scalars['String'];
 };
 
 
@@ -1016,6 +1349,34 @@ export type Mutation_RootInsert_Englister_PublicAnswersArgs = {
 /** mutation root */
 export type Mutation_RootInsert_Englister_PublicAnswers_OneArgs = {
   object: Englister_PublicAnswers_Insert_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRoomArgs = {
+  objects: Array<Englister_WordleRoom_Insert_Input>;
+  on_conflict?: InputMaybe<Englister_WordleRoom_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRoom_OneArgs = {
+  object: Englister_WordleRoom_Insert_Input;
+  on_conflict?: InputMaybe<Englister_WordleRoom_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRowsArgs = {
+  objects: Array<Englister_WordleRows_Insert_Input>;
+  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRows_OneArgs = {
+  object: Englister_WordleRows_Insert_Input;
+  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
 };
 
 
@@ -1256,6 +1617,34 @@ export type Mutation_RootUpdate_Englister_Phrase_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Englister_WordleRoomArgs = {
+  _set?: InputMaybe<Englister_WordleRoom_Set_Input>;
+  where: Englister_WordleRoom_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Englister_WordleRoom_By_PkArgs = {
+  _set?: InputMaybe<Englister_WordleRoom_Set_Input>;
+  pk_columns: Englister_WordleRoom_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Englister_WordleRowsArgs = {
+  _set?: InputMaybe<Englister_WordleRows_Set_Input>;
+  where: Englister_WordleRows_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Englister_WordleRows_By_PkArgs = {
+  _set?: InputMaybe<Englister_WordleRows_Set_Input>;
+  pk_columns: Englister_WordleRows_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Slideshare_BookmarkArgs = {
   _inc?: InputMaybe<Slideshare_Bookmark_Inc_Input>;
   _set?: InputMaybe<Slideshare_Bookmark_Set_Input>;
@@ -1462,6 +1851,14 @@ export type Query_Root = {
   englister_PublicAnswers: Array<Englister_PublicAnswers>;
   /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
   englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.WordleRoom" */
+  englister_WordleRoom: Array<Englister_WordleRoom>;
+  /** fetch data from the table: "englister.WordleRoom" using primary key columns */
+  englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
+  /** fetch data from the table: "englister.WordleRows" */
+  englister_WordleRows: Array<Englister_WordleRows>;
+  /** fetch data from the table: "englister.WordleRows" using primary key columns */
+  englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -1582,6 +1979,34 @@ export type Query_RootEnglister_PublicAnswersArgs = {
 
 export type Query_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Query_RootEnglister_WordleRoomArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRoom_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRoom_Order_By>>;
+  where?: InputMaybe<Englister_WordleRoom_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_WordleRoom_By_PkArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type Query_RootEnglister_WordleRowsArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRows_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRows_Order_By>>;
+  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_WordleRows_By_PkArgs = {
+  roomSlug: Scalars['String'];
 };
 
 
@@ -4048,6 +4473,14 @@ export type Subscription_Root = {
   englister_PublicAnswers: Array<Englister_PublicAnswers>;
   /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
   englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.WordleRoom" */
+  englister_WordleRoom: Array<Englister_WordleRoom>;
+  /** fetch data from the table: "englister.WordleRoom" using primary key columns */
+  englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
+  /** fetch data from the table: "englister.WordleRows" */
+  englister_WordleRows: Array<Englister_WordleRows>;
+  /** fetch data from the table: "englister.WordleRows" using primary key columns */
+  englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -4168,6 +4601,34 @@ export type Subscription_RootEnglister_PublicAnswersArgs = {
 
 export type Subscription_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_WordleRoomArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRoom_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRoom_Order_By>>;
+  where?: InputMaybe<Englister_WordleRoom_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_WordleRoom_By_PkArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type Subscription_RootEnglister_WordleRowsArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRows_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRows_Order_By>>;
+  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_WordleRows_By_PkArgs = {
+  roomSlug: Scalars['String'];
 };
 
 
@@ -4506,6 +4967,106 @@ export type DeletePublicAnswerMutationVariables = Exact<{
 
 
 export type DeletePublicAnswerMutation = { __typename?: 'mutation_root', delete_englister_PublicAnswers_by_pk?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null | undefined };
+
+export type CreateRoomMutationVariables = Exact<{
+  slug: Scalars['String'];
+  answer: Scalars['String'];
+  player1?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CreateRoomMutation = { __typename?: 'mutation_root', insert_englister_WordleRoom_one?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type JoinRoomMutationVariables = Exact<{
+  slug: Scalars['String'];
+  player2?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type JoinRoomMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type WordleRoomsSubscriptionVariables = Exact<{
+  date: Scalars['timestamptz'];
+}>;
+
+
+export type WordleRoomsSubscription = { __typename?: 'subscription_root', englister_WordleRoom: Array<{ __typename?: 'englister_WordleRoom', slug: string }> };
+
+export type WordleRoomSubscriptionVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type WordleRoomSubscription = { __typename?: 'subscription_root', englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', answer: string, created_at: any, player1: string, player2: string, turn?: string | null | undefined, slug: string, five: string, four: string, one: string, six: string, three: string, two: string } | null | undefined };
+
+export type DeleteRoomMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+}>;
+
+
+export type DeleteRoomMutation = { __typename?: 'mutation_root', delete_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type SkipMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type SkipMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateOneRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateOneRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateTwoRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateTwoRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateThreeRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateThreeRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateFourRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateFourRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateFiveRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateFiveRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type UpdateSixRowMutationVariables = Exact<{
+  roomSlug: Scalars['String'];
+  text: Scalars['String'];
+  turn: Scalars['String'];
+}>;
+
+
+export type UpdateSixRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
 
 
 export const SavePhraseDocument = gql`
@@ -4959,3 +5520,449 @@ export function useDeletePublicAnswerMutation(baseOptions?: Apollo.MutationHookO
 export type DeletePublicAnswerMutationHookResult = ReturnType<typeof useDeletePublicAnswerMutation>;
 export type DeletePublicAnswerMutationResult = Apollo.MutationResult<DeletePublicAnswerMutation>;
 export type DeletePublicAnswerMutationOptions = Apollo.BaseMutationOptions<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>;
+export const CreateRoomDocument = gql`
+    mutation CreateRoom($slug: String!, $answer: String!, $player1: String) {
+  insert_englister_WordleRoom_one(
+    object: {answer: $answer, player1: $player1, player2: "", turn: $player1, slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}
+  ) {
+    slug
+  }
+}
+    `;
+export type CreateRoomMutationFn = Apollo.MutationFunction<CreateRoomMutation, CreateRoomMutationVariables>;
+
+/**
+ * __useCreateRoomMutation__
+ *
+ * To run a mutation, you first call `useCreateRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRoomMutation, { data, loading, error }] = useCreateRoomMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      answer: // value for 'answer'
+ *      player1: // value for 'player1'
+ *   },
+ * });
+ */
+export function useCreateRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateRoomMutation, CreateRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRoomMutation, CreateRoomMutationVariables>(CreateRoomDocument, options);
+      }
+export type CreateRoomMutationHookResult = ReturnType<typeof useCreateRoomMutation>;
+export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>;
+export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
+export const JoinRoomDocument = gql`
+    mutation JoinRoom($slug: String!, $player2: String) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $slug}
+    _set: {player2: $player2}
+  ) {
+    slug
+  }
+}
+    `;
+export type JoinRoomMutationFn = Apollo.MutationFunction<JoinRoomMutation, JoinRoomMutationVariables>;
+
+/**
+ * __useJoinRoomMutation__
+ *
+ * To run a mutation, you first call `useJoinRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [joinRoomMutation, { data, loading, error }] = useJoinRoomMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      player2: // value for 'player2'
+ *   },
+ * });
+ */
+export function useJoinRoomMutation(baseOptions?: Apollo.MutationHookOptions<JoinRoomMutation, JoinRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<JoinRoomMutation, JoinRoomMutationVariables>(JoinRoomDocument, options);
+      }
+export type JoinRoomMutationHookResult = ReturnType<typeof useJoinRoomMutation>;
+export type JoinRoomMutationResult = Apollo.MutationResult<JoinRoomMutation>;
+export type JoinRoomMutationOptions = Apollo.BaseMutationOptions<JoinRoomMutation, JoinRoomMutationVariables>;
+export const WordleRoomsDocument = gql`
+    subscription WordleRooms($date: timestamptz!) {
+  englister_WordleRoom(
+    where: {created_at: {_gte: $date}, player2: {_eq: ""}}
+    order_by: {created_at: desc}
+  ) {
+    slug
+  }
+}
+    `;
+
+/**
+ * __useWordleRoomsSubscription__
+ *
+ * To run a query within a React component, call `useWordleRoomsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useWordleRoomsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWordleRoomsSubscription({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useWordleRoomsSubscription(baseOptions: Apollo.SubscriptionHookOptions<WordleRoomsSubscription, WordleRoomsSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<WordleRoomsSubscription, WordleRoomsSubscriptionVariables>(WordleRoomsDocument, options);
+      }
+export type WordleRoomsSubscriptionHookResult = ReturnType<typeof useWordleRoomsSubscription>;
+export type WordleRoomsSubscriptionResult = Apollo.SubscriptionResult<WordleRoomsSubscription>;
+export const WordleRoomDocument = gql`
+    subscription WordleRoom($slug: String!) {
+  englister_WordleRoom_by_pk(slug: $slug) {
+    answer
+    created_at
+    player1
+    player2
+    turn
+    slug
+    five
+    four
+    one
+    six
+    three
+    two
+  }
+}
+    `;
+
+/**
+ * __useWordleRoomSubscription__
+ *
+ * To run a query within a React component, call `useWordleRoomSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useWordleRoomSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWordleRoomSubscription({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useWordleRoomSubscription(baseOptions: Apollo.SubscriptionHookOptions<WordleRoomSubscription, WordleRoomSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<WordleRoomSubscription, WordleRoomSubscriptionVariables>(WordleRoomDocument, options);
+      }
+export type WordleRoomSubscriptionHookResult = ReturnType<typeof useWordleRoomSubscription>;
+export type WordleRoomSubscriptionResult = Apollo.SubscriptionResult<WordleRoomSubscription>;
+export const DeleteRoomDocument = gql`
+    mutation deleteRoom($roomSlug: String!) {
+  delete_englister_WordleRoom_by_pk(slug: $roomSlug) {
+    slug
+  }
+}
+    `;
+export type DeleteRoomMutationFn = Apollo.MutationFunction<DeleteRoomMutation, DeleteRoomMutationVariables>;
+
+/**
+ * __useDeleteRoomMutation__
+ *
+ * To run a mutation, you first call `useDeleteRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRoomMutation, { data, loading, error }] = useDeleteRoomMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *   },
+ * });
+ */
+export function useDeleteRoomMutation(baseOptions?: Apollo.MutationHookOptions<DeleteRoomMutation, DeleteRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteRoomMutation, DeleteRoomMutationVariables>(DeleteRoomDocument, options);
+      }
+export type DeleteRoomMutationHookResult = ReturnType<typeof useDeleteRoomMutation>;
+export type DeleteRoomMutationResult = Apollo.MutationResult<DeleteRoomMutation>;
+export type DeleteRoomMutationOptions = Apollo.BaseMutationOptions<DeleteRoomMutation, DeleteRoomMutationVariables>;
+export const SkipDocument = gql`
+    mutation skip($roomSlug: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type SkipMutationFn = Apollo.MutationFunction<SkipMutation, SkipMutationVariables>;
+
+/**
+ * __useSkipMutation__
+ *
+ * To run a mutation, you first call `useSkipMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSkipMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [skipMutation, { data, loading, error }] = useSkipMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useSkipMutation(baseOptions?: Apollo.MutationHookOptions<SkipMutation, SkipMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SkipMutation, SkipMutationVariables>(SkipDocument, options);
+      }
+export type SkipMutationHookResult = ReturnType<typeof useSkipMutation>;
+export type SkipMutationResult = Apollo.MutationResult<SkipMutation>;
+export type SkipMutationOptions = Apollo.BaseMutationOptions<SkipMutation, SkipMutationVariables>;
+export const UpdateOneRowDocument = gql`
+    mutation updateOneRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {one: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateOneRowMutationFn = Apollo.MutationFunction<UpdateOneRowMutation, UpdateOneRowMutationVariables>;
+
+/**
+ * __useUpdateOneRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneRowMutation, { data, loading, error }] = useUpdateOneRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateOneRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneRowMutation, UpdateOneRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneRowMutation, UpdateOneRowMutationVariables>(UpdateOneRowDocument, options);
+      }
+export type UpdateOneRowMutationHookResult = ReturnType<typeof useUpdateOneRowMutation>;
+export type UpdateOneRowMutationResult = Apollo.MutationResult<UpdateOneRowMutation>;
+export type UpdateOneRowMutationOptions = Apollo.BaseMutationOptions<UpdateOneRowMutation, UpdateOneRowMutationVariables>;
+export const UpdateTwoRowDocument = gql`
+    mutation updateTwoRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {two: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateTwoRowMutationFn = Apollo.MutationFunction<UpdateTwoRowMutation, UpdateTwoRowMutationVariables>;
+
+/**
+ * __useUpdateTwoRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateTwoRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTwoRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTwoRowMutation, { data, loading, error }] = useUpdateTwoRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateTwoRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTwoRowMutation, UpdateTwoRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTwoRowMutation, UpdateTwoRowMutationVariables>(UpdateTwoRowDocument, options);
+      }
+export type UpdateTwoRowMutationHookResult = ReturnType<typeof useUpdateTwoRowMutation>;
+export type UpdateTwoRowMutationResult = Apollo.MutationResult<UpdateTwoRowMutation>;
+export type UpdateTwoRowMutationOptions = Apollo.BaseMutationOptions<UpdateTwoRowMutation, UpdateTwoRowMutationVariables>;
+export const UpdateThreeRowDocument = gql`
+    mutation updateThreeRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {three: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateThreeRowMutationFn = Apollo.MutationFunction<UpdateThreeRowMutation, UpdateThreeRowMutationVariables>;
+
+/**
+ * __useUpdateThreeRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateThreeRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateThreeRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateThreeRowMutation, { data, loading, error }] = useUpdateThreeRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateThreeRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateThreeRowMutation, UpdateThreeRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateThreeRowMutation, UpdateThreeRowMutationVariables>(UpdateThreeRowDocument, options);
+      }
+export type UpdateThreeRowMutationHookResult = ReturnType<typeof useUpdateThreeRowMutation>;
+export type UpdateThreeRowMutationResult = Apollo.MutationResult<UpdateThreeRowMutation>;
+export type UpdateThreeRowMutationOptions = Apollo.BaseMutationOptions<UpdateThreeRowMutation, UpdateThreeRowMutationVariables>;
+export const UpdateFourRowDocument = gql`
+    mutation updateFourRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {four: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateFourRowMutationFn = Apollo.MutationFunction<UpdateFourRowMutation, UpdateFourRowMutationVariables>;
+
+/**
+ * __useUpdateFourRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateFourRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFourRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFourRowMutation, { data, loading, error }] = useUpdateFourRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateFourRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFourRowMutation, UpdateFourRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFourRowMutation, UpdateFourRowMutationVariables>(UpdateFourRowDocument, options);
+      }
+export type UpdateFourRowMutationHookResult = ReturnType<typeof useUpdateFourRowMutation>;
+export type UpdateFourRowMutationResult = Apollo.MutationResult<UpdateFourRowMutation>;
+export type UpdateFourRowMutationOptions = Apollo.BaseMutationOptions<UpdateFourRowMutation, UpdateFourRowMutationVariables>;
+export const UpdateFiveRowDocument = gql`
+    mutation updateFiveRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {five: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateFiveRowMutationFn = Apollo.MutationFunction<UpdateFiveRowMutation, UpdateFiveRowMutationVariables>;
+
+/**
+ * __useUpdateFiveRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateFiveRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFiveRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFiveRowMutation, { data, loading, error }] = useUpdateFiveRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateFiveRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFiveRowMutation, UpdateFiveRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFiveRowMutation, UpdateFiveRowMutationVariables>(UpdateFiveRowDocument, options);
+      }
+export type UpdateFiveRowMutationHookResult = ReturnType<typeof useUpdateFiveRowMutation>;
+export type UpdateFiveRowMutationResult = Apollo.MutationResult<UpdateFiveRowMutation>;
+export type UpdateFiveRowMutationOptions = Apollo.BaseMutationOptions<UpdateFiveRowMutation, UpdateFiveRowMutationVariables>;
+export const UpdateSixRowDocument = gql`
+    mutation updateSixRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(
+    pk_columns: {slug: $roomSlug}
+    _set: {six: $text, turn: $turn}
+  ) {
+    slug
+  }
+}
+    `;
+export type UpdateSixRowMutationFn = Apollo.MutationFunction<UpdateSixRowMutation, UpdateSixRowMutationVariables>;
+
+/**
+ * __useUpdateSixRowMutation__
+ *
+ * To run a mutation, you first call `useUpdateSixRowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSixRowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSixRowMutation, { data, loading, error }] = useUpdateSixRowMutation({
+ *   variables: {
+ *      roomSlug: // value for 'roomSlug'
+ *      text: // value for 'text'
+ *      turn: // value for 'turn'
+ *   },
+ * });
+ */
+export function useUpdateSixRowMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSixRowMutation, UpdateSixRowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSixRowMutation, UpdateSixRowMutationVariables>(UpdateSixRowDocument, options);
+      }
+export type UpdateSixRowMutationHookResult = ReturnType<typeof useUpdateSixRowMutation>;
+export type UpdateSixRowMutationResult = Apollo.MutationResult<UpdateSixRowMutation>;
+export type UpdateSixRowMutationOptions = Apollo.BaseMutationOptions<UpdateSixRowMutation, UpdateSixRowMutationVariables>;

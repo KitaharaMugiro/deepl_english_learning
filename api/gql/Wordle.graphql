@@ -1,0 +1,87 @@
+mutation CreateRoom($slug: String!, $answer: String!, $player1: String) {
+  insert_englister_WordleRoom_one(object: {answer: $answer, player1: $player1, player2: "", turn:$player1 , slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}) {
+    slug
+  }
+}
+
+mutation JoinRoom($slug: String!, $player2: String) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $slug}, _set: {player2: $player2}) {
+    slug
+  }
+}
+
+subscription WordleRooms($date: timestamptz!) {
+  englister_WordleRoom(
+    where: {created_at: {_gte: $date}, player2: {_eq: ""}},
+  	order_by: {created_at: desc}
+  ) {
+    slug
+  }
+}
+
+
+
+subscription WordleRoom($slug: String!) {
+  englister_WordleRoom_by_pk(slug: $slug) {
+        answer
+        created_at
+        player1
+        player2
+        turn
+        slug
+        five
+        four
+        one
+        six
+        three
+        two
+  }
+}
+
+mutation deleteRoom($roomSlug: String!) {
+  delete_englister_WordleRoom_by_pk(slug:$roomSlug) {
+    slug
+  }
+}
+
+mutation skip($roomSlug: String!,  $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateOneRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {one: $text, turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateTwoRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {two: $text, turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateThreeRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {three: $text, turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateFourRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {four: $text, turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateFiveRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {five: $text, turn: $turn}) {
+    slug
+  }
+}
+
+mutation updateSixRow($roomSlug: String!, $text: String!, $turn: String!) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {six: $text, turn: $turn}) {
+    slug
+  }
+}

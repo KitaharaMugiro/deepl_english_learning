@@ -1,0 +1,4 @@
+import { atom } from "jotai";
+
+export const WordleUserInput = atom("")
+export const ActiveWordleRow = atom(0)
