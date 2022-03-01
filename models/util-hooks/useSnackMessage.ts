@@ -1,8 +1,9 @@
 import { useAtom } from "jotai"
-import { SnackbarAtom, SnackbarColorAtom, SnackbarLinkAtom, SnackbarMessageAtom } from "../jotai/Backdrop"
+import { CenterSnackbarAtom, SnackbarAtom, SnackbarColorAtom, SnackbarLinkAtom, SnackbarMessageAtom } from "../jotai/Backdrop"
 
 export const useSnackMessage = () => {
     const [open, setOpen] = useAtom(SnackbarAtom)
+    const [centerOpen, setCenterOpen] = useAtom(CenterSnackbarAtom)
     const [__, setMessage] = useAtom(SnackbarMessageAtom)
     const [_, setColor] = useAtom(SnackbarColorAtom)
     const [___, setLink] = useAtom(SnackbarLinkAtom)
@@ -28,5 +29,12 @@ export const useSnackMessage = () => {
         setOpen(true)
     }
 
-    return { displayInfoMessage, displayErrorMessage, displaySuccessMessage }
+    const displayCenterWarningMessage = (message: string, url?: string) => {
+        setMessage(message)
+        setColor("warning")
+        setLink(url || "")
+        setCenterOpen(true)
+    }
+
+    return { displayInfoMessage, displayErrorMessage, displaySuccessMessage, displayCenterWarningMessage }
 }

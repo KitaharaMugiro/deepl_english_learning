@@ -32,7 +32,6 @@ export default (props: Props) => {
                     </CardContent>
                 </Card>
             </a>
-
         </Link>
     )
 }

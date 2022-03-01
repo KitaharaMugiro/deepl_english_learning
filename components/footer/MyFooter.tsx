@@ -1,8 +1,11 @@
+import { useAtom } from "jotai"
 import Link from "next/link"
+import { DisplayHeaderAtom } from "../../models/jotai/Display"
 import { Copyright } from "./Copyright"
 import style from "./style.module.css"
 
 export default () => {
+    const [displayHeader] = useAtom(DisplayHeaderAtom)
     const MenuItems = [
         { title: "トップページ", link: "/" },
         { title: "お問い合わせ", link: "https://docs.google.com/forms/d/e/1FAIpQLSfpVp24DmJSR5IvLVqy0AuXSt1ZNxyAMxONMSZMEebh2EYqxw/viewform?usp=sf_link" },
@@ -31,7 +34,8 @@ export default () => {
             width: "100%",
             backgroundColor: "#273132",
             marginTop: 140,
-            minHeight: 360
+            minHeight: 360,
+            display: displayHeader ? "inline" : "none",
         }}>
 
             <div className={style.container}>
@@ -42,7 +46,6 @@ export default () => {
                 </div>
 
             </div>
-
         </div>
     )
 }
