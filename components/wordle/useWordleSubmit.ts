@@ -1,12 +1,13 @@
 import { useAtom } from "jotai"
-import { ActiveWordleRow } from "../../models/jotai/Wordle"
+import { ActiveWordleRow, WordleMissCount } from "../../models/jotai/Wordle"
 import { useSnackMessage } from "../../models/util-hooks/useSnackMessage"
-import { useUpdateOneRowMutation, useUpdateTwoRowMutation, useUpdateThreeRowMutation, useUpdateFourRowMutation, useUpdateFiveRowMutation, useUpdateSixRowMutation, useSkipMutation } from "../../src/generated/graphql"
+import { useUpdateOneRowMutation, useUpdateTwoRowMutation, useUpdateThreeRowMutation, useUpdateFourRowMutation, useUpdateFiveRowMutation, useUpdateSixRowMutation, useSkipMutation, useAddSkippedWordMutation } from "../../src/generated/graphql"
 import { answers } from "./const"
 
 export default () => {
     const { displayCenterWarningMessage } = useSnackMessage()
     const [activeRow] = useAtom(ActiveWordleRow)
+    const [missCount, setMissCount] = useAtom(WordleMissCount)
     const [updateOne] = useUpdateOneRowMutation()
     const [updateTwo] = useUpdateTwoRowMutation()
     const [updateThree] = useUpdateThreeRowMutation()
@@ -14,6 +15,8 @@ export default () => {
     const [updateFive] = useUpdateFiveRowMutation()
     const [updateSix] = useUpdateSixRowMutation()
     const [skipTurn] = useSkipMutation()
+    const [addSkippedWord] = useAddSkippedWordMutation()
+
 
 
     const submit = async (userInput: string, emptyUserInput: Function, slug: string, nextTurn: string) => {
@@ -22,13 +25,25 @@ export default () => {
             return
         }
         if (!answers.some((a) => a === userInput)) {
-            displayCenterWarningMessage("Not in word list. Your turn is skipped!")
-            await skipTurn({
+            setMissCount(missCount + 1)
+            addSkippedWord({
                 variables: {
-                    roomSlug: slug,
-                    turn: nextTurn
+                    slug: slug,
+                    word: userInput
                 }
             })
+
+            if (missCount >= 3) {
+                displayCenterWarningMessage(`Not in word list.(${missCount + 1} / 3). Your turn is skipped.`)
+                await skipTurn({
+                    variables: {
+                        roomSlug: slug,
+                        turn: nextTurn
+                    }
+                })
+            } else {
+                displayCenterWarningMessage(`Not in word list.(${missCount + 1} / 3).`)
+            }
             emptyUserInput()
             return
         }

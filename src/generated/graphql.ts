@@ -614,15 +614,15 @@ export enum Englister_PublicAnswers_Select_Column {
 /** columns and relationships of "englister.WordleRoom" */
 export type Englister_WordleRoom = {
   __typename?: 'englister_WordleRoom';
-  /** An object relationship */
-  WordleRow?: Maybe<Englister_WordleRows>;
   answer: Scalars['String'];
   created_at: Scalars['timestamptz'];
   five: Scalars['String'];
   four: Scalars['String'];
   one: Scalars['String'];
   player1: Scalars['String'];
+  player1_name?: Maybe<Scalars['String']>;
   player2: Scalars['String'];
+  player2_name?: Maybe<Scalars['String']>;
   six: Scalars['String'];
   slug: Scalars['String'];
   three: Scalars['String'];
@@ -632,7 +632,6 @@ export type Englister_WordleRoom = {
 
 /** Boolean expression to filter rows from the table "englister.WordleRoom". All fields are combined with a logical 'AND'. */
 export type Englister_WordleRoom_Bool_Exp = {
-  WordleRow?: InputMaybe<Englister_WordleRows_Bool_Exp>;
   _and?: InputMaybe<Array<Englister_WordleRoom_Bool_Exp>>;
   _not?: InputMaybe<Englister_WordleRoom_Bool_Exp>;
   _or?: InputMaybe<Array<Englister_WordleRoom_Bool_Exp>>;
@@ -642,7 +641,9 @@ export type Englister_WordleRoom_Bool_Exp = {
   four?: InputMaybe<String_Comparison_Exp>;
   one?: InputMaybe<String_Comparison_Exp>;
   player1?: InputMaybe<String_Comparison_Exp>;
+  player1_name?: InputMaybe<String_Comparison_Exp>;
   player2?: InputMaybe<String_Comparison_Exp>;
+  player2_name?: InputMaybe<String_Comparison_Exp>;
   six?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   three?: InputMaybe<String_Comparison_Exp>;
@@ -658,14 +659,15 @@ export enum Englister_WordleRoom_Constraint {
 
 /** input type for inserting data into table "englister.WordleRoom" */
 export type Englister_WordleRoom_Insert_Input = {
-  WordleRow?: InputMaybe<Englister_WordleRows_Obj_Rel_Insert_Input>;
   answer?: InputMaybe<Scalars['String']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   five?: InputMaybe<Scalars['String']>;
   four?: InputMaybe<Scalars['String']>;
   one?: InputMaybe<Scalars['String']>;
   player1?: InputMaybe<Scalars['String']>;
+  player1_name?: InputMaybe<Scalars['String']>;
   player2?: InputMaybe<Scalars['String']>;
+  player2_name?: InputMaybe<Scalars['String']>;
   six?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   three?: InputMaybe<Scalars['String']>;
@@ -691,14 +693,15 @@ export type Englister_WordleRoom_On_Conflict = {
 
 /** Ordering options when selecting data from "englister.WordleRoom". */
 export type Englister_WordleRoom_Order_By = {
-  WordleRow?: InputMaybe<Englister_WordleRows_Order_By>;
   answer?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   five?: InputMaybe<Order_By>;
   four?: InputMaybe<Order_By>;
   one?: InputMaybe<Order_By>;
   player1?: InputMaybe<Order_By>;
+  player1_name?: InputMaybe<Order_By>;
   player2?: InputMaybe<Order_By>;
+  player2_name?: InputMaybe<Order_By>;
   six?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   three?: InputMaybe<Order_By>;
@@ -726,7 +729,11 @@ export enum Englister_WordleRoom_Select_Column {
   /** column name */
   Player1 = 'player1',
   /** column name */
+  Player1Name = 'player1_name',
+  /** column name */
   Player2 = 'player2',
+  /** column name */
+  Player2Name = 'player2_name',
   /** column name */
   Six = 'six',
   /** column name */
@@ -747,7 +754,9 @@ export type Englister_WordleRoom_Set_Input = {
   four?: InputMaybe<Scalars['String']>;
   one?: InputMaybe<Scalars['String']>;
   player1?: InputMaybe<Scalars['String']>;
+  player1_name?: InputMaybe<Scalars['String']>;
   player2?: InputMaybe<Scalars['String']>;
+  player2_name?: InputMaybe<Scalars['String']>;
   six?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   three?: InputMaybe<Scalars['String']>;
@@ -770,7 +779,11 @@ export enum Englister_WordleRoom_Update_Column {
   /** column name */
   Player1 = 'player1',
   /** column name */
+  Player1Name = 'player1_name',
+  /** column name */
   Player2 = 'player2',
+  /** column name */
+  Player2Name = 'player2_name',
   /** column name */
   Six = 'six',
   /** column name */
@@ -783,133 +796,61 @@ export enum Englister_WordleRoom_Update_Column {
   Two = 'two'
 }
 
-/** columns and relationships of "englister.WordleRows" */
-export type Englister_WordleRows = {
-  __typename?: 'englister_WordleRows';
-  five: Scalars['String'];
-  four: Scalars['String'];
-  one: Scalars['String'];
-  roomSlug: Scalars['String'];
-  six: Scalars['String'];
-  three: Scalars['String'];
-  two: Scalars['String'];
+/** columns and relationships of "englister.WordleSkippedWords" */
+export type Englister_WordleSkippedWords = {
+  __typename?: 'englister_WordleSkippedWords';
+  created_at: Scalars['timestamptz'];
+  id: Scalars['Int'];
+  roomId: Scalars['String'];
+  word: Scalars['String'];
 };
 
-/** Boolean expression to filter rows from the table "englister.WordleRows". All fields are combined with a logical 'AND'. */
-export type Englister_WordleRows_Bool_Exp = {
-  _and?: InputMaybe<Array<Englister_WordleRows_Bool_Exp>>;
-  _not?: InputMaybe<Englister_WordleRows_Bool_Exp>;
-  _or?: InputMaybe<Array<Englister_WordleRows_Bool_Exp>>;
-  five?: InputMaybe<String_Comparison_Exp>;
-  four?: InputMaybe<String_Comparison_Exp>;
-  one?: InputMaybe<String_Comparison_Exp>;
-  roomSlug?: InputMaybe<String_Comparison_Exp>;
-  six?: InputMaybe<String_Comparison_Exp>;
-  three?: InputMaybe<String_Comparison_Exp>;
-  two?: InputMaybe<String_Comparison_Exp>;
+/** Boolean expression to filter rows from the table "englister.WordleSkippedWords". All fields are combined with a logical 'AND'. */
+export type Englister_WordleSkippedWords_Bool_Exp = {
+  _and?: InputMaybe<Array<Englister_WordleSkippedWords_Bool_Exp>>;
+  _not?: InputMaybe<Englister_WordleSkippedWords_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_WordleSkippedWords_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  roomId?: InputMaybe<String_Comparison_Exp>;
+  word?: InputMaybe<String_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "englister.WordleRows" */
-export enum Englister_WordleRows_Constraint {
-  /** unique or primary key constraint */
-  WordleRowsPkey = 'WordleRows_pkey'
-}
-
-/** input type for inserting data into table "englister.WordleRows" */
-export type Englister_WordleRows_Insert_Input = {
-  five?: InputMaybe<Scalars['String']>;
-  four?: InputMaybe<Scalars['String']>;
-  one?: InputMaybe<Scalars['String']>;
-  roomSlug?: InputMaybe<Scalars['String']>;
-  six?: InputMaybe<Scalars['String']>;
-  three?: InputMaybe<Scalars['String']>;
-  two?: InputMaybe<Scalars['String']>;
+/** input type for inserting data into table "englister.WordleSkippedWords" */
+export type Englister_WordleSkippedWords_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['Int']>;
+  roomId?: InputMaybe<Scalars['String']>;
+  word?: InputMaybe<Scalars['String']>;
 };
 
-/** response of any mutation on the table "englister.WordleRows" */
-export type Englister_WordleRows_Mutation_Response = {
-  __typename?: 'englister_WordleRows_mutation_response';
+/** response of any mutation on the table "englister.WordleSkippedWords" */
+export type Englister_WordleSkippedWords_Mutation_Response = {
+  __typename?: 'englister_WordleSkippedWords_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Englister_WordleRows>;
+  returning: Array<Englister_WordleSkippedWords>;
 };
 
-/** input type for inserting object relation for remote table "englister.WordleRows" */
-export type Englister_WordleRows_Obj_Rel_Insert_Input = {
-  data: Englister_WordleRows_Insert_Input;
-  /** on conflict condition */
-  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
+/** Ordering options when selecting data from "englister.WordleSkippedWords". */
+export type Englister_WordleSkippedWords_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  roomId?: InputMaybe<Order_By>;
+  word?: InputMaybe<Order_By>;
 };
 
-/** on conflict condition type for table "englister.WordleRows" */
-export type Englister_WordleRows_On_Conflict = {
-  constraint: Englister_WordleRows_Constraint;
-  update_columns?: Array<Englister_WordleRows_Update_Column>;
-  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "englister.WordleRows". */
-export type Englister_WordleRows_Order_By = {
-  five?: InputMaybe<Order_By>;
-  four?: InputMaybe<Order_By>;
-  one?: InputMaybe<Order_By>;
-  roomSlug?: InputMaybe<Order_By>;
-  six?: InputMaybe<Order_By>;
-  three?: InputMaybe<Order_By>;
-  two?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: englister_WordleRows */
-export type Englister_WordleRows_Pk_Columns_Input = {
-  roomSlug: Scalars['String'];
-};
-
-/** select columns of table "englister.WordleRows" */
-export enum Englister_WordleRows_Select_Column {
+/** select columns of table "englister.WordleSkippedWords" */
+export enum Englister_WordleSkippedWords_Select_Column {
   /** column name */
-  Five = 'five',
+  CreatedAt = 'created_at',
   /** column name */
-  Four = 'four',
+  Id = 'id',
   /** column name */
-  One = 'one',
+  RoomId = 'roomId',
   /** column name */
-  RoomSlug = 'roomSlug',
-  /** column name */
-  Six = 'six',
-  /** column name */
-  Three = 'three',
-  /** column name */
-  Two = 'two'
-}
-
-/** input type for updating data in table "englister.WordleRows" */
-export type Englister_WordleRows_Set_Input = {
-  five?: InputMaybe<Scalars['String']>;
-  four?: InputMaybe<Scalars['String']>;
-  one?: InputMaybe<Scalars['String']>;
-  roomSlug?: InputMaybe<Scalars['String']>;
-  six?: InputMaybe<Scalars['String']>;
-  three?: InputMaybe<Scalars['String']>;
-  two?: InputMaybe<Scalars['String']>;
-};
-
-/** update columns of table "englister.WordleRows" */
-export enum Englister_WordleRows_Update_Column {
-  /** column name */
-  Five = 'five',
-  /** column name */
-  Four = 'four',
-  /** column name */
-  One = 'one',
-  /** column name */
-  RoomSlug = 'roomSlug',
-  /** column name */
-  Six = 'six',
-  /** column name */
-  Three = 'three',
-  /** column name */
-  Two = 'two'
+  Word = 'word'
 }
 
 /** mutation root */
@@ -993,10 +934,10 @@ export type Mutation_Root = {
   insert_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
   /** insert a single row into the table: "englister.WordleRoom" */
   insert_englister_WordleRoom_one?: Maybe<Englister_WordleRoom>;
-  /** insert data into the table: "englister.WordleRows" */
-  insert_englister_WordleRows?: Maybe<Englister_WordleRows_Mutation_Response>;
-  /** insert a single row into the table: "englister.WordleRows" */
-  insert_englister_WordleRows_one?: Maybe<Englister_WordleRows>;
+  /** insert data into the table: "englister.WordleSkippedWords" */
+  insert_englister_WordleSkippedWords?: Maybe<Englister_WordleSkippedWords_Mutation_Response>;
+  /** insert a single row into the table: "englister.WordleSkippedWords" */
+  insert_englister_WordleSkippedWords_one?: Maybe<Englister_WordleSkippedWords>;
   /** insert data into the table: "slideshare.Bookmark" */
   insert_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** insert a single row into the table: "slideshare.Bookmark" */
@@ -1070,10 +1011,6 @@ export type Mutation_Root = {
   update_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
   /** update single row of the table: "englister.WordleRoom" */
   update_englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
-  /** update data of the table: "englister.WordleRows" */
-  update_englister_WordleRows?: Maybe<Englister_WordleRows_Mutation_Response>;
-  /** update single row of the table: "englister.WordleRows" */
-  update_englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
   /** update data of the table: "slideshare.Bookmark" */
   update_slideshare_Bookmark?: Maybe<Slideshare_Bookmark_Mutation_Response>;
   /** update single row of the table: "slideshare.Bookmark" */
@@ -1367,16 +1304,14 @@ export type Mutation_RootInsert_Englister_WordleRoom_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Englister_WordleRowsArgs = {
-  objects: Array<Englister_WordleRows_Insert_Input>;
-  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
+export type Mutation_RootInsert_Englister_WordleSkippedWordsArgs = {
+  objects: Array<Englister_WordleSkippedWords_Insert_Input>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Englister_WordleRows_OneArgs = {
-  object: Englister_WordleRows_Insert_Input;
-  on_conflict?: InputMaybe<Englister_WordleRows_On_Conflict>;
+export type Mutation_RootInsert_Englister_WordleSkippedWords_OneArgs = {
+  object: Englister_WordleSkippedWords_Insert_Input;
 };
 
 
@@ -1631,20 +1566,6 @@ export type Mutation_RootUpdate_Englister_WordleRoom_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Englister_WordleRowsArgs = {
-  _set?: InputMaybe<Englister_WordleRows_Set_Input>;
-  where: Englister_WordleRows_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Englister_WordleRows_By_PkArgs = {
-  _set?: InputMaybe<Englister_WordleRows_Set_Input>;
-  pk_columns: Englister_WordleRows_Pk_Columns_Input;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_Slideshare_BookmarkArgs = {
   _inc?: InputMaybe<Slideshare_Bookmark_Inc_Input>;
   _set?: InputMaybe<Slideshare_Bookmark_Set_Input>;
@@ -1855,10 +1776,10 @@ export type Query_Root = {
   englister_WordleRoom: Array<Englister_WordleRoom>;
   /** fetch data from the table: "englister.WordleRoom" using primary key columns */
   englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
-  /** fetch data from the table: "englister.WordleRows" */
-  englister_WordleRows: Array<Englister_WordleRows>;
-  /** fetch data from the table: "englister.WordleRows" using primary key columns */
-  englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
+  /** fetch data from the table: "englister.WordleSkippedWords" */
+  englister_WordleSkippedWords: Array<Englister_WordleSkippedWords>;
+  /** fetch data from the table: "englister.WordleSkippedWords" using primary key columns */
+  englister_WordleSkippedWords_by_pk?: Maybe<Englister_WordleSkippedWords>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -1996,17 +1917,17 @@ export type Query_RootEnglister_WordleRoom_By_PkArgs = {
 };
 
 
-export type Query_RootEnglister_WordleRowsArgs = {
-  distinct_on?: InputMaybe<Array<Englister_WordleRows_Select_Column>>;
+export type Query_RootEnglister_WordleSkippedWordsArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleSkippedWords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Englister_WordleRows_Order_By>>;
-  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+  order_by?: InputMaybe<Array<Englister_WordleSkippedWords_Order_By>>;
+  where?: InputMaybe<Englister_WordleSkippedWords_Bool_Exp>;
 };
 
 
-export type Query_RootEnglister_WordleRows_By_PkArgs = {
-  roomSlug: Scalars['String'];
+export type Query_RootEnglister_WordleSkippedWords_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -4477,10 +4398,10 @@ export type Subscription_Root = {
   englister_WordleRoom: Array<Englister_WordleRoom>;
   /** fetch data from the table: "englister.WordleRoom" using primary key columns */
   englister_WordleRoom_by_pk?: Maybe<Englister_WordleRoom>;
-  /** fetch data from the table: "englister.WordleRows" */
-  englister_WordleRows: Array<Englister_WordleRows>;
-  /** fetch data from the table: "englister.WordleRows" using primary key columns */
-  englister_WordleRows_by_pk?: Maybe<Englister_WordleRows>;
+  /** fetch data from the table: "englister.WordleSkippedWords" */
+  englister_WordleSkippedWords: Array<Englister_WordleSkippedWords>;
+  /** fetch data from the table: "englister.WordleSkippedWords" using primary key columns */
+  englister_WordleSkippedWords_by_pk?: Maybe<Englister_WordleSkippedWords>;
   /** fetch data from the table: "slideshare.Bookmark" */
   slideshare_Bookmark: Array<Slideshare_Bookmark>;
   /** fetch data from the table: "slideshare.Bookmark" using primary key columns */
@@ -4618,17 +4539,17 @@ export type Subscription_RootEnglister_WordleRoom_By_PkArgs = {
 };
 
 
-export type Subscription_RootEnglister_WordleRowsArgs = {
-  distinct_on?: InputMaybe<Array<Englister_WordleRows_Select_Column>>;
+export type Subscription_RootEnglister_WordleSkippedWordsArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleSkippedWords_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Englister_WordleRows_Order_By>>;
-  where?: InputMaybe<Englister_WordleRows_Bool_Exp>;
+  order_by?: InputMaybe<Array<Englister_WordleSkippedWords_Order_By>>;
+  where?: InputMaybe<Englister_WordleSkippedWords_Bool_Exp>;
 };
 
 
-export type Subscription_RootEnglister_WordleRows_By_PkArgs = {
-  roomSlug: Scalars['String'];
+export type Subscription_RootEnglister_WordleSkippedWords_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -4972,6 +4893,7 @@ export type CreateRoomMutationVariables = Exact<{
   slug: Scalars['String'];
   answer: Scalars['String'];
   player1?: InputMaybe<Scalars['String']>;
+  player1_name?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -4980,6 +4902,7 @@ export type CreateRoomMutation = { __typename?: 'mutation_root', insert_engliste
 export type JoinRoomMutationVariables = Exact<{
   slug: Scalars['String'];
   player2?: InputMaybe<Scalars['String']>;
+  player2_name?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -4990,14 +4913,21 @@ export type WordleRoomsSubscriptionVariables = Exact<{
 }>;
 
 
-export type WordleRoomsSubscription = { __typename?: 'subscription_root', englister_WordleRoom: Array<{ __typename?: 'englister_WordleRoom', slug: string }> };
+export type WordleRoomsSubscription = { __typename?: 'subscription_root', englister_WordleRoom: Array<{ __typename?: 'englister_WordleRoom', slug: string, player1_name?: string | null | undefined, created_at: any }> };
+
+export type SkippedWordsSubscriptionVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SkippedWordsSubscription = { __typename?: 'subscription_root', englister_WordleSkippedWords: Array<{ __typename?: 'englister_WordleSkippedWords', id: number, word: string, created_at: any }> };
 
 export type WordleRoomSubscriptionVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type WordleRoomSubscription = { __typename?: 'subscription_root', englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', answer: string, created_at: any, player1: string, player2: string, turn?: string | null | undefined, slug: string, five: string, four: string, one: string, six: string, three: string, two: string } | null | undefined };
+export type WordleRoomSubscription = { __typename?: 'subscription_root', englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', answer: string, created_at: any, player1: string, player2: string, player1_name?: string | null | undefined, player2_name?: string | null | undefined, turn?: string | null | undefined, slug: string, five: string, four: string, one: string, six: string, three: string, two: string } | null | undefined };
 
 export type DeleteRoomMutationVariables = Exact<{
   roomSlug: Scalars['String'];
@@ -5067,6 +4997,14 @@ export type UpdateSixRowMutationVariables = Exact<{
 
 
 export type UpdateSixRowMutation = { __typename?: 'mutation_root', update_englister_WordleRoom_by_pk?: { __typename?: 'englister_WordleRoom', slug: string } | null | undefined };
+
+export type AddSkippedWordMutationVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+  word?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AddSkippedWordMutation = { __typename?: 'mutation_root', insert_englister_WordleSkippedWords_one?: { __typename?: 'englister_WordleSkippedWords', id: number } | null | undefined };
 
 
 export const SavePhraseDocument = gql`
@@ -5521,9 +5459,9 @@ export type DeletePublicAnswerMutationHookResult = ReturnType<typeof useDeletePu
 export type DeletePublicAnswerMutationResult = Apollo.MutationResult<DeletePublicAnswerMutation>;
 export type DeletePublicAnswerMutationOptions = Apollo.BaseMutationOptions<DeletePublicAnswerMutation, DeletePublicAnswerMutationVariables>;
 export const CreateRoomDocument = gql`
-    mutation CreateRoom($slug: String!, $answer: String!, $player1: String) {
+    mutation CreateRoom($slug: String!, $answer: String!, $player1: String, $player1_name: String) {
   insert_englister_WordleRoom_one(
-    object: {answer: $answer, player1: $player1, player2: "", turn: $player1, slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}
+    object: {answer: $answer, player1: $player1, player1_name: $player1_name, player2: "", turn: $player1, slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}
   ) {
     slug
   }
@@ -5547,6 +5485,7 @@ export type CreateRoomMutationFn = Apollo.MutationFunction<CreateRoomMutation, C
  *      slug: // value for 'slug'
  *      answer: // value for 'answer'
  *      player1: // value for 'player1'
+ *      player1_name: // value for 'player1_name'
  *   },
  * });
  */
@@ -5558,10 +5497,10 @@ export type CreateRoomMutationHookResult = ReturnType<typeof useCreateRoomMutati
 export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>;
 export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
 export const JoinRoomDocument = gql`
-    mutation JoinRoom($slug: String!, $player2: String) {
+    mutation JoinRoom($slug: String!, $player2: String, $player2_name: String) {
   update_englister_WordleRoom_by_pk(
     pk_columns: {slug: $slug}
-    _set: {player2: $player2}
+    _set: {player2: $player2, player2_name: $player2_name}
   ) {
     slug
   }
@@ -5584,6 +5523,7 @@ export type JoinRoomMutationFn = Apollo.MutationFunction<JoinRoomMutation, JoinR
  *   variables: {
  *      slug: // value for 'slug'
  *      player2: // value for 'player2'
+ *      player2_name: // value for 'player2_name'
  *   },
  * });
  */
@@ -5601,6 +5541,8 @@ export const WordleRoomsDocument = gql`
     order_by: {created_at: desc}
   ) {
     slug
+    player1_name
+    created_at
   }
 }
     `;
@@ -5627,6 +5569,38 @@ export function useWordleRoomsSubscription(baseOptions: Apollo.SubscriptionHookO
       }
 export type WordleRoomsSubscriptionHookResult = ReturnType<typeof useWordleRoomsSubscription>;
 export type WordleRoomsSubscriptionResult = Apollo.SubscriptionResult<WordleRoomsSubscription>;
+export const SkippedWordsDocument = gql`
+    subscription SkippedWords($slug: String) {
+  englister_WordleSkippedWords(where: {roomId: {_eq: $slug}}) {
+    id
+    word
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useSkippedWordsSubscription__
+ *
+ * To run a query within a React component, call `useSkippedWordsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useSkippedWordsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSkippedWordsSubscription({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useSkippedWordsSubscription(baseOptions?: Apollo.SubscriptionHookOptions<SkippedWordsSubscription, SkippedWordsSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<SkippedWordsSubscription, SkippedWordsSubscriptionVariables>(SkippedWordsDocument, options);
+      }
+export type SkippedWordsSubscriptionHookResult = ReturnType<typeof useSkippedWordsSubscription>;
+export type SkippedWordsSubscriptionResult = Apollo.SubscriptionResult<SkippedWordsSubscription>;
 export const WordleRoomDocument = gql`
     subscription WordleRoom($slug: String!) {
   englister_WordleRoom_by_pk(slug: $slug) {
@@ -5634,6 +5608,8 @@ export const WordleRoomDocument = gql`
     created_at
     player1
     player2
+    player1_name
+    player2_name
     turn
     slug
     five
@@ -5966,3 +5942,37 @@ export function useUpdateSixRowMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdateSixRowMutationHookResult = ReturnType<typeof useUpdateSixRowMutation>;
 export type UpdateSixRowMutationResult = Apollo.MutationResult<UpdateSixRowMutation>;
 export type UpdateSixRowMutationOptions = Apollo.BaseMutationOptions<UpdateSixRowMutation, UpdateSixRowMutationVariables>;
+export const AddSkippedWordDocument = gql`
+    mutation addSkippedWord($slug: String, $word: String) {
+  insert_englister_WordleSkippedWords_one(object: {roomId: $slug, word: $word}) {
+    id
+  }
+}
+    `;
+export type AddSkippedWordMutationFn = Apollo.MutationFunction<AddSkippedWordMutation, AddSkippedWordMutationVariables>;
+
+/**
+ * __useAddSkippedWordMutation__
+ *
+ * To run a mutation, you first call `useAddSkippedWordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSkippedWordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSkippedWordMutation, { data, loading, error }] = useAddSkippedWordMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      word: // value for 'word'
+ *   },
+ * });
+ */
+export function useAddSkippedWordMutation(baseOptions?: Apollo.MutationHookOptions<AddSkippedWordMutation, AddSkippedWordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddSkippedWordMutation, AddSkippedWordMutationVariables>(AddSkippedWordDocument, options);
+      }
+export type AddSkippedWordMutationHookResult = ReturnType<typeof useAddSkippedWordMutation>;
+export type AddSkippedWordMutationResult = Apollo.MutationResult<AddSkippedWordMutation>;
+export type AddSkippedWordMutationOptions = Apollo.BaseMutationOptions<AddSkippedWordMutation, AddSkippedWordMutationVariables>;

@@ -5404,18 +5404,6 @@
         "description": "columns and relationships of \"englister.WordleRoom\"",
         "fields": [
           {
-            "name": "WordleRow",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "englister_WordleRows",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "answer",
             "description": null,
             "args": [],
@@ -5512,6 +5500,18 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
             "description": null,
             "args": [],
@@ -5523,6 +5523,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -5615,18 +5627,6 @@
         "description": "Boolean expression to filter rows from the table \"englister.WordleRoom\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
-          {
-            "name": "WordleRow",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "_and",
             "description": null,
@@ -5752,7 +5752,31 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5852,18 +5876,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "WordleRow",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "answer",
             "description": null,
             "type": {
@@ -5936,7 +5948,31 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6133,18 +6169,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "WordleRow",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "answer",
             "description": null,
             "type": {
@@ -6217,7 +6241,31 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -6365,7 +6413,19 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6482,7 +6542,31 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6603,7 +6687,19 @@
             "deprecationReason": null
           },
           {
+            "name": "player1_name",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "player2",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "player2_name",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6643,11 +6739,43 @@
       },
       {
         "kind": "OBJECT",
-        "name": "englister_WordleRows",
-        "description": "columns and relationships of \"englister.WordleRows\"",
+        "name": "englister_WordleSkippedWords",
+        "description": "columns and relationships of \"englister.WordleSkippedWords\"",
         "fields": [
           {
-            "name": "five",
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "timestamptz",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "roomId",
             "description": null,
             "args": [],
             "type": {
@@ -6663,87 +6791,7 @@
             "deprecationReason": null
           },
           {
-            "name": "four",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "one",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "roomSlug",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
+            "name": "word",
             "description": null,
             "args": [],
             "type": {
@@ -6766,8 +6814,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_bool_exp",
-        "description": "Boolean expression to filter rows from the table \"englister.WordleRows\". All fields are combined with a logical 'AND'.",
+        "name": "englister_WordleSkippedWords_bool_exp",
+        "description": "Boolean expression to filter rows from the table \"englister.WordleSkippedWords\". All fields are combined with a logical 'AND'.",
         "fields": null,
         "inputFields": [
           {
@@ -6781,7 +6829,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_bool_exp",
+                  "name": "englister_WordleSkippedWords_bool_exp",
                   "ofType": null
                 }
               }
@@ -6795,7 +6843,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_bool_exp",
+              "name": "englister_WordleSkippedWords_bool_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -6813,7 +6861,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_bool_exp",
+                  "name": "englister_WordleSkippedWords_bool_exp",
                   "ofType": null
                 }
               }
@@ -6823,7 +6871,31 @@
             "deprecationReason": null
           },
           {
-            "name": "five",
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Int_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "roomId",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -6835,67 +6907,7 @@
             "deprecationReason": null
           },
           {
-            "name": "four",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "one",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "roomSlug",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
+            "name": "word",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -6912,30 +6924,37 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "englister_WordleRows_constraint",
-        "description": "unique or primary key constraints on table \"englister.WordleRows\"",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "WordleRows_pkey",
-            "description": "unique or primary key constraint",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_insert_input",
-        "description": "input type for inserting data into table \"englister.WordleRows\"",
+        "name": "englister_WordleSkippedWords_insert_input",
+        "description": "input type for inserting data into table \"englister.WordleSkippedWords\"",
         "fields": null,
         "inputFields": [
           {
-            "name": "five",
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "roomId",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6947,67 +6966,7 @@
             "deprecationReason": null
           },
           {
-            "name": "four",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "one",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "roomSlug",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
+            "name": "word",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -7025,8 +6984,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "englister_WordleRows_mutation_response",
-        "description": "response of any mutation on the table \"englister.WordleRows\"",
+        "name": "englister_WordleSkippedWords_mutation_response",
+        "description": "response of any mutation on the table \"englister.WordleSkippedWords\"",
         "fields": [
           {
             "name": "affected_rows",
@@ -7059,7 +7018,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "englister_WordleRows",
+                    "name": "englister_WordleSkippedWords",
                     "ofType": null
                   }
                 }
@@ -7076,114 +7035,12 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_obj_rel_insert_input",
-        "description": "input type for inserting object relation for remote table \"englister.WordleRows\"",
+        "name": "englister_WordleSkippedWords_order_by",
+        "description": "Ordering options when selecting data from \"englister.WordleSkippedWords\".",
         "fields": null,
         "inputFields": [
           {
-            "name": "data",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "INPUT_OBJECT",
-                "name": "englister_WordleRows_insert_input",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "on_conflict",
-            "description": "on conflict condition",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_on_conflict",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_on_conflict",
-        "description": "on conflict condition type for table \"englister.WordleRows\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "constraint",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "englister_WordleRows_constraint",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update_columns",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "ENUM",
-                    "name": "englister_WordleRows_update_column",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "defaultValue": "[]",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "where",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "englister_WordleRows_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_order_by",
-        "description": "Ordering options when selecting data from \"englister.WordleRows\".",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "five",
+            "name": "created_at",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -7195,7 +7052,7 @@
             "deprecationReason": null
           },
           {
-            "name": "four",
+            "name": "id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -7207,7 +7064,7 @@
             "deprecationReason": null
           },
           {
-            "name": "one",
+            "name": "roomId",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -7219,222 +7076,11 @@
             "deprecationReason": null
           },
           {
-            "name": "roomSlug",
+            "name": "word",
             "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_pk_columns_input",
-        "description": "primary key columns input for table: englister_WordleRows",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "roomSlug",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "englister_WordleRows_select_column",
-        "description": "select columns of table \"englister.WordleRows\"",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "five",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "four",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "one",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "roomSlug",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "englister_WordleRows_set_input",
-        "description": "input type for updating data in table \"englister.WordleRows\"",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "five",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "four",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "one",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "roomSlug",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -7448,50 +7094,32 @@
       },
       {
         "kind": "ENUM",
-        "name": "englister_WordleRows_update_column",
-        "description": "update columns of table \"englister.WordleRows\"",
+        "name": "englister_WordleSkippedWords_select_column",
+        "description": "select columns of table \"englister.WordleSkippedWords\"",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "five",
+            "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "four",
+            "name": "id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "one",
+            "name": "roomId",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "roomSlug",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "six",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "three",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "two",
+            "name": "word",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -8785,8 +8413,8 @@
             "deprecationReason": null
           },
           {
-            "name": "insert_englister_WordleRows",
-            "description": "insert data into the table: \"englister.WordleRows\"",
+            "name": "insert_englister_WordleSkippedWords",
+            "description": "insert data into the table: \"englister.WordleSkippedWords\"",
             "args": [
               {
                 "name": "objects",
@@ -8802,7 +8430,7 @@
                       "name": null,
                       "ofType": {
                         "kind": "INPUT_OBJECT",
-                        "name": "englister_WordleRows_insert_input",
+                        "name": "englister_WordleSkippedWords_insert_input",
                         "ofType": null
                       }
                     }
@@ -8811,31 +8439,19 @@
                 "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
-              },
-              {
-                "name": "on_conflict",
-                "description": "on conflict condition",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_on_conflict",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
               }
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "englister_WordleRows_mutation_response",
+              "name": "englister_WordleSkippedWords_mutation_response",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "insert_englister_WordleRows_one",
-            "description": "insert a single row into the table: \"englister.WordleRows\"",
+            "name": "insert_englister_WordleSkippedWords_one",
+            "description": "insert a single row into the table: \"englister.WordleSkippedWords\"",
             "args": [
               {
                 "name": "object",
@@ -8845,21 +8461,9 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "englister_WordleRows_insert_input",
+                    "name": "englister_WordleSkippedWords_insert_input",
                     "ofType": null
                   }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "on_conflict",
-                "description": "on conflict condition",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_on_conflict",
-                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -8868,7 +8472,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "englister_WordleRows",
+              "name": "englister_WordleSkippedWords",
               "ofType": null
             },
             "isDeprecated": false,
@@ -10394,88 +9998,6 @@
             "type": {
               "kind": "OBJECT",
               "name": "englister_WordleRoom",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update_englister_WordleRows",
-            "description": "update data of the table: \"englister.WordleRows\"",
-            "args": [
-              {
-                "name": "_set",
-                "description": "sets the columns of the filtered rows to the given values",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_set_input",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows which have to be updated",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "englister_WordleRows_bool_exp",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "englister_WordleRows_mutation_response",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update_englister_WordleRows_by_pk",
-            "description": "update single row of the table: \"englister.WordleRows\"",
-            "args": [
-              {
-                "name": "_set",
-                "description": "sets the columns of the filtered rows to the given values",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_set_input",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "pk_columns",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "englister_WordleRows_pk_columns_input",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "englister_WordleRows",
               "ofType": null
             },
             "isDeprecated": false,
@@ -12368,8 +11890,8 @@
             "deprecationReason": null
           },
           {
-            "name": "englister_WordleRows",
-            "description": "fetch data from the table: \"englister.WordleRows\"",
+            "name": "englister_WordleSkippedWords",
+            "description": "fetch data from the table: \"englister.WordleSkippedWords\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -12382,7 +11904,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "englister_WordleRows_select_column",
+                      "name": "englister_WordleSkippedWords_select_column",
                       "ofType": null
                     }
                   }
@@ -12426,7 +11948,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "englister_WordleRows_order_by",
+                      "name": "englister_WordleSkippedWords_order_by",
                       "ofType": null
                     }
                   }
@@ -12440,7 +11962,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_bool_exp",
+                  "name": "englister_WordleSkippedWords_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -12459,7 +11981,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "englister_WordleRows",
+                    "name": "englister_WordleSkippedWords",
                     "ofType": null
                   }
                 }
@@ -12469,18 +11991,18 @@
             "deprecationReason": null
           },
           {
-            "name": "englister_WordleRows_by_pk",
-            "description": "fetch data from the table: \"englister.WordleRows\" using primary key columns",
+            "name": "englister_WordleSkippedWords_by_pk",
+            "description": "fetch data from the table: \"englister.WordleSkippedWords\" using primary key columns",
             "args": [
               {
-                "name": "roomSlug",
+                "name": "id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "String",
+                    "name": "Int",
                     "ofType": null
                   }
                 },
@@ -12491,7 +12013,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "englister_WordleRows",
+              "name": "englister_WordleSkippedWords",
               "ofType": null
             },
             "isDeprecated": false,
@@ -30353,8 +29875,8 @@
             "deprecationReason": null
           },
           {
-            "name": "englister_WordleRows",
-            "description": "fetch data from the table: \"englister.WordleRows\"",
+            "name": "englister_WordleSkippedWords",
+            "description": "fetch data from the table: \"englister.WordleSkippedWords\"",
             "args": [
               {
                 "name": "distinct_on",
@@ -30367,7 +29889,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
-                      "name": "englister_WordleRows_select_column",
+                      "name": "englister_WordleSkippedWords_select_column",
                       "ofType": null
                     }
                   }
@@ -30411,7 +29933,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "englister_WordleRows_order_by",
+                      "name": "englister_WordleSkippedWords_order_by",
                       "ofType": null
                     }
                   }
@@ -30425,7 +29947,7 @@
                 "description": "filter the rows returned",
                 "type": {
                   "kind": "INPUT_OBJECT",
-                  "name": "englister_WordleRows_bool_exp",
+                  "name": "englister_WordleSkippedWords_bool_exp",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -30444,7 +29966,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "englister_WordleRows",
+                    "name": "englister_WordleSkippedWords",
                     "ofType": null
                   }
                 }
@@ -30454,18 +29976,18 @@
             "deprecationReason": null
           },
           {
-            "name": "englister_WordleRows_by_pk",
-            "description": "fetch data from the table: \"englister.WordleRows\" using primary key columns",
+            "name": "englister_WordleSkippedWords_by_pk",
+            "description": "fetch data from the table: \"englister.WordleSkippedWords\" using primary key columns",
             "args": [
               {
-                "name": "roomSlug",
+                "name": "id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "String",
+                    "name": "Int",
                     "ofType": null
                   }
                 },
@@ -30476,7 +29998,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "englister_WordleRows",
+              "name": "englister_WordleSkippedWords",
               "ofType": null
             },
             "isDeprecated": false,

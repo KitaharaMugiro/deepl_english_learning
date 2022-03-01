@@ -8,10 +8,13 @@ import useNavigation from '../../models/util-hooks/useNavigation';
 import { MainListItems, SecondaryMainListItems } from "./ListItems";
 import HeaderRightMenu from "./HeaderRightMenu";
 import classes from "./style.module.css";
+import { useAtom } from 'jotai';
+import { DisplayHeaderAtom } from '../../models/jotai/Display';
 export default () => {
     const router = useRouter()
     const [open, setOpen] = React.useState(false);
     const { goHome } = useNavigation()
+    const [displayHeader] = useAtom(DisplayHeaderAtom)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -25,7 +28,7 @@ export default () => {
 
     return <>
         <AppBar position="absolute" color="transparent"
-            style={{ height: 60 }}>
+            style={{ height: 60, display: displayHeader ? "inline" : "none" }}>
             <Toolbar className={classes.toolbar}>
                 <IconButton
                     edge="start"

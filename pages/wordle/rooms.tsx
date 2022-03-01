@@ -1,11 +1,15 @@
-import { Button, Divider, List, ListItem, TextField, Typography } from "@mui/material"
-import { format, addHours, addMinutes } from "date-fns"
+import { Button, Divider, List, ListItem, ListItemText, TextField, Typography } from "@mui/material"
+import { addMinutes, format, formatDistance } from "date-fns"
+import { useAtom } from "jotai"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useOnlineUsers } from "realtimely"
 import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedMetaTags"
 import { answers } from "../../components/wordle/const"
+import EnglisterAds from "../../components/wordle/EnglisterAds"
+import { DisplayHeaderAtom } from "../../models/jotai/Display"
+import { AtomNameWithPersistence } from "../../models/jotai/StudyJotai"
 import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper"
 import { useCreateRoomMutation, useJoinRoomMutation, useWordleRoomsSubscription } from "../../src/generated/graphql"
 function makeid(length: number) {
@@ -19,16 +23,29 @@ function makeid(length: number) {
     return result;
 }
 
-export default ({ ogpInfo }: any) => {
+const rooms = ({ ogpInfo }: any) => {
     const router = useRouter()
     const { onlineUserList } = useOnlineUsers()
-    const [today] = useState(new Date())
+    const [today, setToday] = useState(new Date())
     const utc = new Date(today.getTime() + today.getTimezoneOffset() * 60000);
     const roomCreatedAt = format(addMinutes(utc, -3), "yyyy-MM-dd HH:mm:ss")
     const rooms = useWordleRoomsSubscription({ variables: { date: roomCreatedAt } })
     const randomWord = makeid(10)
     const [createRoomMutation] = useCreateRoomMutation()
     const [joinRoomMutation] = useJoinRoomMutation()
+    const [name, setName] = useAtom(AtomNameWithPersistence)
+    const [_, setDisplayHeader] = useAtom(DisplayHeaderAtom)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setToday(new Date())
+        }, 30000)
+        setDisplayHeader(false)
+        return () => {
+            clearInterval(interval)
+        }
+
+    }, [])
 
     const onJoinRoom = async (slug: string) => {
         const player2 = LocalStorageHelper.getUserId()
@@ -37,6 +54,7 @@ export default ({ ogpInfo }: any) => {
             variables: {
                 slug: slug,
                 player2: player2,
+                player2_name: name,
             }
         })
         router.push(`/wordle/room/${slug}`)
@@ -53,6 +71,7 @@ export default ({ ogpInfo }: any) => {
                 variables: {
                     slug,
                     player1,
+                    player1_name: name,
                     answer
                 }
             })
@@ -64,36 +83,47 @@ export default ({ ogpInfo }: any) => {
 
     }
 
-    return <div style={{ padding: 40 }}>
-        <CustomizedMetaTags ogpInfo={ogpInfo} />
-        <Typography variant="h2" gutterBottom>
-            Wordle Battle Online!
-        </Typography>
-        <Typography variant="body1">
-            A battle between those who have confidence in Wordle.
-        </Typography>
-        <Typography variant="body2">
-            Now online: <b>{onlineUserList.length}</b>
-        </Typography>
+    return <>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div style={{ padding: 40, maxWidth: 800 }}>
+                <CustomizedMetaTags ogpInfo={ogpInfo} />
+                <img src="/static/ogp/wordle.png" style={{ width: "100%", maxHeight: 200, maxWidth: 500, objectFit: "cover" }} />
+                <Typography variant="h4">
+                    Wordle Battle Online
+                </Typography>
 
-        <div style={{ height: 20 }} />
+                <Typography variant="body2">
+                    Now online: <b>{onlineUserList.length}</b>
+                </Typography>
+                <div style={{ marginTop: 10, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <TextField
+                        placeholder="your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)} />
+                    <div style={{ width: 20 }} />
+                    <Button variant="contained" size="large" onClick={() => onCreateRoom(randomWord)}>Create Room</Button>
+                </div>
 
-        <Button variant="contained" size="large" onClick={() => onCreateRoom(randomWord)}>Create Room</Button>
+                <Typography variant="h5" gutterBottom style={{ marginTop: 30 }}>
+                    Recent created rooms
+                </Typography>
 
-        <Typography variant="h4" gutterBottom style={{ marginTop: 30 }}>
-            Rooms created within 3 minutes
-        </Typography>
-        {rooms.data?.englister_WordleRoom.length === 0 && <Typography variant="subtitle1" gutterBottom>No rooms</Typography>}
-        <List>
-            {rooms.data?.englister_WordleRoom?.map(room => {
-                return <ListItem key={room.slug}>
-                    <Typography variant="h5">{room.slug}</Typography>
-                    <Button onClick={() => onJoinRoom(room.slug)}>Battle with him/her</Button>
-                </ListItem>
-            })}
-        </List>
+                {rooms.data?.englister_WordleRoom.length === 0 && <Typography variant="subtitle1" gutterBottom>No rooms</Typography>}
+                <List>
+                    {rooms.data?.englister_WordleRoom?.map(room => {
+                        return <ListItem key={room.slug}>
 
-    </div>
+                            <ListItemText primary={room.player1_name} secondary={formatDistance(new Date(room.created_at), new Date(), { addSuffix: true })} />
+                            <Button onClick={() => onJoinRoom(room.slug)}>Battle with him/her</Button>
+                            <Divider />
+                        </ListItem>
+                    })}
+                </List>
+            </div>
+
+        </div>
+        <EnglisterAds />
+    </>
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -109,3 +139,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     }
 }
+
+export default rooms

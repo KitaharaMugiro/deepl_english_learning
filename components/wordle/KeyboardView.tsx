@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { WordleUserInput } from "../../models/jotai/Wordle";
+import { useAddSkippedWordMutation } from "../../src/generated/graphql";
 import { allMatcher } from "./AnswerMatcher";
 import { WordleColors } from "./const";
 import style from "./index.module.css";
@@ -12,7 +13,8 @@ interface Props {
     slug: string,
     answer: string,
     rows: string[],
-    opponentId: string
+    opponentId: string,
+    isEndGame: boolean
 }
 
 export default (props: Props) => {
@@ -47,8 +49,9 @@ export default (props: Props) => {
     }, [escFunction]);
 
     const onClick = async (char: string) => {
-        if (!props.isYourTurn) return
+        if (props.isEndGame) return
         if (char === "enter") {
+            if (!props.isYourTurn) return
             submit(userInput, () => setUserInput(""), props.slug, props.opponentId)
             return
         } else if (char === "del") {

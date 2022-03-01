@@ -1,11 +1,11 @@
-mutation CreateRoom($slug: String!, $answer: String!, $player1: String) {
-  insert_englister_WordleRoom_one(object: {answer: $answer, player1: $player1, player2: "", turn:$player1 , slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}) {
+mutation CreateRoom($slug: String!, $answer: String!, $player1: String, $player1_name: String) {
+  insert_englister_WordleRoom_one(object: {answer: $answer, player1: $player1,player1_name: $player1_name, player2: "", turn:$player1 , slug: $slug, five: "", four: "", one: "", six: "", three: "", two: ""}) {
     slug
   }
 }
 
-mutation JoinRoom($slug: String!, $player2: String) {
-  update_englister_WordleRoom_by_pk(pk_columns: {slug: $slug}, _set: {player2: $player2}) {
+mutation JoinRoom($slug: String!, $player2: String, $player2_name: String) {
+  update_englister_WordleRoom_by_pk(pk_columns: {slug: $slug}, _set: {player2: $player2, player2_name: $player2_name}) {
     slug
   }
 }
@@ -16,10 +16,18 @@ subscription WordleRooms($date: timestamptz!) {
   	order_by: {created_at: desc}
   ) {
     slug
+    player1_name
+    created_at
   }
 }
 
-
+subscription SkippedWords($slug:String) {
+  englister_WordleSkippedWords(where:{roomId:{_eq:$slug}}) {
+    id
+    word
+    created_at
+  }
+}
 
 subscription WordleRoom($slug: String!) {
   englister_WordleRoom_by_pk(slug: $slug) {
@@ -27,6 +35,8 @@ subscription WordleRoom($slug: String!) {
         created_at
         player1
         player2
+        player1_name
+        player2_name
         turn
         slug
         five
@@ -83,5 +93,14 @@ mutation updateFiveRow($roomSlug: String!, $text: String!, $turn: String!) {
 mutation updateSixRow($roomSlug: String!, $text: String!, $turn: String!) {
   update_englister_WordleRoom_by_pk(pk_columns: {slug: $roomSlug}, _set: {six: $text, turn: $turn}) {
     slug
+  }
+}
+
+mutation addSkippedWord($slug: String, $word:String) {
+  insert_englister_WordleSkippedWords_one(object:{
+    roomId: $slug,
+    word: $word
+  }) {
+    id
   }
 }

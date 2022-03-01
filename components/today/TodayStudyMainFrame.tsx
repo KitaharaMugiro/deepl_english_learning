@@ -47,8 +47,8 @@ interface Props {
 export default function TodayStudyMainFrame(props: Props) {
     const [activeStep, setActiveStep] = useState(0);
     const [errorMessage, setErrorMessage] = useState("")
-    const [japanese] = useAtom(AtomJapanse)
-    const [english] = useAtom(AtomEnglish)
+    const [japanese, setJapanese] = useAtom(AtomJapanse)
+    const [english, setEnglish] = useAtom(AtomEnglish)
     const [name] = useAtom(AtomNameWithPersistence)
     const [translation, setTranslation] = useAtom(AtomTranslation)
     const [submitPublicAnswer] = useSubmitTodayPublicAnswerMutation()
@@ -117,9 +117,11 @@ export default function TodayStudyMainFrame(props: Props) {
             })
 
 
-
             setOpenLoading(false)
             submitToday()
+            setJapanese("")
+            setEnglish("")
+            setTranslation("")
             router.push("/today/" + resultId)
         }
 

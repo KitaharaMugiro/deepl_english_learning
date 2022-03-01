@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Typography } from "@mui/material"
+import { Box, Button, Chip, Divider, LinearProgress, Typography } from "@mui/material"
 import { useAtom } from "jotai"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
@@ -9,14 +9,18 @@ import CustomizedMetaTags, { OgpInfo } from "../../../components/common/Customiz
 import { resultMatcher } from "../../../components/wordle/AnswerMatcher"
 import { answers } from "../../../components/wordle/const"
 import KeyboardView from "../../../components/wordle/KeyboardView"
+import MyConfetti from "../../../components/wordle/MyConfetti"
+import SkippedWords from "../../../components/wordle/SkippedWords"
 import useWordleSubmit from "../../../components/wordle/useWordleSubmit"
 import WordleAi from "../../../components/wordle/WordleAi"
 import WordleBoard from "../../../components/wordle/WordleBoard"
+import { DisplayHeaderAtom } from "../../../models/jotai/Display"
+import { AtomNameWithPersistence } from "../../../models/jotai/StudyJotai"
 import { ActiveWordleRow } from "../../../models/jotai/Wordle"
 import { LocalStorageHelper } from "../../../models/localstorage/LocalStorageHelper"
 import { SoundPlayer } from "../../../models/SoundPlayer"
 import { useSnackMessage } from "../../../models/util-hooks/useSnackMessage"
-import { useCreateRoomMutation, useJoinRoomMutation, useSkipMutation, useWordleRoomSubscription, useDeleteRoomMutation } from "../../../src/generated/graphql"
+import { useCreateRoomMutation, useJoinRoomMutation, useSkipMutation, useWordleRoomSubscription, useDeleteRoomMutation, useSkippedWordsSubscription } from "../../../src/generated/graphql"
 const room = ({ ogpInfo }: any) => {
     //get room info
     const router = useRouter()
@@ -26,6 +30,7 @@ const room = ({ ogpInfo }: any) => {
     const isOpponentPresent = onlineUserList.length > 1
 
     const { data, loading } = useWordleRoomSubscription({ variables: { slug: roomSlug as string } })
+    const { data: skippedWords } = useSkippedWordsSubscription({ variables: { slug: roomSlug as string } })
     const [createRoomMutation] = useCreateRoomMutation()
     const [joinRoomMutation] = useJoinRoomMutation()
     const [deleteRoomMutation] = useDeleteRoomMutation()
@@ -48,7 +53,10 @@ const room = ({ ogpInfo }: any) => {
     const { displayCenterWarningMessage } = useSnackMessage()
     const { submit } = useWordleSubmit()
     const [skipTurn] = useSkipMutation()
-    const isEndGame = winner || activeRow === 6
+    const [name, setName] = useAtom(AtomNameWithPersistence)
+    const isEndGame = winner !== "" || activeRow === 6
+    const youWin = (isPlayer1 && winner === "player1") || (isPlayer2 && winner === "player2")
+    const [_, setDisplayHeader] = useAtom(DisplayHeaderAtom)
 
     const { countdown, start, reset } = useCountdownTimer({
         timer: 30000, interval: 1000,
@@ -64,10 +72,19 @@ const room = ({ ogpInfo }: any) => {
     }, [onlineUserList])
 
     useEffect(() => {
+        if (skippedWords?.englister_WordleSkippedWords) {
+            if (skippedWords?.englister_WordleSkippedWords.length > 0) {
+                const latest = skippedWords?.englister_WordleSkippedWords[skippedWords?.englister_WordleSkippedWords.length - 1]
+                displayCenterWarningMessage(`${latest.word} is not in word list`)
+            }
+        }
+    }, [skippedWords])
+
+    useEffect(() => {
+        if (isEndGame) return
         if (isAiMode && !yourTurn) {
-            if (countdown === 1000 || countdown === 10000 || countdown === 20000) {
-                console.log("ai answer")
-                submit(WordleAi(answer || ""), () => { }, roomSlug as string, LocalStorageHelper.getUserId() || "")
+            if (countdown === 1000 || countdown === 10000 || countdown === 15000 || countdown === 20000 || countdown === 25000) {
+                submit(WordleAi(answer || "", activeRow), () => { }, roomSlug as string, LocalStorageHelper.getUserId() || "")
             }
         }
     }, [countdown])
@@ -148,6 +165,10 @@ const room = ({ ogpInfo }: any) => {
 
     }, [wordleRow?.player2])
 
+    useEffect(() => {
+        setDisplayHeader(false)
+    }, [])
+
     const onCreateRoom = async () => {
         const randomIndex = Math.floor(Math.random() * answers.length)
         const answer = answers[randomIndex]
@@ -157,6 +178,7 @@ const room = ({ ogpInfo }: any) => {
             variables: {
                 slug: roomSlug as string,
                 player1: player1,
+                player1_name: name,
                 answer: answer
             }
         })
@@ -219,6 +241,7 @@ const room = ({ ogpInfo }: any) => {
             variables: {
                 slug: roomSlug as string,
                 player2: player2,
+                player2_name: name
             }
         })
     }
@@ -243,15 +266,32 @@ const room = ({ ogpInfo }: any) => {
         router.push("/wordle/rooms")
     }
 
-    const presenceDisplay = () => {
-        if (isAiMode) {
-            return <Chip label="AI Mode" color="info" />
-        }
-        if (isOpponentPresent) {
-            return <Chip label="opponent online" color="primary" />
+    const renderResult = () => {
+        if (youWin) {
+            return <>
+                <Typography variant="h3" textAlign="center" color="primary">You win!</Typography>
+                <Typography variant="h4" textAlign="center">The answer was <b>{answer}</b></Typography>
+            </>
         } else {
             return <>
-                <Chip label="opponent offline" color="warning" />
+                <Typography variant="h3" textAlign="center" color="error">You lose!</Typography>
+                <Typography variant="h4" textAlign="center">The answer was <b>{answer}</b></Typography>
+            </>
+        }
+    }
+
+    const presenceDisplay = () => {
+        if (isEndGame) return null
+        if (isAiMode) {
+            return <Typography variant="subtitle2" textAlign="center">AI Mode</Typography>
+        }
+        if (isOpponentPresent) {
+            return null
+            // return <Chip label="opponent online" color="primary" />
+        } else {
+            return <>
+                {/* <Chip label="opponent offline" color="warning" /> */}
+                <Typography variant="subtitle2" textAlign="center">opponent offline</Typography>
                 <Button onClick={() => { setIsAiMode(true) }}>Do you want AI mode?</Button>
             </>
         }
@@ -284,7 +324,12 @@ const room = ({ ogpInfo }: any) => {
                 padding: 30
             }}>
                 <CustomizedMetaTags ogpInfo={ogpInfo} />
-                <Typography style={{ marginTop: 50, marginBottom: 50 }} variant="body1" textAlign="center">Wait here for a minute. someone is coming in...</Typography>
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgress />
+                </Box>
+                <Typography style={{ marginTop: 50, marginBottom: 50 }} variant="body1" textAlign="center">
+                    Wait here for a minute. someone is coming in...
+                </Typography>
                 <Button
                     variant="outlined"
                     size="large"
@@ -340,20 +385,31 @@ const room = ({ ogpInfo }: any) => {
         <div style={{ height: 20 }} />
 
         {!isEndGame && yourTurn && <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }}>Your Turn</Typography>
+            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }} color="primary"><b>Your Turn</b></Typography>
+
         </div>}
         {!isEndGame && !yourTurn && <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }}>Opponent Turn</Typography>
+            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }} color="error"><b>Opponent Turn</b> </Typography>
         </div>}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-
             {presenceDisplay()}
         </div>
 
         {!isEndGame && renderCountdown()}
-        {isEndGame && isPlayer1 && <Typography variant="h4" textAlign="center">{winner === "player1" ? "You win!" : "You lose!"}</Typography>}
-        {isEndGame && isPlayer2 && <Typography variant="h4" textAlign="center">{winner === "player2" ? "You win!" : "You lose!"}</Typography>}
-        {isEndGame && <Typography variant="h4" textAlign="center">The answer was <b>{answer}</b></Typography>}
+        {isEndGame && renderResult()}
+        {
+            isEndGame && <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                <Button
+                    variant="outlined"
+                    onClick={share}
+                >
+                    Share Result
+                </Button>
+                <div style={{ width: 20 }} />
+                <Button variant="outlined" href="/wordle/rooms" size="small" color="error">Back to rooms</Button>
+            </div>
+        }
+
         <WordleBoard
             answer={answer || ""}
             row1={data?.englister_WordleRoom_by_pk?.one || ""}
@@ -368,24 +424,13 @@ const room = ({ ogpInfo }: any) => {
             rows={rows}
             answer={answer || ""}
             isYourTurn={yourTurn} slug={roomSlug as string}
-            opponentId={opponentId || ""} />
+            opponentId={opponentId || ""}
+            isEndGame={isEndGame} />
 
-        {
-            isEndGame && <div style={{ padding: 30, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <Button
-                    variant="outlined"
-                    size="large"
-                    onClick={share}
-                    fullWidth
-                    style={{ marginTop: 20, marginBottom: 20 }}
-                >
-                    <Typography variant="h4">
-                        Share Result
-                    </Typography>
-                </Button>
-                <Button href="/wordle/rooms" size="small">Back to rooms</Button>
-            </div>
-        }
+        <MyConfetti run={youWin} />
+
+        <SkippedWords
+            skippedWords={skippedWords?.englister_WordleSkippedWords || []} />
     </div >
 }
 
