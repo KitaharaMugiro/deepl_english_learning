@@ -84,7 +84,7 @@ export default function TodayStudyMainFrame(props: Props) {
 
         } else if (activeStep === 2) {
             //最後のステップ
-            const resTranslation = await StudyApi.translate(japanese)
+            const resTranslation = await StudyApi.translate(japanese, props.todayTopic.question.title)
             setTranslation(resTranslation.translation)
 
             //スコア算出

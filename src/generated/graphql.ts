@@ -229,7 +229,7 @@ export type Note_Mutation_Response = {
   returning: Array<Note>;
 };
 
-/** on conflict condition type for table "Note" */
+/** on_conflict condition type for table "Note" */
 export type Note_On_Conflict = {
   constraint: Note_Constraint;
   update_columns?: Array<Note_Update_Column>;
@@ -469,7 +469,7 @@ export type Englister_Phrase_Mutation_Response = {
   returning: Array<Englister_Phrase>;
 };
 
-/** on conflict condition type for table "englister.Phrase" */
+/** on_conflict condition type for table "englister.Phrase" */
 export type Englister_Phrase_On_Conflict = {
   constraint: Englister_Phrase_Constraint;
   update_columns?: Array<Englister_Phrase_Update_Column>;
@@ -611,6 +611,109 @@ export enum Englister_PublicAnswers_Select_Column {
   Translation = 'translation'
 }
 
+/** columns and relationships of "englister.WordleRecord" */
+export type Englister_WordleRecord = {
+  __typename?: 'englister_WordleRecord';
+  answer: Scalars['String'];
+  created_at: Scalars['timestamptz'];
+  roomSlug: Scalars['String'];
+  userId: Scalars['String'];
+  wind: Scalars['Boolean'];
+};
+
+/** aggregated selection of "englister.WordleRecord" */
+export type Englister_WordleRecord_Aggregate = {
+  __typename?: 'englister_WordleRecord_aggregate';
+  aggregate?: Maybe<Englister_WordleRecord_Aggregate_Fields>;
+  nodes: Array<Englister_WordleRecord>;
+};
+
+/** aggregate fields of "englister.WordleRecord" */
+export type Englister_WordleRecord_Aggregate_Fields = {
+  __typename?: 'englister_WordleRecord_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Englister_WordleRecord_Max_Fields>;
+  min?: Maybe<Englister_WordleRecord_Min_Fields>;
+};
+
+
+/** aggregate fields of "englister.WordleRecord" */
+export type Englister_WordleRecord_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Englister_WordleRecord_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "englister.WordleRecord". All fields are combined with a logical 'AND'. */
+export type Englister_WordleRecord_Bool_Exp = {
+  _and?: InputMaybe<Array<Englister_WordleRecord_Bool_Exp>>;
+  _not?: InputMaybe<Englister_WordleRecord_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_WordleRecord_Bool_Exp>>;
+  answer?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  roomSlug?: InputMaybe<String_Comparison_Exp>;
+  userId?: InputMaybe<String_Comparison_Exp>;
+  wind?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "englister.WordleRecord" */
+export type Englister_WordleRecord_Insert_Input = {
+  answer?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  roomSlug?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['String']>;
+  wind?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate max on columns */
+export type Englister_WordleRecord_Max_Fields = {
+  __typename?: 'englister_WordleRecord_max_fields';
+  answer?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  roomSlug?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Englister_WordleRecord_Min_Fields = {
+  __typename?: 'englister_WordleRecord_min_fields';
+  answer?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  roomSlug?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "englister.WordleRecord" */
+export type Englister_WordleRecord_Mutation_Response = {
+  __typename?: 'englister_WordleRecord_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Englister_WordleRecord>;
+};
+
+/** Ordering options when selecting data from "englister.WordleRecord". */
+export type Englister_WordleRecord_Order_By = {
+  answer?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  roomSlug?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+  wind?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "englister.WordleRecord" */
+export enum Englister_WordleRecord_Select_Column {
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  RoomSlug = 'roomSlug',
+  /** column name */
+  UserId = 'userId',
+  /** column name */
+  Wind = 'wind'
+}
+
 /** columns and relationships of "englister.WordleRoom" */
 export type Englister_WordleRoom = {
   __typename?: 'englister_WordleRoom';
@@ -684,7 +787,7 @@ export type Englister_WordleRoom_Mutation_Response = {
   returning: Array<Englister_WordleRoom>;
 };
 
-/** on conflict condition type for table "englister.WordleRoom" */
+/** on_conflict condition type for table "englister.WordleRoom" */
 export type Englister_WordleRoom_On_Conflict = {
   constraint: Englister_WordleRoom_Constraint;
   update_columns?: Array<Englister_WordleRoom_Update_Column>;
@@ -930,6 +1033,10 @@ export type Mutation_Root = {
   insert_englister_PublicAnswers?: Maybe<Englister_PublicAnswers_Mutation_Response>;
   /** insert a single row into the table: "englister.PublicAnswers" */
   insert_englister_PublicAnswers_one?: Maybe<Englister_PublicAnswers>;
+  /** insert data into the table: "englister.WordleRecord" */
+  insert_englister_WordleRecord?: Maybe<Englister_WordleRecord_Mutation_Response>;
+  /** insert a single row into the table: "englister.WordleRecord" */
+  insert_englister_WordleRecord_one?: Maybe<Englister_WordleRecord>;
   /** insert data into the table: "englister.WordleRoom" */
   insert_englister_WordleRoom?: Maybe<Englister_WordleRoom_Mutation_Response>;
   /** insert a single row into the table: "englister.WordleRoom" */
@@ -1286,6 +1393,18 @@ export type Mutation_RootInsert_Englister_PublicAnswersArgs = {
 /** mutation root */
 export type Mutation_RootInsert_Englister_PublicAnswers_OneArgs = {
   object: Englister_PublicAnswers_Insert_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRecordArgs = {
+  objects: Array<Englister_WordleRecord_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_WordleRecord_OneArgs = {
+  object: Englister_WordleRecord_Insert_Input;
 };
 
 
@@ -1772,6 +1891,12 @@ export type Query_Root = {
   englister_PublicAnswers: Array<Englister_PublicAnswers>;
   /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
   englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.WordleRecord" */
+  englister_WordleRecord: Array<Englister_WordleRecord>;
+  /** fetch aggregated fields from the table: "englister.WordleRecord" */
+  englister_WordleRecord_aggregate: Englister_WordleRecord_Aggregate;
+  /** fetch data from the table: "englister.WordleRecord" using primary key columns */
+  englister_WordleRecord_by_pk?: Maybe<Englister_WordleRecord>;
   /** fetch data from the table: "englister.WordleRoom" */
   englister_WordleRoom: Array<Englister_WordleRoom>;
   /** fetch data from the table: "englister.WordleRoom" using primary key columns */
@@ -1900,6 +2025,30 @@ export type Query_RootEnglister_PublicAnswersArgs = {
 
 export type Query_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Query_RootEnglister_WordleRecordArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRecord_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRecord_Order_By>>;
+  where?: InputMaybe<Englister_WordleRecord_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_WordleRecord_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRecord_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRecord_Order_By>>;
+  where?: InputMaybe<Englister_WordleRecord_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_WordleRecord_By_PkArgs = {
+  roomSlug: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -2181,7 +2330,7 @@ export type Slideshare_Bookmark_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "slideshare.Bookmark" */
 export type Slideshare_Bookmark_Arr_Rel_Insert_Input = {
   data: Array<Slideshare_Bookmark_Insert_Input>;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Bookmark_On_Conflict>;
 };
 
@@ -2241,7 +2390,7 @@ export type Slideshare_Bookmark_Mutation_Response = {
   returning: Array<Slideshare_Bookmark>;
 };
 
-/** on conflict condition type for table "slideshare.Bookmark" */
+/** on_conflict condition type for table "slideshare.Bookmark" */
 export type Slideshare_Bookmark_On_Conflict = {
   constraint: Slideshare_Bookmark_Constraint;
   update_columns?: Array<Slideshare_Bookmark_Update_Column>;
@@ -2619,11 +2768,11 @@ export type Slideshare_Conference_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Conference" */
 export type Slideshare_Conference_Obj_Rel_Insert_Input = {
   data: Slideshare_Conference_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Conference_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Conference" */
+/** on_conflict condition type for table "slideshare.Conference" */
 export type Slideshare_Conference_On_Conflict = {
   constraint: Slideshare_Conference_Constraint;
   update_columns?: Array<Slideshare_Conference_Update_Column>;
@@ -2997,7 +3146,7 @@ export type Slideshare_Page_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "slideshare.Page" */
 export type Slideshare_Page_Arr_Rel_Insert_Input = {
   data: Array<Slideshare_Page_Insert_Input>;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Page_On_Conflict>;
 };
 
@@ -3099,11 +3248,11 @@ export type Slideshare_Page_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Page" */
 export type Slideshare_Page_Obj_Rel_Insert_Input = {
   data: Slideshare_Page_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Page_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Page" */
+/** on_conflict condition type for table "slideshare.Page" */
 export type Slideshare_Page_On_Conflict = {
   constraint: Slideshare_Page_Constraint;
   update_columns?: Array<Slideshare_Page_Update_Column>;
@@ -3290,7 +3439,7 @@ export type Slideshare_PollResult_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "slideshare.PollResult" */
 export type Slideshare_PollResult_Arr_Rel_Insert_Input = {
   data: Array<Slideshare_PollResult_Insert_Input>;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_PollResult_On_Conflict>;
 };
 
@@ -3357,7 +3506,7 @@ export type Slideshare_PollResult_Mutation_Response = {
   returning: Array<Slideshare_PollResult>;
 };
 
-/** on conflict condition type for table "slideshare.PollResult" */
+/** on_conflict condition type for table "slideshare.PollResult" */
 export type Slideshare_PollResult_On_Conflict = {
   constraint: Slideshare_PollResult_Constraint;
   update_columns?: Array<Slideshare_PollResult_Update_Column>;
@@ -3487,11 +3636,11 @@ export type Slideshare_Poll_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Poll" */
 export type Slideshare_Poll_Obj_Rel_Insert_Input = {
   data: Slideshare_Poll_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Poll_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Poll" */
+/** on_conflict condition type for table "slideshare.Poll" */
 export type Slideshare_Poll_On_Conflict = {
   constraint: Slideshare_Poll_Constraint;
   update_columns?: Array<Slideshare_Poll_Update_Column>;
@@ -3601,11 +3750,11 @@ export type Slideshare_Profile_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Profile" */
 export type Slideshare_Profile_Obj_Rel_Insert_Input = {
   data: Slideshare_Profile_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Profile_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Profile" */
+/** on_conflict condition type for table "slideshare.Profile" */
 export type Slideshare_Profile_On_Conflict = {
   constraint: Slideshare_Profile_Constraint;
   update_columns?: Array<Slideshare_Profile_Update_Column>;
@@ -3711,7 +3860,7 @@ export type Slideshare_RoomParticipant_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "slideshare.RoomParticipant" */
 export type Slideshare_RoomParticipant_Arr_Rel_Insert_Input = {
   data: Array<Slideshare_RoomParticipant_Insert_Input>;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_RoomParticipant_On_Conflict>;
 };
 
@@ -3784,7 +3933,7 @@ export type Slideshare_RoomParticipant_Mutation_Response = {
   returning: Array<Slideshare_RoomParticipant>;
 };
 
-/** on conflict condition type for table "slideshare.RoomParticipant" */
+/** on_conflict condition type for table "slideshare.RoomParticipant" */
 export type Slideshare_RoomParticipant_On_Conflict = {
   constraint: Slideshare_RoomParticipant_Constraint;
   update_columns?: Array<Slideshare_RoomParticipant_Update_Column>;
@@ -3926,11 +4075,11 @@ export type Slideshare_Room_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Room" */
 export type Slideshare_Room_Obj_Rel_Insert_Input = {
   data: Slideshare_Room_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Room_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Room" */
+/** on_conflict condition type for table "slideshare.Room" */
 export type Slideshare_Room_On_Conflict = {
   constraint: Slideshare_Room_Constraint;
   update_columns?: Array<Slideshare_Room_Update_Column>;
@@ -4229,7 +4378,7 @@ export type Slideshare_SlideRecord_Mutation_Response = {
   returning: Array<Slideshare_SlideRecord>;
 };
 
-/** on conflict condition type for table "slideshare.SlideRecord" */
+/** on_conflict condition type for table "slideshare.SlideRecord" */
 export type Slideshare_SlideRecord_On_Conflict = {
   constraint: Slideshare_SlideRecord_Constraint;
   update_columns?: Array<Slideshare_SlideRecord_Update_Column>;
@@ -4325,11 +4474,11 @@ export type Slideshare_Slide_Mutation_Response = {
 /** input type for inserting object relation for remote table "slideshare.Slide" */
 export type Slideshare_Slide_Obj_Rel_Insert_Input = {
   data: Slideshare_Slide_Insert_Input;
-  /** on conflict condition */
+  /** upsert condition */
   on_conflict?: InputMaybe<Slideshare_Slide_On_Conflict>;
 };
 
-/** on conflict condition type for table "slideshare.Slide" */
+/** on_conflict condition type for table "slideshare.Slide" */
 export type Slideshare_Slide_On_Conflict = {
   constraint: Slideshare_Slide_Constraint;
   update_columns?: Array<Slideshare_Slide_Update_Column>;
@@ -4394,6 +4543,12 @@ export type Subscription_Root = {
   englister_PublicAnswers: Array<Englister_PublicAnswers>;
   /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
   englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** fetch data from the table: "englister.WordleRecord" */
+  englister_WordleRecord: Array<Englister_WordleRecord>;
+  /** fetch aggregated fields from the table: "englister.WordleRecord" */
+  englister_WordleRecord_aggregate: Englister_WordleRecord_Aggregate;
+  /** fetch data from the table: "englister.WordleRecord" using primary key columns */
+  englister_WordleRecord_by_pk?: Maybe<Englister_WordleRecord>;
   /** fetch data from the table: "englister.WordleRoom" */
   englister_WordleRoom: Array<Englister_WordleRoom>;
   /** fetch data from the table: "englister.WordleRoom" using primary key columns */
@@ -4522,6 +4677,30 @@ export type Subscription_RootEnglister_PublicAnswersArgs = {
 
 export type Subscription_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_WordleRecordArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRecord_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRecord_Order_By>>;
+  where?: InputMaybe<Englister_WordleRecord_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_WordleRecord_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Englister_WordleRecord_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_WordleRecord_Order_By>>;
+  where?: InputMaybe<Englister_WordleRecord_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_WordleRecord_By_PkArgs = {
+  roomSlug: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -5005,6 +5184,23 @@ export type AddSkippedWordMutationVariables = Exact<{
 
 
 export type AddSkippedWordMutation = { __typename?: 'mutation_root', insert_englister_WordleSkippedWords_one?: { __typename?: 'englister_WordleSkippedWords', id: number } | null | undefined };
+
+export type SetWordleRecordMutationVariables = Exact<{
+  slug: Scalars['String'];
+  userId: Scalars['String'];
+  answer: Scalars['String'];
+  win: Scalars['Boolean'];
+}>;
+
+
+export type SetWordleRecordMutation = { __typename?: 'mutation_root', insert_englister_WordleRecord_one?: { __typename?: 'englister_WordleRecord', userId: string } | null | undefined };
+
+export type WordleWinQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type WordleWinQuery = { __typename?: 'query_root', englister_WordleRecord: Array<{ __typename?: 'englister_WordleRecord', wind: boolean }> };
 
 
 export const SavePhraseDocument = gql`
@@ -5976,3 +6172,76 @@ export function useAddSkippedWordMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddSkippedWordMutationHookResult = ReturnType<typeof useAddSkippedWordMutation>;
 export type AddSkippedWordMutationResult = Apollo.MutationResult<AddSkippedWordMutation>;
 export type AddSkippedWordMutationOptions = Apollo.BaseMutationOptions<AddSkippedWordMutation, AddSkippedWordMutationVariables>;
+export const SetWordleRecordDocument = gql`
+    mutation setWordleRecord($slug: String!, $userId: String!, $answer: String!, $win: Boolean!) {
+  insert_englister_WordleRecord_one(
+    object: {answer: $answer, roomSlug: $slug, userId: $userId, wind: $win}
+  ) {
+    userId
+  }
+}
+    `;
+export type SetWordleRecordMutationFn = Apollo.MutationFunction<SetWordleRecordMutation, SetWordleRecordMutationVariables>;
+
+/**
+ * __useSetWordleRecordMutation__
+ *
+ * To run a mutation, you first call `useSetWordleRecordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetWordleRecordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setWordleRecordMutation, { data, loading, error }] = useSetWordleRecordMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      userId: // value for 'userId'
+ *      answer: // value for 'answer'
+ *      win: // value for 'win'
+ *   },
+ * });
+ */
+export function useSetWordleRecordMutation(baseOptions?: Apollo.MutationHookOptions<SetWordleRecordMutation, SetWordleRecordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetWordleRecordMutation, SetWordleRecordMutationVariables>(SetWordleRecordDocument, options);
+      }
+export type SetWordleRecordMutationHookResult = ReturnType<typeof useSetWordleRecordMutation>;
+export type SetWordleRecordMutationResult = Apollo.MutationResult<SetWordleRecordMutation>;
+export type SetWordleRecordMutationOptions = Apollo.BaseMutationOptions<SetWordleRecordMutation, SetWordleRecordMutationVariables>;
+export const WordleWinDocument = gql`
+    query wordleWin($userId: String) {
+  englister_WordleRecord(where: {userId: {_eq: $userId}, wind: {_eq: true}}) {
+    wind
+  }
+}
+    `;
+
+/**
+ * __useWordleWinQuery__
+ *
+ * To run a query within a React component, call `useWordleWinQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWordleWinQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWordleWinQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useWordleWinQuery(baseOptions?: Apollo.QueryHookOptions<WordleWinQuery, WordleWinQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WordleWinQuery, WordleWinQueryVariables>(WordleWinDocument, options);
+      }
+export function useWordleWinLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WordleWinQuery, WordleWinQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WordleWinQuery, WordleWinQueryVariables>(WordleWinDocument, options);
+        }
+export type WordleWinQueryHookResult = ReturnType<typeof useWordleWinQuery>;
+export type WordleWinLazyQueryHookResult = ReturnType<typeof useWordleWinLazyQuery>;
+export type WordleWinQueryResult = Apollo.QueryResult<WordleWinQuery, WordleWinQueryVariables>;

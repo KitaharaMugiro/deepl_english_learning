@@ -35,7 +35,7 @@ export default () => {
             backgroundColor: "#273132",
             marginTop: 140,
             minHeight: 360,
-            display: displayHeader ? "inline" : "none",
+            display: displayHeader ? "block" : "none",
         }}>
 
             <div className={style.container}>

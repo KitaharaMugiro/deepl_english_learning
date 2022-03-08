@@ -111,7 +111,7 @@ export default function StudyMainFrame(props: Props) {
                 setErrorMessage(res.message)
                 return
             }
-            const resTranslation = await StudyApi.translate(japanese)
+            const resTranslation = await StudyApi.translate(japanese, activeQuestion.title)
             setTranslation(resTranslation.translation)
 
             //ここに持っていく

@@ -28,9 +28,8 @@ export default (props: Props) => {
         (anchor: any, open: boolean) =>
             (event: React.KeyboardEvent | React.MouseEvent) => {
                 if (
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
+                    event &&
+                    event.type === 'keydown'
                 ) {
                     return;
                 }
@@ -48,7 +47,6 @@ export default (props: Props) => {
         <Drawer
             anchor={anchor}
             open={state}
-
             onClose={toggleDrawer(anchor, false)}
         >
             {renderWordList()}

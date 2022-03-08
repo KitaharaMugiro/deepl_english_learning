@@ -10,7 +10,6 @@ export default (props: Props) => {
 
     useEffect(() => {
         const ratio = (props.value * 100 / props.maximum)
-        console.log({ ratio })
         setBarWidth(ratio + "%")
     }, [props.value])
 

@@ -5,6 +5,7 @@ interface Props {
     row: string,
     userInput: string | null,
     answer: string,
+    suggest: string | null,
 }
 
 function getChar(text: Array<string>, index: number) {
@@ -16,16 +17,16 @@ function getChar(text: Array<string>, index: number) {
 
 export default (props: Props) => {
 
-
     if (props.row === "") {
         if (props.userInput) {
             const chars = props.userInput.split("")
+            const suggestedChars = props.suggest ? props.suggest.split("") : []
             return <div style={{ display: "flex" }}>
-                <WordleTile char={getChar(chars, 0) || ""} colorType="none" />
-                <WordleTile char={getChar(chars, 1) || ""} colorType="none" />
-                <WordleTile char={getChar(chars, 2) || ""} colorType="none" />
-                <WordleTile char={getChar(chars, 3) || ""} colorType="none" />
-                <WordleTile char={getChar(chars, 4) || ""} colorType="none" />
+                <WordleTile char={getChar(chars, 0) || ""} suggestChar={getChar(suggestedChars, 0) || ""} colorType="none" />
+                <WordleTile char={getChar(chars, 1) || ""} suggestChar={getChar(suggestedChars, 1) || ""} colorType="none" />
+                <WordleTile char={getChar(chars, 2) || ""} suggestChar={getChar(suggestedChars, 2) || ""} colorType="none" />
+                <WordleTile char={getChar(chars, 3) || ""} suggestChar={getChar(suggestedChars, 3) || ""} colorType="none" />
+                <WordleTile char={getChar(chars, 4) || ""} suggestChar={getChar(suggestedChars, 4) || ""} colorType="none" />
             </div>
         }
         return <div style={{ display: "flex" }}>

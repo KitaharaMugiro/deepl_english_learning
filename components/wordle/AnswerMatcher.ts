@@ -1,3 +1,14 @@
+import { answers } from "./const"
+
+export const wordSuggest = (userInput: string) => {
+    for (const answer of answers) {
+        if (answer.startsWith(userInput)) {
+            return answer;
+        }
+    }
+    return ""
+}
+
 export const matcher = (word: string, answer: string) => {
     const wordArr = word.split("")
     const answerArr = answer.split("")

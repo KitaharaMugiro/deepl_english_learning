@@ -24,7 +24,7 @@ export default () => {
             displayCenterWarningMessage("Please enter 5 characters")
             return
         }
-        if (!answers.some((a) => a === userInput)) {
+        if (!answers.some(answer => answer === userInput)) {
             setMissCount(missCount + 1)
             addSkippedWord({
                 variables: {
@@ -33,7 +33,7 @@ export default () => {
                 }
             })
 
-            if (missCount >= 3) {
+            if (missCount >= 2) {
                 displayCenterWarningMessage(`Not in word list.(${missCount + 1} / 3). Your turn is skipped.`)
                 await skipTurn({
                     variables: {
@@ -41,12 +41,15 @@ export default () => {
                         turn: nextTurn
                     }
                 })
+                setMissCount(0)
             } else {
                 displayCenterWarningMessage(`Not in word list.(${missCount + 1} / 3).`)
             }
             emptyUserInput()
             return
         }
+
+
         if (activeRow === 0) {
             await updateOne({
                 variables: {

@@ -84,7 +84,7 @@ export class StudyApi {
         return { success, message }
     }
 
-    static async translate(japanese: string) {
+    static async translate(japanese: string, contextualText: string) {
         const client = new ApiClient()
         const userId = LocalStorageHelper.getUserId()
         const studySessionId = LocalStorageHelper.getStudySessionId()
@@ -95,7 +95,8 @@ export class StudyApi {
             {
                 userId,
                 studySessionId,
-                japanese: japanese
+                japanese,
+                contextualText
             }
         )
         const { translation } = res.data
