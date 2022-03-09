@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Divider, LinearProgress, Typography } from "@mui/material"
+import { Box, Button, Chip, Divider, LinearProgress, Link, Typography } from "@mui/material"
 import { useAtom } from "jotai"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
@@ -16,11 +16,11 @@ import WordleAi from "../../../components/wordle/WordleAi"
 import WordleBoard from "../../../components/wordle/WordleBoard"
 import { DisplayHeaderAtom } from "../../../models/jotai/Display"
 import { AtomNameWithPersistence } from "../../../models/jotai/StudyJotai"
-import { ActiveWordleRow } from "../../../models/jotai/Wordle"
+import { ActiveWordleRow, WordleMissCount } from "../../../models/jotai/Wordle"
 import { LocalStorageHelper } from "../../../models/localstorage/LocalStorageHelper"
 import { SoundPlayer } from "../../../models/SoundPlayer"
 import { useSnackMessage } from "../../../models/util-hooks/useSnackMessage"
-import { useCreateRoomMutation, useJoinRoomMutation, useSkipMutation, useWordleRoomSubscription, useDeleteRoomMutation, useSkippedWordsSubscription } from "../../../src/generated/graphql"
+import { useCreateRoomMutation, useJoinRoomMutation, useSkipMutation, useWordleRoomSubscription, useDeleteRoomMutation, useSkippedWordsSubscription, useSetWordleRecordMutation } from "../../../src/generated/graphql"
 const room = ({ ogpInfo }: any) => {
     //get room info
     const router = useRouter()
@@ -38,6 +38,8 @@ const room = ({ ogpInfo }: any) => {
     const [isAiMode, setIsAiMode] = useState(false)
     const player1 = data?.englister_WordleRoom_by_pk?.player1
     const player2 = data?.englister_WordleRoom_by_pk?.player2
+    const player1Name = data?.englister_WordleRoom_by_pk?.player1_name
+    const player2Name = data?.englister_WordleRoom_by_pk?.player2_name
     const isUserOnlyOne = data?.englister_WordleRoom_by_pk?.player2 === ""
     const isPlayer1 = data?.englister_WordleRoom_by_pk?.player1 === LocalStorageHelper.getUserId()
     const isPlayer2 = data?.englister_WordleRoom_by_pk?.player2 === LocalStorageHelper.getUserId()
@@ -53,10 +55,13 @@ const room = ({ ogpInfo }: any) => {
     const { displayCenterWarningMessage } = useSnackMessage()
     const { submit } = useWordleSubmit()
     const [skipTurn] = useSkipMutation()
+    const [setWordleRecord] = useSetWordleRecordMutation()
     const [name, setName] = useAtom(AtomNameWithPersistence)
     const isEndGame = winner !== "" || activeRow === 6
     const youWin = (isPlayer1 && winner === "player1") || (isPlayer2 && winner === "player2")
     const [_, setDisplayHeader] = useAtom(DisplayHeaderAtom)
+    const [__, setMissCount] = useAtom(WordleMissCount)
+    const opponentName = (isPlayer1 ? player2Name : player1Name) || "Opponent"
 
     const { countdown, start, reset } = useCountdownTimer({
         timer: 30000, interval: 1000,
@@ -72,10 +77,29 @@ const room = ({ ogpInfo }: any) => {
     }, [onlineUserList])
 
     useEffect(() => {
+        if (isEndGame) {
+            const userId = LocalStorageHelper.getUserId()
+            if (answer) {
+                setWordleRecord({
+                    variables: {
+                        slug: roomSlug as string,
+                        userId: userId!,
+                        answer: answer!,
+                        win: youWin
+                    }
+                })
+            }
+
+        }
+    }, [isEndGame])
+
+    useEffect(() => {
         if (skippedWords?.englister_WordleSkippedWords) {
             if (skippedWords?.englister_WordleSkippedWords.length > 0) {
-                const latest = skippedWords?.englister_WordleSkippedWords[skippedWords?.englister_WordleSkippedWords.length - 1]
-                displayCenterWarningMessage(`${latest.word} is not in word list`)
+                if (!yourTurn) {
+                    const latest = skippedWords?.englister_WordleSkippedWords[skippedWords?.englister_WordleSkippedWords.length - 1]
+                    displayCenterWarningMessage(`'${latest.word}' was submitted but it's not in word list`)
+                }
             }
         }
     }, [skippedWords])
@@ -98,6 +122,7 @@ const room = ({ ogpInfo }: any) => {
                         turn: LocalStorageHelper.getUserId() || ""
                     }
                 })
+                setMissCount(0)
             }
 
             reset()
@@ -129,7 +154,7 @@ const room = ({ ogpInfo }: any) => {
             setActiveRow(6)
         }
 
-        if (wordleRow?.one === answer || wordleRow?.two === answer || wordleRow?.three === answer || wordleRow?.four === answer || wordleRow?.five === answer || wordleRow?.six === answer) {
+        if (answer && wordleRow?.one === answer || wordleRow?.two === answer || wordleRow?.three === answer || wordleRow?.four === answer || wordleRow?.five === answer || wordleRow?.six === answer) {
             const nextPlayer1 = wordleRow?.turn === player1
             if (nextPlayer1) {
                 setWinner("player2")
@@ -212,17 +237,16 @@ const room = ({ ogpInfo }: any) => {
 
     const shareRoomUrl = () => {
 
-        let tweetText = `Let's play Wordle Battle Online with me! First one player is only accepted. `
-        tweetText += "\n#Wordle #WordleBattleOnline"
+        let tweetText = `Let's play Wordle Battle Online with me! \n`
         const url = "https://english.yunomy.com" + router.asPath
+        tweetText += url + "\n Only First one player is accepted. "
 
         if (navigator.share) {
             navigator.share({
-                text: tweetText,
-                url
+                text: tweetText
             })
         } else {
-            navigator.clipboard.writeText(tweetText + "\n" + url)
+            navigator.clipboard.writeText(tweetText)
             displaySuccessMessage("URLをクリップボードにコピーしました")
         }
     };
@@ -270,12 +294,12 @@ const room = ({ ogpInfo }: any) => {
         if (youWin) {
             return <>
                 <Typography variant="h3" textAlign="center" color="primary">You win!</Typography>
-                <Typography variant="h4" textAlign="center">The answer was <b>{answer}</b></Typography>
+                <Typography variant="h4" textAlign="center">The answer was <Link href={`https://ejje.weblio.jp/content/${answer}`} target="_blank" ><b>{answer}</b></Link></Typography>
             </>
         } else {
             return <>
                 <Typography variant="h3" textAlign="center" color="error">You lose!</Typography>
-                <Typography variant="h4" textAlign="center">The answer was <b>{answer}</b></Typography>
+                <Typography variant="h4" textAlign="center">The answer was <Link href={`https://ejje.weblio.jp/content/${answer}`} target="_blank" ><b>{answer}</b></Link></Typography>
             </>
         }
     }
@@ -291,7 +315,7 @@ const room = ({ ogpInfo }: any) => {
         } else {
             return <>
                 {/* <Chip label="opponent offline" color="warning" /> */}
-                <Typography variant="subtitle2" textAlign="center">opponent offline</Typography>
+                <Typography variant="subtitle2" textAlign="center">{opponentName} is offline</Typography>
                 <Button onClick={() => { setIsAiMode(true) }}>Do you want AI mode?</Button>
             </>
         }
@@ -382,14 +406,13 @@ const room = ({ ogpInfo }: any) => {
 
     return <div>
         <CustomizedMetaTags ogpInfo={ogpInfo} />
-        <div style={{ height: 20 }} />
 
         {!isEndGame && yourTurn && <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }} color="primary"><b>Your Turn</b></Typography>
 
         </div>}
         {!isEndGame && !yourTurn && <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }} color="error"><b>Opponent Turn</b> </Typography>
+            <Typography variant="h4" textAlign="center" style={{ marginRight: 5 }} color="error"><b>{opponentName}'s Turn</b> </Typography>
         </div>}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             {presenceDisplay()}
@@ -398,7 +421,7 @@ const room = ({ ogpInfo }: any) => {
         {!isEndGame && renderCountdown()}
         {isEndGame && renderResult()}
         {
-            isEndGame && <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+            isEndGame && <div style={{ margin: 5, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                 <Button
                     variant="outlined"
                     onClick={share}
@@ -406,7 +429,7 @@ const room = ({ ogpInfo }: any) => {
                     Share Result
                 </Button>
                 <div style={{ width: 20 }} />
-                <Button variant="outlined" href="/wordle/rooms" size="small" color="error">Back to rooms</Button>
+                <Button variant="outlined" href="/wordle/rooms" color="error">Back to rooms</Button>
             </div>
         }
 
@@ -431,6 +454,8 @@ const room = ({ ogpInfo }: any) => {
 
         <SkippedWords
             skippedWords={skippedWords?.englister_WordleSkippedWords || []} />
+
+        <div style={{ height: 100 }} />
     </div >
 }
 

@@ -11,7 +11,7 @@ import EnglisterAds from "../../components/wordle/EnglisterAds"
 import { DisplayHeaderAtom } from "../../models/jotai/Display"
 import { AtomNameWithPersistence } from "../../models/jotai/StudyJotai"
 import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper"
-import { useCreateRoomMutation, useJoinRoomMutation, useWordleRoomsSubscription } from "../../src/generated/graphql"
+import { useWordleWinQuery, useCreateRoomMutation, useJoinRoomMutation, useWordleRoomsSubscription } from "../../src/generated/graphql"
 function makeid(length: number) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -35,6 +35,25 @@ const rooms = ({ ogpInfo }: any) => {
     const [joinRoomMutation] = useJoinRoomMutation()
     const [name, setName] = useAtom(AtomNameWithPersistence)
     const [_, setDisplayHeader] = useAtom(DisplayHeaderAtom)
+    const { data } = useWordleWinQuery({ variables: { userId: LocalStorageHelper.getUserId() } })
+    const winCount = data?.englister_WordleRecord.length
+    const [loading, setLoading] = useState(false)
+    const rank = () => {
+        if (winCount === undefined) return ""
+        if (winCount === 0) {
+            return "E"
+        } else if (winCount < 3) {
+            return "D"
+        } else if (winCount < 5) {
+            return "C"
+        } else if (winCount < 10) {
+            return "B"
+        } else if (winCount < 20) {
+            return "A"
+        } else if (winCount < 50) {
+            return "S"
+        }
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -62,6 +81,7 @@ const rooms = ({ ogpInfo }: any) => {
 
 
     const onCreateRoom = async (slug: string) => {
+        setLoading(true)
         const randomIndex = Math.floor(Math.random() * answers.length)
         const answer = answers[randomIndex]
         const player1 = LocalStorageHelper.getUserId()
@@ -75,12 +95,11 @@ const rooms = ({ ogpInfo }: any) => {
                     answer
                 }
             })
-
-            router.push(`/wordle/room/${slug}`)
         } catch {
 
         }
-
+        router.push(`/wordle/room/${slug}`)
+        setLoading(false)
     }
 
     return <>
@@ -93,15 +112,16 @@ const rooms = ({ ogpInfo }: any) => {
                 </Typography>
 
                 <Typography variant="body2">
-                    Now online: <b>{onlineUserList.length}</b>
+                    Now online: <b>{onlineUserList.length}</b>  Your Rank: <b>{rank()}</b>
                 </Typography>
+
                 <div style={{ marginTop: 10, display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <TextField
                         placeholder="your name"
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                     <div style={{ width: 20 }} />
-                    <Button variant="contained" size="large" onClick={() => onCreateRoom(randomWord)}>Create Room</Button>
+                    <Button disabled={loading} variant="contained" size="large" onClick={() => onCreateRoom(randomWord)}>Create Room</Button>
                 </div>
 
                 <Typography variant="h5" gutterBottom style={{ marginTop: 30 }}>

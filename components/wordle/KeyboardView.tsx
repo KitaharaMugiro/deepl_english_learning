@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { useEffect } from "react";
-import { WordleUserInput } from "../../models/jotai/Wordle";
+import { WordleSuggest, WordleUserInput } from "../../models/jotai/Wordle";
 import { useAddSkippedWordMutation } from "../../src/generated/graphql";
-import { allMatcher } from "./AnswerMatcher";
+import { allMatcher, wordSuggest } from "./AnswerMatcher";
 import { WordleColors } from "./const";
 import style from "./index.module.css";
 import useWordleSubmit from "./useWordleSubmit";
@@ -22,6 +22,7 @@ export default (props: Props) => {
     const secondRow = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
     const thirdRow = ["z", "x", "c", "v", "b", "n", "m"]
     const [userInput, setUserInput] = useAtom(WordleUserInput)
+    const [suggest, setSuggest] = useAtom(WordleSuggest)
     const { submit } = useWordleSubmit()
 
     const colors = allMatcher(props.rows, props.answer)
@@ -59,6 +60,7 @@ export default (props: Props) => {
         } else {
             if (userInput.length < 5) {
                 setUserInput(userInput + char)
+                setSuggest(wordSuggest(userInput + char))
             }
         }
     }

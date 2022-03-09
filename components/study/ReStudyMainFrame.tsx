@@ -104,7 +104,7 @@ export default function ReStudyMainFrame(props: Props) {
                 setNextButtonLoading(false)
                 return
             }
-            const resTranslation = await StudyApi.translate(japanese)
+            const resTranslation = await StudyApi.translate(japanese, activeQuestion.title)
             setTranslation(resTranslation.translation)
         }
 

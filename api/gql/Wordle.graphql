@@ -104,3 +104,15 @@ mutation addSkippedWord($slug: String, $word:String) {
     id
   }
 }
+
+mutation setWordleRecord($slug: String!, $userId: String!, $answer: String!, $win: Boolean!) {
+  insert_englister_WordleRecord_one(object: {answer: $answer, roomSlug: $slug, userId: $userId, wind: $win}) {
+    userId
+  }
+}
+
+query wordleWin($userId: String) {
+  englister_WordleRecord(where: {userId: {_eq: $userId}, wind: {_eq:true}}) {
+    wind
+  }
+}
