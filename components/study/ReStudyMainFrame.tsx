@@ -208,7 +208,6 @@ export default function ReStudyMainFrame(props: Props) {
                         </div>
                     </React.Fragment>
                 </Paper>
-                <PhraseList />
                 <div style={{ height: 10 }} />
                 <Copyright />
             </main>

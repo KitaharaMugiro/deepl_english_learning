@@ -12,7 +12,6 @@ const Phrase = () => {
             覚えておきたい文章やフレーズなどがあればここに追加してください。
         </Typography>
         <div style={{ height: 15 }} />
-
         <PhraseList />
     </Container>
 

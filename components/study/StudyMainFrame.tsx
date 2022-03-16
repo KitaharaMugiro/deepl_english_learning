@@ -237,7 +237,6 @@ export default function StudyMainFrame(props: Props) {
                         (※Skipした場合もハートを消費します)
                     </Typography>
                 </div>
-                <PhraseList />
                 <div style={{ height: 10 }} />
                 <Copyright />
             </main>
