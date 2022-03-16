@@ -1,20 +1,17 @@
-import { IconButton, Menu, MenuItem, Button, Container, Grid, Typography, Tooltip } from "@mui/material"
-import Link from "next/link"
-import useUser from "../../models/util-hooks/useUser"
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import React, { useEffect, useState } from "react";
+import { Button, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import { Auth } from "aws-amplify";
-import useSignin from "../../models/util-hooks/useSignin";
-import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper";
-import { UserApi } from "../../api/UserApi";
-import { Subscriptions } from "@mui/icons-material";
-import { SubscriptionApi } from "../../api/SubscriptionApi";
-import { StripeApi } from "../../api/StripeApi";
-import LeftHearts from "../hearts/LeftHearts";
 import { useAtom } from "jotai";
-import { LeftHeartsAtom, MaxHeartsAtom } from "../../models/jotai/LeftHearts";
+import Link from "next/link";
+import React, { useEffect } from "react";
 import { StudyApi } from "../../api/StudyApi";
+import { UserApi } from "../../api/UserApi";
+import { LeftHeartsAtom } from "../../models/jotai/LeftHearts";
+import { LocalStorageHelper } from "../../models/localstorage/LocalStorageHelper";
 import usePlan from "../../models/util-hooks/usePlan";
+import useSignin from "../../models/util-hooks/useSignin";
+import useUser from "../../models/util-hooks/useUser";
+import LeftHearts from "../hearts/LeftHearts";
 
 export default () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
