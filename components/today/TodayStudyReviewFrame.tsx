@@ -12,7 +12,6 @@ import { AtomName } from '../../models/jotai/StudyJotai';
 import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
-import PhraseDialog from '../phrase/PhraseDialog';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
 import TodayResultHistoryGraph from './TodayResultHistoryGraph';
 import TodayShareButtons from './TodayShareButtons';
@@ -226,7 +225,6 @@ export default (props: Props) => {
 
                 />
 
-                <PhraseDialog />
 
             </main>
         </>
