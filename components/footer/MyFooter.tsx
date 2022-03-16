@@ -1,6 +1,7 @@
 import { useAtom } from "jotai"
 import Link from "next/link"
 import { DisplayHeaderAtom } from "../../models/jotai/Display"
+import AppIntroduction from "./AppIntroduction"
 import { Copyright } from "./Copyright"
 import style from "./style.module.css"
 
@@ -38,13 +39,15 @@ export default () => {
             display: displayHeader ? "block" : "none",
         }}>
 
+
             <div className={style.container}>
+                <AppIntroduction />
+                <div style={{ height: 20 }} />
                 <div className={style.row}>
                     <div>
                         {renderMenu()}
                     </div>
                 </div>
-
             </div>
         </div>
     )

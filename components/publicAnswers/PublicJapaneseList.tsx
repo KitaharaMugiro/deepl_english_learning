@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, DialogProps, DialogTitle } from "@mui/ma
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { AtomJapanse } from "../../models/jotai/StudyJotai";
+import usePhrase from "../../models/util-hooks/usePhrase";
 import { useQueryPublicJapaneseQuery } from "../../src/generated/graphql";
 import TappablePublicAnswerCard from "./TappablePublicAnswerCard";
 
@@ -16,6 +17,7 @@ export default (props: Props) => {
     const [_, setJapanese] = useAtom(AtomJapanse)
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
+    const { openPhraseList } = usePhrase()
 
     const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
         setOpen(true);
@@ -42,9 +44,15 @@ export default (props: Props) => {
 
     if (loading) return <div />
     if (error) return <div >{JSON.stringify(error)}</div>
-    if (data?.englister_PublicAnswers.length === 0) return <Button disabled>他の人の意見を参考にする(まだ他の人の投稿がありません)</Button>
+    if (data?.englister_PublicAnswers.length === 0) return <>
+
+        <Button onClick={openPhraseList}>フレーズリストを開く</Button>
+        <Button disabled>他の人の意見を参考にする(まだ他の人の投稿がありません)</Button>
+    </>
     return <>
+        <Button onClick={openPhraseList}>フレーズリストを開く</Button>
         <Button onClick={handleClickOpen('paper')}>他の人の意見を参考にする</Button>
+
 
         <Dialog
             open={open}

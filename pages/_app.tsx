@@ -23,6 +23,7 @@ import SignupActivationModal from '../components/signin/SignupActivationModal';
 import MyBackdrop from '../components/common/MyBackdrop';
 import MySnackbar from '../components/common/MySnackbar';
 import CommonMetaTags from '../components/common/CommonMetaTags';
+import PhraseDialog from '../components/phrase/PhraseDialog';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -109,6 +110,7 @@ export default function MyApp(props: AppProps) {
                 <SigninModal />
                 <PlanGroupModal />
                 <SignupActivationModal />
+                <PhraseDialog />
                 <div style={{ height: 60 }} />
                 <Component {...pageProps} />
                 <MyFooter />

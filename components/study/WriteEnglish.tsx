@@ -1,18 +1,20 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { IconButton, Paper } from '@mui/material';
+import { Button, IconButton, Paper } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import { AtomEnglish, AtomJapanse } from '../../models/jotai/StudyJotai';
+import usePhrase from '../../models/util-hooks/usePhrase';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import QuestionText from './QuestionText';
 import styles from "./style.module.css";
 
 export default function WriteEnglish() {
+    const { openPhraseList } = usePhrase()
     const [displayModal, setDisplayModal] = useState(true)
     const { start, view } = useTimer(1000 * 60 * 2)
     const [english, setEnglish] = useAtom(AtomEnglish)
@@ -97,7 +99,7 @@ export default function WriteEnglish() {
                         残り {view}
                     </span><IconButton size="small" onClick={onClickTimeGetAway}><RemoveCircleIcon /></IconButton> </div>
                     : <IconButton size="small" onClick={onClickTimeGetAway}><AddCircleIcon /></IconButton>}
-
+                <Button onClick={openPhraseList}>フレーズリストを開く</Button>
             </div>
         </React.Fragment >
     );

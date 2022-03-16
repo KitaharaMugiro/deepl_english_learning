@@ -4,6 +4,7 @@ import { useSnackMessage } from "../../models/util-hooks/useSnackMessage"
 
 interface Props {
     name: string
+    questionTitle: string
     resultId: string
 }
 
@@ -12,7 +13,7 @@ export default (props: Props) => {
 
     const { displaySuccessMessage } = useSnackMessage()
 
-    const title = `今日の英語年齢 ${props.name}さんの診断結果`
+    const title = `Q. ${props.questionTitle}\n\n${props.name}さんの回答はこちら↓`
     const url = `https://english.yunomy.com/today/${props.resultId}`
     const isShareable = navigator.share !== undefined
 
@@ -28,7 +29,8 @@ export default (props: Props) => {
         }
     };
 
-    return <>
+    return <div>
+        <Typography variant="body1" textAlign={"center"}><b>結果と答えをシェア!!</b></Typography>
         <TwitterShareButton
             style={{ width: "100%" }}
             title={title}
@@ -55,9 +57,9 @@ export default (props: Props) => {
             fullWidth
             onClick={share}
         >
-            <Typography variant="h4">
+            <Typography variant="h5">
                 {isShareable ? "結果をシェアする" : "結果をコピーする"}
             </Typography>
         </Button>
-    </>
+    </div>
 }

@@ -176,6 +176,7 @@ export default (props: Props) => {
                             {answer?.translation}
                         </Paper>
                         <TextToSpeechButton text={answer?.translation || ""} />
+                        <TextToSpeechButton text={answer?.translation || ""} />
                     </div>
 
                     <div style={{ height: 25 }} />
@@ -183,6 +184,7 @@ export default (props: Props) => {
 
                     {isYourAnswer && <TodayShareButtons
                         name={answer?.name || ""}
+                        questionTitle={question.title}
                         resultId={answer?.resultId || ""} />}
 
                     <div style={{ height: 25 }} />
@@ -222,6 +224,7 @@ export default (props: Props) => {
                     numberOfPieces={60 * (answer?.age || 0) + 50}
 
                 />
+
 
             </main>
         </>
