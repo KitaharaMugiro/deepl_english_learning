@@ -10,7 +10,7 @@ import PlanBoxGroup from '../components/price/PlanBoxGroup';
 import useUser from '../models/util-hooks/useUser';
 
 
-export default function Album() {
+export default function TopPage() {
   const { user } = useUser();
   const router = useRouter()
   useEffect(() => {

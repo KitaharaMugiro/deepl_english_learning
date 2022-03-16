@@ -9,6 +9,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiSpecialClient } from '../../api/ApiSpecialClient';
+import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
 import { BackdropAtom } from '../../models/jotai/Backdrop';
@@ -89,6 +90,13 @@ export default function TodayStudyMainFrame(props: Props) {
 
             //スコア算出
             const scores = await new ApiSpecialClient().englishScore(english, resTranslation.translation)
+
+            const _score = Math.round(scores.scoreRaw)
+            const _age = scores.age
+
+            //スコアを送信する
+            RecordApi.submitScore(_score, _age)
+            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
             //結果の保存
             const { resultId } = await TodayApi.submitTodayTopicResult(
