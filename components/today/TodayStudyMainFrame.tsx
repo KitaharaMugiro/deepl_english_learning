@@ -63,7 +63,7 @@ export default function TodayStudyMainFrame(props: Props) {
         const getTopic = async () => {
             try {
                 const { question } = props.todayTopic
-                LocalStorageHelper.saveStudySessionId(uuidv4())
+                LocalStorageHelper.saveStudySessionId(uuidv4()) //おお、、設定してるのか、、
                 setActiveQuestion({ topicId: question.topicId, title: question.title, description: question.description })
             } catch (e) {
                 console.warn(e)

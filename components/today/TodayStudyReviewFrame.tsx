@@ -183,6 +183,7 @@ export default (props: Props) => {
 
                     {isYourAnswer && <TodayShareButtons
                         name={answer?.name || ""}
+                        questionTitle={question.title}
                         resultId={answer?.resultId || ""} />}
 
                     <div style={{ height: 25 }} />
