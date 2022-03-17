@@ -96,7 +96,7 @@ export default function TodayStudyMainFrame(props: Props) {
 
             //スコアを送信する
             RecordApi.submitScore(_score, _age)
-            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
+            RecordApi.submitDashboard(_score, english, resTranslation.translation, activeQuestion.topicId, japanese, _age)
 
             //結果の保存
             const { resultId } = await TodayApi.submitTodayTopicResult(
