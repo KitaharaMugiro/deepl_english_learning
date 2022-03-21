@@ -6,6 +6,8 @@ import { Description } from '@mui/icons-material';
 import usePhrase from '../../models/util-hooks/usePhrase';
 import { useAtom } from 'jotai';
 import { BackdropAtom } from '../../models/jotai/Backdrop';
+import useSignupActivation from '../../models/util-hooks/useSignupActivation';
+import useUser from '../../models/util-hooks/useUser';
 
 export default () => {
     if (!process.browser) return null;
@@ -13,12 +15,18 @@ export default () => {
     const [savePhraseMutation] = useSavePhraseMutation()
     const { refetch } = useListPhraseQueryQuery()
     const [_, setOpenLoading] = useAtom(BackdropAtom)
+    const { user } = useUser()
+    const { openSignupActivationModal } = useSignupActivation()
 
     const onSearchOnDictionary = (html: any, text: string) => {
         window.open('https://ejje.weblio.jp/content/' + text, '_blank');
     }
 
     const registerPhrase = async (html: any, text: string) => {
+        if (!user) {
+            openSignupActivationModal()
+            return
+        }
         setOpenLoading(true)
         await savePhraseMutation({
             variables: {
