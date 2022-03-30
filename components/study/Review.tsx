@@ -1,32 +1,21 @@
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Button, Paper, Typography } from '@mui/material';
-import ReactDiffViewer, { DiffMethod } from 'ab-react-diff-viewer';
 import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
-import SwitchableEnglishCard from '../dashboard/SwitchableEnglishCard';
-import TextToSpeechButton from '../speech/TextToSpeechButton';
 import DetailScoreBoard from './DetailScoreBoard';
-import classes from "./style.module.css";
+import SuggestWordsList from './SuggestWordsList';
+import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
 
 export default function Review() {
-
-    const [scoreValue, setScore] = useState(0)
 
     const [english] = useAtom(AtomEnglish)
     const [japanese] = useAtom(AtomJapanse)
     const [translation] = useAtom(AtomTranslation)
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
-    const [visibleDiff, setVisibleDiff] = useState(false)
-    const [hideOtehon, setHideOtehon] = useState(false)
-
-    const changeView = () => {
-        setVisibleDiff(!visibleDiff)
-    }
 
     useEffect(() => {
         //スコアや年齢を取得する
@@ -38,68 +27,9 @@ export default function Review() {
             //初回のスコアを送信する
             RecordApi.submitScore(_score, _age)
             RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
-
-            setScore(_score)
-
-            if (_score > 85) {
-                setVisibleDiff(true)
-            } else {
-                setVisibleDiff(false)
-            }
         })
 
     }, [])
-
-    const onSearchOnDictionary = (html: any, text: string) => {
-        window.open('https://ejje.weblio.jp/content/' + text, '_blank');
-    }
-
-    const renderJapanese = () => {
-        return <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
-            {japanese}
-        </Paper>
-    }
-
-    const renderDiffOrReview = () => {
-        if (visibleDiff) {
-            return (
-                <div style={{ position: "relative" }}>
-                    <ReactDiffViewer
-                        oldValue={english}
-                        newValue={translation}
-                        splitView={true}
-                        hideLineNumbers={true}
-                        showDiffOnly={false}
-                        leftTitle="Yours"
-                        rightTitle="お手本"
-                        compareMethod={DiffMethod.WORDS}
-                    />
-                    <TextToSpeechButton text={translation} />
-                </div>
-
-            )
-        } else {
-            return (
-                <div>
-                    <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
-                        {english}
-                    </Paper>
-
-                    <div className={classes.arrow_box} >
-                        <ArrowDownwardIcon />
-                        <span>お手本の英語</span>
-                    </div>
-
-                    <SwitchableEnglishCard
-                        hide={hideOtehon}
-                        studySessionId=""
-                        handleClickOtehon={() => setHideOtehon(!hideOtehon)}
-                        translation={translation}
-                    />
-                </div>
-            )
-        }
-    }
 
     return (
         <React.Fragment>
@@ -109,16 +39,41 @@ export default function Review() {
                 translation={translation}
             />
 
-            <Typography variant="body1">English Score: {scoreValue}</Typography>
+            <h2 style={{ fontWeight: 700 }} >
+                {activeQuestion.title}
+            </h2>
+
+            <p style={{ color: "#677284", marginTop: "15px" }}>
+                {activeQuestion.description}
+            </p>
+
+            <Typography
+                variant="subtitle2"
+                style={{ marginBottom: 0, marginTop: 10 }}>
+                日本語で書いた意見
+            </Typography>
+            <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
+                {japanese}
+            </Paper>
+
+            <Typography
+                variant="subtitle2"
+                style={{ marginBottom: 0, marginTop: 10 }}>
+                英語で書いた意見
+            </Typography>
+
+            <YourEnglishAndTranslationView
+                english={english}
+                translation={translation}
+            />
+
+            <div style={{ height: 25 }} />
+
+            <SuggestWordsList
+                english={english}
+                translation={translation} />
 
             <div style={{ height: 15 }} />
-            {renderJapanese()}
-            <div style={{ height: 15 }} />
-            <Typography variant="h6" style={{ marginBottom: "10px", marginTop: 10 }}>
-                お手本の英語を暗記して復習しよう
-            </Typography>
-            {renderDiffOrReview()}
-            <Button onClick={changeView}>ビューを切り替える</Button>
 
             <DictionarySearchSelector />
         </React.Fragment>

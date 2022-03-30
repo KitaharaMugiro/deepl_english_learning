@@ -3,6 +3,7 @@ import { ApiClient } from "./ApiClient";
 
 export class StudyApi {
 
+    //TODO: console.errorで凌いでるけどこれいいの？
     static async restudyStart(studySessionId: string) {
         const client = new ApiClient()
         const userId = LocalStorageHelper.getUserId()
@@ -116,5 +117,29 @@ export class StudyApi {
         )
         const { leftHeart } = res.data
         return { leftHeart }
+    }
+
+    static async compare(english: string, translation: string) {
+        const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) console.error("userIdがありません")
+
+        const res = await client.post(
+            "/study/compare",
+            {
+                userId,
+                english,
+                translation
+            }
+        )
+        const { userShouldRememberThisWords } = res.data as {
+            userShouldRememberThisWords: {
+                headword: string,
+                meaning: string,
+                pos: string,
+                level: string
+            }[]
+        }
+        return { userShouldRememberThisWords }
     }
 }

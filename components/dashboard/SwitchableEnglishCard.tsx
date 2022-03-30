@@ -1,11 +1,13 @@
 import { Button, Paper } from "@mui/material"
 import TextToSpeechButton from "../speech/TextToSpeechButton"
+import TranslationCard from "../study/TranslationCard"
 
 interface Props {
     hide: boolean
     studySessionId: string
     handleClickOtehon: (studySessionId: string) => void
     translation: string
+    english?: string
 }
 
 export default (props: Props) => {
@@ -22,13 +24,10 @@ export default (props: Props) => {
 
     return <>
         <div style={{ position: "relative" }}>
-            <Paper elevation={0} style={{
-                backgroundColor: "#e6ffed",
-                padding: "20px",
-                paddingBottom: "40px"
-            }}>
-                {props.translation}
-            </Paper>
+            <TranslationCard
+                translation={props.translation}
+                english={props.english}
+            />
             <div style={{ position: "absolute", right: 40, bottom: 0 }}>
                 <Button onClick={() => props.handleClickOtehon(props.studySessionId)}>お手本を隠して覚える</Button>
             </div>

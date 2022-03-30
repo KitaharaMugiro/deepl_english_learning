@@ -13,6 +13,9 @@ import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import TextToSpeechButton from '../speech/TextToSpeechButton';
+import SuggestWordsList from '../study/SuggestWordsList';
+import TranslationCard from '../study/TranslationCard';
+import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
 import TodayResultHistoryGraph from './TodayResultHistoryGraph';
 import TodayShareButtons from './TodayShareButtons';
 import TodayStudyRanking from './TodayStudyRanking';
@@ -157,30 +160,19 @@ export default (props: Props) => {
                         <b>{answer?.name}</b>さんが英語で書いた意見
                     </Typography>
 
-                    <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
-                        {answer?.english}
-                    </Paper>
 
-                    <div style={{
-                        height: 50,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }} >
-                        <ArrowDownwardIcon />
-                        <span>お手本の英語</span>
-                    </div>
-
-                    <div style={{ position: "relative" }}>
-                        <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px", fontSize: "larger" }}>
-                            {answer?.translation}
-                        </Paper>
-                        <TextToSpeechButton text={answer?.translation || ""} />
-                        <TextToSpeechButton text={answer?.translation || ""} />
-                    </div>
+                    <YourEnglishAndTranslationView
+                        english={answer?.english || ""}
+                        translation={answer?.translation || ""}
+                    />
 
                     <div style={{ height: 25 }} />
 
+                    <SuggestWordsList
+                        english={answer?.english || ""}
+                        translation={answer?.translation || ""} />
+
+                    <div style={{ height: 15 }} />
 
                     {isYourAnswer && <TodayShareButtons
                         name={answer?.name || ""}
