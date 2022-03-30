@@ -32,7 +32,7 @@ export default (props: Props) => {
             return
         }
         setOpenLoading(true)
-        //TODO: 逆なの気持ち悪い〜
+        //TODO: 本当はphraseに英語、descriptionに日本語を入れたいが、現状だとphraseに日本語を入れてdescriptionに英語を入れないといけない。API側を逆にしたい。
         await savePhraseMutation({
             variables: {
                 phrase: meaning,
