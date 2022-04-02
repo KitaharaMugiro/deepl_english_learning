@@ -104,6 +104,40 @@ export class StudyApi {
         return { translation }
     }
 
+    static async sendResult(score: number, topicId: string, english: string, translation: string, japanese: string, age: number) {
+        const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        const studySessionId = LocalStorageHelper.getStudySessionId()
+        if (!userId || !studySessionId) console.error("userIdもしくはstudySessionIdがありません")
+
+        const res = await client.post(
+            "/study/send_result",
+            {
+                userId,
+                studySessionId,
+                score,
+                topicId,
+                english,
+                translation,
+                japanese,
+                age
+            }
+        )
+        const { resultId } = res.data as { resultId: string }
+        return { resultId }
+    }
+
+    static async getResult(resultId: string) {
+        const client = new ApiClient()
+        const res = await client.post(
+            "/study/get_result",
+            {
+                resultId
+            }
+        )
+        return res.data as GetStudyResultResponse
+    }
+
     static async leftHeart() {
         const client = new ApiClient()
         const userId = LocalStorageHelper.getUserId()
@@ -142,4 +176,21 @@ export class StudyApi {
         }
         return { userShouldRememberThisWords }
     }
+}
+
+export type GetStudyResultResponse = {
+    question: {
+        title: string
+        topicId: string
+        description: string
+        categorySlug: string
+    }
+    answer: {
+        japanese: string
+        english: string
+        translation: string
+        age: number
+        resultId: string
+        userId: string
+    } | null
 }

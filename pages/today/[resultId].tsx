@@ -4,8 +4,6 @@ import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedM
 import TodayStudyReviewFrame from "../../components/today/TodayStudyReviewFrame"
 
 const TodayResultPage = ({ todayTopicResult, ogpInfo }: { todayTopicResult: GetTodayTopicResponse, ogpInfo: OgpInfo }) => {
-    console.log(todayTopicResult)
-
     if (!todayTopicResult) return <div>404</div>
     return <div>
         <CustomizedMetaTags ogpInfo={ogpInfo} />
@@ -45,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
         }
     }
-
 }
 export default TodayResultPage
 

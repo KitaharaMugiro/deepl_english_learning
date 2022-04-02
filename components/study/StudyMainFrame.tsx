@@ -79,7 +79,7 @@ export default function StudyMainFrame(props: Props) {
         setTranslation("")
         setAtomAge(0)
 
-        //     await endStudy(activeQuestion.topicId)
+        await endStudy(activeQuestion.topicId)
 
         router.push(`/record/${props.categorySlug}`)
         return
@@ -127,11 +127,12 @@ export default function StudyMainFrame(props: Props) {
         setActiveStep(activeStep - 1);
     };
 
-    const NextButton = (text: string) => (
+    const NextButton = (text: string, disable: boolean) => (
         <Button
             variant="contained"
             color="primary"
             onClick={handleNext}
+            disabled={disable}
             style={{
                 marginTop: "30px",
                 marginLeft: "10px",
@@ -152,7 +153,7 @@ export default function StudyMainFrame(props: Props) {
     const renderButtons = () => {
         if (activeStep === 0) {
             return (
-                NextButton("次へ進む")
+                NextButton("次へ進む", japanese.length === 0)
             )
         } else if (activeStep === 1) {
             return (
@@ -163,7 +164,7 @@ export default function StudyMainFrame(props: Props) {
                     }}>
                         日本語入力に戻る
                     </Button>
-                    {NextButton("次へ進む")}
+                    {NextButton("次へ進む", english.length === 0)}
                 </>
             )
         } else if (activeStep === 2) {
@@ -175,7 +176,7 @@ export default function StudyMainFrame(props: Props) {
                     }}>
                         英語入力に戻る
                     </Button>
-                    {NextButton("終了")}
+                    {NextButton("終了", false)}
                 </>
             )
         }

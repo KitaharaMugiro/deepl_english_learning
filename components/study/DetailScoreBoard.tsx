@@ -11,6 +11,7 @@ import { AtomAge } from '../../models/jotai/StudyJotai';
 interface Props {
     text: string
     translation: string
+    resultId: string
 }
 
 export default (props: Props) => {
@@ -54,9 +55,9 @@ export default (props: Props) => {
                 <Typography variant="h5">英語年齢: {age} </Typography>
                 <div style={{ width: 10 }}></div>
                 <TwitterShareButton
-                    title={`英語年齢診断結果\nあなたの英語力は「${age}」でした。みんなも測ってみよう。`}
+                    title={`英語力は「${age}」レベルでした。\n回答はこちら↓`}
                     hashtags={["Englister", "英語力診断", "英語年齢"]}
-                    url="https://english.yunomy.com/"
+                    url={`https://english.yunomy.com/q/result/${props.resultId}`}
                 ><TwitterIcon size={30} round={false} /></TwitterShareButton>
             </div>
         </div>
