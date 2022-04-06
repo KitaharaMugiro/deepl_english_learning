@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
 import { CognitoUser } from '@aws-amplify/auth'
+import { Level } from '../../api/LevelApi';
 /*
  * Custom attributes type defined according to the attributes used in this app
  */
@@ -22,3 +23,8 @@ interface CognitoUserExt extends CognitoUser {
 }
 
 export const UserAtom = atom<CognitoUserExt | undefined>(undefined)
+
+export const LevelAtom = atom<Level | null>(null)
+export const PrevLevelAtom = atom<Level | null>(null)
+export const LevelCardDisplayAtom = atom(false)
+export const CongratModalDisplayAtom = atom(false)

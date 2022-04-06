@@ -214,7 +214,6 @@ export default (props: Props) => {
                     recycle={false}
                     tweenDuration={10000}
                     numberOfPieces={60 * (answer?.age || 0) + 50}
-
                 />
 
 

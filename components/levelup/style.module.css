@@ -1,0 +1,13 @@
+.interaction {
+    position: fixed;
+    bottom: 10px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    z-index: 1031;
+    max-width: 440px;
+    min-height: 72px;
+    text-align: center;
+    padding: 24px;
+    transition: all 0.5s;
+}
