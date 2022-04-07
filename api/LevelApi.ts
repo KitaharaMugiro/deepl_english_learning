@@ -22,13 +22,14 @@ export class LevelApi {
     }
 
 
-    static async addExp(exp: number) {
+    static async addExp(exp: number, studySessionId: string) {
         const client = new ApiClient()
         const res = await client.post(
             "/level/addExp",
             {
                 userId: LocalStorageHelper.getUserId(),
-                exp
+                exp,
+                studySessionId
             }
         )
         return res.data as { currentLevel: Level, prevLevel: Level }

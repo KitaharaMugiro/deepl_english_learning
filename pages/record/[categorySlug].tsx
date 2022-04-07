@@ -10,10 +10,14 @@ import useLevelUp from "../../models/util-hooks/useLevelUp"
 const RecordPage = () => {
     const router = useRouter()
     const { categorySlug } = router.query
+    // const { addExp } = useLevelUp()
+
 
     return (
         <>
             <StudyRecordMainFrame categorySlug={categorySlug as string} />
+            {/* <LevelUpProgress />
+            <Button onClick={() => addExp(10, "aaa")}>add</Button> */}
         </>
     )
 }

@@ -17,11 +17,16 @@ export default () => {
         })
     }, [])
 
-    const addExp = (exp: number) => {
-        LevelApi.addExp(exp).then(res => {
+    const addExp = (exp: number, studySessionId: string) => {
+        LevelApi.addExp(exp, studySessionId).then(res => {
             //現在のレベルを設定
             setPrevLevel(res.prevLevel)
             setLevel(res.currentLevel)
+
+            if (res.prevLevel.level === res.currentLevel.level && res.prevLevel.levelExp === res.currentLevel.levelExp) {
+                //何も変わってないので何もしない
+                return
+            }
             displayCard()
 
             //レベルアップ

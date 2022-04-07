@@ -9,6 +9,7 @@ import { useCountdownTimer } from 'use-countdown-timer';
 import { GetTodayTopicResponse, ListTodayTopicResultResponse, TodayApi } from '../../api/TodayApi';
 import { FireGaEvent } from '../../models/gtag';
 import { AtomName } from '../../models/jotai/StudyJotai';
+import useLevelUp from '../../models/util-hooks/useLevelUp';
 import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
@@ -44,6 +45,7 @@ export default (props: Props) => {
     const { user } = useUser()
     const { openSignin } = useSignin()
     const isYourAnswer = name === answer?.name //WARN: この判別は正しくない・・
+    const { addExp } = useLevelUp()
 
     const START_TIME = 18
     const now = new Date(); //現在時刻を取得
@@ -82,6 +84,12 @@ export default (props: Props) => {
             </Fab>
         }
     }
+
+    useEffect(() => {
+        if (isYourAnswer) {
+            addExp(answer.age, question.todayTopicId)
+        }
+    }, [isYourAnswer])
 
     useEffect(() => {
         const getStatus = async () => {

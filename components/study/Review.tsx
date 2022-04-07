@@ -5,6 +5,7 @@ import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import { Question } from '../../models/type/Question';
 import useLevelUp from '../../models/util-hooks/useLevelUp';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
@@ -43,7 +44,6 @@ export default (props: Props) => {
 
             //結果を送信(結果ページから飛んできている場合は送信しない)
             if (!props.fromResultPage) {
-                console.log("send result")
                 StudyApi.sendResult(
                     _score,
                     activeQuestion.topicId,
@@ -60,8 +60,7 @@ export default (props: Props) => {
                 RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
                 //経験値を加算する
-                //WARN: 英語入力に戻ってすぐ結果ページに戻るのを繰り返してずるできちゃうかも
-                addExp(_age)
+                addExp(_age, LocalStorageHelper.getStudySessionId() || activeQuestion.topicId)
             }
         })
     }, [])
