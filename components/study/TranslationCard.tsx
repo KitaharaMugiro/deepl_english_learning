@@ -23,7 +23,7 @@ export default (props: Props) => {
     return (<div style={{ position: "relative" }}>
         <Paper elevation={0} style={{ backgroundColor: "#e6ffed", padding: "20px", paddingBottom: "40px", fontSize: "larger" }}>
             <Highlighter
-                searchWords={words.map(w => w.headword)}
+                searchWords={words.map(w => w.headword + " ")}
                 highlightStyle={{ fontWeight: "bold", backgroundColor: "transparent" }}
                 autoEscape={true}
                 textToHighlight={props.translation}

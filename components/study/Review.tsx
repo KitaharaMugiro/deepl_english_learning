@@ -5,7 +5,9 @@ import { ApiSpecialClient } from '../../api/ApiSpecialClient';
 import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import { Question } from '../../models/type/Question';
+import useLevelUp from '../../models/util-hooks/useLevelUp';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import DetailScoreBoard from './DetailScoreBoard';
 import SuggestWordsList from './SuggestWordsList';
@@ -30,6 +32,7 @@ export default (props: Props) => {
     const translation = props.translation || _translation
     const activeQuestion = props.activeQuestion || _activeQuestion
 
+    const { addExp } = useLevelUp()
     const [resultId, setResultId] = useState('')
 
     useEffect(() => {
@@ -38,10 +41,6 @@ export default (props: Props) => {
         client.englishScore(english, translation).then(res => {
             const _score = Math.round(res.scoreRaw)
             const _age = res.age
-
-            //初回のスコアを送信する
-            RecordApi.submitScore(_score, _age)
-            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
             //結果を送信(結果ページから飛んできている場合は送信しない)
             if (!props.fromResultPage) {
@@ -55,9 +54,15 @@ export default (props: Props) => {
                 ).then(res => {
                     setResultId(res.resultId)
                 })
+
+                //初回のスコアを送信する
+                RecordApi.submitScore(_score, _age)
+                RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
+
+                //経験値を加算する
+                addExp(_age, LocalStorageHelper.getStudySessionId() || activeQuestion.topicId)
             }
         })
-
     }, [])
 
     return (
