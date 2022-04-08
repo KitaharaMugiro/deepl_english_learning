@@ -43,11 +43,11 @@ export default () => {
 
     const displayCard = () => {
         setDisplay(true)
-
-        //非表示にする
-        setTimeout(() => {
-            setDisplay(false)
-        }, 5000)
     }
-    return { level, prevLevel, addExp, display, displayCard, openCongrat, setOpenCongrat }
+
+    const closeCard = () => {
+        setDisplay(false)
+    }
+
+    return { level, prevLevel, addExp, display, displayCard, closeCard, openCongrat, setOpenCongrat }
 }

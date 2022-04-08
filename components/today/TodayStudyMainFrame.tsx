@@ -130,7 +130,7 @@ export default function TodayStudyMainFrame(props: Props) {
             setJapanese("")
             setEnglish("")
             setTranslation("")
-            router.push("/today/" + resultId)
+            router.push("/today/" + resultId + "?result=true")
         }
 
         setOpenLoading(false)

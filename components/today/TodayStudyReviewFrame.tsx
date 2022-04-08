@@ -2,6 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SchoolIcon from '@mui/icons-material/School';
 import { Button, Fab, Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
@@ -33,6 +34,7 @@ const formatTime = (time: number) => {
     const secondStr = ('00' + seconds).slice(-2)
     return <span>{hourStr}:{minuteStr}:{secondStr}</span>
 }
+
 export default (props: Props) => {
     if (!process.browser) return null;
     const { question } = props.todayTopicResult
@@ -45,6 +47,8 @@ export default (props: Props) => {
     const { user } = useUser()
     const { openSignin } = useSignin()
     const isYourAnswer = name === answer?.name //WARN: この判別は正しくない・・
+
+    const router = useRouter()
     const { addExp } = useLevelUp()
 
     const START_TIME = 18
@@ -86,7 +90,7 @@ export default (props: Props) => {
     }
 
     useEffect(() => {
-        if (isYourAnswer) {
+        if (isYourAnswer && router.query.result) {
             addExp(answer.age, question.todayTopicId)
         }
     }, [isYourAnswer])
