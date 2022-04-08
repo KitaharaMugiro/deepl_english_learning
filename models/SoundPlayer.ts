@@ -1,6 +1,7 @@
 import { Howl, Howler } from 'howler';
 export class SoundPlayer {
-    baseUrl = "https://planmaker.s3-ap-northeast-1.amazonaws.com/audio"
+    //baseUrl = "https://english.yunomy.com/static/audio"
+    baseUrl = "http://localhost:3000/static/audio"
     private play(filename: string) {
         const url = this.baseUrl + "/" + filename
         const sound = new Howl({
@@ -15,5 +16,10 @@ export class SoundPlayer {
 
     playWhenStart() {
         this.play("decision42.mp3")
+    }
+
+    playWhenLevelup() {
+        //https://pocket-se.info/archives/1466/
+        this.play("lvup2.mp3")
     }
 }

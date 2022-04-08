@@ -3,6 +3,7 @@ import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
 import { LevelApi } from "../../api/LevelApi"
 import { CongratModalDisplayAtom, LevelAtom, LevelCardDisplayAtom, PrevLevelAtom } from "../jotai/User"
+import { SoundPlayer } from "../SoundPlayer"
 
 export default () => {
     const [level, setLevel] = useAtom(LevelAtom)
@@ -37,6 +38,7 @@ export default () => {
                     levelExp: res.currentLevel.needExp
                 })
                 setOpenCongrat(true)
+                new SoundPlayer().playWhenLevelup()
             }
         })
     }

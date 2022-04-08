@@ -13,7 +13,7 @@ const RecordPage = () => {
     return (
         <>
             <StudyRecordMainFrame categorySlug={categorySlug as string} />
-            {/* <Button onClick={() => addExp(10, "an")}>add</Button> */}
+            {/* <Button onClick={() => addExp(10, "faa")}>add</Button> */}
         </>
     )
 }
