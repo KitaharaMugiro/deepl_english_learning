@@ -11,7 +11,9 @@ import { RecordApi } from '../../api/RecordApi';
 import Chart from '../../components/dashboard/Chart';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
+import LevelUpInformation from '../../components/levelup/LevelUpInformation';
 import QuestList from '../../components/quest/QuestList';
+import FloatingTryTodayQuestion from '../../components/today/FloatingTryTodayQuestion';
 import TopCategoryRow from '../../components/top/TopCategoryRow';
 import { Category } from '../../models/type/Category';
 import classes from "./style.module.css";
@@ -45,51 +47,44 @@ function Dashboard({ categoryInfo }: {
         <div className={classes.root}>
             <main className={classes.content}>
                 <Container maxWidth="xl" className={classes.container}>
-                    <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強する" />
-                    <Typography variant="h4" gutterBottom component="h2">
+                    <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強を再開しよう" />
+
+                    <div style={{ marginTop: '40px' }} />
+
+                    <Typography variant="h5" gutterBottom >
                         <b>ダッシュボード</b>
                     </Typography>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-                        <Grid item xs={12} md={12} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                                <Chart data={scores.map(s => s.score)} date={scores.map(s => s.createdAt.toDateString())} title="スコア推移" />
-                            </Paper>
-                            {ages.length > 0 &&
-                                <Paper className={fixedHeightPaper}>
-                                    <Chart data={scores.filter(s => s.age).map(s => s.age)} date={scores.filter(s => s.age).map(s => s.createdAt.toDateString())} title="年齢推移" />
-                                </Paper>}
-                        </Grid>
 
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={12} lg={3}>
-                            <Grid container spacing={1}>
-                                <Grid item xs={4} md={4} lg={12}>
-                                    <Paper className={fixedHeightPaper}>
-                                        <Deposits
-                                            title='Average Score'
-                                            score={averageScore} />
-                                    </Paper>
-                                </Grid>
-                                {ages.length > 0 &&
-                                    <Grid item xs={4} md={4} lg={12}>
-                                        <Paper className={fixedHeightPaper}>
-                                            <Deposits
-                                                title='Average Age'
-                                                score={averageAge} />
-                                        </Paper>
-                                    </Grid>
-                                }
-                                <Grid item xs={4} md={4} lg={12}>
-                                    <Paper className={fixedHeightPaper}>
-                                        <Deposits
-                                            title='Exam Taken'
-                                            score={scores.length} />
-                                    </Paper>
-                                </Grid>
+                    <Paper className={fixedHeightPaper}>
+                        <LevelUpInformation />
+                    </Paper>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4} md={4} lg={4}>
+                            <Paper className={fixedHeightPaper}>
+                                <Deposits
+                                    title='平均スコア'
+                                    score={averageScore} />
+                            </Paper>
+                        </Grid>
+                        {ages.length > 0 &&
+                            <Grid item xs={4} md={4} lg={4}>
+                                <Paper className={fixedHeightPaper}>
+                                    <Deposits
+                                        title='平均英語年齢'
+                                        score={averageAge} />
+                                </Paper>
                             </Grid>
+                        }
+                        <Grid item xs={4} md={4} lg={4}>
+                            <Paper className={fixedHeightPaper}>
+                                <Deposits
+                                    title='勉強した回数'
+                                    score={scores.length} />
+                            </Paper>
                         </Grid>
                     </Grid>
+
 
                     <Grid container>
                         <Grid item xs={12} md={6} lg={6}>
@@ -114,7 +109,7 @@ function Dashboard({ categoryInfo }: {
                     </Grid>
                 </Container >
             </main>
-
+            <FloatingTryTodayQuestion />
         </div>
     );
 }

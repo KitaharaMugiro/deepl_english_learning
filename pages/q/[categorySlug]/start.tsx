@@ -14,25 +14,20 @@ const CategoryStart = () => {
     const [leftHeart, setLeftHearts] = useAtom(LeftHeartsAtom)
 
     const onClickStart = async () => {
-        if (categorySlug !== "free") {
-            setLoading(true)
-            if (!loading) {
-                try {
-                    await StudyApi.studyStart(categorySlug as string)
-                    router.push(`/q/${categorySlug}`)
-                } catch (e) {
-                    console.warn(e)
-                    openPlanModal()
-                }
-                StudyApi.leftHeart().then(({ leftHeart }) => {
-                    setLeftHearts(leftHeart)
-                })
+        setLoading(true)
+        if (!loading) {
+            try {
+                await StudyApi.studyStart(categorySlug as string)
+                router.push(`/q/${categorySlug}`)
+            } catch (e) {
+                console.warn(e)
+                openPlanModal()
             }
-            setLoading(false)
-        } else {
-            await StudyApi.studyStart(categorySlug)
-            router.push(`/q/${categorySlug}`)
+            StudyApi.leftHeart().then(({ leftHeart }) => {
+                setLeftHearts(leftHeart)
+            })
         }
+        setLoading(false)
     }
 
     return <>

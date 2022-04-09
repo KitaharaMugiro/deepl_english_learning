@@ -1,7 +1,7 @@
 export const FreePlan = {
     title: "Freeプラン",
     price: 0,
-    features: ["Trial問題解き放題", "登録不要", "Englisterを試したい人",],
+    features: ["登録不要", "Englisterを試したい人",],
     priceId: undefined
 }
 export const Tier3Plan = {

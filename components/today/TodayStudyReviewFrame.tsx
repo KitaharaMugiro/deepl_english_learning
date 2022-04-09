@@ -1,12 +1,9 @@
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import SchoolIcon from '@mui/icons-material/School';
-import { Button, Fab, Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { useCountdownTimer } from 'use-countdown-timer';
 import { GetTodayTopicResponse, ListTodayTopicResultResponse, TodayApi } from '../../api/TodayApi';
 import { FireGaEvent } from '../../models/gtag';
 import { AtomName } from '../../models/jotai/StudyJotai';
@@ -14,10 +11,9 @@ import useLevelUp from '../../models/util-hooks/useLevelUp';
 import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
-import TextToSpeechButton from '../speech/TextToSpeechButton';
 import SuggestWordsList from '../study/SuggestWordsList';
-import TranslationCard from '../study/TranslationCard';
 import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
+import FloatingTryTodayQuestion from './FloatingTryTodayQuestion';
 import TodayResultHistoryGraph from './TodayResultHistoryGraph';
 import TodayShareButtons from './TodayShareButtons';
 import TodayStudyRanking from './TodayStudyRanking';
@@ -25,15 +21,7 @@ interface Props {
     todayTopicResult: GetTodayTopicResponse
 }
 
-const formatTime = (time: number) => {
-    const hours = Math.floor(time / 1000 / 60 / 60)
-    const minutes = Math.floor((time - hours * 60 * 60 * 1000) / 1000 / 60)
-    const seconds = Math.floor((time - hours * 60 * 60 * 1000 - minutes * 60 * 1000) / 1000)
-    const hourStr = ('00' + hours).slice(-2)
-    const minuteStr = ('00' + minutes).slice(-2)
-    const secondStr = ('00' + seconds).slice(-2)
-    return <span>{hourStr}:{minuteStr}:{secondStr}</span>
-}
+
 
 export default (props: Props) => {
     if (!process.browser) return null;
@@ -43,7 +31,7 @@ export default (props: Props) => {
 
     const [name] = useAtom(AtomName)
     const [results, setResults] = useState<ListTodayTopicResultResponse>([])
-    const [alreadyTestTaken, setAlreadyTestTaken] = useState(false)
+
     const { user } = useUser()
     const { openSignin } = useSignin()
     const isYourAnswer = name === answer?.name //WARN: この判別は正しくない・・
@@ -51,59 +39,13 @@ export default (props: Props) => {
     const router = useRouter()
     const { addExp } = useLevelUp()
 
-    const START_TIME = 18
-    const now = new Date(); //現在時刻を取得
-    let nextDate = new Date()
-    if (now.getHours() >= START_TIME) {
-        nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, START_TIME);
-    } else {
-        nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), START_TIME);
-    }
-    const { countdown } = useCountdownTimer({
-        timer: (nextDate.getTime() - now.getTime()),
-        autostart: true,
-        interval: 1000,
-        onExpire: () => {
-            window.location.href = '/today'
-        }
-    });
-    const renderTry = () => {
-        if (alreadyTestTaken) {
-            return <Fab
-                variant="extended"
-                color="primary"
-                style={{ backgroundColor: 'lightgrey' }}
-                disabled
-            >
-                <SchoolIcon sx={{ mr: 1 }} />
-                次回の英語年齢診断　{formatTime(countdown)}
-            </Fab>
-        } else {
-            return <Fab
-                style={{ paddingLeft: 50, paddingRight: 50 }}
-                href="/today"
-                variant="extended" color="primary" aria-label="add">
-                <SchoolIcon sx={{ mr: 1 }} />
-                英語年齢診断スタート
-            </Fab>
-        }
-    }
-
     useEffect(() => {
         if (isYourAnswer && router.query.result) {
             addExp(answer.age, question.todayTopicId)
         }
     }, [isYourAnswer])
 
-    useEffect(() => {
-        const getStatus = async () => {
-            const todayTopicResult = await TodayApi.getTodayTopic()
-            if (todayTopicResult.answer) {
-                setAlreadyTestTaken(true)
-            }
-        }
-        getStatus()
-    }, [])
+
 
     useEffect(() => {
         const listResults = async () => {
@@ -121,18 +63,7 @@ export default (props: Props) => {
 
     return (
         <>
-            <div style={{
-                position: "fixed",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                bottom: 0,
-                width: "100%",
-                padding: 20,
-                zIndex: 1000
-            }}>
-                {renderTry()}
-            </div>
+            <FloatingTryTodayQuestion />
             <main style={{
                 width: 'auto',
                 maxWidth: "600px",
