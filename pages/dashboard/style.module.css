@@ -21,7 +21,7 @@
     margin-right: 36;
 }
 
-.menuButtonHidden{
+.menuButtonHidden {
     display: 'none';
 }
 
@@ -55,8 +55,9 @@
 
 .fixedHeight {
     height: 240;
+    max-width: 700px;
 }
 
 .appBarSpacer {
-    height:40px;
+    height: 40px;
 }

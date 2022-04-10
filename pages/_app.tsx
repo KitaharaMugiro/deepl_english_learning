@@ -25,6 +25,8 @@ import MySnackbar from '../components/common/MySnackbar';
 import CommonMetaTags from '../components/common/CommonMetaTags';
 import PhraseDialog from '../components/phrase/PhraseDialog';
 import LevelUpProgress from '../components/levelup/LevelUpProgress';
+import { useAtom } from 'jotai';
+import { BackdropAtom } from '../models/jotai/Backdrop';
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -41,6 +43,7 @@ declare module '@mui/styles/defaultTheme' {
 
 export default function MyApp(props: AppProps) {
     const { Component, pageProps } = props;
+    const [_, setOpenLoading] = useAtom(BackdropAtom)
 
     //ログインする前のページにリダイレクトする
     const router = useRouter()
@@ -58,6 +61,22 @@ export default function MyApp(props: AppProps) {
             }
         })
     }, [])
+
+    useEffect(() => {
+        const handleStart = (url: string) => url !== router.asPath && setOpenLoading(true)
+        const handleComplete = () => setOpenLoading(false)
+
+        router.events.on('routeChangeStart', handleStart)
+        router.events.on('routeChangeComplete', handleComplete)
+        router.events.on('routeChangeError', handleComplete)
+
+        return () => {
+            router.events.off('routeChangeStart', handleStart)
+            router.events.off('routeChangeComplete', handleComplete)
+            router.events.off('routeChangeError', handleComplete)
+        }
+    })
+
 
     useEffect(() => {
         // Remove the server-side injected CSS.
