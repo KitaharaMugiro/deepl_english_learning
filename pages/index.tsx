@@ -12,8 +12,6 @@ import useUser from '../models/util-hooks/useUser';
 
 
 export default function TopPage() {
-  const { user } = useUser();
-  const router = useRouter()
 
   return (
     <React.Fragment>
@@ -46,7 +44,7 @@ export default function TopPage() {
 
         <FloatingLoginButton />
         {/* prefetch目的 */}
-        <Link href="/dashboard" prefetch={true} />
+        <Link href="/dashboard" prefetch={true} ><div></div></Link>
       </main>
     </React.Fragment >
   );
