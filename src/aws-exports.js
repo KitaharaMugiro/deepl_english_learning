@@ -16,13 +16,17 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/",
-        "redirectSignOut": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/",
+        "redirectSignIn": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://",
+        "redirectSignOut": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
-    "aws_cognito_login_mechanisms": [
+    "aws_cognito_username_attributes": [
         "EMAIL"
+    ],
+    "aws_cognito_social_providers": [
+        "FACEBOOK",
+        "GOOGLE"
     ],
     "aws_cognito_signup_attributes": [
         "EMAIL"
@@ -39,7 +43,10 @@ const awsmobile = {
         "EMAIL"
     ],
     "aws_user_files_s3_bucket": "slidesharefb3e5b28443a4cada2800e8b4b2e9012235535-dev",
-    "aws_user_files_s3_bucket_region": "ap-northeast-1"
+    "aws_user_files_s3_bucket_region": "ap-northeast-1",
+    "aws_cognito_login_mechanisms": [
+        "EMAIL"
+    ]
 };
 
 

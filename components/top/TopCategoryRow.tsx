@@ -8,9 +8,8 @@ interface Props {
 }
 
 export default (props: Props) => {
-
-    return <div style={{ margin: 20 }}>
-        <Typography variant="h5"><b>{props.rowTitle}</b></Typography>
+    return <div>
+        <Typography style={{ marginBottom: 10 }} variant="h5"><b>{props.rowTitle}</b></Typography>
         <ScrollableCategoryCards categories={props.categories} />
     </div>
 }

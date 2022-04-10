@@ -2,15 +2,21 @@ import { Button, Card, Divider, Grid, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { StudyApi } from "../../api/StudyApi"
 import { FireGaEvent } from "../../models/gtag"
+import usePlan from "../../models/util-hooks/usePlan"
 import { HeroCardWidth } from "./HeroCardConst"
 import style from "./style.module.css"
 
 export default () => {
     const router = useRouter()
+    const { openPlanModal } = usePlan()
     const startFree = async () => {
-        FireGaEvent({ action: "click", category: "startFree", label: "startFree" })
-        await StudyApi.studyStart("free")
-        router.push("/q/free")
+        try {
+            FireGaEvent({ action: "click", category: "startFree", label: "startFree" })
+            await StudyApi.studyStart("normal")
+            router.push("/q/normal")
+        } catch {
+            openPlanModal()
+        }
     }
 
     return (

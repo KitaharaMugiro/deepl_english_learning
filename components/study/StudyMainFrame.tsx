@@ -64,7 +64,7 @@ export default function StudyMainFrame(props: Props) {
                 setActiveQuestion({ topicId: res.topicId, title: res.topicTitle, description: res.topicDescription })
             } catch (e) {
                 console.warn(e)
-                router.push(`/q/${props.categorySlug || "free"}/start`)
+                router.push(`/q/${props.categorySlug || "normal"}/start`)
             }
         }
         getTopic()

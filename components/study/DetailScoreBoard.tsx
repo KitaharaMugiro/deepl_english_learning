@@ -55,8 +55,8 @@ export default (props: Props) => {
                 <Typography variant="h5">英語年齢: {age} </Typography>
                 <div style={{ width: 10 }}></div>
                 <TwitterShareButton
-                    title={`英語力は「${age}」レベルでした。\n回答はこちら↓`}
-                    hashtags={["Englister", "英語力診断", "英語年齢"]}
+                    title={`Englisterで勉強したよ。\n回答はこちら↓`}
+                    hashtags={["Englister", "英語年齢"]}
                     url={`https://english.yunomy.com/q/result/${props.resultId}`}
                 ><TwitterIcon size={30} round={false} /></TwitterShareButton>
             </div>

@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Grid';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import FloatingLoginButton from '../components/common/FloatingLoginButton';
@@ -11,13 +12,6 @@ import useUser from '../models/util-hooks/useUser';
 
 
 export default function TopPage() {
-  const { user } = useUser();
-  const router = useRouter()
-  useEffect(() => {
-    if (user) {
-      router.push("/dashboard")
-    }
-  }, [user])
 
   return (
     <React.Fragment>
@@ -49,6 +43,8 @@ export default function TopPage() {
         <div style={{ height: 200 }}></div>
 
         <FloatingLoginButton />
+        {/* prefetch目的 */}
+        <Link href="/dashboard" prefetch={true} ><div></div></Link>
       </main>
     </React.Fragment >
   );

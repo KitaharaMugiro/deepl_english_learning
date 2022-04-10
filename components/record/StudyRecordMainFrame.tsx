@@ -58,7 +58,7 @@ export default (props: Props) => {
                 openSignupActivationModal()
             }
         }
-        if (props.categorySlug === "free") {
+        if (props.categorySlug === "normal") {
             if (doneTopicNum >= 10) {
                 submitTrial()
             }

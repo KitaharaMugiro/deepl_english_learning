@@ -6,3 +6,9 @@ Lambdaをデプロイせずにローカルでテストを行うため、localhos
 
 # Hasura url
 https://adequate-guinea-56.hasura.app
+
+## Amplify周り
+```
+amplify update auth
+```
+
