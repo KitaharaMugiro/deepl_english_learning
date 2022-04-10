@@ -84,7 +84,7 @@ export default function MyApp(props: AppProps) {
                     break
                 case 'customOAuthState':
                     console.log("you logged in ", data)
-                    router.push(data)
+                    //router.push(data)
                     break;
             }
         })
