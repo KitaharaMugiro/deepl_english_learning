@@ -45,22 +45,8 @@ export default function MyApp(props: AppProps) {
     const { Component, pageProps } = props;
     const [_, setOpenLoading] = useAtom(BackdropAtom)
 
-    //ログインする前のページにリダイレクトする
     const router = useRouter()
-    useEffect(() => {
-        Hub.listen('auth', ({ payload: { event, data } }) => {
-            console.log(event)
-            switch (event) {
-                case 'signIn':
-                    // console.log('User has signed in!', data);
-                    break
-                case 'customOAuthState':
-                    console.log("you logged in ", data)
-                    router.push(data)
-                    break;
-            }
-        })
-    }, [])
+
 
     useEffect(() => {
         const handleStart = (url: string) => url !== router.asPath && setOpenLoading(true)
@@ -88,22 +74,36 @@ export default function MyApp(props: AppProps) {
 
     const { setUser, setLoadingUser } = useUser()
     useEffect(() => {
-        const getUser = async () => {
-            setLoadingUser(true)
-            try {
-                const user = await Auth.currentAuthenticatedUser()
-                setUser(user)
-            } catch {
-                console.log("No User info")
+        const unsubscribe = Hub.listen('auth', ({ payload: { event, data } }) => {
+            console.log({ event, data })
+            switch (event) {
+                case 'signIn':
+                    // console.log('User has signed in!', data);
+                    setUser(data)
+                    router.push('/dashboard')
+                    break
+                case 'customOAuthState':
+                    console.log("you logged in ", data)
+                    router.push(data)
+                    break;
             }
-            const result = await UserApi.signin()
-            console.log(result.result)
-            setLoadingUser(false)
-        }
-        getUser()
-        LocalStorageHelper.initializeUserId()
-    }, [])
+        })
 
+        setLoadingUser(true)
+        Auth.currentAuthenticatedUser()
+            .then(currentUser => {
+                setUser(currentUser)
+                setLoadingUser(false)
+            })
+            .catch(() => {
+                console.log("Not signed in")
+                setLoadingUser(false)
+            });
+        LocalStorageHelper.initializeUserId()
+        UserApi.signin()
+
+        return unsubscribe;
+    }, [])
 
     useEffect(() => {
         // GA_TRACKING_ID が設定されていない場合は、処理終了
