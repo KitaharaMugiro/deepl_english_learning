@@ -3,13 +3,19 @@ import { useRouter } from "next/router"
 import { StudyApi } from "../../api/StudyApi"
 import { FireGaEvent } from "../../models/gtag"
 import usePlan from "../../models/util-hooks/usePlan"
+import useUser from "../../models/util-hooks/useUser"
 import { HeroCardWidth } from "./HeroCardConst"
 import style from "./style.module.css"
 
 export default () => {
     const router = useRouter()
     const { openPlanModal } = usePlan()
+    const { user } = useUser()
     const startFree = async () => {
+        if (user) {
+            router.push("/dashboard")
+        }
+
         try {
             FireGaEvent({ action: "click", category: "startFree", label: "startFree" })
             await StudyApi.studyStart("normal")
