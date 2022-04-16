@@ -105,14 +105,18 @@ export default function StudyMainFrame(props: Props) {
                 setErrorMessage(res.message)
                 return
             }
+
+            //非同期で翻訳を実施する
+            StudyApi.translate(japanese, activeQuestion.title).then(resTranslation => {
+                setTranslation(resTranslation.translation)
+            })
+
         } else if (activeStep === 1) {
             const res = await StudyApi.sendEnglish(english)
             if (!res.success) {
                 setErrorMessage(res.message)
                 return
             }
-            const resTranslation = await StudyApi.translate(japanese, activeQuestion.title)
-            setTranslation(resTranslation.translation)
 
             //ここに持っていく
             await endStudy(activeQuestion.topicId)

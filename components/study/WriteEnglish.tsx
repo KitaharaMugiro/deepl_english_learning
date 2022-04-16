@@ -12,7 +12,8 @@ import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import QuestionText from './QuestionText';
 import styles from "./style.module.css";
-
+import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
+import PickModeButton from './PickModeButton';
 export default function WriteEnglish() {
     const { openPhraseList } = usePhrase()
     const [displayModal, setDisplayModal] = useState(true)
@@ -23,8 +24,15 @@ export default function WriteEnglish() {
     const displayRecordButton = browserSupportsSpeechRecognition && english.length === 0;
 
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
+    const [pickMode, setPickMode] = useState(false)
+
     const onClickStartSpeechRecognition = () => {
         setSpeechRecognitionNow(true)
+        setPickMode(false)
+    }
+
+    const onClickStartPickMode = () => {
+        setPickMode(true)
     }
 
     const onFinishSpeechRecognition = (text: string) => {
@@ -41,6 +49,120 @@ export default function WriteEnglish() {
     const [displayTime, setDisplayTIme] = useState(true)
     const onClickTimeGetAway = () => {
         setDisplayTIme(!displayTime)
+    }
+
+    const addText = (text: string) => {
+        setEnglish(english + " " + text)
+    }
+
+    const renderOtherOptionIcons = () => {
+
+        if (displayRecordButton) {
+            return (
+                <div>
+                    <IconButton
+                        onClick={onClickStartSpeechRecognition}
+                        color="primary"
+                        style={{
+                            position: "absolute",
+                            bottom: "0px",
+                            right: "20px",
+                            width: 60, height: 60
+                        }}
+                        edge="end"
+                    >
+                        <KeyboardVoiceIcon style={{ width: 60, height: 60, padding: 10 }} />
+                    </IconButton>
+                    <IconButton
+                        onClick={onClickStartPickMode}
+                        color="primary"
+                        style={{
+                            position: "absolute",
+                            bottom: "0px",
+                            right: "80px",
+                            width: 60, height: 60
+                        }}
+                        edge="end"
+                    >
+                        <KeyboardAltIcon style={{ width: 60, height: 60, padding: 10 }} />
+                    </IconButton>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <IconButton
+                        onClick={onClickStartPickMode}
+                        color="primary"
+                        style={{
+                            position: "absolute",
+                            bottom: "0px",
+                            right: "20px",
+                            width: 60, height: 60
+                        }}
+                        edge="end"
+                    >
+                        <KeyboardAltIcon style={{ width: 60, height: 60, padding: 10 }} />
+                    </IconButton>
+                </div>
+            )
+        }
+    }
+
+    const renderInputView = () => {
+        if (speechRecognitionNow) {
+            return <SpeechRecognitionView
+                onEnd={onFinishSpeechRecognition} />
+        } else if (pickMode) {
+            return <div>
+                <TextField
+                    label="上の文章を英語にしてください"
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    style={{ width: "100%" }}
+                    value={english}
+                    onChange={e => setEnglish(e.target.value)}
+                >
+                </TextField>
+                <div style={{ marginTop: 30, }}>
+                    <PickModeButton
+                        value={"I"}
+                        onClick={addText}
+                    />
+                    <PickModeButton
+                        value={"don't"}
+                        onClick={addText}
+                    />
+                    <PickModeButton
+                        value={"know"}
+                        onClick={addText}
+                    />
+                    <PickModeButton
+                        value={"your"}
+                        onClick={addText} />
+                    <PickModeButton
+                        value={"name."}
+                        onClick={addText} />
+                </div>
+            </div>
+        } else {
+            return (
+                <div style={{ position: "relative" }}>
+                    <TextField
+                        label="上の文章を英語にしてください"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        style={{ width: "100%" }}
+                        value={english}
+                        onChange={e => setEnglish(e.target.value)}
+                    >
+                    </TextField>
+                    {renderOtherOptionIcons()}
+                </div>
+            )
+        }
     }
 
 
@@ -62,37 +184,7 @@ export default function WriteEnglish() {
                     </p>
                 </div>
 
-                {speechRecognitionNow ?
-                    <SpeechRecognitionView
-                        onEnd={onFinishSpeechRecognition} />
-                    :
-                    <div style={{ position: "relative" }}>
-                        <TextField
-                            label="上の文章を英語にしてください"
-                            multiline
-                            rows={4}
-                            variant="outlined"
-                            style={{ width: "100%" }}
-                            value={english}
-                            onChange={e => setEnglish(e.target.value)}
-                        >
-                        </TextField>
-                        {displayRecordButton ?
-                            <IconButton
-                                onClick={onClickStartSpeechRecognition}
-                                style={{
-                                    position: "absolute",
-                                    bottom: "0px",
-                                    right: "20px",
-                                    width: 60, height: 60
-                                }}
-                                edge="end"
-                            >
-                                <KeyboardVoiceIcon style={{ width: 60, height: 60, padding: 10 }} />
-                            </IconButton> : <div />
-                        }
-                    </div>
-                }
+                {renderInputView()}
 
                 {displayTime ?
                     <div><span style={{ width: 50 }}>
