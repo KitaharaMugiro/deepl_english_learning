@@ -35,7 +35,7 @@ export default (props: Props) => {
     }, [translation])
 
     useEffect(() => {
-        //ランダムに5つ表示する
+        //showingWordsが空であれば、allWordSetの最初の要素をshowingWordsに設定する
         if (showingWords.length === 0 && allWordSet.length > 0) {
             const nextWords = allWordSet[index]
             nextWords.sort(() => Math.random() - 0.5)
