@@ -1,6 +1,7 @@
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
 import { AtomTranslation } from "../../models/jotai/StudyJotai"
+import NavigationDots from "../common/NavigationDots/NavigationDots"
 import PickModeButton from "./PickModeButton"
 
 interface Props {
@@ -18,9 +19,11 @@ export default (props: Props) => {
     const [index, setIndex] = useState(0)
     const [allWordSet, setAllWordSet] = useState<Word[][]>([])
     const [showingWords, setShowingWords] = useState<Word[]>([])
+    const [complete, setComplete] = useState(false)
     const [translation] = useAtom(AtomTranslation)
 
     useEffect(() => {
+        if (translation.length === 0) return
         //翻訳した文書をスペースで分割する
         const words = translation.split(" ")
 
@@ -63,6 +66,7 @@ export default (props: Props) => {
                 setIndex(index + 1)
             } else {
                 setShowingWords([])
+                setComplete(true)
             }
         }
     }
@@ -77,6 +81,8 @@ export default (props: Props) => {
                     onClick={() => onClick(word)}
                 />
             ))}
+
+            {complete ? <div /> : <NavigationDots max={allWordSet.length} index={index} />}
         </>
     )
 }

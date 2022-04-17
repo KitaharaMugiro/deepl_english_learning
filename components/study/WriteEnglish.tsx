@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 import { useSpeechRecognition } from 'react-speech-recognition';
-import { AtomEnglish, AtomJapanse } from '../../models/jotai/StudyJotai';
+import { AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import usePhrase from '../../models/util-hooks/usePhrase';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
@@ -21,6 +21,7 @@ export default function WriteEnglish() {
     const { start, view } = useTimer(1000 * 60 * 2)
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [japanese] = useAtom(AtomJapanse)
+    const [translation] = useAtom(AtomTranslation)
     const { browserSupportsSpeechRecognition } = useSpeechRecognition();
     const displayRecordButton = browserSupportsSpeechRecognition;
 
@@ -33,6 +34,7 @@ export default function WriteEnglish() {
     }
 
     const onClickStartPickMode = () => {
+        if (translation.length === 0) return
         setPickMode(true)
     }
 

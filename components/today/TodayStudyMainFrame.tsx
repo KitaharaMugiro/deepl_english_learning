@@ -88,7 +88,6 @@ export default function TodayStudyMainFrame(props: Props) {
                 setTranslation(resTranslation.translation)
             })
 
-
         } else if (activeStep === 2) {
             //最後のステップ
             //スコア算出
