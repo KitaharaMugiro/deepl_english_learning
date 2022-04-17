@@ -14,6 +14,7 @@ export default () => {
     const startFree = async () => {
         if (user) {
             router.push("/dashboard")
+            return
         }
 
         try {
