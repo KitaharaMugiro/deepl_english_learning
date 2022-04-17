@@ -22,7 +22,7 @@ export default function WriteEnglish() {
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [japanese] = useAtom(AtomJapanse)
     const { browserSupportsSpeechRecognition } = useSpeechRecognition();
-    const displayRecordButton = browserSupportsSpeechRecognition && english.length === 0;
+    const displayRecordButton = browserSupportsSpeechRecognition;
 
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
     const [pickMode, setPickMode] = useState(false)
@@ -58,7 +58,7 @@ export default function WriteEnglish() {
     }
 
     const renderOtherOptionIcons = () => {
-
+        if (english.length !== 0) return null
         if (displayRecordButton) {
             return (
                 <div>
