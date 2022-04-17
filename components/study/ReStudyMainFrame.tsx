@@ -97,6 +97,10 @@ export default function ReStudyMainFrame(props: Props) {
                 setNextButtonLoading(false)
                 return
             }
+            StudyApi.translate(japanese, activeQuestion.title).then(resTranslation => {
+                setTranslation(resTranslation.translation)
+            })
+
         } else if (activeStep === 1) {
             const res = await StudyApi.sendEnglish(english)
             if (!res.success) {
@@ -104,8 +108,6 @@ export default function ReStudyMainFrame(props: Props) {
                 setNextButtonLoading(false)
                 return
             }
-            const resTranslation = await StudyApi.translate(japanese, activeQuestion.title)
-            setTranslation(resTranslation.translation)
         }
 
         setErrorMessage("")
