@@ -61,6 +61,8 @@ export default (props: Props) => {
                 nextWords.sort(() => Math.random() - 0.5)
                 setShowingWords(nextWords)
                 setIndex(index + 1)
+            } else {
+                setShowingWords([])
             }
         }
     }
