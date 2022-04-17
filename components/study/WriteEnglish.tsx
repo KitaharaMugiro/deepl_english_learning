@@ -14,6 +14,7 @@ import QuestionText from './QuestionText';
 import styles from "./style.module.css";
 import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import PickModeButton from './PickModeButton';
+import PickModeInput from './PickModeInput';
 export default function WriteEnglish() {
     const { openPhraseList } = usePhrase()
     const [displayModal, setDisplayModal] = useState(true)
@@ -52,7 +53,8 @@ export default function WriteEnglish() {
     }
 
     const addText = (text: string) => {
-        setEnglish(english + " " + text)
+        const newText = english + " " + text
+        setEnglish(newText.trim())
     }
 
     const renderOtherOptionIcons = () => {
@@ -126,24 +128,7 @@ export default function WriteEnglish() {
                 >
                 </TextField>
                 <div style={{ marginTop: 30, }}>
-                    <PickModeButton
-                        value={"I"}
-                        onClick={addText}
-                    />
-                    <PickModeButton
-                        value={"don't"}
-                        onClick={addText}
-                    />
-                    <PickModeButton
-                        value={"know"}
-                        onClick={addText}
-                    />
-                    <PickModeButton
-                        value={"your"}
-                        onClick={addText} />
-                    <PickModeButton
-                        value={"name."}
-                        onClick={addText} />
+                    <PickModeInput addText={addText} />
                 </div>
             </div>
         } else {

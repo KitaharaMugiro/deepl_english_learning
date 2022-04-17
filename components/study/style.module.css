@@ -48,10 +48,10 @@
     border-radius: 16px;
     border: 2px solid #e5e5e5;
     border-bottom: 6px solid #e5e5e5;
-    margin: 5px;
+    margin: 8px;
     transition: all 0.1s;
     display: inline-flex;
-    padding: 0px 6px;
+    padding: 2px 15px;
 }
 
 .duolingoButton:hover {
