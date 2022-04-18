@@ -82,21 +82,23 @@ export default function TodayStudyMainFrame(props: Props) {
         if (activeStep === 0) {
 
         } else if (activeStep === 1) {
+            //日本語のパートを終了
+            //非同期で翻訳する
+            StudyApi.translate(japanese, props.todayTopic.question.title).then(resTranslation => {
+                setTranslation(resTranslation.translation)
+            })
 
         } else if (activeStep === 2) {
             //最後のステップ
-            const resTranslation = await StudyApi.translate(japanese, props.todayTopic.question.title)
-            setTranslation(resTranslation.translation)
-
             //スコア算出
-            const scores = await new ApiSpecialClient().englishScore(english, resTranslation.translation)
+            const scores = await new ApiSpecialClient().englishScore(english, translation)
 
             const _score = Math.round(scores.scoreRaw)
             const _age = scores.age
 
             //スコアを送信する
             RecordApi.submitScore(_score, _age)
-            RecordApi.submitDashboard(_score, english, resTranslation.translation, activeQuestion.topicId, japanese, _age)
+            RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
 
             //結果の保存
             const { resultId } = await TodayApi.submitTodayTopicResult(
@@ -105,7 +107,7 @@ export default function TodayStudyMainFrame(props: Props) {
                     score: scores.scoreRaw,
                     topicId: props.todayTopic.question.topicId,
                     english: english,
-                    translation: resTranslation.translation,
+                    translation: translation,
                     age: scores.age,
                     japanese: japanese,
                     name: name
