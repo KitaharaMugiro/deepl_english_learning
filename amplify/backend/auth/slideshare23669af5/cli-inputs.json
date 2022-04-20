@@ -45,10 +45,11 @@
     "usernameCaseSensitive": false,
     "hostedUI": true,
     "hostedUIDomainName": "slideshare23669af5-23669af5",
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
     "authProvidersUserPool": [
       "Facebook",
-      "Google"
+      "Google",
+      "SignInWithApple"
     ],
     "authRoleArn": {
       "Fn::GetAtt": [
@@ -65,7 +66,9 @@
     "breakCircularDependency": true,
     "useEnabledMfas": false,
     "dependsOn": [],
-    "hostedUIProviderCreds": "[]",
+    "signinwithappleAuthorizeScopes": [
+      "email"
+    ],
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"],\"LogoutURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"]}"
   }
 }

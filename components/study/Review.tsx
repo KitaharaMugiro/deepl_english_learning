@@ -9,6 +9,7 @@ import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper
 import { Question } from '../../models/type/Question';
 import useLevelUp from '../../models/util-hooks/useLevelUp';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import NoteModal from '../mynote/NoteModal';
 import DetailScoreBoard from './DetailScoreBoard';
 import SuggestWordsList from './SuggestWordsList';
 import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
@@ -22,6 +23,8 @@ interface Props {
 }
 
 export default (props: Props) => {
+    const [isOpenNote, setIsOpenNote] = useState(false);
+
     const [_english] = useAtom(AtomEnglish)
     const [_japanese] = useAtom(AtomJapanse)
     const [_translation] = useAtom(AtomTranslation)
@@ -65,6 +68,17 @@ export default (props: Props) => {
         })
     }, [])
 
+    const openMyNote = () => {
+        setIsOpenNote(true)
+    }
+
+    const closeMyNote = () => {
+        setIsOpenNote(false)
+    }
+
+    if (!props.activeQuestion) {
+        return null
+    }
     return (
         <React.Fragment>
 
@@ -74,11 +88,11 @@ export default (props: Props) => {
                 resultId={resultId}
             />
 
-            <h2 style={{ fontWeight: 700 }} >
+            <Typography variant="h6" style={{ fontWeight: 700 }} >
                 {activeQuestion.title}
-            </h2>
+            </Typography>
 
-            <p style={{ color: "#677284", marginTop: "15px" }}>
+            <p style={{ color: "#677284", marginTop: 0 }}>
                 {activeQuestion.description}
             </p>
 
@@ -102,7 +116,12 @@ export default (props: Props) => {
                 translation={translation}
             />
 
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Button variant="contained" onClick={openMyNote}>マイノートに登録する</Button>
+            </div>
+
             <div style={{ height: 25 }} />
+
 
             <SuggestWordsList
                 english={english}
@@ -110,6 +129,12 @@ export default (props: Props) => {
 
             <div style={{ height: 15 }} />
 
+
+            <NoteModal open={isOpenNote} onClose={closeMyNote}
+                question={props.activeQuestion}
+                japanese={props.japanese || ""}
+                english={props.english || ""}
+                translation={props.translation || ""} />
             <DictionarySearchSelector />
         </React.Fragment>
     );

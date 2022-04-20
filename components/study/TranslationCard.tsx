@@ -30,6 +30,5 @@ export default (props: Props) => {
             />
         </Paper>
         <TextToSpeechButton text={props.translation} />
-        <TextToSpeechButton text={props.translation} />
     </div>)
 }
