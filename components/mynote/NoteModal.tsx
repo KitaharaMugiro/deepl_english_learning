@@ -2,6 +2,11 @@ import { Modal, Box, Typography, Button, Icon, Paper } from "@mui/material"
 import { Question } from "../../models/type/Question"
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useEffect, useRef, useState } from "react";
+import RichEditor from "./RichEditor";
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { useSaveMyNoteMutation, useUpdateMyNoteMutation } from "../../src/generated/graphql";
+
 interface Props {
     open: boolean
     onClose: () => void
@@ -9,15 +14,67 @@ interface Props {
     english: string
     japanese: string
     translation: string
+    memo?: string
+    myNoteId?: number
 }
 
 
 export default (props: Props) => {
+    const [saveLoading, setSaveLoading] = useState(false)
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+    const [saveMyNote] = useSaveMyNoteMutation()
+    const [updateMyNote] = useUpdateMyNoteMutation()
+    const [isNewlyCreated, setIsNewlyCreated] = useState(true)
+    const [savedMyNoteId, setSavedMyNoteId] = useState<number | undefined>(undefined)
 
+    useEffect(() => {
+        if (props.memo) {
+            setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(props.memo))))
+            setIsNewlyCreated(false)
+        }
+    }, [props.memo])
+
+    const onClose = async () => {
+        if (!editorState.isEmpty()) {
+            await save()
+        }
+        props.onClose()
+    }
+
+    const save = async () => {
+        setSaveLoading(true)
+        const contentState = editorState.getCurrentContent();
+        const rawText = convertToRaw(contentState)
+        const memo = JSON.stringify(rawText)
+        if (isNewlyCreated) {
+            const data = await saveMyNote({
+                variables: {
+                    topicId: props.question.topicId,
+                    english: props.english,
+                    japanese: props.japanese,
+                    translation: props.translation,
+                    memo,
+                    questionTitle: props.question.title,
+                    questionDescription: props.question.description,
+                    categorySlug: props.question.categorySlug || "",
+                }
+            })
+            setSavedMyNoteId(data?.data?.insert_englister_MyNote_one?.id)
+        } else {
+            const myNoteId = props.myNoteId || savedMyNoteId
+            if (myNoteId) {
+                await updateMyNote({ variables: { id: myNoteId, memo } })
+            } else {
+                throw Error("myNoteId is not defined")
+            }
+        }
+
+        setSaveLoading(false)
+    }
 
     return <Modal
         open={props.open}
-        onClose={props.onClose}
+        onClose={onClose}
     >
         <Box style={{
             position: 'absolute',
@@ -34,11 +91,11 @@ export default (props: Props) => {
         }}>
             {/* メニュ */}
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: 5 }}>
-                <Button size="small" color="info" startIcon={<OpenInFullIcon />}>
+                <Button size="small" color="info" startIcon={<OpenInFullIcon />} href="/mynote">
                     一覧を開く
                 </Button>
 
-                <Button variant="contained">
+                <Button variant="contained" onClick={save} disabled={saveLoading}>
                     保存する
                 </Button>
             </div>
@@ -60,22 +117,8 @@ export default (props: Props) => {
                     {props.translation}
                 </Paper>
                 <div style={{ height: 5 }} />
-                <div
-                    placeholder="ここにメモを残す"
-                    data-content-editable-leaf="true"
-                    contentEditable={true}
-                    style={{
-                        maxWidth: "100%",
-                        width: "100%",
-                        minHeight: 400,
-                        whiteSpace: "pre-wrap",
-                        wordBreak: "break-word",
-                        caretColor: "rgb(55, 53, 47)",
-                        padding: "3px 2px",
-                        color: "rgb(55, 53, 47)",
-                    }}
-                />
 
+                <RichEditor editorState={editorState} setEditorState={setEditorState} />
             </div>
 
         </Box>

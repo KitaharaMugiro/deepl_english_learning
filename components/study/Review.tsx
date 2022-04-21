@@ -23,8 +23,6 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const [isOpenNote, setIsOpenNote] = useState(false);
-
     const [_english] = useAtom(AtomEnglish)
     const [_japanese] = useAtom(AtomJapanse)
     const [_translation] = useAtom(AtomTranslation)
@@ -68,13 +66,8 @@ export default (props: Props) => {
         })
     }, [])
 
-    const openMyNote = () => {
-        setIsOpenNote(true)
-    }
+    const [isOpenNote, setIsOpenNote] = useState(false);
 
-    const closeMyNote = () => {
-        setIsOpenNote(false)
-    }
 
     if (!props.activeQuestion) {
         return null
@@ -117,8 +110,14 @@ export default (props: Props) => {
             />
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Button variant="contained" onClick={openMyNote}>マイノートに登録する</Button>
+                <Button variant="contained" onClick={() => setIsOpenNote(true)}>マイノートに登録する</Button>
             </div>
+            <NoteModal open={isOpenNote} onClose={() => setIsOpenNote(false)}
+                question={props.activeQuestion}
+                japanese={props.japanese || ""}
+                english={props.english || ""}
+                translation={props.translation || ""}
+            />
 
             <div style={{ height: 25 }} />
 
@@ -129,13 +128,7 @@ export default (props: Props) => {
 
             <div style={{ height: 15 }} />
 
-
-            <NoteModal open={isOpenNote} onClose={closeMyNote}
-                question={props.activeQuestion}
-                japanese={props.japanese || ""}
-                english={props.english || ""}
-                translation={props.translation || ""} />
-            <DictionarySearchSelector />
+            {!isOpenNote && <DictionarySearchSelector />}
         </React.Fragment>
     );
 }

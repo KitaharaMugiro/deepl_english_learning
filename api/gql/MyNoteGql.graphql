@@ -1,0 +1,49 @@
+mutation SaveMyNote($english: String, $japanese: String, $memo: String, $questionTitle: String, $questionDescription: String, $topicId: String, $translation:String, $categorySlug: String) {
+  insert_englister_MyNote_one(object: {english: $english, japanese: $japanese, memo: $memo, questionTitle: $questionTitle, questionDescription: $questionDescription, topicId: $topicId, translation: $translation, categorySlug:$categorySlug}) {
+    id
+  }
+}
+
+mutation UpdateMyNote($id: Int!, $memo: String!) {
+  update_englister_MyNote_by_pk(pk_columns:{id:$id}, _set:{memo:$memo}) {
+    id
+  }
+}
+
+query GetMyNote($id: Int!) {
+  englister_MyNote_by_pk(id: $id) {
+    id
+    english
+    questionTitle
+    memo
+    japanese
+    questionDescription
+    topicId
+    categorySlug
+    createdAt
+    translation
+    updatedAt
+  }
+}
+
+query ListMyNote {
+  englister_MyNote(order_by:{updatedAt:desc}) {
+    id
+    english
+    questionTitle
+    memo
+    japanese
+    questionDescription
+    topicId
+    categorySlug
+    createdAt
+    translation
+    updatedAt
+  }
+}
+
+mutation DeleteMyNote($id: Int!) {
+  delete_englister_MyNote_by_pk(id: $id) {
+    id
+  }
+}

@@ -424,6 +424,136 @@ export type Bigint_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['bigint']>>;
 };
 
+/** columns and relationships of "englister.MyNote" */
+export type Englister_MyNote = {
+  __typename?: 'englister_MyNote';
+  categorySlug?: Maybe<Scalars['String']>;
+  createdAt: Scalars['timestamptz'];
+  createdBy: Scalars['String'];
+  english: Scalars['String'];
+  id: Scalars['Int'];
+  japanese: Scalars['String'];
+  memo: Scalars['String'];
+  questionDescription: Scalars['String'];
+  questionTitle: Scalars['String'];
+  topicId: Scalars['String'];
+  translation: Scalars['String'];
+  updatedAt: Scalars['timestamptz'];
+};
+
+/** Boolean expression to filter rows from the table "englister.MyNote". All fields are combined with a logical 'AND'. */
+export type Englister_MyNote_Bool_Exp = {
+  _and?: InputMaybe<Array<Englister_MyNote_Bool_Exp>>;
+  _not?: InputMaybe<Englister_MyNote_Bool_Exp>;
+  _or?: InputMaybe<Array<Englister_MyNote_Bool_Exp>>;
+  categorySlug?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  createdBy?: InputMaybe<String_Comparison_Exp>;
+  english?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  japanese?: InputMaybe<String_Comparison_Exp>;
+  memo?: InputMaybe<String_Comparison_Exp>;
+  questionDescription?: InputMaybe<String_Comparison_Exp>;
+  questionTitle?: InputMaybe<String_Comparison_Exp>;
+  topicId?: InputMaybe<String_Comparison_Exp>;
+  translation?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "englister.MyNote" */
+export enum Englister_MyNote_Constraint {
+  /** unique or primary key constraint */
+  MyNotePkey = 'MyNote_pkey'
+}
+
+/** input type for inserting data into table "englister.MyNote" */
+export type Englister_MyNote_Insert_Input = {
+  categorySlug?: InputMaybe<Scalars['String']>;
+  english?: InputMaybe<Scalars['String']>;
+  japanese?: InputMaybe<Scalars['String']>;
+  memo?: InputMaybe<Scalars['String']>;
+  questionDescription?: InputMaybe<Scalars['String']>;
+  questionTitle?: InputMaybe<Scalars['String']>;
+  topicId?: InputMaybe<Scalars['String']>;
+  translation?: InputMaybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "englister.MyNote" */
+export type Englister_MyNote_Mutation_Response = {
+  __typename?: 'englister_MyNote_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Englister_MyNote>;
+};
+
+/** on_conflict condition type for table "englister.MyNote" */
+export type Englister_MyNote_On_Conflict = {
+  constraint: Englister_MyNote_Constraint;
+  update_columns?: Array<Englister_MyNote_Update_Column>;
+  where?: InputMaybe<Englister_MyNote_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "englister.MyNote". */
+export type Englister_MyNote_Order_By = {
+  categorySlug?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  createdBy?: InputMaybe<Order_By>;
+  english?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  japanese?: InputMaybe<Order_By>;
+  memo?: InputMaybe<Order_By>;
+  questionDescription?: InputMaybe<Order_By>;
+  questionTitle?: InputMaybe<Order_By>;
+  topicId?: InputMaybe<Order_By>;
+  translation?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: englister_MyNote */
+export type Englister_MyNote_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "englister.MyNote" */
+export enum Englister_MyNote_Select_Column {
+  /** column name */
+  CategorySlug = 'categorySlug',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  CreatedBy = 'createdBy',
+  /** column name */
+  English = 'english',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Japanese = 'japanese',
+  /** column name */
+  Memo = 'memo',
+  /** column name */
+  QuestionDescription = 'questionDescription',
+  /** column name */
+  QuestionTitle = 'questionTitle',
+  /** column name */
+  TopicId = 'topicId',
+  /** column name */
+  Translation = 'translation',
+  /** column name */
+  UpdatedAt = 'updatedAt'
+}
+
+/** input type for updating data in table "englister.MyNote" */
+export type Englister_MyNote_Set_Input = {
+  memo?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "englister.MyNote" */
+export enum Englister_MyNote_Update_Column {
+  /** column name */
+  Memo = 'memo'
+}
+
 /** columns and relationships of "englister.Phrase" */
 export type Englister_Phrase = {
   __typename?: 'englister_Phrase';
@@ -432,6 +562,7 @@ export type Englister_Phrase = {
   description: Scalars['String'];
   id: Scalars['Int'];
   phrase: Scalars['String'];
+  remembered: Scalars['Boolean'];
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -445,6 +576,7 @@ export type Englister_Phrase_Bool_Exp = {
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   phrase?: InputMaybe<String_Comparison_Exp>;
+  remembered?: InputMaybe<Boolean_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
@@ -458,6 +590,7 @@ export enum Englister_Phrase_Constraint {
 export type Englister_Phrase_Insert_Input = {
   description?: InputMaybe<Scalars['String']>;
   phrase?: InputMaybe<Scalars['String']>;
+  remembered?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** response of any mutation on the table "englister.Phrase" */
@@ -483,6 +616,7 @@ export type Englister_Phrase_Order_By = {
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   phrase?: InputMaybe<Order_By>;
+  remembered?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -504,6 +638,8 @@ export enum Englister_Phrase_Select_Column {
   /** column name */
   Phrase = 'phrase',
   /** column name */
+  Remembered = 'remembered',
+  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -511,6 +647,7 @@ export enum Englister_Phrase_Select_Column {
 export type Englister_Phrase_Set_Input = {
   description?: InputMaybe<Scalars['String']>;
   phrase?: InputMaybe<Scalars['String']>;
+  remembered?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** update columns of table "englister.Phrase" */
@@ -518,7 +655,9 @@ export enum Englister_Phrase_Update_Column {
   /** column name */
   Description = 'description',
   /** column name */
-  Phrase = 'phrase'
+  Phrase = 'phrase',
+  /** column name */
+  Remembered = 'remembered'
 }
 
 /** columns and relationships of "englister.PublicAnswers" */
@@ -965,6 +1104,10 @@ export type Mutation_Root = {
   delete_Note?: Maybe<Note_Mutation_Response>;
   /** delete single row from the table: "Note" */
   delete_Note_by_pk?: Maybe<Note>;
+  /** delete data from the table: "englister.MyNote" */
+  delete_englister_MyNote?: Maybe<Englister_MyNote_Mutation_Response>;
+  /** delete single row from the table: "englister.MyNote" */
+  delete_englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
   /** delete data from the table: "englister.Phrase" */
   delete_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** delete single row from the table: "englister.Phrase" */
@@ -1025,6 +1168,10 @@ export type Mutation_Root = {
   insert_Note?: Maybe<Note_Mutation_Response>;
   /** insert a single row into the table: "Note" */
   insert_Note_one?: Maybe<Note>;
+  /** insert data into the table: "englister.MyNote" */
+  insert_englister_MyNote?: Maybe<Englister_MyNote_Mutation_Response>;
+  /** insert a single row into the table: "englister.MyNote" */
+  insert_englister_MyNote_one?: Maybe<Englister_MyNote>;
   /** insert data into the table: "englister.Phrase" */
   insert_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** insert a single row into the table: "englister.Phrase" */
@@ -1110,6 +1257,10 @@ export type Mutation_Root = {
   update_Note?: Maybe<Note_Mutation_Response>;
   /** update single row of the table: "Note" */
   update_Note_by_pk?: Maybe<Note>;
+  /** update data of the table: "englister.MyNote" */
+  update_englister_MyNote?: Maybe<Englister_MyNote_Mutation_Response>;
+  /** update single row of the table: "englister.MyNote" */
+  update_englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
   /** update data of the table: "englister.Phrase" */
   update_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** update single row of the table: "englister.Phrase" */
@@ -1184,6 +1335,18 @@ export type Mutation_RootDelete_NoteArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Note_By_PkArgs = {
   Id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_MyNoteArgs = {
+  where: Englister_MyNote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Englister_MyNote_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1367,6 +1530,20 @@ export type Mutation_RootInsert_NoteArgs = {
 export type Mutation_RootInsert_Note_OneArgs = {
   object: Note_Insert_Input;
   on_conflict?: InputMaybe<Note_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_MyNoteArgs = {
+  objects: Array<Englister_MyNote_Insert_Input>;
+  on_conflict?: InputMaybe<Englister_MyNote_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Englister_MyNote_OneArgs = {
+  object: Englister_MyNote_Insert_Input;
+  on_conflict?: InputMaybe<Englister_MyNote_On_Conflict>;
 };
 
 
@@ -1657,6 +1834,20 @@ export type Mutation_RootUpdate_Note_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Englister_MyNoteArgs = {
+  _set?: InputMaybe<Englister_MyNote_Set_Input>;
+  where: Englister_MyNote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Englister_MyNote_By_PkArgs = {
+  _set?: InputMaybe<Englister_MyNote_Set_Input>;
+  pk_columns: Englister_MyNote_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Englister_PhraseArgs = {
   _set?: InputMaybe<Englister_Phrase_Set_Input>;
   where: Englister_Phrase_Bool_Exp;
@@ -1883,6 +2074,10 @@ export type Query_Root = {
   Note: Array<Note>;
   /** fetch data from the table: "Note" using primary key columns */
   Note_by_pk?: Maybe<Note>;
+  /** fetch data from the table: "englister.MyNote" */
+  englister_MyNote: Array<Englister_MyNote>;
+  /** fetch data from the table: "englister.MyNote" using primary key columns */
+  englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
   /** fetch data from the table: "englister.Phrase" */
   englister_Phrase: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Phrase" using primary key columns */
@@ -1997,6 +2192,20 @@ export type Query_RootNoteArgs = {
 
 export type Query_RootNote_By_PkArgs = {
   Id: Scalars['Int'];
+};
+
+
+export type Query_RootEnglister_MyNoteArgs = {
+  distinct_on?: InputMaybe<Array<Englister_MyNote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_MyNote_Order_By>>;
+  where?: InputMaybe<Englister_MyNote_Bool_Exp>;
+};
+
+
+export type Query_RootEnglister_MyNote_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -4535,6 +4744,10 @@ export type Subscription_Root = {
   Note: Array<Note>;
   /** fetch data from the table: "Note" using primary key columns */
   Note_by_pk?: Maybe<Note>;
+  /** fetch data from the table: "englister.MyNote" */
+  englister_MyNote: Array<Englister_MyNote>;
+  /** fetch data from the table: "englister.MyNote" using primary key columns */
+  englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
   /** fetch data from the table: "englister.Phrase" */
   englister_Phrase: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Phrase" using primary key columns */
@@ -4649,6 +4862,20 @@ export type Subscription_RootNoteArgs = {
 
 export type Subscription_RootNote_By_PkArgs = {
   Id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_MyNoteArgs = {
+  distinct_on?: InputMaybe<Array<Englister_MyNote_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Englister_MyNote_Order_By>>;
+  where?: InputMaybe<Englister_MyNote_Bool_Exp>;
+};
+
+
+export type Subscription_RootEnglister_MyNote_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -4982,6 +5209,47 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
+export type SaveMyNoteMutationVariables = Exact<{
+  english?: InputMaybe<Scalars['String']>;
+  japanese?: InputMaybe<Scalars['String']>;
+  memo?: InputMaybe<Scalars['String']>;
+  questionTitle?: InputMaybe<Scalars['String']>;
+  questionDescription?: InputMaybe<Scalars['String']>;
+  topicId?: InputMaybe<Scalars['String']>;
+  translation?: InputMaybe<Scalars['String']>;
+  categorySlug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SaveMyNoteMutation = { __typename?: 'mutation_root', insert_englister_MyNote_one?: { __typename?: 'englister_MyNote', id: number } | null | undefined };
+
+export type UpdateMyNoteMutationVariables = Exact<{
+  id: Scalars['Int'];
+  memo: Scalars['String'];
+}>;
+
+
+export type UpdateMyNoteMutation = { __typename?: 'mutation_root', update_englister_MyNote_by_pk?: { __typename?: 'englister_MyNote', id: number } | null | undefined };
+
+export type GetMyNoteQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetMyNoteQuery = { __typename?: 'query_root', englister_MyNote_by_pk?: { __typename?: 'englister_MyNote', id: number, english: string, questionTitle: string, memo: string, japanese: string, questionDescription: string, topicId: string, categorySlug?: string | null | undefined, createdAt: any, translation: string, updatedAt: any } | null | undefined };
+
+export type ListMyNoteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListMyNoteQuery = { __typename?: 'query_root', englister_MyNote: Array<{ __typename?: 'englister_MyNote', id: number, english: string, questionTitle: string, memo: string, japanese: string, questionDescription: string, topicId: string, categorySlug?: string | null | undefined, createdAt: any, translation: string, updatedAt: any }> };
+
+export type DeleteMyNoteMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteMyNoteMutation = { __typename?: 'mutation_root', delete_englister_MyNote_by_pk?: { __typename?: 'englister_MyNote', id: number } | null | undefined };
+
 export type SavePhraseMutationVariables = Exact<{
   phrase: Scalars['String'];
   description: Scalars['String'];
@@ -5203,6 +5471,204 @@ export type WordleWinQueryVariables = Exact<{
 export type WordleWinQuery = { __typename?: 'query_root', englister_WordleRecord: Array<{ __typename?: 'englister_WordleRecord', wind: boolean }> };
 
 
+export const SaveMyNoteDocument = gql`
+    mutation SaveMyNote($english: String, $japanese: String, $memo: String, $questionTitle: String, $questionDescription: String, $topicId: String, $translation: String, $categorySlug: String) {
+  insert_englister_MyNote_one(
+    object: {english: $english, japanese: $japanese, memo: $memo, questionTitle: $questionTitle, questionDescription: $questionDescription, topicId: $topicId, translation: $translation, categorySlug: $categorySlug}
+  ) {
+    id
+  }
+}
+    `;
+export type SaveMyNoteMutationFn = Apollo.MutationFunction<SaveMyNoteMutation, SaveMyNoteMutationVariables>;
+
+/**
+ * __useSaveMyNoteMutation__
+ *
+ * To run a mutation, you first call `useSaveMyNoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveMyNoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveMyNoteMutation, { data, loading, error }] = useSaveMyNoteMutation({
+ *   variables: {
+ *      english: // value for 'english'
+ *      japanese: // value for 'japanese'
+ *      memo: // value for 'memo'
+ *      questionTitle: // value for 'questionTitle'
+ *      questionDescription: // value for 'questionDescription'
+ *      topicId: // value for 'topicId'
+ *      translation: // value for 'translation'
+ *      categorySlug: // value for 'categorySlug'
+ *   },
+ * });
+ */
+export function useSaveMyNoteMutation(baseOptions?: Apollo.MutationHookOptions<SaveMyNoteMutation, SaveMyNoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SaveMyNoteMutation, SaveMyNoteMutationVariables>(SaveMyNoteDocument, options);
+      }
+export type SaveMyNoteMutationHookResult = ReturnType<typeof useSaveMyNoteMutation>;
+export type SaveMyNoteMutationResult = Apollo.MutationResult<SaveMyNoteMutation>;
+export type SaveMyNoteMutationOptions = Apollo.BaseMutationOptions<SaveMyNoteMutation, SaveMyNoteMutationVariables>;
+export const UpdateMyNoteDocument = gql`
+    mutation UpdateMyNote($id: Int!, $memo: String!) {
+  update_englister_MyNote_by_pk(pk_columns: {id: $id}, _set: {memo: $memo}) {
+    id
+  }
+}
+    `;
+export type UpdateMyNoteMutationFn = Apollo.MutationFunction<UpdateMyNoteMutation, UpdateMyNoteMutationVariables>;
+
+/**
+ * __useUpdateMyNoteMutation__
+ *
+ * To run a mutation, you first call `useUpdateMyNoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMyNoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMyNoteMutation, { data, loading, error }] = useUpdateMyNoteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      memo: // value for 'memo'
+ *   },
+ * });
+ */
+export function useUpdateMyNoteMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMyNoteMutation, UpdateMyNoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMyNoteMutation, UpdateMyNoteMutationVariables>(UpdateMyNoteDocument, options);
+      }
+export type UpdateMyNoteMutationHookResult = ReturnType<typeof useUpdateMyNoteMutation>;
+export type UpdateMyNoteMutationResult = Apollo.MutationResult<UpdateMyNoteMutation>;
+export type UpdateMyNoteMutationOptions = Apollo.BaseMutationOptions<UpdateMyNoteMutation, UpdateMyNoteMutationVariables>;
+export const GetMyNoteDocument = gql`
+    query GetMyNote($id: Int!) {
+  englister_MyNote_by_pk(id: $id) {
+    id
+    english
+    questionTitle
+    memo
+    japanese
+    questionDescription
+    topicId
+    categorySlug
+    createdAt
+    translation
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useGetMyNoteQuery__
+ *
+ * To run a query within a React component, call `useGetMyNoteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyNoteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyNoteQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetMyNoteQuery(baseOptions: Apollo.QueryHookOptions<GetMyNoteQuery, GetMyNoteQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMyNoteQuery, GetMyNoteQueryVariables>(GetMyNoteDocument, options);
+      }
+export function useGetMyNoteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMyNoteQuery, GetMyNoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMyNoteQuery, GetMyNoteQueryVariables>(GetMyNoteDocument, options);
+        }
+export type GetMyNoteQueryHookResult = ReturnType<typeof useGetMyNoteQuery>;
+export type GetMyNoteLazyQueryHookResult = ReturnType<typeof useGetMyNoteLazyQuery>;
+export type GetMyNoteQueryResult = Apollo.QueryResult<GetMyNoteQuery, GetMyNoteQueryVariables>;
+export const ListMyNoteDocument = gql`
+    query ListMyNote {
+  englister_MyNote(order_by: {updatedAt: desc}) {
+    id
+    english
+    questionTitle
+    memo
+    japanese
+    questionDescription
+    topicId
+    categorySlug
+    createdAt
+    translation
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useListMyNoteQuery__
+ *
+ * To run a query within a React component, call `useListMyNoteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListMyNoteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListMyNoteQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListMyNoteQuery(baseOptions?: Apollo.QueryHookOptions<ListMyNoteQuery, ListMyNoteQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListMyNoteQuery, ListMyNoteQueryVariables>(ListMyNoteDocument, options);
+      }
+export function useListMyNoteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListMyNoteQuery, ListMyNoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListMyNoteQuery, ListMyNoteQueryVariables>(ListMyNoteDocument, options);
+        }
+export type ListMyNoteQueryHookResult = ReturnType<typeof useListMyNoteQuery>;
+export type ListMyNoteLazyQueryHookResult = ReturnType<typeof useListMyNoteLazyQuery>;
+export type ListMyNoteQueryResult = Apollo.QueryResult<ListMyNoteQuery, ListMyNoteQueryVariables>;
+export const DeleteMyNoteDocument = gql`
+    mutation DeleteMyNote($id: Int!) {
+  delete_englister_MyNote_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteMyNoteMutationFn = Apollo.MutationFunction<DeleteMyNoteMutation, DeleteMyNoteMutationVariables>;
+
+/**
+ * __useDeleteMyNoteMutation__
+ *
+ * To run a mutation, you first call `useDeleteMyNoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMyNoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMyNoteMutation, { data, loading, error }] = useDeleteMyNoteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteMyNoteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMyNoteMutation, DeleteMyNoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMyNoteMutation, DeleteMyNoteMutationVariables>(DeleteMyNoteDocument, options);
+      }
+export type DeleteMyNoteMutationHookResult = ReturnType<typeof useDeleteMyNoteMutation>;
+export type DeleteMyNoteMutationResult = Apollo.MutationResult<DeleteMyNoteMutation>;
+export type DeleteMyNoteMutationOptions = Apollo.BaseMutationOptions<DeleteMyNoteMutation, DeleteMyNoteMutationVariables>;
 export const SavePhraseDocument = gql`
     mutation SavePhrase($phrase: String!, $description: String!) {
   insert_englister_Phrase_one(
