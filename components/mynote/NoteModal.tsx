@@ -36,9 +36,11 @@ export default (props: Props) => {
 
     const onClose = async () => {
         if (!editorState.isEmpty()) {
-            await save()
+            if (window.confirm("編集キャンセルしてもよろしいですか？")) {
+                props.onClose()
+            }
         }
-        props.onClose()
+
     }
 
     const save = async () => {
@@ -70,6 +72,7 @@ export default (props: Props) => {
         }
 
         setSaveLoading(false)
+        props.onClose()
     }
 
     return <Modal

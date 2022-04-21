@@ -11,6 +11,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import Link from 'next/link';
 import React from 'react';
+import NoteIcon from '@mui/icons-material/Note';
 interface Props {
     closeMenu: () => void;
 }
@@ -42,6 +43,15 @@ export const MainListItems = (props: Props) => {
                         <QuizIcon />
                     </ListItemIcon>
                     <ListItemText primary="解いた問題" />
+                </ListItem>
+            </Link>
+
+            <Link href="/mynote" >
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <NoteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="マイノート" />
                 </ListItem>
             </Link>
 
