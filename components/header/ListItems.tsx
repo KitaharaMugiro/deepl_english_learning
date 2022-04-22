@@ -11,20 +11,21 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import Link from 'next/link';
 import React from 'react';
+import NoteIcon from '@mui/icons-material/Note';
 interface Props {
     closeMenu: () => void;
 }
 export const MainListItems = (props: Props) => {
     return (
         <div>
-            <Link href="/today">
+            {/* <Link href="/today">
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
                         <CelebrationIcon />
                     </ListItemIcon>
                     <ListItemText primary="今日の英語年齢診断" />
                 </ListItem>
-            </Link>
+            </Link> */}
 
 
             <Link href="/dashboard" >
@@ -36,12 +37,21 @@ export const MainListItems = (props: Props) => {
                 </ListItem>
             </Link>
 
-            <Link href="/restudy" >
+            {/* <Link href="/restudy" >
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
                         <QuizIcon />
                     </ListItemIcon>
                     <ListItemText primary="解いた問題" />
+                </ListItem>
+            </Link> */}
+
+            <Link href="/mynote" >
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <NoteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="マイノート" />
                 </ListItem>
             </Link>
 
@@ -55,14 +65,14 @@ export const MainListItems = (props: Props) => {
             </Link>
 
 
-            <Link href="/quest" >
+            {/* <Link href="/quest" >
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
                         <LightbulbIcon />
                     </ListItemIcon>
                     <ListItemText primary="クエスト" />
                 </ListItem>
-            </Link>
+            </Link> */}
 
             <Link href="/info/discord" >
                 <ListItem button onClick={props.closeMenu}>

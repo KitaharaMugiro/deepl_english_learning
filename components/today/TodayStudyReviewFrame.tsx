@@ -11,6 +11,7 @@ import useLevelUp from '../../models/util-hooks/useLevelUp';
 import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import NoteModal from '../mynote/NoteModal';
 import SuggestWordsList from '../study/SuggestWordsList';
 import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
 import FloatingTryTodayQuestion from './FloatingTryTodayQuestion';
@@ -59,6 +60,8 @@ export default (props: Props) => {
         FireGaEvent({ action: "conversion_from_today", category: "register", label: "register" })
         openSignin()
     }
+    const [isOpenNote, setIsOpenNote] = useState(false);
+
 
 
     return (
@@ -105,6 +108,16 @@ export default (props: Props) => {
 
 
                     <YourEnglishAndTranslationView
+                        english={answer?.english || ""}
+                        translation={answer?.translation || ""}
+                    />
+
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Button variant="contained" onClick={() => setIsOpenNote(true)}>マイノートに登録する</Button>
+                    </div>
+                    <NoteModal open={isOpenNote} onClose={() => setIsOpenNote(false)}
+                        question={question}
+                        japanese={answer?.japanese || ""}
                         english={answer?.english || ""}
                         translation={answer?.translation || ""}
                     />

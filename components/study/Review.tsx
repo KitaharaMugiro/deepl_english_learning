@@ -9,10 +9,11 @@ import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper
 import { Question } from '../../models/type/Question';
 import useLevelUp from '../../models/util-hooks/useLevelUp';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
+import NoteModal from '../mynote/NoteModal';
 import DetailScoreBoard from './DetailScoreBoard';
 import SuggestWordsList from './SuggestWordsList';
 import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
-
+import AddIcon from '@mui/icons-material/Add';
 interface Props {
     english?: string
     japanese?: string
@@ -65,6 +66,12 @@ export default (props: Props) => {
         })
     }, [])
 
+    const [isOpenNote, setIsOpenNote] = useState(false);
+
+
+    if (!activeQuestion) {
+        return null
+    }
     return (
         <React.Fragment>
 
@@ -74,11 +81,11 @@ export default (props: Props) => {
                 resultId={resultId}
             />
 
-            <h2 style={{ fontWeight: 700 }} >
+            <Typography variant="h6" style={{ fontWeight: 700 }} >
                 {activeQuestion.title}
-            </h2>
+            </Typography>
 
-            <p style={{ color: "#677284", marginTop: "15px" }}>
+            <p style={{ color: "#677284", marginTop: 0 }}>
                 {activeQuestion.description}
             </p>
 
@@ -102,7 +109,25 @@ export default (props: Props) => {
                 translation={translation}
             />
 
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Button variant="contained"
+                    disableElevation={true}
+                    startIcon={<AddIcon />}
+                    onClick={() => setIsOpenNote(true)}>
+                    マイノートに登録する
+                </Button>
+            </div>
+            <NoteModal
+                open={isOpenNote}
+                onClose={() => setIsOpenNote(false)}
+                question={activeQuestion}
+                japanese={japanese || ""}
+                english={english || ""}
+                translation={translation || ""}
+            />
+
             <div style={{ height: 25 }} />
+
 
             <SuggestWordsList
                 english={english}
@@ -110,7 +135,7 @@ export default (props: Props) => {
 
             <div style={{ height: 15 }} />
 
-            <DictionarySearchSelector />
+            {!isOpenNote && <DictionarySearchSelector />}
         </React.Fragment>
     );
 }

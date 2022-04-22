@@ -7,7 +7,7 @@ import CustomizedMetaTags, { OgpInfo } from "../../../components/common/Customiz
 import { Copyright } from "../../../components/footer/Copyright";
 import Review from "../../../components/study/Review";
 
-export default ({ studyResult, ogpInfo }: { studyResult: GetStudyResultResponse, ogpInfo: OgpInfo }) => {
+const ResultPage = ({ studyResult, ogpInfo }: { studyResult: GetStudyResultResponse, ogpInfo: OgpInfo }) => {
     if (!studyResult) return <div>404</div>
 
     const { question, answer } = studyResult;
@@ -79,3 +79,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
 }
+
+export default ResultPage;
