@@ -4,7 +4,7 @@ import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface Props {
     editorState: EditorState
@@ -13,6 +13,7 @@ interface Props {
 
 export default (props: Props) => {
     const { editorState, setEditorState } = props;
+    const editorRef = useRef<Editor>(null)
     const selectedFormat = editorState
         .getCurrentInlineStyle()
 
@@ -57,9 +58,11 @@ export default (props: Props) => {
         <Editor
             handleKeyCommand={handleKeyCommand}
             editorState={editorState}
+            ref={editorRef}
             onChange={setEditorState}
             placeholder="ここにメモを残す"
             data-content-editable-leaf="true"
         />
+        <div style={{ height: 200, width: "100%" }} onClick={() => { editorRef.current?.focus() }} />
     </>
 }
