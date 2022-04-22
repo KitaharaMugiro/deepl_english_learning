@@ -35,12 +35,7 @@ export default (props: Props) => {
     }, [props.memo])
 
     const onClose = async () => {
-        if (!editorState.isEmpty()) {
-            if (window.confirm("編集キャンセルしてもよろしいですか？")) {
-                props.onClose()
-            }
-        }
-
+        props.onClose()
     }
 
     const save = async () => {
@@ -62,6 +57,7 @@ export default (props: Props) => {
                 }
             })
             setSavedMyNoteId(data?.data?.insert_englister_MyNote_one?.id)
+            setIsNewlyCreated(false)
         } else {
             const myNoteId = props.myNoteId || savedMyNoteId
             if (myNoteId) {
@@ -72,7 +68,6 @@ export default (props: Props) => {
         }
 
         setSaveLoading(false)
-        props.onClose()
     }
 
     return <Modal
@@ -99,7 +94,7 @@ export default (props: Props) => {
                 </Button>
 
                 <Button variant="contained" onClick={save} disabled={saveLoading}>
-                    保存する
+                    {isNewlyCreated ? "登録する" : "更新する"}
                 </Button>
             </div>
 

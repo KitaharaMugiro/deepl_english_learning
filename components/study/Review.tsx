@@ -13,7 +13,7 @@ import NoteModal from '../mynote/NoteModal';
 import DetailScoreBoard from './DetailScoreBoard';
 import SuggestWordsList from './SuggestWordsList';
 import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
-
+import AddIcon from '@mui/icons-material/Add';
 interface Props {
     english?: string
     japanese?: string
@@ -69,7 +69,7 @@ export default (props: Props) => {
     const [isOpenNote, setIsOpenNote] = useState(false);
 
 
-    if (!props.activeQuestion) {
+    if (!activeQuestion) {
         return null
     }
     return (
@@ -110,13 +110,20 @@ export default (props: Props) => {
             />
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Button variant="contained" onClick={() => setIsOpenNote(true)}>マイノートに登録する</Button>
+                <Button variant="contained"
+                    disableElevation={true}
+                    startIcon={<AddIcon />}
+                    onClick={() => setIsOpenNote(true)}>
+                    マイノートに登録する
+                </Button>
             </div>
-            <NoteModal open={isOpenNote} onClose={() => setIsOpenNote(false)}
-                question={props.activeQuestion}
-                japanese={props.japanese || ""}
-                english={props.english || ""}
-                translation={props.translation || ""}
+            <NoteModal
+                open={isOpenNote}
+                onClose={() => setIsOpenNote(false)}
+                question={activeQuestion}
+                japanese={japanese || ""}
+                english={english || ""}
+                translation={translation || ""}
             />
 
             <div style={{ height: 25 }} />
