@@ -3,10 +3,10 @@ import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { GetTodayTopicResponse, TodayApi } from "../../api/TodayApi"
-import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedMetaTags"
+import Seo, { MetaData } from "../../components/common/Seo"
 import TodayStudyMainFrame from "../../components/today/TodayStudyMainFrame"
 
-const TodayPage = ({ ogpInfo }: { ogpInfo: OgpInfo }) => {
+const TodayPage = ({ ogpInfo }: { ogpInfo: MetaData }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [todayTopic, setTodayTopic] = useState<GetTodayTopicResponse>()
@@ -25,7 +25,7 @@ const TodayPage = ({ ogpInfo }: { ogpInfo: OgpInfo }) => {
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={true}
         >
-            <CustomizedMetaTags ogpInfo={ogpInfo} />
+            <Seo ogpInfo={ogpInfo} />
             <CircularProgress color="inherit" />
         </Backdrop>
     }
@@ -38,17 +38,21 @@ const TodayPage = ({ ogpInfo }: { ogpInfo: OgpInfo }) => {
     }
 
     // まだ未提出ならすぐに問題を出す
-    return <TodayStudyMainFrame todayTopic={todayTopic} />
+    return <div>
+        <Seo ogpInfo={ogpInfo} />
+        <TodayStudyMainFrame todayTopic={todayTopic} />
+    </div>
 }
 
 
 // resultIdに紐づくOGPを出す
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const ogpInfo: OgpInfo = {
-        title: "英語年齢診断 | あなたはネイティブ何歳並みの英語を話せますか？ | Englister",
-        description: "お題に沿った英語を書くとあなたの英語力(英語年齢)を診断します。",
-        image: "https://english.yunomy.com/static/ogp/slide_5.png"
+    const ogpInfo: MetaData = {
+        title: "英作文力診断 | あなたはネイティブ何歳並みの英語を話せるか診断します",
+        description: "英作文の練習問題であなたの英語力(英語年齢)を診断します。",
+        image: "/static/ogp/slide_5.png",
+        pagePath: "/today"
     }
     return {
         props: {

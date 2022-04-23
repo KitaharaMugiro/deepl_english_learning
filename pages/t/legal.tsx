@@ -1,7 +1,13 @@
+import Seo from "../../components/common/Seo"
 import MyFooter from "../../components/footer/MyFooter"
 
 export default () => {
     return <div>
+        <Seo
+            ogpInfo={{
+                title: "特定商取引法に基づく表記",
+            }}
+        />
         <div style={{ padding: 30 }}>
             <h1>特定商取引法に基づく表記</h1>
 

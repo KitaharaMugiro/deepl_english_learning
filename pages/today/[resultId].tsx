@@ -1,12 +1,12 @@
 import { GetServerSideProps } from "next"
 import { TodayApi, GetTodayTopicResponse } from "../../api/TodayApi"
-import CustomizedMetaTags, { OgpInfo } from "../../components/common/CustomizedMetaTags"
+import Seo, { MetaData } from "../../components/common/Seo"
 import TodayStudyReviewFrame from "../../components/today/TodayStudyReviewFrame"
 
-const TodayResultPage = ({ todayTopicResult, ogpInfo }: { todayTopicResult: GetTodayTopicResponse, ogpInfo: OgpInfo }) => {
+const TodayResultPage = ({ todayTopicResult, ogpInfo }: { todayTopicResult: GetTodayTopicResponse, ogpInfo: MetaData }) => {
     if (!todayTopicResult) return <div>404</div>
     return <div>
-        <CustomizedMetaTags ogpInfo={ogpInfo} />
+        <Seo ogpInfo={ogpInfo} />
         <TodayStudyReviewFrame todayTopicResult={todayTopicResult} />
     </div>
 }
@@ -20,10 +20,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     try {
         const todayTopicResult = await TodayApi.getResult(resultId as string)
-        const ogpInfo: OgpInfo = {
-            title: "英語年齢診断 | あなたはネイティブ何歳並みの英語を話せますか？ | Englister",
-            description: todayTopicResult.question.title,
-            image: `https://english.yunomy.com/static/ogp/slide_${(todayTopicResult.answer?.age || 0) + 1}.png`
+        const ogpInfo: MetaData = {
+            title: "英作文力診断 | あなたはネイティブ何歳並みの英語を話せるか診断します",
+            description: todayTopicResult.question.title + " ←これに英語で答えてみましょう。",
+            image: `/static/ogp/slide_${(todayTopicResult.answer?.age || 0) + 1}.png`,
+            pagePath: `/today`
         }
         return {
             props: {
@@ -32,9 +33,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
         }
     } catch {
-        const ogpInfo: OgpInfo = {
-            title: "英語年齢診断 | あなたはネイティブ何歳並みの英語を話せますか？ | Englister",
-            description: "",
+        const ogpInfo: MetaData = {
+            title: "英作文力診断 | あなたはネイティブ何歳並みの英語を話せるか診断します",
+            description: "英作文の練習問題であなたの英語力(英語年齢)を診断します。",
             image: `https://english.yunomy.com/static/ogp/slide_5.png`
         }
         return {

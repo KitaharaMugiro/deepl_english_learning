@@ -3,18 +3,18 @@ import { Paper } from "@mui/material";
 import { GetServerSideProps } from "next";
 import React from "react";
 import { GetStudyResultResponse, StudyApi } from "../../../api/StudyApi";
-import CustomizedMetaTags, { OgpInfo } from "../../../components/common/CustomizedMetaTags";
+import Seo, { MetaData } from "../../../components/common/Seo";
 import { Copyright } from "../../../components/footer/Copyright";
 import Review from "../../../components/study/Review";
 
-const ResultPage = ({ studyResult, ogpInfo }: { studyResult: GetStudyResultResponse, ogpInfo: OgpInfo }) => {
+const ResultPage = ({ studyResult, ogpInfo }: { studyResult: GetStudyResultResponse, ogpInfo: MetaData }) => {
     if (!studyResult) return <div>404</div>
 
     const { question, answer } = studyResult;
 
     return (
         <React.Fragment>
-            <CustomizedMetaTags ogpInfo={ogpInfo} />
+            <Seo ogpInfo={ogpInfo} />
             <main style={{
                 width: 'auto',
                 maxWidth: "600px",
@@ -54,10 +54,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     try {
         const studyResult = await StudyApi.getResult(resultId as string)
-        const ogpInfo: OgpInfo = {
-            title: "Englister",
+        const ogpInfo: MetaData = {
             description: studyResult.question.title,
-            image: `https://english.yunomy.com/static/ogp/slide_${(studyResult.answer?.age || 0) + 1}.png`
+            image: `/static/ogp/slide_${(studyResult.answer?.age || 0) + 1}.png`
+
         }
         return {
             props: {
@@ -66,10 +66,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
         }
     } catch {
-        const ogpInfo: OgpInfo = {
-            title: "Englister",
-            description: "",
-            image: `https://english.yunomy.com/static/ogp/slide_5.png`
+        const ogpInfo: MetaData = {
+            image: `/static/ogp/slide_5.png`
         }
         return {
             props: {

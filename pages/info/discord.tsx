@@ -1,11 +1,15 @@
 import { Card, Typography, Divider, Grid } from "@mui/material"
+import Seo from "../../components/common/Seo"
 import DiscordButton from "../../components/info/DiscordButton"
 import style from "./style.module.css"
 
 export default () => {
     return (
-
         <Grid container alignItems="center" justifyContent="center">
+            <Seo ogpInfo={{
+                title: "Englister Community",
+                description: "Englister Communityでは、英語を学ぶ人たちが集まったDiscordチャンネルです。"
+            }} />
             <Grid item >
                 <Card elevation={1} style={{ padding: 20, paddingBottom: 40, margin: 20 }}>
                     <Typography

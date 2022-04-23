@@ -32,14 +32,13 @@ export default () => {
                 component="h1" variant="h4"
                 align="center" color="textPrimary"
                 gutterBottom>
-                <b>英語で意見を言えるようになる<br />
-                    AI英作文添削アプリ</b>
+                <b>自由英作文の練習ができるAI添削アプリ Englister</b>
             </Typography>
             <Divider style={{ margin: 20 }} />
-            <Typography align="center" color="textSecondary" paragraph>
-                <b>AIが人類に英語を教える日が来た！</b><br />
-                Englisterは人気翻訳サービスのDeepLを先生役にして、<br />
-                <b>自分が伝えたいことを英語にする訓練ができるサービス</b>です。<br />
+            <Typography align="center" color="textSecondary" paragraph component="h2">
+                Englisterは人気翻訳サービスのAI翻訳(DeepL)を先生役にして、<br />
+                <b>英作文の練習や添削がオンラインでできるサービス</b>です。<br />
+                スピーキングやライティングのテスト対策や外資系企業の英語面接対策に向いています。
             </Typography>
 
             <div style={{
@@ -48,12 +47,12 @@ export default () => {
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
                         <Button onClick={startFree} variant="outlined" color="primary" >
-                            さっそくやってみる
+                            問題をやってみる
                         </Button>
                     </Grid>
                     <Grid item>
                         <Button href="/today" disableElevation variant="contained" color="primary" >
-                            英語年齢診断テスト
+                            診断テスト
                         </Button>
                     </Grid>
                 </Grid>

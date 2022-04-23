@@ -1,12 +1,15 @@
 import { useAtom } from "jotai"
+import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { CategoryApi } from "../../../api/CategoryApi"
 import { StudyApi } from "../../../api/StudyApi"
+import Seo, { MetaData } from "../../../components/common/Seo"
 import CategoryStartFrame from "../../../components/study/CategoryStartFrame"
 import { LeftHeartsAtom } from "../../../models/jotai/LeftHearts"
 import usePlan from "../../../models/util-hooks/usePlan"
 
-const CategoryStart = () => {
+const CategoryStart = ({ ogpInfo }: { ogpInfo: MetaData }) => {
     const router = useRouter()
     const { categorySlug } = router.query
     const { openPlanModal, isPremium } = usePlan()
@@ -31,11 +34,29 @@ const CategoryStart = () => {
     }
 
     return <>
-        {/* {dialog} */}
+        <Seo ogpInfo={ogpInfo} />
         <CategoryStartFrame
             categorySlug={categorySlug as string}
             onClickStart={onClickStart} />
     </>
 }
+
+// resultIdに紐づくOGPを出す
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { categorySlug } = context.query
+    const res = await CategoryApi.getCategoryDetail(categorySlug as string)
+    const ogpInfo: MetaData = {
+        title: res.categoryName,
+        description: res.categoryDescription,
+        image: res.categoryImageUrl,
+        pagePath: "/q/" + categorySlug + "/start",
+    }
+    return {
+        props: {
+            ogpInfo
+        }
+    }
+}
+
 
 export default CategoryStart

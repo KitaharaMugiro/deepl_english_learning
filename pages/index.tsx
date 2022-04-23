@@ -1,14 +1,13 @@
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import FloatingLoginButton from '../components/common/FloatingLoginButton';
+import Seo from '../components/common/Seo';
 import HowToUseCard from '../components/hero/HowToUseCard';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
 import UserTweets from '../components/hero/UserTweets';
 import PlanBoxGroup from '../components/price/PlanBoxGroup';
-import useUser from '../models/util-hooks/useUser';
 
 
 export default function TopPage() {
@@ -16,6 +15,9 @@ export default function TopPage() {
   return (
     <React.Fragment>
       <main>
+        <Seo
+          ogpInfo={{}}
+        />
         {/* Hero unit */}
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">

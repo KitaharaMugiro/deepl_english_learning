@@ -1,9 +1,6 @@
-import React from 'react';
-import Link from '@mui/material/Link';
-import makeStyles from '@mui/styles/makeStyles';
 import Typography from '@mui/material/Typography';
+import React from 'react';
 import Title from './Title';
-import classes from "./styles.module.css"
 
 interface Props {
     title: string
@@ -17,14 +14,6 @@ export default function Deposits(props: Props) {
             <Typography component="p" variant="h3">
                 <b>{props.score}</b>
             </Typography>
-            {/* <Typography color="textSecondary" className={classes.depositContext}>
-                on 15 March, 2021
-            </Typography> */}
-            {/* <div>
-                <Link color="primary" href="#">
-                    詳細
-                </Link>
-            </div> */}
         </React.Fragment>
     );
 }

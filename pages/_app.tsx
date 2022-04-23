@@ -1,32 +1,30 @@
+import { ApolloProvider } from '@apollo/client';
 import {
     CssBaseline, Theme
 } from '@mui/material';
 import { Auth, Hub } from 'aws-amplify';
+import { useAtom } from 'jotai';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/dist/client/router';
-import Head from 'next/head';
 import React, { useEffect } from 'react';
-import { UserApi } from '../api/UserApi';
-import MyFooter from '../components/footer/MyFooter';
-import MyHeader from '../components/header/MyHeader';
-import PlanGroupModal from '../components/price/PlanGroupModal';
-import SigninModal from '../components/signin/SigninModal';
-import { GA_ID, pageview } from '../models/gtag';
-import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
-import useUser from '../models/util-hooks/useUser';
-import "../src/amplify" //消しちゃだめ
-import "./global.css" //消しちゃだめ
-import 'regenerator-runtime/runtime' //消しちゃだめ
+import 'regenerator-runtime/runtime'; //消しちゃだめ
 import MyApolloClient from '../api/MyApolloClient';
-import { ApolloProvider } from '@apollo/client';
-import SignupActivationModal from '../components/signin/SignupActivationModal';
+import { UserApi } from '../api/UserApi';
 import MyBackdrop from '../components/common/MyBackdrop';
 import MySnackbar from '../components/common/MySnackbar';
-import CommonMetaTags from '../components/common/CommonMetaTags';
-import PhraseDialog from '../components/phrase/PhraseDialog';
+import MyFooter from '../components/footer/MyFooter';
+import MyHeader from '../components/header/MyHeader';
 import LevelUpProgress from '../components/levelup/LevelUpProgress';
-import { useAtom } from 'jotai';
+import PhraseDialog from '../components/phrase/PhraseDialog';
+import PlanGroupModal from '../components/price/PlanGroupModal';
+import SigninModal from '../components/signin/SigninModal';
+import SignupActivationModal from '../components/signin/SignupActivationModal';
+import { GA_ID, pageview } from '../models/gtag';
 import { BackdropAtom } from '../models/jotai/Backdrop';
+import { LocalStorageHelper } from '../models/localstorage/LocalStorageHelper';
+import useUser from '../models/util-hooks/useUser';
+import "../src/amplify"; //消しちゃだめ
+import "./global.css"; //消しちゃだめ
 
 declare module '@mui/styles/defaultTheme' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -120,7 +118,6 @@ export default function MyApp(props: AppProps) {
 
     return (
         <React.Fragment>
-            <CommonMetaTags />
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <ApolloProvider client={MyApolloClient}>
@@ -136,6 +133,7 @@ export default function MyApp(props: AppProps) {
                 <LevelUpProgress />
                 <MyFooter />
             </ApolloProvider>
+
         </React.Fragment>
     );
 }

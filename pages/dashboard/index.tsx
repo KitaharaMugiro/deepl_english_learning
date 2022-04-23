@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CategoryApi } from '../../api/CategoryApi';
 import { RecordApi } from '../../api/RecordApi';
-import Chart from '../../components/dashboard/Chart';
+import Seo, { MetaData } from '../../components/common/Seo';
 import Deposits from '../../components/dashboard/Deposits';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
 import LevelUpInformation from '../../components/levelup/LevelUpInformation';
@@ -18,12 +18,12 @@ import TopCategoryRow from '../../components/top/TopCategoryRow';
 import { Category } from '../../models/type/Category';
 import classes from "./style.module.css";
 
-function Dashboard({ categoryInfo }: {
+function Dashboard({ categoryInfo, ogpInfo }: {
     categoryInfo: {
         "new": Category[],
         "popular": Category[],
         "free": Category[]
-    }
+    }, ogpInfo: MetaData
 }) {
     const router = useRouter()
     const [scores, setScores] = useState<{ score: number, createdAt: Date, age: number }[]>([])
@@ -45,15 +45,16 @@ function Dashboard({ categoryInfo }: {
 
     return (
         <div className={classes.root}>
+            <Seo ogpInfo={ogpInfo} />
             <main className={classes.content}>
                 <Container maxWidth="xl" className={classes.container}>
                     <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強を再開しよう" />
-
                     <div style={{ marginTop: '40px' }} />
 
-                    <Typography variant="h5" gutterBottom >
+                    <Typography variant="h5" gutterBottom component="h1">
                         <b>ダッシュボード</b>
                     </Typography>
+
 
                     <Paper className={fixedHeightPaper}>
                         <LevelUpInformation />
@@ -116,9 +117,14 @@ function Dashboard({ categoryInfo }: {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const categoryInfo = await CategoryApi.getCategoryList()
+    const ogpInfo: MetaData = {
+        title: "ダッシュボード・問題集",
+        pagePath: `/dashboard`,
+    }
     return {
         props: {
-            categoryInfo
+            categoryInfo,
+            ogpInfo
         }
     }
 }
