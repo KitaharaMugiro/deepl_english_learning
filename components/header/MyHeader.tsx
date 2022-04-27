@@ -65,7 +65,7 @@ export default () => {
                 <MainListItems closeMenu={() => setOpen(false)} />
             </List>
             <Divider />
-            <List><SecondaryMainListItems /></List>
+            <List><SecondaryMainListItems closeMenu={() => setOpen(false)} /></List>
         </Drawer>
     </>;
 }
