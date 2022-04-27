@@ -22,14 +22,20 @@ export default () => {
         return <UserTweet key={id} tweetId={id} />
     })
 
-    return <Card elevation={1} style={{ padding: 20, paddingBottom: 30, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
+    return <Card elevation={1} style={{
+        padding: 20,
+        paddingBottom: 30,
+        margin: 20,
+        width: "100%",
+        maxWidth: HeroCardWidth
+    }}>
         <Typography
             component="h1" variant="h4"
             align="center" color="textPrimary"
             gutterBottom>
             <b>利用者さまの声</b>
         </Typography>
-        <div style={{ display: "flex", overflowX: "scroll" }}>
+        <div style={{ display: "flex", overflowX: "scroll", height: 550 }}>
             {tweets()}
         </div>
     </Card>

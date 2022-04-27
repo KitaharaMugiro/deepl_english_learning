@@ -12,6 +12,7 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 import Link from 'next/link';
 import React from 'react';
 import NoteIcon from '@mui/icons-material/Note';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 interface Props {
     closeMenu: () => void;
 }
@@ -90,12 +91,12 @@ export const SecondaryMainListItems = () => {
     return (
         <div>
             {/* <ListSubheader inset>Saved reports</ListSubheader> */}
-            <Link href="https://docs.google.com/forms/d/e/1FAIpQLScbacRgBLm8sw_s28KEQOJWUqB5M8mV4xFBt3Br25WM2KpKuA/viewform?usp=sf_link">
+            <Link href="/news">
                 <ListItem button>
                     <ListItemIcon>
-                        <PeopleIcon />
+                        <NewspaperIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Questionリクエスト" />
+                    <ListItemText primary="更新情報" />
                 </ListItem>
             </Link>
             <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform?usp=sf_link">

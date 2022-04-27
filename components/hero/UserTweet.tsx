@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react"
 import { Tweet } from "react-twitter-widgets"
 
@@ -26,13 +27,15 @@ export default (props: Props) => {
         }
     }, [])
 
-    return <div style={{ padding: 5, display: render ? "block" : "none" }}>
+    return <><div style={{ padding: 5, display: render ? "block" : "none" }}>
         <Tweet
             tweetId={props.tweetId}
             options={{ width: 300, conversation: "none", cards: "hidden" }}
             renderError={() => <div style={{ margin: -5 }} />}
             onLoad={() => {
                 setRender(true)
-            }} />
+            }}
+        />
     </div>
+    </>
 }
