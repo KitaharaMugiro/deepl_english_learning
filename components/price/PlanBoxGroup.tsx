@@ -6,6 +6,7 @@ import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
 import PlanBox from "./PlanBox"
+import style from "./style.module.css"
 
 const plans = [Tier1Plan, Tier2Plan, Tier3Plan, FreePlan,]
 const numberOfFeatures = Math.max(FreePlan.features.length, Tier3Plan.features.length, Tier2Plan.features.length, Tier1Plan.features.length)
@@ -45,7 +46,10 @@ export default () => {
         <Typography
             variant="h3"
             align="center" color="textPrimary"
-            style={{ marginTop: 40 }}
+            className={style.grandientText}
+            style={{
+                marginTop: 40,
+            }}
             gutterBottom>
             <b>プレミアムプラン</b>
         </Typography>
