@@ -58,7 +58,7 @@ export default () => {
             </Typography>
 
             <Typography variant="body1" align="center">
-                ※プランを変更する場合は必ず１度退会してからプランを変更してください。
+                ※ プランを変更する場合は必ず１度退会してからプランを変更してください。
             </Typography>
         </div>
     }
@@ -77,7 +77,7 @@ export default () => {
                 align="center" color="textPrimary"
                 style={{ marginTop: 40 }}
                 gutterBottom>
-                <b>プラン</b>
+                <b>プレミアムプラン</b>
             </Typography>
             <Typography
                 align="center" color="textSecondary"

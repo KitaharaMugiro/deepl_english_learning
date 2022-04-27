@@ -47,7 +47,7 @@ export default () => {
             align="center" color="textPrimary"
             style={{ marginTop: 40 }}
             gutterBottom>
-            <b>プラン</b>
+            <b>プレミアムプラン</b>
         </Typography>
         <Typography
             align="center" color="textSecondary"
