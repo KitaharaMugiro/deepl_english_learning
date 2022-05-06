@@ -36,9 +36,9 @@ export default () => {
             </Typography>
             <Divider style={{ margin: 20 }} />
             <Typography align="center" color="textSecondary" paragraph component="h2">
-                Englisterは人気翻訳サービスのAI翻訳(DeepL)を先生役にして、<br />
+                EnglisterはAI翻訳(DeepL)を先生役にして、<br />
                 <b>英作文の練習や添削がオンラインでできるサービス</b>です。<br />
-                スピーキングやライティングのテスト対策や外資系企業の英語面接対策に向いています。
+                ライティング力を身につけたり、外資系企業の英語面接対策に向いています。
             </Typography>
 
             <div style={{

@@ -76,7 +76,7 @@ export default (props: Props) => {
                         <ListItemText primary={i.questionTitle} style={{ marginRight: 20, cursor: "pointer" }} onClick={() => handleClick(i.studySessionId)} />
 
                         <div style={{ display: "flex", width: 160, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", flexShrink: 0 }}>
-                            <Button variant="outlined" onClick={() => restudy(i.studySessionId)}>再挑戦</Button>
+                            {/* <Button variant="outlined" onClick={() => restudy(i.studySessionId)}>再挑戦</Button> */}
                             <div onClick={() => handleClick(i.studySessionId)} style={{ marginLeft: 10, cursor: "pointer" }} >
                                 {open ? <ExpandLess /> : <ExpandMore />}
                             </div>

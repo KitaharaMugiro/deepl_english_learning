@@ -8,10 +8,10 @@ export default () => <Container maxWidth="md">
         title: "マイノート",
         description: "学習時のメモをノートに記録しておくことができます。"
     }} />
-    <Typography variant="h3" style={{ marginTop: 40 }}>
+    <Typography component="h1" variant="h3" style={{ marginTop: 40 }}>
         <b>マイノート</b>
     </Typography>
-    <Typography variant="subtitle2">
+    <Typography variant="subtitle2" component="h2">
         学習時のメモをノートに記録しておくことができます。
     </Typography>
     <div style={{ height: 15 }} />

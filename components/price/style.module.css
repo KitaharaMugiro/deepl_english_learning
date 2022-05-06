@@ -13,7 +13,7 @@
 }
 
 .title {
-    color : #1976d2;
+    color: #1976d2;
     font-weight: bold;
 }
 
@@ -24,16 +24,16 @@
 .box:hover {
     transform: scale(1.1);
     background-color: #1976d2;
-    color:white;
-  }
+    color: white;
+}
 
 
 .box:hover .title {
-    color : white;
+    color: white;
 }
 
 .box:hover .checkIcon {
-    color : white;
+    color: white;
 }
 
 
@@ -42,4 +42,10 @@
     display: flex;
     align-items: center;
     margin-bottom: 8px;
+}
+
+.grandientText {
+    background: linear-gradient(to right, #8360c3, #2ebf91);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

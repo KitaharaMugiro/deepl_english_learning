@@ -11,7 +11,7 @@ export type MetaData = {
 export default ({ ogpInfo: props }: { ogpInfo: MetaData }) => {
     const defaultUrl = "https://english.yunomy.com"
     const defaultImg = "https://english.yunomy.com/static/otehon2.png"
-    const defaultTitle = 'Englister | 英語で意見を言えるようになる英作文練習アプリ'
+    const defaultTitle = 'Englister | オンラインで英作文練習と添削ができるAIアプリ'
     const defaultDescription = '英作文の練習をしてAIが英語年齢の診断と添削をします。スピーキングやライティングのテスト対策や外資系企業の英語面接対策に向いています。'
 
     const title = props.title ? `${props.title} | ${defaultTitle}` : defaultTitle

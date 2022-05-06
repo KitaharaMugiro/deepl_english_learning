@@ -22,7 +22,7 @@ export default () => {
                     <Typography align="center" color="textSecondary" paragraph>
                         <ul className={style.ul}>
                             <li>継続する人たちのコミュニティ</li>
-                            <li>Englisterは勉強になるが<b>継続できない人</b>におすすめ</li>
+                            <li>Englisterを使っていきたいが<b>継続できない人</b>におすすめ</li>
                             <li>AIのお手本もいいけど、<b>英語の先生にもチェックしてもらいたい人</b>におすすめ</li>
                             <li>英作文力の<b>実力を試したい人</b>におすすめ(毎日Englisterが1問英作文の問題を出します)</li>
                             <li>英会話やりたい人にもおすすめ</li>

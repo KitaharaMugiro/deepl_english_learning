@@ -12,22 +12,13 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 import Link from 'next/link';
 import React from 'react';
 import NoteIcon from '@mui/icons-material/Note';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 interface Props {
     closeMenu: () => void;
 }
 export const MainListItems = (props: Props) => {
     return (
         <div>
-            {/* <Link href="/today">
-                <ListItem button onClick={props.closeMenu}>
-                    <ListItemIcon>
-                        <CelebrationIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="今日の英語年齢診断" />
-                </ListItem>
-            </Link> */}
-
-
             <Link href="/dashboard" >
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
@@ -37,14 +28,7 @@ export const MainListItems = (props: Props) => {
                 </ListItem>
             </Link>
 
-            {/* <Link href="/restudy" >
-                <ListItem button onClick={props.closeMenu}>
-                    <ListItemIcon>
-                        <QuizIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="解いた問題" />
-                </ListItem>
-            </Link> */}
+
 
             <Link href="/mynote" >
                 <ListItem button onClick={props.closeMenu}>
@@ -65,15 +49,6 @@ export const MainListItems = (props: Props) => {
             </Link>
 
 
-            {/* <Link href="/quest" >
-                <ListItem button onClick={props.closeMenu}>
-                    <ListItemIcon>
-                        <LightbulbIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="クエスト" />
-                </ListItem>
-            </Link> */}
-
             <Link href="/info/discord" >
                 <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
@@ -86,16 +61,16 @@ export const MainListItems = (props: Props) => {
     )
 }
 
-export const SecondaryMainListItems = () => {
+export const SecondaryMainListItems = (props: Props) => {
     return (
         <div>
             {/* <ListSubheader inset>Saved reports</ListSubheader> */}
-            <Link href="https://docs.google.com/forms/d/e/1FAIpQLScbacRgBLm8sw_s28KEQOJWUqB5M8mV4xFBt3Br25WM2KpKuA/viewform?usp=sf_link">
-                <ListItem button>
+            <Link href="/news">
+                <ListItem button onClick={props.closeMenu}>
                     <ListItemIcon>
-                        <PeopleIcon />
+                        <NewspaperIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Questionリクエスト" />
+                    <ListItemText primary="更新情報" />
                 </ListItem>
             </Link>
             <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdiBErG8O7zFEZYlODFk4p27GjwbFjV4ehp9SO8OZ3cffuMcA/viewform?usp=sf_link">
