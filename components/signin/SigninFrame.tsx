@@ -13,7 +13,7 @@ export default () => {
     return <div className={style.center}>
         <div style={{ height: 30 }} />
         <Typography variant="h3" align="center"><b>Englister</b></Typography>
-        <Typography variant="subtitle2" color="textSecondary" align="center">EnglisterはAI英語添削アプリです。<br />あなたの英語で生きる力を飛躍的に伸ばします。</Typography>
+        <Typography variant="subtitle2" color="textSecondary" align="center">EnglisterはAI英語添削アプリです。<br />あなたの英語力を飛躍的に伸ばします。</Typography>
         <SocialSignin url={url} />
         <div style={{ height: 30 }} />
         <Divider flexItem>
