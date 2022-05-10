@@ -73,7 +73,7 @@ export default () => {
                 />
             } label={<b>お得な年間プラン(2ヶ月分無料!)</b>} />
 
-        <Grid container spacing={3}>
+        <Grid container columnSpacing={3}>
             {alignPlanBox()}
         </Grid>
 
