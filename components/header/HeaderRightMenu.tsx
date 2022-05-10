@@ -104,7 +104,7 @@ export default () => {
                         <MenuItem href="/dashboard" onClick={handleClose} >ダッシュボード</MenuItem>
                     </a>
                 </Link>
-                <MenuItem onClick={onClickChangePlan} >{planName} プラン変更</MenuItem>
+                <MenuItem onClick={onClickChangePlan} ><b>{planName}</b> プラン変更</MenuItem>
 
                 <MenuItem onClick={signOut}>ログアウト</MenuItem>
             </Menu>
