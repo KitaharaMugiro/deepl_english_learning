@@ -1,16 +1,19 @@
-import { Container, Dialog, Grid, Link, Modal, Typography } from "@mui/material"
+import { Container, Dialog, FormControlLabel, Grid, Link, Modal, Switch, Typography } from "@mui/material"
+import { useState } from "react"
 import { StripeApi } from "../../api/StripeApi"
-import { Tier1Plan, Tier2Plan, Tier3Plan, FreePlan } from "../../models/const/PlanConst"
+import { Tier1Plan, Tier2Plan, Tier3Plan, FreePlan, YearlyTier1Plan, YearlyTier2Plan, YearlyTier3Plan } from "../../models/const/PlanConst"
 import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
 import PlanBox from "./PlanBox"
 import style from "./style.module.css"
 
-const plans = [Tier1Plan, Tier2Plan, Tier3Plan]
-const numberOfFeatures = Math.max(FreePlan.features.length, Tier3Plan.features.length, Tier2Plan.features.length, Tier1Plan.features.length)
 
 export default () => {
+    const [yearly, setYearly] = useState(false)
+    const plans = yearly ? [YearlyTier1Plan, YearlyTier2Plan, YearlyTier3Plan] : [Tier1Plan, Tier2Plan, Tier3Plan]
+    const numberOfFeatures = Math.max(...plans.map(plan => plan.features.length))
+
     const { user } = useUser()
     const { openSignin } = useSignin()
     const { closePlanModal, isOpenPlanModal, isPremium } = usePlan()
@@ -35,7 +38,8 @@ export default () => {
                         planName={p.title}
                         price={p.price}
                         numberOfFeatures={numberOfFeatures}
-                        features={p.features} />
+                        features={p.features}
+                        yearly={yearly} />
                 </div>
             </Grid>
         })
@@ -87,13 +91,23 @@ export default () => {
                 gutterBottom>
                 圧倒的に継続しやすい価格。いつでも解約可能。
             </Typography>
-            <Grid container spacing={3}>
+
+            <FormControlLabel
+                checked={yearly}
+                onChange={() => setYearly(!yearly)}
+                control={
+                    <Switch
+                    />
+                } label={<b
+                    onClick={() => setYearly(!yearly)}>お得な年間プラン(2ヶ月分無料!)</b>} />
+
+            <Grid container columnSpacing={3}>
                 {alignPlanBox()}
             </Grid>
 
             {renderIfPremium()}
         </div>
 
-    </Dialog>
+    </Dialog >
 
 }

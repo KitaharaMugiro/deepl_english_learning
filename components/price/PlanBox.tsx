@@ -8,6 +8,7 @@ interface Props {
     price: number
     features: string[]
     numberOfFeatures: number
+    yearly: boolean
 }
 export default (props: Props) => {
     const renderFeatures = () => {
@@ -43,7 +44,7 @@ export default (props: Props) => {
                 <span>
                     {props.price}円
                     <Typography variant="body1" noWrap style={{ display: "inline" }}>
-                        /月(税込)
+                        {props.yearly ? "/年(税込)" : "/月(税込)"}
                     </Typography>
                 </span>
             </Typography>
