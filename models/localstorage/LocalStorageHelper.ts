@@ -26,22 +26,35 @@ export class LocalStorageHelper {
         localStorage.removeItem("StudySessionId")
     }
 
-    static initializeUserId() {
+    static setUserId() {
         if (!process.browser) return;
-        const userId = this.getUserId() || uuidv4()
+        const userId = uuidv4()
+        localStorage.setItem("UserId", userId)
         if (!userId) {
             var S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             var N = 16
             const uuid = Array.from(crypto.getRandomValues(new Uint8Array(N))).map((n) => S[n % S.length]).join('')
             localStorage.setItem("UserId", uuid)
         }
-        localStorage.setItem("UserId", userId)
+    }
+
+    static initializeUserId() {
+        if (!process.browser) return;
+        const userId = this.getUserId()
+        if (!userId) {
+            this.setUserId()
+        }
     }
 
 
     static getUserId() {
         if (!process.browser) return;
-        return localStorage.getItem("UserId")
+        const userId = localStorage.getItem("UserId")
+        if (!userId) {
+            this.setUserId()
+            return localStorage.getItem("UserId")
+        }
+        return userId
     }
 
     static clearUserId() {

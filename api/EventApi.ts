@@ -8,10 +8,14 @@ export class EventApi {
 
     static async getEventList() {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) {
+            return []
+        }
         const res = await client.post(
             "/event/list",
             {
-                userId: LocalStorageHelper.getUserId(),
+                userId,
             }
         )
         return res.data as Array<EventItem>

@@ -12,10 +12,14 @@ export class LevelApi {
 
     static async getLevel() {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) {
+            throw Error("userId is not found")
+        }
         const res = await client.post(
             "/level/getLevel",
             {
-                userId: LocalStorageHelper.getUserId(),
+                userId,
             }
         )
         return res.data as Level

@@ -8,10 +8,14 @@ export class RecordApi {
 
     static async getStudyRecordDetail(studySessionId: string) {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) {
+            return
+        }
         const res = await client.post(
             "/study/record/detail",
             {
-                userId: LocalStorageHelper.getUserId(),
+                userId,
                 studySessionId
             }
         )
@@ -21,6 +25,10 @@ export class RecordApi {
 
     static async getScoreList() {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) {
+            return []
+        }
         const res = await client.post(
             "/study/record/list_score",
             {
@@ -48,10 +56,14 @@ export class RecordApi {
 
     static async getDashboardList() {
         const client = new ApiClient()
+        const userId = LocalStorageHelper.getUserId()
+        if (!userId) {
+            return []
+        }
         const res = await client.post(
             "/study/record/list_dashboard",
             {
-                userId: LocalStorageHelper.getUserId(),
+                userId,
             }
         )
         return res.data as DashboardListItem[]
