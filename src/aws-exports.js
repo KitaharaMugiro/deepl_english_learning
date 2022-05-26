@@ -16,8 +16,8 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://",
-        "redirectSignOut": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://",
+        "redirectSignIn": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://,https://englister.yunomy.com/",
+        "redirectSignOut": "https://presen-share.yunomy.com/,https://english.yunomy.com/,http://localhost:3000/,englister://,https://englister.yunomy.com/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",

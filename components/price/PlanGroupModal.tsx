@@ -1,7 +1,7 @@
 import { Container, Dialog, FormControlLabel, Grid, Link, Modal, Switch, Typography } from "@mui/material"
 import { useState } from "react"
 import { StripeApi } from "../../api/StripeApi"
-import { Tier1Plan, Tier2Plan, Tier3Plan, FreePlan, YearlyTier1Plan, YearlyTier2Plan, YearlyTier3Plan } from "../../models/const/PlanConst"
+import { Tier1Plan, Tier2Plan, Tier3Plan, YearlyTier1Plan, YearlyTier2Plan, YearlyTier3Plan } from "../../models/const/PlanConst"
 import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
@@ -67,6 +67,18 @@ export default () => {
         </div>
     }
 
+    const renderIfNotPremium = () => {
+        if (isPremium) return <div />
+        return <div style={{ marginTop: 20 }}>
+            <Typography variant="h5" align="center">
+                <Link href="/today" style={{ cursor: "pointer" }}>
+                    とりあえず無料で試してみる
+                </Link>
+            </Typography>
+        </div>
+
+    }
+
     return <Dialog
         open={isOpenPlanModal}
         onClose={closePlanModal}
@@ -106,6 +118,8 @@ export default () => {
             </Grid>
 
             {renderIfPremium()}
+
+            {renderIfNotPremium()}
         </div>
 
     </Dialog >

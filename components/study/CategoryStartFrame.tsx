@@ -96,9 +96,6 @@ export default (props: Props) => {
                         value={doneTopicNum}
                         maximum={allTopicNum}
                     />
-                    {doneTopicNum < 3 &&
-                        <Typography align="center" color="textSecondary">最初の3問はハートを消費しません😆</Typography>
-                    }
                     <Grid container justifyContent="center" style={{ marginTop: 30 }}>
                         {!noMore && <Button
                             size="large"

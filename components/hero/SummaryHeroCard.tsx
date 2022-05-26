@@ -11,20 +11,7 @@ export default () => {
     const router = useRouter()
     const { user } = useUser()
     const { openPlanModal } = usePlan()
-    const startFree = async () => {
-        if (user) {
-            router.push("/dashboard")
-            return
-        }
 
-        FireGaEvent({ action: "click", category: "startFree", label: "startFree" })
-        try {
-            await StudyApi.studyStart("normal")
-            router.push("/q/normal")
-        } catch {
-            openPlanModal()
-        }
-    }
 
     return (
         <Card elevation={1} style={{ padding: 20, paddingBottom: 30, margin: 20, width: "100%", maxWidth: HeroCardWidth }}>
@@ -46,13 +33,13 @@ export default () => {
             }}>
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
-                        <Button onClick={startFree} variant="outlined" color="primary" >
-                            問題をやってみる
+                        <Button href="/dashboard" variant="outlined" color="primary" >
+                            問題を見てみる
                         </Button>
                     </Grid>
                     <Grid item>
                         <Button href="/today" disableElevation variant="contained" color="primary" >
-                            診断テスト
+                            英語力診断テスト
                         </Button>
                     </Grid>
                 </Grid>

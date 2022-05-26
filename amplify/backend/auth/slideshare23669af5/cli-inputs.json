@@ -69,6 +69,7 @@
     "signinwithappleAuthorizeScopes": [
       "email"
     ],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"],\"LogoutURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"]}"
+    "hostedUIProviderCreds": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\",\"https://englister.yunomy.com/\"],\"LogoutURLs\":[\"https://presen-share.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\",\"https://englister.yunomy.com/\"]}"
   }
 }
