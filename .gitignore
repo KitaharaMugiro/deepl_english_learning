@@ -1,5 +1,6 @@
 .next
 .serverless
+.serverless_old
 .serverless_nextjs
 node_modules
 package-lock.json
