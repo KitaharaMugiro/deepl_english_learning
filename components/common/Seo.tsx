@@ -9,15 +9,15 @@ export type MetaData = {
 
 
 export default ({ ogpInfo: props }: { ogpInfo: MetaData }) => {
-    const defaultUrl = "https://english.yunomy.com"
-    const defaultImg = "https://english.yunomy.com/static/otehon2.png"
+    const defaultUrl = "https://englister.yunomy.com"
+    const defaultImg = "https://englister.yunomy.com/static/otehon2.png"
     const defaultTitle = 'Englister | オンラインで英作文練習と添削ができるAIアプリ'
     const defaultDescription = '英作文の練習をしてAIが英語年齢の診断と添削をします。スピーキングやライティングのテスト対策や外資系企業の英語面接対策に向いています。'
 
     const title = props.title ? `${props.title} | ${defaultTitle}` : defaultTitle
     const description = props.description ? props.description : defaultDescription
-    const url = props.pagePath ? `https://english.yunomy.com${props.pagePath}` : defaultUrl
-    const imgUrl = props.image ? `https://english.yunomy.com${props.image}` : defaultImg
+    const url = props.pagePath ? `https://englister.yunomy.com${props.pagePath}` : defaultUrl
+    const imgUrl = props.image ? `https://englister.yunomy.com${props.image}` : defaultImg
 
     return (
         <Head>
@@ -29,7 +29,7 @@ export default ({ ogpInfo: props }: { ogpInfo: MetaData }) => {
             {/* OG */}
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:url" content="https://english.yunomy.com/" />
+            <meta property="og:url" content="https://englister.yunomy.com/" />
             <meta property="og:image" content={imgUrl} />
             <meta property="og:site_name" content={title} />
 

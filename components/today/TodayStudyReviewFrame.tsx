@@ -146,17 +146,16 @@ export default (props: Props) => {
 
                     <TodayStudyRanking todayTopicId={props.todayTopicResult.question.todayTopicId} />
 
-                    {!user?.attributes.sub && <div style={{ marginTop: 25 }} >
-                        <Typography variant="h4" >
-                            もっとEnglisterで英語年齢を上げませんか？
+                    {!user?.attributes.sub && <div style={{ marginTop: 45 }} >
+                        <Typography variant="h5" >
+                            もっとEnglisterの問題を解きませんか？
                         </Typography>
-                        <Typography variant="body1" >
-                            英語面接や英語環境で5歳児のようなことを言ってしまっていることに課題感を感じている人に特におすすめです。
-                            本当に自分が使う言葉で英語を覚えていく体験をしてみませんか？
+                        <Typography variant="body2" style={{ marginTop: 10 }} >
+                            英語でも自分の言いたいことを言えるようになるための最高の勉強法です。
                         </Typography>
                         <div style={{ height: 10 }}></div>
-                        <Button variant="contained" size="large" onClick={conversion}>
-                            会員登録をしてみる(5秒)
+                        <Button variant="contained" size="large" onClick={conversion} disableElevation>
+                            会員登録をしてみる
                         </Button>
                     </div>}
                 </Paper>

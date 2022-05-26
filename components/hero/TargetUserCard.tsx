@@ -72,11 +72,11 @@ export default () => {
 
 
             <div style={{
-                marginTop: "40px",
+                marginTop: "60px",
             }}>
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item>
-                        <Button onClick={startFree} variant="contained" color="primary" >
+                        <Button href="/today" variant="contained" color="primary" size="large" disableElevation >
                             さっそくやってみる
                         </Button>
                     </Grid>

@@ -16,7 +16,7 @@ export default () => {
                     <tr><th >メールアドレス</th><td>
                         ngthornym@yahoo.co.jp</td></tr>
                     <tr><th >販売URL</th><td>
-                        https://english.yunomy.com</td></tr>
+                        https://englister.yunomy.com</td></tr>
                     <tr><th >支払方法</th><td>クレジットカード</td></tr>
                     <tr><th >支払時期</th><td>ご購入時</td></tr>
                     <tr><th >商品代金以外の<br />必要金額</th><td>送料：全国一律0円</td></tr>

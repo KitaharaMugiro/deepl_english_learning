@@ -57,7 +57,7 @@ export default (props: Props) => {
                 <TwitterShareButton
                     title={`Englisterで勉強したよ。\n回答はこちら↓`}
                     hashtags={["Englister", "英語年齢"]}
-                    url={`https://english.yunomy.com/q/result/${props.resultId}`}
+                    url={`https://englister.yunomy.com/q/result/${props.resultId}`}
                 ><TwitterIcon size={30} round={false} /></TwitterShareButton>
             </div>
         </div>

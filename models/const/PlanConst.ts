@@ -1,9 +1,3 @@
-export const FreePlan = {
-    title: "Freeプラン",
-    price: 0,
-    features: ["登録不要", "Englisterを試したい人",],
-    priceId: undefined
-}
 export const Tier3Plan = {
     title: "継続プラン",
     price: 330,

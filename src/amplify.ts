@@ -6,7 +6,7 @@ import awsConfig from '../src/aws-exports';
 function findUrlForEnv(urlStrings: Array<string>, isLocal: boolean): string {
     if (urlStrings.length === 1) return urlStrings[0];
     if (isLocal) return new URL("http://localhost:3000/").href
-    return new URL("https://english.yunomy.com/").href //WARN ここがaws-exportsのredirectUrlと一致していないとエラーが発生する
+    return new URL("https://englister.yunomy.com/").href //WARN ここがaws-exportsのredirectUrlと一致していないとエラーが発生する
 }
 
 function isDevelopment() {

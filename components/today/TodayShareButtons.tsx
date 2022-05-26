@@ -14,7 +14,7 @@ export default (props: Props) => {
     const { displaySuccessMessage } = useSnackMessage()
 
     const title = `Q. ${props.questionTitle}\n\n${props.name}さんの回答はこちら↓`
-    const url = `https://english.yunomy.com/today/${props.resultId}`
+    const url = `https://englister.yunomy.com/today/${props.resultId}`
     const isShareable = navigator.share !== undefined
 
     const share = () => {
