@@ -1,4 +1,5 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Button, IconButton, Paper } from '@mui/material';
@@ -10,12 +11,16 @@ import { AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/St
 import usePhrase from '../../models/util-hooks/usePhrase';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
+import PickModeInput from './PickModeInput';
 import QuestionText from './QuestionText';
 import styles from "./style.module.css";
-import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
-import PickModeButton from './PickModeButton';
-import PickModeInput from './PickModeInput';
-export default function WriteEnglish() {
+
+interface Props {
+    englishFirst?: boolean
+}
+
+export default (props: Props) => {
+    const englishFirst = props.englishFirst || false;
     const { openPhraseList } = usePhrase()
     const [displayModal, setDisplayModal] = useState(true)
     const { start, view } = useTimer(1000 * 60 * 2)
@@ -27,6 +32,22 @@ export default function WriteEnglish() {
 
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
     const [pickMode, setPickMode] = useState(false)
+
+    const textFieldPlaceholder = englishFirst ? "英語で意見を書いてください" : "上の文章を英語にしてください"
+    const firstDescription = () => {
+        if (englishFirst) {
+            return (
+                <p style={{ fontSize: "18px", color: "black" }}>
+                    2分間であなたの意見を<span style={{ fontWeight: 700 }}>英語</span>で記述してください。<br />
+                    準備ができたらここをクリック
+                </p>)
+        }
+        return (
+            <p style={{ fontSize: "18px", color: "black" }}>
+                2分間で上の文章を<span style={{ fontWeight: 700 }}>英語</span>にしてください<br />
+                準備ができたらここをクリック
+            </p>)
+    }
 
     const onClickStartSpeechRecognition = () => {
         setSpeechRecognitionNow(true)
@@ -77,19 +98,20 @@ export default function WriteEnglish() {
                     >
                         <KeyboardVoiceIcon style={{ width: 60, height: 60, padding: 10 }} />
                     </IconButton>
-                    <IconButton
-                        onClick={onClickStartPickMode}
-                        color="primary"
-                        style={{
-                            position: "absolute",
-                            bottom: "0px",
-                            right: "80px",
-                            width: 60, height: 60
-                        }}
-                        edge="end"
-                    >
-                        <KeyboardAltIcon style={{ width: 60, height: 60, padding: 10 }} />
-                    </IconButton>
+                    {translation.length !== 0 &&
+                        <IconButton
+                            onClick={onClickStartPickMode}
+                            color="primary"
+                            style={{
+                                position: "absolute",
+                                bottom: "0px",
+                                right: "80px",
+                                width: 60, height: 60
+                            }}
+                            edge="end"
+                        >
+                            <KeyboardAltIcon style={{ width: 60, height: 60, padding: 10 }} />
+                        </IconButton>}
                 </div>
             )
         } else {
@@ -120,7 +142,7 @@ export default function WriteEnglish() {
         } else if (pickMode) {
             return <div>
                 <TextField
-                    label="上の文章を英語にしてください"
+                    label={textFieldPlaceholder}
                     multiline
                     rows={4}
                     variant="outlined"
@@ -137,7 +159,7 @@ export default function WriteEnglish() {
             return (
                 <div style={{ position: "relative" }}>
                     <TextField
-                        label="上の文章を英語にしてください"
+                        label={textFieldPlaceholder}
                         multiline
                         rows={4}
                         variant="outlined"
@@ -157,18 +179,16 @@ export default function WriteEnglish() {
         <React.Fragment>
             <QuestionText />
 
-            <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
-                {japanese}
-            </Paper>
+            {japanese &&
+                <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
+                    {japanese}
+                </Paper>}
 
             <div className={styles.write_english_box}>
                 <div
                     style={{ display: displayModal ? "inherit" : "none" }}
                     className={styles.ready_modal} onClick={onClickModal}>
-                    <p style={{ fontSize: "18px", color: "black" }}>
-                        2分間で上の文章を<span style={{ fontWeight: 700 }}>英語</span>にしてください<br />
-                        準備ができたらここをクリック
-                    </p>
+                    {firstDescription()}
                 </div>
 
                 {renderInputView()}

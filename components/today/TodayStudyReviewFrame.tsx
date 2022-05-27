@@ -63,6 +63,14 @@ export default (props: Props) => {
     const [isOpenNote, setIsOpenNote] = useState(false);
 
 
+    const openNote = () => {
+        if (!user) {
+            openSignin()
+            return
+        }
+        console.log({ user })
+        setIsOpenNote(true);
+    }
 
     return (
         <>
@@ -113,7 +121,7 @@ export default (props: Props) => {
                     />
 
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Button variant="contained" onClick={() => setIsOpenNote(true)}>マイノートに登録する</Button>
+                        <Button variant="contained" onClick={openNote}>マイノートに登録する</Button>
                     </div>
                     <NoteModal open={isOpenNote} onClose={() => setIsOpenNote(false)}
                         question={question}
