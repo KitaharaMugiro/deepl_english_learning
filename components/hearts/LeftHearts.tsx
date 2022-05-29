@@ -1,6 +1,7 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Rating, styled } from '@mui/material';
+import { Button, Rating, styled } from '@mui/material';
+import usePlan from '../../models/util-hooks/usePlan';
 interface Props {
     hearts: number;
     maxHearts: number
@@ -15,8 +16,9 @@ const StyledRating = styled(Rating)({
 });
 
 export default (props: Props) => {
+    const { openPlanModal } = usePlan()
     if (props.maxHearts === 0) {
-        return <div>{props.showText ? "Freeプラン" : ""}</div>
+        return <div>{props.showText ? <Button onClick={openPlanModal}>追加する</Button> : ""}</div>
     }
     if (props.maxHearts > 10) return <div>
         {props.showText ? "💕 Unlimited" : ""}

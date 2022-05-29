@@ -1,5 +1,5 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Button, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import { Button, Grid, IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from "@mui/material";
 import { Auth } from "aws-amplify";
 import { useAtom } from "jotai";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import usePlan from "../../models/util-hooks/usePlan";
 import useSignin from "../../models/util-hooks/useSignin";
 import useUser from "../../models/util-hooks/useUser";
 import LeftHearts from "../hearts/LeftHearts";
+import WeeklyRankingTable from '../ranking/WeeklyRankingTable';
+
 
 export default () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,6 +86,16 @@ export default () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
+
+                <div style={{ padding: 5 }}>
+                    <Typography variant="subtitle2">
+                        <Tooltip title="毎週金曜日更新" placement="top-start">
+                            <span>週間ランキング</span>
+                        </Tooltip>
+                    </Typography>
+                    <WeeklyRankingTable />
+                </div>
+
                 <div style={{ padding: 5 }}>
 
                     <Typography variant="subtitle2">
