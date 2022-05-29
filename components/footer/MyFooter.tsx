@@ -41,7 +41,7 @@ export default () => {
 
 
             <div className={style.container}>
-                <AppIntroduction />
+                {/* <AppIntroduction /> */}
                 <div style={{ height: 20 }} />
                 <div className={style.row}>
                     <div>

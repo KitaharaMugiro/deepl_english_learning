@@ -1,6 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Button, Collapse, Container, Divider, List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { RecordApi } from "../../api/RecordApi";
@@ -104,6 +105,7 @@ export default (props: Props) => {
                                 />
                             </List>
                         </Container>
+
                     </Collapse>
                     <Divider />
                 </div>

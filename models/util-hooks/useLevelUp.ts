@@ -4,12 +4,14 @@ import { useEffect, useState } from "react"
 import { LevelApi } from "../../api/LevelApi"
 import { CongratModalDisplayAtom, LevelAtom, LevelCardDisplayAtom, PrevLevelAtom } from "../jotai/User"
 import { SoundPlayer } from "../SoundPlayer"
+import useRanking from "./useRanking"
 
 export default () => {
     const [level, setLevel] = useAtom(LevelAtom)
     const [prevLevel, setPrevLevel] = useAtom(PrevLevelAtom)
     const [display, setDisplay] = useAtom(LevelCardDisplayAtom)
     const [openCongrat, setOpenCongrat] = useAtom(CongratModalDisplayAtom)
+    const { refresh } = useRanking()
 
     useEffect(() => {
         //現在のレベルを設定
@@ -29,6 +31,7 @@ export default () => {
                 return
             }
             displayCard()
+            refresh()
 
             //レベルアップ
             if (res.currentLevel.level > res.prevLevel.level) {

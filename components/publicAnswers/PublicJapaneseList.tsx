@@ -45,7 +45,6 @@ export default (props: Props) => {
     if (loading) return <div />
     if (error) return <div >{JSON.stringify(error)}</div>
     if (data?.englister_PublicAnswers.length === 0) return <>
-
         <Button onClick={openPhraseList}>フレーズリストを開く</Button>
         <Button disabled>他の人の意見を参考にする(まだ他の人の投稿がありません)</Button>
     </>

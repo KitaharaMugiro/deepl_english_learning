@@ -14,6 +14,8 @@ import DetailScoreBoard from './DetailScoreBoard';
 import SuggestWordsList from './SuggestWordsList';
 import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
 import AddIcon from '@mui/icons-material/Add';
+import useSignin from '../../models/util-hooks/useSignin';
+import useUser from '../../models/util-hooks/useUser';
 interface Props {
     english?: string
     japanese?: string
@@ -35,6 +37,8 @@ export default (props: Props) => {
 
     const { addExp } = useLevelUp()
     const [resultId, setResultId] = useState('')
+    const { user } = useUser()
+    const { openSignin } = useSignin()
 
     useEffect(() => {
         //スコアや年齢を取得する
@@ -67,6 +71,14 @@ export default (props: Props) => {
     }, [])
 
     const [isOpenNote, setIsOpenNote] = useState(false);
+
+    const openNote = () => {
+        if (!user) {
+            openSignin()
+            return
+        }
+        setIsOpenNote(true);
+    }
 
 
     if (!activeQuestion) {
@@ -113,7 +125,7 @@ export default (props: Props) => {
                 <Button variant="contained"
                     disableElevation={true}
                     startIcon={<AddIcon />}
-                    onClick={() => setIsOpenNote(true)}>
+                    onClick={openNote}>
                     マイノートに登録する
                 </Button>
             </div>

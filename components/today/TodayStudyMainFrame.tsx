@@ -1,3 +1,4 @@
+import { FormControlLabel, Switch } from '@mui/material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Step from '@mui/material/Step';
@@ -18,6 +19,7 @@ import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper
 import useEventSubmit from '../../models/util-hooks/useEventSubmit';
 import useStudy from '../../models/util-hooks/useStudy';
 import useUser from '../../models/util-hooks/useUser';
+import { isAlphabet } from '../../models/Utils';
 import { useSubmitTodayPublicAnswerMutation } from '../../src/generated/graphql';
 import { Copyright } from '../footer/Copyright';
 import PhraseList from '../phrase/PhraseList';
@@ -25,28 +27,53 @@ import WriteEnglish from '../study/WriteEnglish';
 import WriteJapanese from '../study/WriteJapanese';
 import TodayStudyTop from './TodayStudyTop';
 
-const steps = ['Your Name', 'Japanese', "English"];
-const stepTitles = ["今日の英語年齢診断", "日本語で意見を書く", "英語にする"]
 
-function getStepContent(step: number) {
-    switch (step) {
-        case 0:
-            return <TodayStudyTop />;
-        case 1:
-            return <WriteJapanese />;
-        case 2:
-            return <WriteEnglish />;
-        default:
-            return <div />
+const japaneseFirstSteps = [
+    {
+        step: 'Your Name',
+        stepTitle: "今日の英語年齢診断",
+        component: <TodayStudyTop />
+    },
+    {
+        step: "Japanese",
+        stepTitle: "日本語で意見を書く",
+        component: <WriteJapanese />
+    },
+    {
+        step: "English",
+        stepTitle: "英語にする",
+        component: <WriteEnglish />
     }
-}
+]
+
+const englishFirstSteps = [
+    {
+        step: "Your Name",
+        stepTitle: "今日の英語年齢診断",
+        component: <TodayStudyTop />
+    },
+    {
+        step: "English",
+        stepTitle: "英語で意見を書く",
+        component: <WriteEnglish englishFirst={true} />
+    },
+    {
+        step: "Japanese",
+        stepTitle: "日本語にする",
+        component: <WriteJapanese englishFirst={true} />
+    }
+]
+
 
 interface Props {
     todayTopic: GetTodayTopicResponse
 }
 
 export default function TodayStudyMainFrame(props: Props) {
-    const [activeStep, setActiveStep] = useState(0);
+    //WARN: AtomEnglishFirstWithPersistence使うとレイアウト壊れる
+    const [englishFirst, setEnglishFirst] = useState(false)
+
+    const [activeStepIndex, setActiveStepIndex] = useState(0);
     const [errorMessage, setErrorMessage] = useState("")
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
@@ -56,6 +83,10 @@ export default function TodayStudyMainFrame(props: Props) {
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
     const { submitToday } = useEventSubmit()
     const { user } = useUser()
+
+    const steps = englishFirst ? englishFirstSteps : japaneseFirstSteps
+    const activeStep = steps[activeStepIndex]
+
 
     const [_, setOpenLoading] = useAtom(BackdropAtom)
 
@@ -75,22 +106,49 @@ export default function TodayStudyMainFrame(props: Props) {
     //router
     const router = useRouter()
 
+
+    function getStepContent(step: number) {
+        switch (step) {
+            case 0:
+                return steps[0].component;
+            case 1:
+                return steps[1].component;
+            case 2:
+                return steps[2].component;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
+
     const handleNext = async () => {
         setOpenLoading(true)
 
-        // API飛ばしてエラー返ってきたらエラーハンドリングする
-        if (activeStep === 0) {
-
-        } else if (activeStep === 1) {
+        if (activeStep.step === "Japanese") {
             //日本語のパートを終了
+            if (isAlphabet(japanese)) {
+                setErrorMessage("日本語で記載してください(先頭がアルファベットです)")
+                setOpenLoading(false)
+                return
+            }
             //非同期で翻訳する
             StudyApi.translate(japanese, props.todayTopic.question.title).then(resTranslation => {
                 setTranslation(resTranslation.translation)
             })
+        }
 
-        } else if (activeStep === 2) {
+        if (activeStep.step === "English") {
+            if (!isAlphabet(english)) {
+                setErrorMessage("英語で記載してください(先頭がアルファベットでないです)")
+                setOpenLoading(false)
+                return
+            }
+        }
+
+        if (activeStepIndex == 2) {
             //最後のステップ
             //スコア算出
+            const res = await StudyApi.translate(japanese, props.todayTopic.question.title)
+            const translation = res.translation
             const scores = await new ApiSpecialClient().englishScore(english, translation)
 
             const _score = Math.round(scores.scoreRaw)
@@ -133,15 +191,16 @@ export default function TodayStudyMainFrame(props: Props) {
             setEnglish("")
             setTranslation("")
             router.push("/today/" + resultId + "?result=true")
+            return
         }
 
         setOpenLoading(false)
         setErrorMessage("")
-        setActiveStep(activeStep + 1);
+        setActiveStepIndex(activeStepIndex + 1);
     };
 
     const handleBack = () => {
-        setActiveStep(activeStep - 1);
+        setActiveStepIndex(activeStepIndex - 1);
     };
 
     const NextButton = (text: string, disable: boolean) => (
@@ -160,32 +219,32 @@ export default function TodayStudyMainFrame(props: Props) {
     )
 
     const renderButtons = () => {
-        if (activeStep === 0) {
+        if (activeStep.step === "Your Name") {
             return (
                 NextButton("次へ進む", name === "")
             )
-        } else if (activeStep === 1) {
+        } else if (activeStep.step === "Japanese") {
             return (<>
                 <Button onClick={handleBack} style={{
                     marginTop: "30px",
                     marginLeft: "10px",
                 }}>
-                    名前入力に戻る
+                    １つ戻る
                 </Button>
-                {NextButton("次へ進む", japanese === "")}
+                {englishFirst ? NextButton("結果を見る", japanese === "") : NextButton("次へ進む", japanese === "")}
             </>
 
             )
-        } else if (activeStep === 2) {
+        } else if (activeStep.step === "English") {
             return (
                 <>
                     <Button onClick={handleBack} style={{
                         marginTop: "30px",
                         marginLeft: "10px",
                     }}>
-                        日本語入力に戻る
+                        １つ戻る
                     </Button>
-                    {NextButton("結果を見る", english === "")}
+                    {englishFirst ? NextButton("次へ進む", english === "") : NextButton("結果を見る", english === "")}
                 </>
             )
         }
@@ -199,8 +258,17 @@ export default function TodayStudyMainFrame(props: Props) {
                 marginRight: "auto",
                 marginLeft: "auto"
             }}>
+                <FormControlLabel
+                    style={{
+                        marginTop: "30px",
+                    }}
+                    checked={englishFirst}
+                    onChange={() => setEnglishFirst(!englishFirst)}
+                    control={
+                        <Switch />
+                    } label={<b
+                        onClick={() => setEnglishFirst(!englishFirst)}>英→日で書く</b>} />
                 <Paper style={{
-                    marginTop: "30px",
                     padding: "20px",
                     maxWidth: "600px",
                     marginRight: "auto",
@@ -208,20 +276,20 @@ export default function TodayStudyMainFrame(props: Props) {
                 }}>
                     {/* タイトル(ご希望あれば) */}
                     <Typography component="h1" variant="h4" align="center" style={{ marginBottom: 30, fontWeight: 800 }}>
-                        {stepTitles[activeStep]}
+                        {activeStep.stepTitle}
                     </Typography>
 
                     {/* ステッパー */}
-                    <Stepper activeStep={activeStep} style={{ margin: "0px 0px 30px" }}>
-                        {steps.map((label) => (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
+                    <Stepper activeStep={activeStepIndex} style={{ margin: "0px 0px 30px" }}>
+                        {steps.map((step) => (
+                            <Step key={step.step}>
+                                <StepLabel>{step.step}</StepLabel>
                             </Step>
                         ))}
                     </Stepper>
 
                     <React.Fragment>
-                        {getStepContent(activeStep)}
+                        {getStepContent(activeStepIndex)}
                         <div style={{ color: "#f44336" }}>
                             {errorMessage}
                         </div>
