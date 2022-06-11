@@ -81,5 +81,13 @@ export const SecondaryMainListItems = (props: Props) => {
                     <ListItemText primary="追加機能リクエスト" />
                 </ListItem>
             </Link>
+            <Link href="https://forms.gle/pwiMEtTBWNc1SdKu7">
+                <ListItem button >
+                    <ListItemIcon>
+                        <PeopleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="データ復旧依頼" />
+                </ListItem>
+            </Link>
         </div>);
 }

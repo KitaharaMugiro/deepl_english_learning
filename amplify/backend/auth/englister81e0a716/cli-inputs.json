@@ -1,0 +1,75 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "englister81e0a716_identitypool_81e0a716",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "englis81e0a716",
+    "userPoolName": "englister81e0a716_userpool_81e0a716",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "englis81e0a716_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "81e0a716",
+    "resourceName": "englister81e0a716",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "defaultSocial",
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "hostedUI": true,
+    "hostedUIDomainName": "englister3f839e5d-3f839e5d",
+    "authProvidersUserPool": [
+      "Facebook",
+      "Google",
+      "SignInWithApple"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
+    "authProviders": [],
+    "signinwithappleAuthorizeScopes": [
+      "email"
+    ],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://englister.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"],\"LogoutURLs\":[\"https://englister.yunomy.com/\",\"https://english.yunomy.com/\",\"http://localhost:3000/\",\"englister://\"]}"
+  }
+}

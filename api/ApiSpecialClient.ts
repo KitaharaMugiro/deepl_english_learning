@@ -3,8 +3,8 @@
 import { Auth } from "aws-amplify";
 import axios, { AxiosInstance } from "axios";
 
-const BASE_URL = "https://ke5c05zzxb.execute-api.ap-northeast-1.amazonaws.com/dev/"
-
+//WARN 開発中でも本番URLを使う
+const BASE_URL = "https://1kfq730jwf.execute-api.ap-northeast-1.amazonaws.com/dev/"
 export class ApiSpecialClient {
     private instance: AxiosInstance
     constructor() {

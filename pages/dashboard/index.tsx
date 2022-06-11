@@ -1,9 +1,10 @@
-import { Typography } from '@mui/material';
+import { Alert, AlertTitle, Button, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { CategoryApi } from '../../api/CategoryApi';
@@ -48,6 +49,20 @@ function Dashboard({ categoryInfo, ogpInfo }: {
             <Seo ogpInfo={ogpInfo} />
             <main className={classes.content}>
                 <Container maxWidth="xl" className={classes.container}>
+
+                    <Alert severity="info" variant="filled" >
+                        <AlertTitle>
+                            <b>
+                                データ復旧依頼をお願いします
+                            </b>
+                        </AlertTitle>
+                        <Typography>
+                            学習履歴やプラン情報が失われている方は、大変お手数をおかけしますが、下記URLからデータ復旧の依頼をお願いします。<br />
+                            <a href="https://forms.gle/GcZ6BErrWtCviMit5">https://forms.gle/GcZ6BErrWtCviMit5</a>
+                        </Typography>
+                    </Alert>
+
+                    <div style={{ marginTop: '40px' }} />
                     <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強を再開しよう" />
                     <div style={{ marginTop: '40px' }} />
 

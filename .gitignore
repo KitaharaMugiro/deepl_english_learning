@@ -6,6 +6,7 @@ node_modules
 package-lock.json
 
 secrets.json
+memo.md
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
