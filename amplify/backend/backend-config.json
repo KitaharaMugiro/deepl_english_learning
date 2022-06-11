@@ -1,12 +1,13 @@
 {
   "auth": {
-    "slideshare23669af5": {
+    "englister81e0a716": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "loginMechanisms": [
+        "socialProviders": [],
+        "usernameAttributes": [
           "EMAIL"
         ],
         "signupAttributes": [
@@ -24,30 +25,6 @@
           "EMAIL"
         ]
       }
-    }
-  },
-  "function": {
-    "S3Trigger7909f23f": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
-  "storage": {
-    "s3c010c2a4": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger7909f23f",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
     }
   }
 }
