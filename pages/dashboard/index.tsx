@@ -50,18 +50,6 @@ function Dashboard({ categoryInfo, ogpInfo }: {
             <main className={classes.content}>
                 <Container maxWidth="xl" className={classes.container}>
 
-                    <Alert severity="info" variant="filled" >
-                        <AlertTitle>
-                            <b>
-                                データ復旧依頼をお願いします
-                            </b>
-                        </AlertTitle>
-                        <Typography>
-                            学習履歴やプラン情報が失われている方は、大変お手数をおかけしますが、下記URLからデータ復旧の依頼をお願いします。<br />
-                            <a href="https://forms.gle/GcZ6BErrWtCviMit5">https://forms.gle/GcZ6BErrWtCviMit5</a>
-                        </Typography>
-                    </Alert>
-
                     <div style={{ marginTop: '40px' }} />
                     <TopCategoryRow categories={categoryInfo.popular} rowTitle="勉強を再開しよう" />
                     <div style={{ marginTop: '40px' }} />

@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import React from 'react';
+import FloatingDaoInvitation from '../components/common/FloatingDaoInvitation';
 import FloatingLoginButton from '../components/common/FloatingLoginButton';
 import Seo from '../components/common/Seo';
 import HowToUseCard from '../components/hero/HowToUseCard';
@@ -44,7 +45,7 @@ export default function TopPage() {
 
         <div style={{ height: 200 }}></div>
 
-        <FloatingLoginButton />
+        <FloatingDaoInvitation />
         {/* prefetch目的 */}
         <Link href="/dashboard" prefetch={true} ><div></div></Link>
       </main>
