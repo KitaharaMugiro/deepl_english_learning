@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+    app:
+      container_name: back
+      build: ./back
+      working_dir: /usr/src/app
+      tty: true
+      ports: 
+      - '3000:3000'
+      volumes:
+        - ../app:/usr/src/app
+      command: >
+        bash -c "npm run dev"
