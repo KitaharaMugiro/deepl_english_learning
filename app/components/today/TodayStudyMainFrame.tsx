@@ -95,7 +95,13 @@ export default function TodayStudyMainFrame(props: Props) {
             try {
                 const { question } = props.todayTopic
                 LocalStorageHelper.saveStudySessionId(uuidv4()) //おお、、設定してるのか、、
-                setActiveQuestion({ topicId: question.topicId, title: question.title, description: question.description })
+                setActiveQuestion({
+                    topicId: question.topicId,
+                    title: question.title,
+                    description: question.description,
+                    titleEng: question.titleEng,
+                    descriptionEng: question.descriptionEng,
+                })
             } catch (e) {
                 console.warn(e)
             }
