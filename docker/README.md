@@ -8,8 +8,17 @@ Docker Desktopをインストール
 ## 使い方
 
 コンテナーの起動
+
+初回
 ```
 cd docker
+docker build
+docker-compose up
+```
+
+2回目以降
+
+```
 docker-compose up
 ```
 
