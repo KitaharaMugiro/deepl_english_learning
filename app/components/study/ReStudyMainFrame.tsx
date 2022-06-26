@@ -56,7 +56,7 @@ export default function ReStudyMainFrame(props: Props) {
             if (!props.studySessionId) return
             try {
                 const res = await StudyApi.restudyStart(props.studySessionId)
-                setActiveQuestion({ topicId: res.topicId, title: res.topicTitle, description: res.topicDescription })
+                setActiveQuestion({ topicId: res.topicId, title: res.topicTitle, description: res.topicDescription, titleEng: res.topicTitle, descriptionEng: res.topicDescription })
                 setJapanese(res.japanese)
             } catch (e) {
                 console.warn(e)

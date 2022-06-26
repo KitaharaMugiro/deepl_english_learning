@@ -58,7 +58,7 @@ export default function WriteJapanese(props: Props) {
 
     return (
         <React.Fragment>
-            <QuestionText />
+            <QuestionText displayLanguage='japanese' />
 
             {english &&
                 <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>

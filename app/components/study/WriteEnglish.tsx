@@ -177,7 +177,7 @@ export default (props: Props) => {
 
     return (
         <React.Fragment>
-            <QuestionText />
+            <QuestionText displayLanguage='english' />
 
             {japanese &&
                 <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>

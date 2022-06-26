@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 import { Question, StudyRecord } from '../type/Question'
 
-export const AtomActiveQuestion = atom<Question>({ topicId: "", title: "", description: "" })
+export const AtomActiveQuestion = atom<Question>({ topicId: "", title: "", description: "", titleEng: "", descriptionEng: "" })
 export const AtomJapanse = atom("")
 export const AtomEnglish = atom("")
 export const AtomTranslation = atom("")

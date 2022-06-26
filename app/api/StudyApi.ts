@@ -45,8 +45,8 @@ export class StudyApi {
                 studySessionId: studySessionId
             }
         )
-        const { topicTitle, topicDescription, topicId } = res.data
-        return { topicTitle, topicDescription, topicId }
+        const { topicTitle, topicDescription, topicId, topicTitleEng, topicDescriptionEng } = res.data
+        return { topicTitle, topicDescription, topicId, topicTitleEng, topicDescriptionEng }
     }
 
     static async sendJapanese(japanese: string) {

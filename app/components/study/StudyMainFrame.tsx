@@ -102,7 +102,13 @@ export default function StudyMainFrame(props: Props) {
         const getTopic = async () => {
             try {
                 const res = await StudyApi.getTopic()
-                setActiveQuestion({ topicId: res.topicId, title: res.topicTitle, description: res.topicDescription })
+                setActiveQuestion({
+                    topicId: res.topicId,
+                    title: res.topicTitle,
+                    description: res.topicDescription,
+                    titleEng: res.topicTitleEng,
+                    descriptionEng: res.topicDescriptionEng,
+                })
             } catch (e) {
                 console.warn(e)
                 router.push(`/q/${props.categorySlug || "normal"}/start`)
