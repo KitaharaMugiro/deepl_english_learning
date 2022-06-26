@@ -12,7 +12,7 @@ Docker Desktopをインストール
 初回
 ```
 cd docker
-docker build
+docker-compose build
 docker-compose up
 ```
 
