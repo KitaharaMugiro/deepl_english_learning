@@ -33,7 +33,7 @@ jobs:
         cd app
 
     - name: Build, tag, and push image to Amazon ECR
-      id: npm setup
+      id: npm-setup
       run: |
         npm config set prefix /usr/local
 
