@@ -5,8 +5,7 @@ on:
     branches:
       - "main"
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1                                      # file, e.g. .aws/task-definition.json
-  STAGE: STAGE                                        # containerDefinitions section of your task definition
+  AWS_REGION: ap-northeast-1                   # set this to your preferred AWS region, e.g. us-west-1                                      # file, e.g. .aws/task-definition.json
 
 permissions:
   contents: read
@@ -30,7 +29,6 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      env:
-        STAGE: ${{ env.STAGE }}
       run: |
+        cd app
         npm run deploy
