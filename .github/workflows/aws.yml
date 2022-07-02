@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "main"
-      - "test"
-
 env:
   AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1                                      # file, e.g. .aws/task-definition.json
   STAGE: STAGE                                        # containerDefinitions section of your task definition
