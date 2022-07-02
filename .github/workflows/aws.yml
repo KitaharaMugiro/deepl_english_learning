@@ -31,5 +31,6 @@ jobs:
       id: build-image
       run: |
         cd app
+        npm config set prefix /usr/local
         npm install -g @serverless/cli
         serverless
