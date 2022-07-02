@@ -35,15 +35,15 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: npm-setup
       run: |
-        npm config set prefix /usr/local
+        npm install serverless --save-dev
 
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       run: |
-        npm install -g @serverless/cli
+        npm install @serverless/cli --save-dev
         
     - name: Build, tag, and push image to Amazon ECR
       id: deploy
       run: |
-        serverless
+        node ./node_modules/serverless/bin/serverless
