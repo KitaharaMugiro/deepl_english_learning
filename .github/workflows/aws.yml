@@ -28,9 +28,22 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Build, tag, and push image to Amazon ECR
-      id: build-image
+      id: cd
       run: |
         cd app
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: npm setup
+      run: |
         npm config set prefix /usr/local
+
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      run: |
         npm install -g @serverless/cli
+        
+    - name: Build, tag, and push image to Amazon ECR
+      id: deploy
+      run: |
         serverless
