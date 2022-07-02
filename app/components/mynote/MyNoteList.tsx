@@ -49,6 +49,8 @@ export default () => {
                 topicId: myNote.topicId,
                 title: myNote.questionTitle,
                 description: myNote.questionDescription,
+                titleEng: myNote.questionTitle,
+                descriptionEng: myNote.questionDescription,
                 categorySlug: myNote.categorySlug || ""
             }
             return <div style={{ marginTop: 20 }}>

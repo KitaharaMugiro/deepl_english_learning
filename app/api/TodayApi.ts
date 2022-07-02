@@ -16,6 +16,8 @@ export type GetTodayTopicResponse = {
         todayTopicId: string
         topicId: string
         description: string
+        titleEng: string
+        descriptionEng: string
         categorySlug: string
     }
     answer: {
