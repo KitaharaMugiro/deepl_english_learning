@@ -40,9 +40,6 @@ npm run generate
 * 実行する権限がない
 * カレントディレクトリがappでない
 
-### (初めての人) キーの共有
-`npm run generate`を実行するにはキーが必要であるため、
-
 # AWSへのデプロイ
 ```
 npm run deploy
