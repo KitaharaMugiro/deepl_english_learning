@@ -4,8 +4,7 @@ module.exports = {
     {
       "https://adequate-guinea-56.hasura.app/v1/graphql": {
         headers: {
-          'x-hasura-admin-secret': secrets.HASURA_ADMIN_SECRET,
-          'x-hasura-role': 'user',
+          'Authorization': `Bearer ${secrets.JWT}`
         },
       },
     },

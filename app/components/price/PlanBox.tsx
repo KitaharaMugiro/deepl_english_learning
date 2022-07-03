@@ -1,5 +1,4 @@
-import { Typography } from "@mui/material"
-import { Box } from "@mui/system"
+import { Box, Typography } from "@mui/material"
 import style from "./style.module.css"
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
