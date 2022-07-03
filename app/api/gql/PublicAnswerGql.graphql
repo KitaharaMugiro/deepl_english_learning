@@ -79,12 +79,3 @@ mutation SubmitTodayPublicAnswer(
   }
 }
 
-mutation deletePublicAnswer($id: Int!) {
-  delete_englister_PublicAnswers_by_pk(id:$id) {
-    id
-    topicId
-    answer
-    createdAt
-    createdBy
-  }
-}

@@ -1,10 +1,9 @@
 import { Dialog, DialogContent, DialogTitle, Paper, PaperProps } from "@mui/material"
 import PhraseList from "./PhraseList"
-import _Draggable from 'react-draggable';
+import Draggable from 'react-draggable';
 import usePhrase from "../../models/util-hooks/usePhrase";
 
 function PaperComponent(props: PaperProps) {
-    const Draggable: any = _Draggable
     return (
         <Draggable
             handle="#draggable-dialog-title"
