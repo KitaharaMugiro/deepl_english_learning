@@ -39,6 +39,7 @@ npm run generate
 * GraphQLの文法が間違っている
 * 実行する権限がない
 * カレントディレクトリがappでない
+* JWTが古い
 
 # AWSへのデプロイ
 ```
