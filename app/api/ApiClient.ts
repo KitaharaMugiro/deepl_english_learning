@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from "axios";
 
 //デプロイミスするので環境で必ず分ける
 const { TARGET_API } = process.env;
+console.log({ TARGET_API });
 let BASE_URL = "https://uvrrlrytl7.execute-api.ap-northeast-1.amazonaws.com/dev"
 if (TARGET_API === "local") {
     BASE_URL = "http://localhost:8080/dev"
