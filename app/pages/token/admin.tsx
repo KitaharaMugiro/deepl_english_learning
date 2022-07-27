@@ -49,9 +49,6 @@ export default () => {
         })
     }
 
-
-
-
     if (!subs.includes(user?.attributes.sub || "")) {
         return <div></div>
     }

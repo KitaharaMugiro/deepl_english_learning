@@ -7,7 +7,6 @@ export class ApiClient {
 
     constructor() {
         const { NEXT_PUBLIC_TARGET_API } = process.env;
-        console.log({ NEXT_PUBLIC_TARGET_API })
         this.BASE_URL = "https://uvrrlrytl7.execute-api.ap-northeast-1.amazonaws.com/dev"
         if (NEXT_PUBLIC_TARGET_API === "local") {
             this.BASE_URL = "http://localhost:8080/dev";
