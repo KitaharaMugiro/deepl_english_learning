@@ -21,7 +21,8 @@ export class RankingApi {
             ranking: {
                 userId: string,
                 totalExp: number,
-            }[]
+                reward: number
+            }[],
         }
     }
 }

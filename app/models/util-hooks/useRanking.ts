@@ -6,8 +6,9 @@ function createData(
     rank: number,
     exp: number,
     isYou: boolean,
+    reward: number
 ) {
-    return { rank, exp, isYou };
+    return { rank, exp, isYou, reward };
 }
 
 
@@ -16,39 +17,19 @@ export default () => {
     const [ranking, setRanking] = useAtom(WeeklyRankingAtom)
 
     // 自分を含む三件を取得 (TODO: もうちょっとロジックなんとかしたい)
-    let rows: Array<{ rank: number, exp: number, isYou: boolean }> = []
+    let rows: Array<{ rank: number, exp: number, isYou: boolean, reward: number }> = []
+    const fullRows = ranking.map((m, index) => createData(
+        index + 1,
+        m.totalExp,
+        (index + 1) === userRank,
+        m.reward))
+    const userRow = fullRows.find(m => m.isYou)
+
     if (userRank === 0) {
         rows = []
-    } else if (userRank === ranking.length) {
-        if (ranking[userRank - 3]) {
-            rows.push(createData(userRank - 2, ranking[userRank - 3].totalExp, false))
-        }
-        if (ranking[userRank - 2]) {
-            rows.push(createData(userRank - 1, ranking[userRank - 2].totalExp, false))
-        }
-        if (ranking[userRank - 1]) {
-            rows.push(createData(userRank, ranking[userRank - 1].totalExp, true))
-        }
-    } else if (userRank === 1) {
-        if (ranking[0]) {
-            rows.push(createData(1, ranking[0].totalExp, true))
-        }
-        if (ranking[1]) {
-            rows.push(createData(2, ranking[1].totalExp, false))
-        }
-        if (ranking[2]) {
-            rows.push(createData(3, ranking[2].totalExp, false))
-        }
     } else {
-        if (ranking[userRank - 2]) {
-            rows.push(createData(userRank - 1, ranking[userRank - 2].totalExp, false))
-        }
-        if (ranking[userRank - 1]) {
-            rows.push(createData(userRank, ranking[userRank - 1].totalExp, true))
-        }
-        if (ranking[userRank]) {
-            rows.push(createData(userRank + 1, ranking[userRank].totalExp, false))
-        }
+        // 自分を含む三件を取得
+        rows = fullRows.slice(userRank - 2, userRank + 1)
     }
 
     const refresh = () => {
@@ -58,5 +39,5 @@ export default () => {
         })
     }
 
-    return { userRank, ranking, refresh, rows }
+    return { userRank, ranking, refresh, rows, fullRows, userRow }
 }

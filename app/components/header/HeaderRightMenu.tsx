@@ -12,7 +12,9 @@ import usePlan from "../../models/util-hooks/usePlan";
 import useSignin from "../../models/util-hooks/useSignin";
 import useUser from "../../models/util-hooks/useUser";
 import LeftHearts from "../hearts/LeftHearts";
+import WeeklyRankingLink from '../ranking/WeeklyRankingLink';
 import WeeklyRankingTable from '../ranking/WeeklyRankingTable';
+import TokenLink from '../token/TokenLink';
 
 
 export default () => {
@@ -89,11 +91,16 @@ export default () => {
 
                 <div style={{ padding: 5 }}>
                     <Typography variant="subtitle2">
-                        <Tooltip title="毎週金曜日更新" placement="top-start">
-                            <span>週間ランキング</span>
-                        </Tooltip>
+                        <span>週間ランキング</span>
                     </Typography>
-                    <WeeklyRankingTable />
+                    <WeeklyRankingLink />
+                </div>
+
+                <div style={{ padding: 5 }}>
+                    <Typography variant="subtitle2">
+                        <span>保有トークン</span>
+                    </Typography>
+                    <TokenLink />
                 </div>
 
                 <div style={{ padding: 5 }}>
