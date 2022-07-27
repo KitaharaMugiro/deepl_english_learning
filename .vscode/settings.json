@@ -11,5 +11,9 @@
     "editor.tabSize": 4,
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[css]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
   "editor.formatOnSave": true
 }
