@@ -44,7 +44,7 @@ export default () => {
                 disabled
             >
                 <SchoolIcon sx={{ mr: 1 }} />
-                次回の英語年齢診断　{formatTime(countdown)}
+                次回のテスト　{formatTime(countdown)}
             </Fab>
         } else {
             return <Fab
@@ -52,7 +52,7 @@ export default () => {
                 href="/today"
                 variant="extended" color="primary" aria-label="add">
                 <SchoolIcon sx={{ mr: 1 }} />
-                英語年齢診断スタート
+                毎日英作文チャレンジ
             </Fab>
         }
     }

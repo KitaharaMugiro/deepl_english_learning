@@ -49,7 +49,7 @@ const TodayPage = ({ ogpInfo }: { ogpInfo: MetaData }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const ogpInfo: MetaData = {
-        title: "英作文力診断 | あなたはネイティブ何歳並みの英語を話せるか診断します",
+        title: "毎日英作文チャレンジ | あなたはネイティブ何歳並みの英語を話せるか診断します",
         description: "英作文の練習問題であなたの英語力(英語年齢)を診断します。",
         image: "/static/ogp/slide_5.png",
         pagePath: "/today"

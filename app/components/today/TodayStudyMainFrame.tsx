@@ -31,7 +31,7 @@ import TodayStudyTop from './TodayStudyTop';
 const japaneseFirstSteps = [
     {
         step: 'Your Name',
-        stepTitle: "今日の英語年齢診断",
+        stepTitle: "毎日英作文チャレンジ",
         component: <TodayStudyTop />
     },
     {
@@ -49,7 +49,7 @@ const japaneseFirstSteps = [
 const englishFirstSteps = [
     {
         step: "Your Name",
-        stepTitle: "今日の英語年齢診断",
+        stepTitle: "毎日英作文チャレンジ",
         component: <TodayStudyTop />
     },
     {

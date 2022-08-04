@@ -39,7 +39,7 @@ export default () => {
                     </Grid>
                     <Grid item>
                         <Button href="/today" disableElevation variant="contained" color="primary" >
-                            英語力診断テスト
+                            無料で問題を1問解く
                         </Button>
                     </Grid>
                 </Grid>
