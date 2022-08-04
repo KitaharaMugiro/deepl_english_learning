@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { AtomTranslation } from "../../models/jotai/StudyJotai"
 import NavigationDots from "../common/NavigationDots/NavigationDots"
 import PickModeButton from "./PickModeButton"
-
+import ClearIcon from '@mui/icons-material/Clear';
+import { IconButton } from "@mui/material"
 interface Props {
     addText: (text: string) => void
 }
@@ -46,7 +47,7 @@ export default (props: Props) => {
         }
     }, [allWordSet])
 
-    const onClick = (word: Word) => {
+    const onClick = (word: Word, addWordToTextField: boolean = true) => {
         const newShowingWords = showingWords.map(w => {
             if (w.id === word.id) {
                 return { ...w, isSelected: !w.isSelected }
@@ -55,7 +56,10 @@ export default (props: Props) => {
         })
         setShowingWords(newShowingWords)
 
-        props.addText(word.value)
+        if (addWordToTextField) {
+            props.addText(word.value)
+        }
+
 
         //もし全ての文字が選択されていたら、次の文字を表示する(同じものは出さない)
         if (newShowingWords.filter(w => w.isSelected).length === newShowingWords.length) {
@@ -74,14 +78,24 @@ export default (props: Props) => {
 
     return (
         <>
-            {showingWords.map((word) => (
-                <PickModeButton
-                    value={word.value}
-                    isSelected={word.isSelected!}
-                    onClick={() => onClick(word)}
-                />
-            ))}
-
+            <div style={{ display: "flex", marginBottom: 20, flexWrap: "wrap" }}>
+                {showingWords.map((word) => (
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <IconButton
+                            size="small"
+                            onClick={() => onClick(word, false)}
+                            color="inherit"
+                            style={{ margin: "auto", visibility: word.isSelected ? "hidden" : "visible" }}
+                        >
+                            <ClearIcon fontSize="small" /></IconButton>
+                        <PickModeButton
+                            value={word.value}
+                            isSelected={word.isSelected!}
+                            onClick={() => onClick(word)}
+                        />
+                    </div>
+                ))}
+            </div>
             {complete ? <div /> : <NavigationDots max={allWordSet.length} index={index} />}
         </>
     )

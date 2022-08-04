@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material"
+import { Button, Card, Input, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { TokenApi, WithdrawRequest } from "../../api/TokenApi"
 import Seo from "../../components/common/Seo"
@@ -12,6 +12,7 @@ export default () => {
 
     const [tokenRate, setTokenRate] = useState(0)
     const [createdAt, setCreatedAt] = useState(0)
+    const [inputTokenRate, setInputTokenRate] = useState("0")
     const [requests, setRequests] = useState<WithdrawRequest[]>([])
 
     const createdAtString = new Date(createdAt).toLocaleString()
@@ -26,6 +27,12 @@ export default () => {
         })
 
     }, [])
+
+    const onSetTokenRate = () => {
+        TokenApi.setTokenRate(Number(inputTokenRate)).then(res => {
+            window.location.reload()
+        })
+    }
 
     const renderWithdrawRequest = () => {
         if (requests.length === 0) {
@@ -67,6 +74,8 @@ export default () => {
             <Typography variant="h5">
                 ¥{tokenRate} / 1トークン
             </Typography>
+            <Input value={inputTokenRate} onChange={(e) => { setInputTokenRate(e.target.value) }}></Input>
+            <Button onClick={onSetTokenRate}>トークン価値を更新</Button>
         </Card>
 
         {renderWithdrawRequest()}

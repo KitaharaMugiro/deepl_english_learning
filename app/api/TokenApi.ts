@@ -14,6 +14,7 @@ export type WithdrawRequest = {
 }
 
 export class TokenApi {
+
     static async getToken() {
         const client = new ApiClient()
         const res = await client.post(
@@ -63,6 +64,15 @@ export class TokenApi {
         const res = await client.post(
             "token/set-code",
             { requestUserId, range, amazonGiftCode, price }
+        )
+        return res.data as {}
+    }
+
+    static async setTokenRate(tokenRate: number) {
+        const client = new ApiClient()
+        const res = await client.post(
+            "token/set-token-rate",
+            { tokenRate }
         )
         return res.data as {}
     }
