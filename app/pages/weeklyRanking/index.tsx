@@ -33,7 +33,7 @@ export default () => {
                 <h1>週間ランキング</h1>
                 <p>残り時間: {leftTimeStr}</p>
                 <p>
-                    レベルをクリアして、ランキングの順位をあげよう！
+                    ランキングの順位をあげて、トークンをゲットしよう！
                 </p>
                 <FullWeeklyRankingTable />
             </div>
