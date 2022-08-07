@@ -3,9 +3,6 @@ import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
 
 export default () => {
-    const { user, loadingUser } = useUser()
-    if (loadingUser) return <div />
-    if (user) return <div />
     return (
         <Fab
             variant="extended"
