@@ -1,7 +1,6 @@
 import { Container, Typography } from "@mui/material"
 import Seo from "../../components/common/Seo"
-import MyNoteList from "../../components/mynote/MyNoteList"
-import PhraseList from "../../components/phrase/PhraseList"
+import DiaryList from "../../components/diary/DiaryList"
 
 export default () => <Container maxWidth="md">
     <Seo ogpInfo={{
@@ -15,5 +14,5 @@ export default () => <Container maxWidth="md">
         英語日記を書くことができます。
     </Typography>
     <div style={{ height: 15 }} />
-    <MyNoteList />
+    <DiaryList />
 </Container>
