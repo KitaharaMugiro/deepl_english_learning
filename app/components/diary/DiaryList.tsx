@@ -12,10 +12,8 @@ export default () => {
     // const { data, error, loading, refetch } = useListMyNoteQuery()
     const { user } = useUser()
 
-    const userId = LocalStorageHelper.getUserId()
-    console.log(userId)
     const { data, error, loading, refetch } = useListMyDiaryQuery({
-        variables: { userId: userId! }
+        variables: { userId: user?.attributes.sub! }
     })
 
     const [deleteMyNoteMutation] = useDeleteMyNoteMutation()
