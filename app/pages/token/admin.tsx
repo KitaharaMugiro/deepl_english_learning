@@ -67,6 +67,7 @@ export default () => {
                 pagePath: "/token/admin",
             }}
         />
+        <a href="https://www.notion.so/2d804d4150554f81bebac62a3ec555a8"></a>
         <Card style={{ padding: 20, flexGrow: 1 }}>
             <Typography variant="body1">
                 トークン価値 ({createdAtString}更新)
