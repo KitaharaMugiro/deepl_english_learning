@@ -17,6 +17,7 @@ import styles from "./style.module.css";
 
 interface Props {
     englishFirst?: boolean
+    fromDiary?: boolean
 }
 
 export default (props: Props) => {
@@ -33,12 +34,13 @@ export default (props: Props) => {
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
     const [pickMode, setPickMode] = useState(false)
 
-    const textFieldPlaceholder = englishFirst ? "英語で意見を書いてください" : "上の文章を英語にしてください"
+    const textDiaryOrOpinion = props.fromDiary ? "日記" : "意見"
+    const textFieldPlaceholder = englishFirst ? `英語で${textDiaryOrOpinion}を書いてください` : "上の文章を英語にしてください"
     const firstDescription = () => {
         if (englishFirst) {
             return (
                 <p style={{ fontSize: "18px", color: "black" }}>
-                    2分間であなたの意見を<span style={{ fontWeight: 700 }}>英語</span>で記述してください。<br />
+                    2分間であなたの{textDiaryOrOpinion}を<span style={{ fontWeight: 700 }}>英語</span>で記述してください。<br />
                     準備ができたらここをクリック
                 </p>)
         }
