@@ -1,4 +1,5 @@
-import { FormControlLabel, Switch } from '@mui/material';
+import { ApolloQueryResult } from '@apollo/client/core/types';
+import { Alert, FormControlLabel, Snackbar, Switch } from '@mui/material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Step from '@mui/material/Step';
@@ -9,11 +10,12 @@ import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { DiaryApi } from '../../api/DiaryApi';
 import { StudyApi } from '../../api/StudyApi';
+import { BackdropAtom } from '../../models/jotai/Backdrop';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import useStudy from '../../models/util-hooks/useStudy';
 import useUser from '../../models/util-hooks/useUser';
 import { isAlphabet } from '../../models/Utils';
-import { useCreateDiaryMutation } from '../../src/generated/graphql';
+import { Exact, ListMyDiaryQuery, useCreateDiaryMutation, useListMyDiaryQuery } from '../../src/generated/graphql';
 import Review from '../study/Review';
 import WriteEnglish from '../study/WriteEnglish';
 import WriteJapanese from '../study/WriteJapanese';
@@ -52,6 +54,9 @@ const englishFirstSteps = [
 
 interface Props {
     categorySlug?: string
+    refetch: (variables?: Partial<Exact<{
+        userId: string;
+    }>> | undefined) => Promise<ApolloQueryResult<ListMyDiaryQuery>>
 }
 
 export default function WriteDiaryMainFrame(props: Props) {
@@ -71,6 +76,7 @@ export default function WriteDiaryMainFrame(props: Props) {
     const { savePrevStudiedCategory } = useStudy()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
     const [createDiaryMutation] = useCreateDiaryMutation();
+    const [_, setOpenLoading] = useAtom(BackdropAtom)
 
     const steps = englishFirst ? englishFirstSteps : japaneseFirstSteps
     const activeStep = steps[activeStepIndex]
@@ -92,8 +98,8 @@ export default function WriteDiaryMainFrame(props: Props) {
         //最後のステップ
         if (activeStepIndex === steps.length - 1) {
             //ログイン時は日記の保存
-            if (user?.attributes.sub) {
-
+            if (user) {
+                setOpenLoading(true)
                 await createDiaryMutation({
                     variables: {
                         userInputText: english,
@@ -103,6 +109,9 @@ export default function WriteDiaryMainFrame(props: Props) {
                         userInputEnglish: english,
                     },
                 })
+                await props.refetch()
+                setOpenLoading(false)
+
             }
 
             //初期化
@@ -140,10 +149,11 @@ export default function WriteDiaryMainFrame(props: Props) {
                 setErrorMessage("英語で記載してください(先頭がアルファベットでないです)")
                 return
             }
-
+            setOpenLoading(true)
             const res = await StudyApi.sendEnglish(english)
             if (!res.success) {
                 setErrorMessage(res.message)
+                setOpenLoading(false)
                 return
             }
 
@@ -153,6 +163,7 @@ export default function WriteDiaryMainFrame(props: Props) {
                 setTranslation(resTranslation.translatedEnglish)
                 console.log("resTranslation", resTranslation)
             }
+            setOpenLoading(false)
 
 
         }
@@ -163,6 +174,10 @@ export default function WriteDiaryMainFrame(props: Props) {
 
     const handleBack = () => {
         setEnglish("")
+        if (englishFirst) {
+            setJapanese("")
+            setTranslation("")
+        }
         setActiveStepIndex(activeStepIndex - 1);
     };
 
@@ -215,7 +230,7 @@ export default function WriteDiaryMainFrame(props: Props) {
                     }}>
                         英語入力に戻る
                     </Button>
-                    {NextButton(user?.attributes.sub ? "保存" : "終了", false)}
+                    {NextButton(user ? "保存" : "終了", false)}
                 </>
             )
         }
@@ -273,7 +288,6 @@ export default function WriteDiaryMainFrame(props: Props) {
                         }}>
                             {renderButtons()}
                         </div>
-
 
                     </React.Fragment>
                 </Paper>

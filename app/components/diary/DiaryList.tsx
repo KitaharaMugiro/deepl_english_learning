@@ -1,14 +1,17 @@
 import { Backdrop, Card, CardHeader, CircularProgress, Grid, IconButton, Menu, MenuItem, Paper, Typography } from "@mui/material"
 import useUser from "../../models/util-hooks/useUser"
-import { useListMyDiaryQuery } from "../../src/generated/graphql"
+import { ListMyDiaryQuery, useListMyDiaryQuery } from "../../src/generated/graphql"
 
-export default () => {
+interface Props {
+    data: ListMyDiaryQuery | undefined
+    loading: boolean
+}
+
+export default (props: Props) => {
+
+    const { data, loading } = props
 
     const { user } = useUser()
-
-    const { data, error, loading, refetch } = useListMyDiaryQuery({
-        variables: { userId: user?.attributes.sub! }
-    })
 
     const renderDiaryList = () => {
         return data?.englister_Diary.map(diary => {

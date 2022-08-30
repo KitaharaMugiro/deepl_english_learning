@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import { AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import usePhrase from '../../models/util-hooks/usePhrase';
+import DiaryQuestionText from '../diary/DiaryQuestionText';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import PickModeInput from './PickModeInput';
@@ -116,7 +117,7 @@ export default (props: Props) => {
                         </IconButton>}
                 </div>
             )
-        } else {
+        } else if (!englishFirst) {//英語を先に書く時はキーボードアイコンは表示しないはず
             return (
                 <div>
                     <IconButton
@@ -179,7 +180,7 @@ export default (props: Props) => {
 
     return (
         <React.Fragment>
-            <QuestionText displayLanguage='english' />
+            {props.fromDiary ? <DiaryQuestionText displayLanguage='english' /> : <QuestionText displayLanguage='english' />}
 
             {japanese &&
                 <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>

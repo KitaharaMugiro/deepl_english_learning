@@ -5,22 +5,41 @@ interface Props {
     displayLanguage: "english" | "japanese"
 }
 
-export default (props: Props) => {
+//とりあえず適当にお題を用意した
+const diaryQuestions = [
+    "What was the best thing that happened to you today?",
+    "How was your day?",
+    "What is something that made you laugh today?",
+    "What is one thing you want to remember from today?",
+    "How can you make tomorrow (even) better than today?",
+    "What steps did you take today towards a goal you’re working on?",
+    "Describe something you learned today that you didn’t know before.",
+    "What frightened you today?",
+    "How were your meals today?"
+];
+
+export default React.memo((props: Props) => {
     const displayTitle = () => {
         if (props.displayLanguage === "english") {
-            return "How was your day?"
+            return diaryQuestions[Math.floor(Math.random() * diaryQuestions.length)]
         }
         return "今日は何をしたの？"
     }
     return (
-        <div style={{ display: "flex" }}>
-            <div>
-                <Avatar sx={{ width: 75, height: 75 }} alt="cat" src="https://pbs.twimg.com/profile_images/1511649023848960007/qd7nIFBQ_400x400.jpg" />
+        <>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <Avatar sx={{ width: 75, height: 75 }} alt="cat" src="/static/englister_cat.jpeg" />
+                </div>
+                <div>
+                    <h2 style={{ fontWeight: 700, marginLeft: 10 }} >
+                        {displayTitle()}
+                        <p style={{ fontSize: 15, fontWeight: 15, margin: 0 }}>You can write whatever you want, not questions.</p>
+                    </h2>
+                </div>
+
             </div>
 
-            <h2 style={{ fontWeight: 700, marginLeft: 10 }} >
-                {displayTitle()}
-            </h2>
-        </div>
+        </>
     )
-}
+})
