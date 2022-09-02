@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import { AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import usePhrase from '../../models/util-hooks/usePhrase';
+import DiaryQuestionText from '../diary/DiaryQuestionText';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import PickModeInput from './PickModeInput';
@@ -17,6 +18,7 @@ import styles from "./style.module.css";
 
 interface Props {
     englishFirst?: boolean
+    fromDiary?: boolean
 }
 
 export default (props: Props) => {
@@ -33,12 +35,13 @@ export default (props: Props) => {
     const [speechRecognitionNow, setSpeechRecognitionNow] = useState(false)
     const [pickMode, setPickMode] = useState(false)
 
-    const textFieldPlaceholder = englishFirst ? "英語で意見を書いてください" : "上の文章を英語にしてください"
+    const textDiaryOrOpinion = props.fromDiary ? "日記" : "意見"
+    const textFieldPlaceholder = englishFirst ? `英語で${textDiaryOrOpinion}を書いてください` : "上の文章を英語にしてください"
     const firstDescription = () => {
         if (englishFirst) {
             return (
                 <p style={{ fontSize: "18px", color: "black" }}>
-                    2分間であなたの意見を<span style={{ fontWeight: 700 }}>英語</span>で記述してください。<br />
+                    2分間であなたの{textDiaryOrOpinion}を<span style={{ fontWeight: 700 }}>英語</span>で記述してください。<br />
                     準備ができたらここをクリック
                 </p>)
         }
@@ -114,7 +117,7 @@ export default (props: Props) => {
                         </IconButton>}
                 </div>
             )
-        } else {
+        } else if (!englishFirst) {//英語を先に書く時はキーボードアイコンは表示しないはず
             return (
                 <div>
                     <IconButton
@@ -177,7 +180,7 @@ export default (props: Props) => {
 
     return (
         <React.Fragment>
-            <QuestionText displayLanguage='english' />
+            {props.fromDiary ? <DiaryQuestionText displayLanguage='english' /> : <QuestionText displayLanguage='english' />}
 
             {japanese &&
                 <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>

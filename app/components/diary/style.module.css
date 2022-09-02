@@ -1,0 +1,57 @@
+.write_japanese_box {
+    position: relative;
+    margin-top: 20px;
+}
+
+.write_english_box {
+    position: relative;
+    margin-top: 20px;
+}
+
+.ready_modal {
+    position: absolute;
+    width: 103%;
+    height: 103%;
+    left: -5px;
+    top: -5px;
+    z-index: 100;
+    background-color: gray;
+    background-color: rgba(34, 136, 238, .3);
+    backdrop-filter: blur(1px);
+    padding: 20px;
+    text-align: center;
+}
+
+.arrow_box {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.duolingoButton {
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+    border-bottom: 6px solid #e5e5e5;
+    margin: 0px 8px;
+    transition: all 0.1s;
+    display: inline-flex;
+    padding: 2px 15px;
+}
+
+.duolingoButton:hover {
+    background-color: #ddf4ff;
+    border-color: #1cb0f6;
+}
+
+.duolingoButton:active {
+    border-bottom: 2px solid #1cb0f6;
+}
+
+
+.answerChoice {
+    text-align: center;
+    font-size: 19px;
+    color: #4b4b4b;
+    line-height: 0;
+}

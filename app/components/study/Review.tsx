@@ -22,6 +22,7 @@ interface Props {
     translation?: string
     activeQuestion?: Question
     fromResultPage?: boolean
+    fromDiary?: boolean
 }
 
 export default (props: Props) => {
@@ -47,8 +48,8 @@ export default (props: Props) => {
             const _score = Math.round(res.scoreRaw)
             const _age = res.age
 
-            //結果を送信(結果ページから飛んできている場合は送信しない)
-            if (!props.fromResultPage) {
+            //結果を送信(結果ページと英語日記から飛んできている場合は送信しない)
+            if (!props.fromResultPage && !props.fromDiary) {
                 StudyApi.sendResult(
                     _score,
                     activeQuestion.topicId,

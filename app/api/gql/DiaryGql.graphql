@@ -1,0 +1,74 @@
+# 日記の保存
+mutation CreateDiary(
+  $userInputText: String!
+  $protected: Boolean!
+  $translatedEnglish: String!
+  $translatedJapanese: String
+  $userInputEnglish: String!
+) {
+  insert_englister_Diary_one(
+    object: {
+      userInputText: $userInputText
+      protected: $protected
+      translatedEnglish: $translatedEnglish
+      translatedJapanese: $translatedJapanese
+      userInputEnglish: $userInputEnglish
+    }
+  ) {
+    id
+    protected
+    translatedEnglish
+    userInputEnglish
+    userInputText
+    updatedAt
+    createdAt
+    createdBy
+    translatedJapanese
+  }
+}
+
+# 日記の取得(自分のもの)
+query ListMyDiary($userId: String!) {
+  englister_Diary(
+    order_by: { createdAt: desc }
+    where: { createdBy: { _eq: $userId } }
+  ) {
+    createdAt
+    createdBy
+    id
+    protected
+    translatedEnglish
+    translatedJapanese
+    updatedAt
+    userInputEnglish
+    userInputText
+  }
+}
+
+#日記の取得(タイムライン)
+query ListDiary {
+  englister_Diary(order_by: { createdAt: desc }, limit: 20) {
+    createdAt
+    createdBy
+    id
+    protected
+    translatedEnglish
+    translatedJapanese
+    updatedAt
+    userInputEnglish
+    userInputText
+    DiaryLikes {
+      id
+      createdBy
+    }
+  }
+}
+
+#いいねをする
+mutation LikeDiary($diaryId: Int!) {
+  insert_englister_DiaryLike_one(object: { diaryId: $diaryId }) {
+    id
+    diaryId
+    createdBy
+  }
+}

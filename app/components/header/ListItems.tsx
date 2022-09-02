@@ -13,6 +13,8 @@ import Link from 'next/link';
 import React from 'react';
 import NoteIcon from '@mui/icons-material/Note';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+
 interface Props {
     closeMenu: () => void;
 }
@@ -36,6 +38,15 @@ export const MainListItems = (props: Props) => {
                         <NoteIcon />
                     </ListItemIcon>
                     <ListItemText primary="マイノート" />
+                </ListItem>
+            </Link>
+
+            <Link href="/diary" >
+                <ListItem button onClick={props.closeMenu}>
+                    <ListItemIcon>
+                        <MenuBookIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="英語日記" />
                 </ListItem>
             </Link>
 

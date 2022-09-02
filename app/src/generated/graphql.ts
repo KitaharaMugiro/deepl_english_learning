@@ -16,13 +16,8 @@ export type Scalars = {
   timestamptz: any;
 };
 
-export type Boolean_Cast_Exp = {
-  String?: InputMaybe<String_Comparison_Exp>;
-};
-
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type Boolean_Comparison_Exp = {
-  _cast?: InputMaybe<Boolean_Cast_Exp>;
   _eq?: InputMaybe<Scalars['Boolean']>;
   _gt?: InputMaybe<Scalars['Boolean']>;
   _gte?: InputMaybe<Scalars['Boolean']>;
@@ -45,13 +40,8 @@ export type GenerateAgoraTokenOutput = {
   token?: Maybe<Scalars['String']>;
 };
 
-export type Int_Cast_Exp = {
-  String?: InputMaybe<String_Comparison_Exp>;
-};
-
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
-  _cast?: InputMaybe<Int_Cast_Exp>;
   _eq?: InputMaybe<Scalars['Int']>;
   _gt?: InputMaybe<Scalars['Int']>;
   _gte?: InputMaybe<Scalars['Int']>;
@@ -558,6 +548,14 @@ export enum Englister_MyNote_Update_Column {
   UpdatedAt = 'updatedAt'
 }
 
+export type Englister_MyNote_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Englister_MyNote_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Englister_MyNote_Set_Input>;
+  where: Englister_MyNote_Bool_Exp;
+};
+
 /** columns and relationships of "englister.Phrase" */
 export type Englister_Phrase = {
   __typename?: 'englister_Phrase';
@@ -684,6 +682,14 @@ export enum Englister_Phrase_Update_Column {
   UpdatedAt = 'updated_at'
 }
 
+export type Englister_Phrase_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Englister_Phrase_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Englister_Phrase_Set_Input>;
+  where: Englister_Phrase_Bool_Exp;
+};
+
 /** columns and relationships of "englister.Profile" */
 export type Englister_Profile = {
   __typename?: 'englister_Profile';
@@ -765,6 +771,12 @@ export enum Englister_Profile_Update_Column {
   /** column name */
   Name = 'name'
 }
+
+export type Englister_Profile_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Englister_Profile_Set_Input>;
+  where: Englister_Profile_Bool_Exp;
+};
 
 /** columns and relationships of "englister.PublicAnswers" */
 export type Englister_PublicAnswers = {
@@ -927,14 +939,20 @@ export type Mutation_Root = {
   update_englister_MyNote?: Maybe<Englister_MyNote_Mutation_Response>;
   /** update single row of the table: "englister.MyNote" */
   update_englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
+  /** update multiples rows of table: "englister.MyNote" */
+  update_englister_MyNote_many?: Maybe<Array<Maybe<Englister_MyNote_Mutation_Response>>>;
   /** update data of the table: "englister.Phrase" */
   update_englister_Phrase?: Maybe<Englister_Phrase_Mutation_Response>;
   /** update single row of the table: "englister.Phrase" */
   update_englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** update multiples rows of table: "englister.Phrase" */
+  update_englister_Phrase_many?: Maybe<Array<Maybe<Englister_Phrase_Mutation_Response>>>;
   /** update data of the table: "englister.Profile" */
   update_englister_Profile?: Maybe<Englister_Profile_Mutation_Response>;
   /** update single row of the table: "englister.Profile" */
   update_englister_Profile_by_pk?: Maybe<Englister_Profile>;
+  /** update multiples rows of table: "englister.Profile" */
+  update_englister_Profile_many?: Maybe<Array<Maybe<Englister_Profile_Mutation_Response>>>;
   /** PDFをPNGに変えてPageにする */
   uploadPdf?: Maybe<UploadPdfOutput>;
 };
@@ -1107,6 +1125,12 @@ export type Mutation_RootUpdate_Englister_MyNote_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Englister_MyNote_ManyArgs = {
+  updates: Array<Englister_MyNote_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Englister_PhraseArgs = {
   _inc?: InputMaybe<Englister_Phrase_Inc_Input>;
   _set?: InputMaybe<Englister_Phrase_Set_Input>;
@@ -1123,6 +1147,12 @@ export type Mutation_RootUpdate_Englister_Phrase_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Englister_Phrase_ManyArgs = {
+  updates: Array<Englister_Phrase_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Englister_ProfileArgs = {
   _set?: InputMaybe<Englister_Profile_Set_Input>;
   where: Englister_Profile_Bool_Exp;
@@ -1133,6 +1163,12 @@ export type Mutation_RootUpdate_Englister_ProfileArgs = {
 export type Mutation_RootUpdate_Englister_Profile_By_PkArgs = {
   _set?: InputMaybe<Englister_Profile_Set_Input>;
   pk_columns: Englister_Profile_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Englister_Profile_ManyArgs = {
+  updates: Array<Englister_Profile_Updates>;
 };
 
 
@@ -1382,13 +1418,8 @@ export type Subscription_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
 };
 
-export type Timestamptz_Cast_Exp = {
-  String?: InputMaybe<String_Comparison_Exp>;
-};
-
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
-  _cast?: InputMaybe<Timestamptz_Cast_Exp>;
   _eq?: InputMaybe<Scalars['timestamptz']>;
   _gt?: InputMaybe<Scalars['timestamptz']>;
   _gte?: InputMaybe<Scalars['timestamptz']>;
@@ -1399,6 +1430,36 @@ export type Timestamptz_Comparison_Exp = {
   _neq?: InputMaybe<Scalars['timestamptz']>;
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
+
+export type CreateDiaryMutationVariables = Exact<{
+  userInputText: Scalars['String'];
+  protected: Scalars['Boolean'];
+  translatedEnglish: Scalars['String'];
+  translatedJapanese?: InputMaybe<Scalars['String']>;
+  userInputEnglish: Scalars['String'];
+}>;
+
+
+export type CreateDiaryMutation = { __typename?: 'mutation_root', insert_englister_Diary_one?: { __typename?: 'englister_Diary', id: number, protected: boolean, translatedEnglish: string, userInputEnglish: string, userInputText: string, updatedAt: any, createdAt: any, createdBy: string, translatedJapanese?: string | null } | null };
+
+export type ListMyDiaryQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type ListMyDiaryQuery = { __typename?: 'query_root', englister_Diary: Array<{ __typename?: 'englister_Diary', createdAt: any, createdBy: string, id: number, protected: boolean, translatedEnglish: string, translatedJapanese?: string | null, updatedAt: any, userInputEnglish: string, userInputText: string }> };
+
+export type ListDiaryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListDiaryQuery = { __typename?: 'query_root', englister_Diary: Array<{ __typename?: 'englister_Diary', createdAt: any, createdBy: string, id: number, protected: boolean, translatedEnglish: string, translatedJapanese?: string | null, updatedAt: any, userInputEnglish: string, userInputText: string, DiaryLikes: Array<{ __typename?: 'englister_DiaryLike', id: number, createdBy: string }> }> };
+
+export type LikeDiaryMutationVariables = Exact<{
+  diaryId: Scalars['Int'];
+}>;
+
+
+export type LikeDiaryMutation = { __typename?: 'mutation_root', insert_englister_DiaryLike_one?: { __typename?: 'englister_DiaryLike', id: number, diaryId: number, createdBy: string } | null };
 
 export type SaveMyNoteMutationVariables = Exact<{
   english?: InputMaybe<Scalars['String']>;
@@ -1521,6 +1582,177 @@ export type SubmitTodayPublicAnswerMutationVariables = Exact<{
 export type SubmitTodayPublicAnswerMutation = { __typename?: 'mutation_root', insert_englister_PublicAnswers_one?: { __typename?: 'englister_PublicAnswers', id: number, topicId: number, answer: string, createdAt: any, createdBy: string } | null };
 
 
+export const CreateDiaryDocument = gql`
+    mutation CreateDiary($userInputText: String!, $protected: Boolean!, $translatedEnglish: String!, $translatedJapanese: String, $userInputEnglish: String!) {
+  insert_englister_Diary_one(
+    object: {userInputText: $userInputText, protected: $protected, translatedEnglish: $translatedEnglish, translatedJapanese: $translatedJapanese, userInputEnglish: $userInputEnglish}
+  ) {
+    id
+    protected
+    translatedEnglish
+    userInputEnglish
+    userInputText
+    updatedAt
+    createdAt
+    createdBy
+    translatedJapanese
+  }
+}
+    `;
+export type CreateDiaryMutationFn = Apollo.MutationFunction<CreateDiaryMutation, CreateDiaryMutationVariables>;
+
+/**
+ * __useCreateDiaryMutation__
+ *
+ * To run a mutation, you first call `useCreateDiaryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDiaryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDiaryMutation, { data, loading, error }] = useCreateDiaryMutation({
+ *   variables: {
+ *      userInputText: // value for 'userInputText'
+ *      protected: // value for 'protected'
+ *      translatedEnglish: // value for 'translatedEnglish'
+ *      translatedJapanese: // value for 'translatedJapanese'
+ *      userInputEnglish: // value for 'userInputEnglish'
+ *   },
+ * });
+ */
+export function useCreateDiaryMutation(baseOptions?: Apollo.MutationHookOptions<CreateDiaryMutation, CreateDiaryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateDiaryMutation, CreateDiaryMutationVariables>(CreateDiaryDocument, options);
+      }
+export type CreateDiaryMutationHookResult = ReturnType<typeof useCreateDiaryMutation>;
+export type CreateDiaryMutationResult = Apollo.MutationResult<CreateDiaryMutation>;
+export type CreateDiaryMutationOptions = Apollo.BaseMutationOptions<CreateDiaryMutation, CreateDiaryMutationVariables>;
+export const ListMyDiaryDocument = gql`
+    query ListMyDiary($userId: String!) {
+  englister_Diary(order_by: {createdAt: desc}, where: {createdBy: {_eq: $userId}}) {
+    createdAt
+    createdBy
+    id
+    protected
+    translatedEnglish
+    translatedJapanese
+    updatedAt
+    userInputEnglish
+    userInputText
+  }
+}
+    `;
+
+/**
+ * __useListMyDiaryQuery__
+ *
+ * To run a query within a React component, call `useListMyDiaryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListMyDiaryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListMyDiaryQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useListMyDiaryQuery(baseOptions: Apollo.QueryHookOptions<ListMyDiaryQuery, ListMyDiaryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListMyDiaryQuery, ListMyDiaryQueryVariables>(ListMyDiaryDocument, options);
+      }
+export function useListMyDiaryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListMyDiaryQuery, ListMyDiaryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListMyDiaryQuery, ListMyDiaryQueryVariables>(ListMyDiaryDocument, options);
+        }
+export type ListMyDiaryQueryHookResult = ReturnType<typeof useListMyDiaryQuery>;
+export type ListMyDiaryLazyQueryHookResult = ReturnType<typeof useListMyDiaryLazyQuery>;
+export type ListMyDiaryQueryResult = Apollo.QueryResult<ListMyDiaryQuery, ListMyDiaryQueryVariables>;
+export const ListDiaryDocument = gql`
+    query ListDiary {
+  englister_Diary(order_by: {createdAt: desc}, limit: 20) {
+    createdAt
+    createdBy
+    id
+    protected
+    translatedEnglish
+    translatedJapanese
+    updatedAt
+    userInputEnglish
+    userInputText
+    DiaryLikes {
+      id
+      createdBy
+    }
+  }
+}
+    `;
+
+/**
+ * __useListDiaryQuery__
+ *
+ * To run a query within a React component, call `useListDiaryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListDiaryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListDiaryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListDiaryQuery(baseOptions?: Apollo.QueryHookOptions<ListDiaryQuery, ListDiaryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListDiaryQuery, ListDiaryQueryVariables>(ListDiaryDocument, options);
+      }
+export function useListDiaryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListDiaryQuery, ListDiaryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListDiaryQuery, ListDiaryQueryVariables>(ListDiaryDocument, options);
+        }
+export type ListDiaryQueryHookResult = ReturnType<typeof useListDiaryQuery>;
+export type ListDiaryLazyQueryHookResult = ReturnType<typeof useListDiaryLazyQuery>;
+export type ListDiaryQueryResult = Apollo.QueryResult<ListDiaryQuery, ListDiaryQueryVariables>;
+export const LikeDiaryDocument = gql`
+    mutation LikeDiary($diaryId: Int!) {
+  insert_englister_DiaryLike_one(object: {diaryId: $diaryId}) {
+    id
+    diaryId
+    createdBy
+  }
+}
+    `;
+export type LikeDiaryMutationFn = Apollo.MutationFunction<LikeDiaryMutation, LikeDiaryMutationVariables>;
+
+/**
+ * __useLikeDiaryMutation__
+ *
+ * To run a mutation, you first call `useLikeDiaryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeDiaryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeDiaryMutation, { data, loading, error }] = useLikeDiaryMutation({
+ *   variables: {
+ *      diaryId: // value for 'diaryId'
+ *   },
+ * });
+ */
+export function useLikeDiaryMutation(baseOptions?: Apollo.MutationHookOptions<LikeDiaryMutation, LikeDiaryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LikeDiaryMutation, LikeDiaryMutationVariables>(LikeDiaryDocument, options);
+      }
+export type LikeDiaryMutationHookResult = ReturnType<typeof useLikeDiaryMutation>;
+export type LikeDiaryMutationResult = Apollo.MutationResult<LikeDiaryMutation>;
+export type LikeDiaryMutationOptions = Apollo.BaseMutationOptions<LikeDiaryMutation, LikeDiaryMutationVariables>;
 export const SaveMyNoteDocument = gql`
     mutation SaveMyNote($english: String, $japanese: String, $memo: String, $questionTitle: String, $questionDescription: String, $topicId: String, $translation: String, $categorySlug: String) {
   insert_englister_MyNote_one(
