@@ -7,6 +7,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import useUser from "../../../models/util-hooks/useUser"
 import usePlan from "../../../models/util-hooks/usePlan"
 import ErrorIcon from '@mui/icons-material/Error';
+import Seo from "../../../components/common/Seo"
 const TodayResultPage = () => {
     const router = useRouter()
     const [success, setSuccess] = useState(false)
@@ -73,6 +74,10 @@ const TodayResultPage = () => {
 
 
     return <div style={{ padding: 30 }}>
+        <Seo ogpInfo={{
+            title: "NFT会員証 登録ページ",
+            description: "NFT会員証を持っている方はこちらから登録をしてください",
+        }} />
         <div>
             <h1>NFT会員証 登録ページ</h1>
 

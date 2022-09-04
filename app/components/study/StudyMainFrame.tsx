@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
+import { DiaryApi } from '../../api/DiaryApi';
 import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
@@ -178,10 +179,14 @@ export default function StudyMainFrame(props: Props) {
                 return
             }
 
+            if (englishFirst) {
+                const resTranslation = await DiaryApi.translateDiary(english);
+                setJapanese(resTranslation.translatedJapanese)
+                setTranslation(resTranslation.translatedEnglish)
+            }
         }
 
         if (activeStepIndex === 1) {
-            //ここに持っていく(WHY??)
             await endStudy(activeQuestion.topicId)
         }
 
