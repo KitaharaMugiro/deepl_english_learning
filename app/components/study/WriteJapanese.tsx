@@ -8,9 +8,11 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import styles from "./style.module.css";
 import PublicJapaneseList from '../publicAnswers/PublicJapaneseList';
+import WriteJapaneseOrEnglishMessageModal from './WriteJapaneseOrEnglishMessageModal';
 
 interface Props {
     englishFirst?: boolean
+    setEnglishFirst?: (englishFirst: boolean) => void
 }
 
 export default function WriteJapanese(props: Props) {
@@ -22,29 +24,35 @@ export default function WriteJapanese(props: Props) {
     const [activeQuestion] = useAtom(AtomActiveQuestion)
 
     const textFieldPlaceholder = englishFirst ? "上の文章を日本語にしてください" : "日本語で意見を書いてください"
+
+    const onClickModal = (mode: "Japanese" | "English" | undefined) => {
+        start()
+        setDisplayModal(false)
+        if (mode === "Japanese") {
+            props.setEnglishFirst && props.setEnglishFirst(false)
+        } else if (mode === "English") {
+            props.setEnglishFirst && props.setEnglishFirst(true)
+        }
+    }
+
     const firstDescription = () => {
         if (englishFirst) {
             return (
-                <p style={{ fontSize: "18px", color: "black" }}>
-                    1分間で上の文章を<span style={{ fontWeight: 700 }}>日本語</span>で記述してください。<br />
-                    準備ができたらここをクリック
-                </p>
+                <div
+                    onClick={() => onClickModal(undefined)}
+                    style={{ display: displayModal ? "inherit" : "none" }}
+                    className={styles.ready_modal}>
+                    <p style={{ fontSize: "18px", color: "black" }}>
+                        1分間で上の文章を<span style={{ fontWeight: 700 }}>日本語</span>で記述してください。<br />
+                        準備ができたらここをクリック
+                    </p>
+                </div>
             )
         }
-        return (
-            <p style={{ fontSize: "18px", color: "black" }}>
-                1分間であなたの意見を<span style={{ fontWeight: 700 }}>日本語</span>で記述してください。<br />
-                日本語の内容もスコアに反映されます。<br />
-                準備ができたらここをクリック
-            </p>
-        )
+        return <WriteJapaneseOrEnglishMessageModal onClickModal={onClickModal} />
+
     }
 
-
-    const onClickModal = () => {
-        start()
-        setDisplayModal(false)
-    }
 
     const onChangeJapanese = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         event.preventDefault()
@@ -66,11 +74,7 @@ export default function WriteJapanese(props: Props) {
                 </Paper>}
 
             <div className={styles.write_japanese_box}>
-                <div
-                    style={{ display: displayModal ? "inherit" : "none" }}
-                    className={styles.ready_modal} onClick={onClickModal}>
-                    {firstDescription()}
-                </div>
+                {firstDescription()}
 
                 <TextField
                     label={textFieldPlaceholder}

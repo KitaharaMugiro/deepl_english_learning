@@ -22,42 +22,6 @@ import WriteEnglish from './WriteEnglish';
 import WriteJapanese from './WriteJapanese';
 
 
-const japaneseFirstSteps = [
-    {
-        step: "Japanese",
-        stepTitle: "日本語で意見を書く",
-        component: <WriteJapanese />
-    },
-    {
-        step: "English",
-        stepTitle: "英語で意見を書く",
-        component: <WriteEnglish />
-    },
-    {
-        step: "Review",
-        stepTitle: "お手本と比べる",
-        component: <Review />
-    }
-]
-
-const englishFirstSteps = [
-    {
-        step: "English",
-        stepTitle: "英語で意見を書く",
-        component: <WriteEnglish englishFirst={true} />
-    },
-    {
-        step: "Japanese",
-        stepTitle: "日本語で意見を書く",
-        component: <WriteJapanese englishFirst={true} />
-    },
-    {
-        step: "Review",
-        stepTitle: "お手本と比べる",
-        component: <Review />
-    }
-]
-
 interface Props {
     categorySlug?: string
 }
@@ -76,6 +40,43 @@ export default function StudyMainFrame(props: Props) {
     const [___, setAtomAge] = useAtom(AtomAge)
     const { savePrevStudiedCategory } = useStudy()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+
+    const japaneseFirstSteps = [
+        {
+            step: "Japanese",
+            stepTitle: "日本語で意見を書く",
+            component: <WriteJapanese englishFirst={false} setEnglishFirst={(englishFirst) => setEnglishFirst(englishFirst)} />
+        },
+        {
+            step: "English",
+            stepTitle: "英語で意見を書く",
+            component: <WriteEnglish englishFirst={false} />
+        },
+        {
+            step: "Review",
+            stepTitle: "お手本と比べる",
+            component: <Review />
+        }
+    ]
+
+    const englishFirstSteps = [
+        {
+            step: "English",
+            stepTitle: "英語で意見を書く",
+            component: <WriteEnglish englishFirst={true} />
+        },
+        {
+            step: "Japanese",
+            stepTitle: "日本語で意見を書く",
+            component: <WriteJapanese englishFirst={true} />
+        },
+        {
+            step: "Review",
+            stepTitle: "お手本と比べる",
+            component: <Review />
+        }
+    ]
+
 
     const steps = englishFirst ? englishFirstSteps : japaneseFirstSteps
     const activeStep = steps[activeStepIndex]
@@ -270,21 +271,12 @@ export default function StudyMainFrame(props: Props) {
                 marginRight: "auto",
                 marginLeft: "auto"
             }}>
-                <FormControlLabel
-                    style={{
-                        marginTop: "30px",
-                    }}
-                    checked={englishFirst}
-                    onChange={() => setEnglishFirst(!englishFirst)}
-                    control={
-                        <Switch />
-                    } label={<b
-                        onClick={() => setEnglishFirst(!englishFirst)}>英→日で書く</b>} />
                 <Paper style={{
                     padding: "20px",
                     maxWidth: "600px",
                     marginRight: "auto",
-                    marginLeft: "auto"
+                    marginLeft: "auto",
+                    marginTop: "30px",
                 }}>
                     {/* タイトル(ご希望あれば) */}
                     <Typography component="h1" variant="h4" align="center" style={{ marginBottom: 10 }}>
