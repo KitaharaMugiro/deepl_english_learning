@@ -196,6 +196,14 @@ export default function StudyMainFrame(props: Props) {
     };
 
     const handleBack = () => {
+        if (activeStepIndex === 0) {
+            setEnglishFirst(false)
+            setActiveStepIndex(0)
+            if (englishFirst === false) {
+                window.location.reload()
+            }
+            return
+        }
         setEnglish("")
         setActiveStepIndex(activeStepIndex - 1);
     };
@@ -233,6 +241,12 @@ export default function StudyMainFrame(props: Props) {
                     }}>
                         英語入力に戻る
                     </Button>}
+                    {!englishFirst && <Button onClick={handleBack} style={{
+                        marginTop: "30px",
+                        marginLeft: "10px",
+                    }}>
+                        選択画面に戻る
+                    </Button>}
                     {NextButton("次へ進む", japanese.length === 0)}
                 </>
             )
@@ -244,6 +258,12 @@ export default function StudyMainFrame(props: Props) {
                         marginLeft: "10px",
                     }}>
                         日本語入力に戻る
+                    </Button>}
+                    {englishFirst && <Button onClick={handleBack} style={{
+                        marginTop: "30px",
+                        marginLeft: "10px",
+                    }}>
+                        選択画面に戻る
                     </Button>}
                     {NextButton("次へ進む", english.length === 0)}
                 </>

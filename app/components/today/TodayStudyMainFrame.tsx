@@ -215,6 +215,9 @@ export default function TodayStudyMainFrame(props: Props) {
     };
 
     const handleBack = () => {
+        if (activeStepIndex == 1) {
+            setEnglishFirst(false)
+        }
         setActiveStepIndex(activeStepIndex - 1);
     };
 
