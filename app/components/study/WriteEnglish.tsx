@@ -7,9 +7,10 @@ import TextField from '@mui/material/TextField';
 import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 import { useSpeechRecognition } from 'react-speech-recognition';
-import { AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
+import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import usePhrase from '../../models/util-hooks/usePhrase';
 import DiaryQuestionText from '../diary/DiaryQuestionText';
+import PublicJapaneseList from '../publicAnswers/PublicJapaneseList';
 import SpeechRecognitionView from '../speech/SpeechRecognitionView';
 import useTimer from '../timer/useTimer';
 import PickModeInput from './PickModeInput';
@@ -29,6 +30,7 @@ export default (props: Props) => {
     const [english, setEnglish] = useAtom(AtomEnglish)
     const [japanese] = useAtom(AtomJapanse)
     const [translation] = useAtom(AtomTranslation)
+    const [activeQuestion] = useAtom(AtomActiveQuestion)
     const { browserSupportsSpeechRecognition } = useSpeechRecognition();
     const displayRecordButton = browserSupportsSpeechRecognition;
 
@@ -201,7 +203,7 @@ export default (props: Props) => {
                         残り {view}
                     </span><IconButton size="small" onClick={onClickTimeGetAway}><RemoveCircleIcon /></IconButton> </div>
                     : <IconButton size="small" onClick={onClickTimeGetAway}><AddCircleIcon /></IconButton>}
-                <Button onClick={openPhraseList}>フレーズリストを開く</Button>
+                <PublicJapaneseList topicId={Number(activeQuestion.topicId)} clickable={false} />
             </div>
         </React.Fragment >
     );

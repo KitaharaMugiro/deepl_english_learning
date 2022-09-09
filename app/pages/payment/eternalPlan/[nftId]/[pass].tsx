@@ -1,13 +1,13 @@
-import { Button } from "@mui/material"
+import { Button, Link } from "@mui/material"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { SubscriptionApi } from "../../../api/SubscriptionApi"
+import { SubscriptionApi } from "../../../../api/SubscriptionApi"
 import DoneIcon from '@mui/icons-material/Done';
-import useUser from "../../../models/util-hooks/useUser"
-import usePlan from "../../../models/util-hooks/usePlan"
+import useUser from "../../../../models/util-hooks/useUser"
+import usePlan from "../../../../models/util-hooks/usePlan"
 import ErrorIcon from '@mui/icons-material/Error';
-import Seo from "../../../components/common/Seo"
+import Seo from "../../../../components/common/Seo"
 const TodayResultPage = () => {
     const router = useRouter()
     const [success, setSuccess] = useState(false)
@@ -15,17 +15,22 @@ const TodayResultPage = () => {
     const [error, setError] = useState(false)
     const { user } = useUser()
     const { isPremium } = usePlan()
+    const nftId = router.query.nftId as string
+    const gatewayLink = `https://${nftId}.nftgateway.space`
 
     const checkPoint = [
         {
-            title: "NFT Gatewayからアクセスしてください",
+            id: 1,
+            title: <><Link href={gatewayLink}>NFT Gateway</Link>からアクセスしてください</>,
             checked: pass !== ""
         },
         {
+            id: 2,
             title: "Englisterにログインをしてください",
             checked: user != undefined,
         },
         {
+            id: 3,
             title: "Englisterの定期プランを先に解約をしてください",
             checked: !isPremium,
         },
@@ -34,10 +39,11 @@ const TodayResultPage = () => {
 
     useEffect(() => {
         const pass = router.query.pass
+        const nftId = router.query.nftId
         if (pass && pass != "pass") {
             setPass(pass as string)
             router.replace(
-                { pathname: "/payment/eternalPlan/pass" },
+                { pathname: `/payment/eternalPlan/${nftId}/pass` },
                 undefined,
                 { shallow: true }
             );
@@ -57,7 +63,7 @@ const TodayResultPage = () => {
 
     const renderCheck = () => {
         return checkPoint.map(c => {
-            return <div key={c.title} style={{ display: "flex", alignItems: "center", margin: 10 }}>
+            return <div key={c.id} style={{ display: "flex", alignItems: "center", margin: 10 }}>
                 {c.checked ?
                     <DoneIcon color="primary" /> :
                     <ErrorIcon color="error" />}
@@ -89,7 +95,7 @@ const TodayResultPage = () => {
             <h4>注意事項</h4>
             <p>・上記チェックが全てOKの場合にプランに入ることができます</p>
             <p>・NFTを譲渡するとプランは失われます</p>
-            <p>・このページを更新するとプランには入れなくなるため、NFT Gatewayから再入室してください。</p>
+            <p>・このページを更新するとプランには入れなくなるため、<Link href={gatewayLink}>NFT Gateway</Link>から再入室してください。</p>
 
             <Button disabled={!checked} disableElevation variant="contained" size="large" onClick={registerEternalPlan}>
                 プランに入る

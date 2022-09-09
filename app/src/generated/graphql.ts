@@ -106,6 +106,14 @@ export type UploadPdfOutput = {
   slideId: Scalars['Int'];
 };
 
+/** ordering argument of a cursor */
+export enum Cursor_Ordering {
+  /** ascending ordering of the cursor */
+  Asc = 'ASC',
+  /** descending ordering of the cursor */
+  Desc = 'DESC'
+}
+
 /** columns and relationships of "englister.Diary" */
 export type Englister_Diary = {
   __typename?: 'englister_Diary';
@@ -256,6 +264,21 @@ export type Englister_DiaryLike_Stddev_Samp_Order_By = {
   id?: InputMaybe<Order_By>;
 };
 
+/** Streaming cursor of the table "englister_DiaryLike" */
+export type Englister_DiaryLike_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_DiaryLike_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_DiaryLike_Stream_Cursor_Value_Input = {
+  createdBy?: InputMaybe<Scalars['String']>;
+  diaryId?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 /** order by sum() on columns of table "englister.DiaryLike" */
 export type Englister_DiaryLike_Sum_Order_By = {
   diaryId?: InputMaybe<Order_By>;
@@ -370,6 +393,27 @@ export enum Englister_Diary_Select_Column {
   /** column name */
   UserInputText = 'userInputText'
 }
+
+/** Streaming cursor of the table "englister_Diary" */
+export type Englister_Diary_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_Diary_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_Diary_Stream_Cursor_Value_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  createdBy?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  protected?: InputMaybe<Scalars['Boolean']>;
+  translatedEnglish?: InputMaybe<Scalars['String']>;
+  translatedJapanese?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
+  userInputEnglish?: InputMaybe<Scalars['String']>;
+  userInputText?: InputMaybe<Scalars['String']>;
+};
 
 /** placeholder for update columns of table "englister.Diary" (current role has no relevant permissions) */
 export enum Englister_Diary_Update_Column {
@@ -506,6 +550,30 @@ export enum Englister_MyNote_Select_Column {
 
 /** input type for updating data in table "englister.MyNote" */
 export type Englister_MyNote_Set_Input = {
+  categorySlug?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  createdBy?: InputMaybe<Scalars['String']>;
+  english?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  japanese?: InputMaybe<Scalars['String']>;
+  memo?: InputMaybe<Scalars['String']>;
+  questionDescription?: InputMaybe<Scalars['String']>;
+  questionTitle?: InputMaybe<Scalars['String']>;
+  topicId?: InputMaybe<Scalars['String']>;
+  translation?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** Streaming cursor of the table "englister_MyNote" */
+export type Englister_MyNote_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_MyNote_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_MyNote_Stream_Cursor_Value_Input = {
   categorySlug?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
   createdBy?: InputMaybe<Scalars['String']>;
@@ -664,6 +732,25 @@ export type Englister_Phrase_Set_Input = {
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
+/** Streaming cursor of the table "englister_Phrase" */
+export type Englister_Phrase_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_Phrase_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_Phrase_Stream_Cursor_Value_Input = {
+  createdBy?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  phrase?: InputMaybe<Scalars['String']>;
+  remembered?: InputMaybe<Scalars['Boolean']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
 /** update columns of table "englister.Phrase" */
 export enum Englister_Phrase_Update_Column {
   /** column name */
@@ -760,6 +847,21 @@ export enum Englister_Profile_Select_Column {
 
 /** input type for updating data in table "englister.Profile" */
 export type Englister_Profile_Set_Input = {
+  imgUrl?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "englister_Profile" */
+export type Englister_Profile_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_Profile_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_Profile_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['String']>;
   imgUrl?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
 };
@@ -882,6 +984,28 @@ export enum Englister_PublicAnswers_Select_Column {
   /** column name */
   Translation = 'translation'
 }
+
+/** Streaming cursor of the table "englister_PublicAnswers" */
+export type Englister_PublicAnswers_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Englister_PublicAnswers_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Englister_PublicAnswers_Stream_Cursor_Value_Input = {
+  age?: InputMaybe<Scalars['Int']>;
+  answer?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  createdBy?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  japanese?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  todayTopicId?: InputMaybe<Scalars['String']>;
+  topicId?: InputMaybe<Scalars['Int']>;
+  translation?: InputMaybe<Scalars['String']>;
+};
 
 /** placeholder for update columns of table "englister.PublicAnswers" (current role has no relevant permissions) */
 export enum Englister_PublicAnswers_Update_Column {
@@ -1314,24 +1438,36 @@ export type Subscription_Root = {
   englister_DiaryLike: Array<Englister_DiaryLike>;
   /** fetch data from the table: "englister.DiaryLike" using primary key columns */
   englister_DiaryLike_by_pk?: Maybe<Englister_DiaryLike>;
+  /** fetch data from the table in a streaming manner : "englister.DiaryLike" */
+  englister_DiaryLike_stream: Array<Englister_DiaryLike>;
   /** fetch data from the table: "englister.Diary" using primary key columns */
   englister_Diary_by_pk?: Maybe<Englister_Diary>;
+  /** fetch data from the table in a streaming manner : "englister.Diary" */
+  englister_Diary_stream: Array<Englister_Diary>;
   /** fetch data from the table: "englister.MyNote" */
   englister_MyNote: Array<Englister_MyNote>;
   /** fetch data from the table: "englister.MyNote" using primary key columns */
   englister_MyNote_by_pk?: Maybe<Englister_MyNote>;
+  /** fetch data from the table in a streaming manner : "englister.MyNote" */
+  englister_MyNote_stream: Array<Englister_MyNote>;
   /** fetch data from the table: "englister.Phrase" */
   englister_Phrase: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Phrase" using primary key columns */
   englister_Phrase_by_pk?: Maybe<Englister_Phrase>;
+  /** fetch data from the table in a streaming manner : "englister.Phrase" */
+  englister_Phrase_stream: Array<Englister_Phrase>;
   /** fetch data from the table: "englister.Profile" */
   englister_Profile: Array<Englister_Profile>;
   /** fetch data from the table: "englister.Profile" using primary key columns */
   englister_Profile_by_pk?: Maybe<Englister_Profile>;
+  /** fetch data from the table in a streaming manner : "englister.Profile" */
+  englister_Profile_stream: Array<Englister_Profile>;
   /** fetch data from the table: "englister.PublicAnswers" */
   englister_PublicAnswers: Array<Englister_PublicAnswers>;
   /** fetch data from the table: "englister.PublicAnswers" using primary key columns */
   englister_PublicAnswers_by_pk?: Maybe<Englister_PublicAnswers>;
+  /** fetch data from the table in a streaming manner : "englister.PublicAnswers" */
+  englister_PublicAnswers_stream: Array<Englister_PublicAnswers>;
 };
 
 
@@ -1358,8 +1494,22 @@ export type Subscription_RootEnglister_DiaryLike_By_PkArgs = {
 };
 
 
+export type Subscription_RootEnglister_DiaryLike_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_DiaryLike_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_DiaryLike_Bool_Exp>;
+};
+
+
 export type Subscription_RootEnglister_Diary_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_Diary_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_Diary_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_Diary_Bool_Exp>;
 };
 
 
@@ -1377,6 +1527,13 @@ export type Subscription_RootEnglister_MyNote_By_PkArgs = {
 };
 
 
+export type Subscription_RootEnglister_MyNote_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_MyNote_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_MyNote_Bool_Exp>;
+};
+
+
 export type Subscription_RootEnglister_PhraseArgs = {
   distinct_on?: InputMaybe<Array<Englister_Phrase_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1388,6 +1545,13 @@ export type Subscription_RootEnglister_PhraseArgs = {
 
 export type Subscription_RootEnglister_Phrase_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_Phrase_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_Phrase_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_Phrase_Bool_Exp>;
 };
 
 
@@ -1405,6 +1569,13 @@ export type Subscription_RootEnglister_Profile_By_PkArgs = {
 };
 
 
+export type Subscription_RootEnglister_Profile_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_Profile_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_Profile_Bool_Exp>;
+};
+
+
 export type Subscription_RootEnglister_PublicAnswersArgs = {
   distinct_on?: InputMaybe<Array<Englister_PublicAnswers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1416,6 +1587,13 @@ export type Subscription_RootEnglister_PublicAnswersArgs = {
 
 export type Subscription_RootEnglister_PublicAnswers_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootEnglister_PublicAnswers_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Englister_PublicAnswers_Stream_Cursor_Input>>;
+  where?: InputMaybe<Englister_PublicAnswers_Bool_Exp>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -2146,7 +2324,7 @@ export const QueryPublciAnswersDocument = gql`
   englister_PublicAnswers(
     where: {topicId: {_eq: $topicId}}
     order_by: {createdAt: desc}
-    limit: 8
+    limit: 10
   ) {
     id
     topicId

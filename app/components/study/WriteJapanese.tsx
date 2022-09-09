@@ -91,7 +91,7 @@ export default function WriteJapanese(props: Props) {
                         残り {view}
                     </span><IconButton size="small" onClick={onClickTimeGetAway}><RemoveCircleIcon /></IconButton> </div>
                     : <IconButton size="small" onClick={onClickTimeGetAway}><AddCircleIcon /></IconButton>}
-                <PublicJapaneseList topicId={Number(activeQuestion.topicId)} />
+                <PublicJapaneseList topicId={Number(activeQuestion.topicId)} clickable={true} />
             </div>
         </React.Fragment >
     );
