@@ -2,7 +2,7 @@ query queryPublciAnswers($topicId: Int!) {
   englister_PublicAnswers(
       where:{topicId:{_eq:$topicId}}, 
       order_by:{createdAt:desc},
-      limit:8) {
+      limit:10) {
     id
     topicId
     answer

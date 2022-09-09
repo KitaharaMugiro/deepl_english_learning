@@ -1,5 +1,4 @@
 import { ApolloQueryResult } from '@apollo/client/core/types';
-import { Alert, FormControlLabel, Snackbar, Switch } from '@mui/material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Step from '@mui/material/Step';

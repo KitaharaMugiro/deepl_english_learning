@@ -10,6 +10,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiSpecialClient } from '../../api/ApiSpecialClient';
+import { DiaryApi } from '../../api/DiaryApi';
 import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
@@ -26,43 +27,6 @@ import PhraseList from '../phrase/PhraseList';
 import WriteEnglish from '../study/WriteEnglish';
 import WriteJapanese from '../study/WriteJapanese';
 import TodayStudyTop from './TodayStudyTop';
-
-
-const japaneseFirstSteps = [
-    {
-        step: 'Your Name',
-        stepTitle: "毎日英作文チャレンジ",
-        component: <TodayStudyTop />
-    },
-    {
-        step: "Japanese",
-        stepTitle: "日本語で意見を書く",
-        component: <WriteJapanese />
-    },
-    {
-        step: "English",
-        stepTitle: "英語にする",
-        component: <WriteEnglish />
-    }
-]
-
-const englishFirstSteps = [
-    {
-        step: "Your Name",
-        stepTitle: "毎日英作文チャレンジ",
-        component: <TodayStudyTop />
-    },
-    {
-        step: "English",
-        stepTitle: "英語で意見を書く",
-        component: <WriteEnglish englishFirst={true} />
-    },
-    {
-        step: "Japanese",
-        stepTitle: "日本語にする",
-        component: <WriteJapanese englishFirst={true} />
-    }
-]
 
 
 interface Props {
@@ -83,6 +47,45 @@ export default function TodayStudyMainFrame(props: Props) {
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
     const { submitToday } = useEventSubmit()
     const { user } = useUser()
+
+
+    const japaneseFirstSteps = [
+        {
+            step: 'Your Name',
+            stepTitle: "毎日英作文チャレンジ",
+            component: <TodayStudyTop />
+        },
+        {
+            step: "Japanese",
+            stepTitle: "日本語で意見を書く",
+            component: <WriteJapanese englishFirst={false} setEnglishFirst={(englishFirst) => setEnglishFirst(englishFirst)} />
+        },
+        {
+            step: "English",
+            stepTitle: "英語にする",
+            component: <WriteEnglish englishFirst={false} />
+        }
+    ]
+
+    const englishFirstSteps = [
+        {
+            step: "Your Name",
+            stepTitle: "毎日英作文チャレンジ",
+            component: <TodayStudyTop />
+        },
+        {
+            step: "English",
+            stepTitle: "英語で意見を書く",
+            component: <WriteEnglish englishFirst={true} />
+        },
+        {
+            step: "Japanese",
+            stepTitle: "日本語にする",
+            component: <WriteJapanese englishFirst={true} />
+        }
+    ]
+
+
 
     const steps = englishFirst ? englishFirstSteps : japaneseFirstSteps
     const activeStep = steps[activeStepIndex]
@@ -148,6 +151,12 @@ export default function TodayStudyMainFrame(props: Props) {
                 setOpenLoading(false)
                 return
             }
+
+            if (englishFirst) {
+                const resTranslation = await DiaryApi.translateDiary(english);
+                setJapanese(resTranslation.translatedJapanese)
+                setTranslation(resTranslation.translatedEnglish)
+            }
         }
 
         if (activeStepIndex == 2) {
@@ -206,6 +215,9 @@ export default function TodayStudyMainFrame(props: Props) {
     };
 
     const handleBack = () => {
+        if (activeStepIndex == 1) {
+            setEnglishFirst(false)
+        }
         setActiveStepIndex(activeStepIndex - 1);
     };
 
@@ -264,21 +276,12 @@ export default function TodayStudyMainFrame(props: Props) {
                 marginRight: "auto",
                 marginLeft: "auto"
             }}>
-                <FormControlLabel
-                    style={{
-                        marginTop: "30px",
-                    }}
-                    checked={englishFirst}
-                    onChange={() => setEnglishFirst(!englishFirst)}
-                    control={
-                        <Switch />
-                    } label={<b
-                        onClick={() => setEnglishFirst(!englishFirst)}>英→日で書く</b>} />
                 <Paper style={{
                     padding: "20px",
                     maxWidth: "600px",
                     marginRight: "auto",
-                    marginLeft: "auto"
+                    marginLeft: "auto",
+                    marginTop: "30px",
                 }}>
                     {/* タイトル(ご希望あれば) */}
                     <Typography component="h1" variant="h4" align="center" style={{ marginBottom: 30, fontWeight: 800 }}>
