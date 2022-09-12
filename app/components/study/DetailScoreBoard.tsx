@@ -12,7 +12,7 @@ interface Props {
     text: string
     translation: string
     resultId: string
-    fromDiary: boolean
+    fromDiary?: boolean
 }
 
 export default (props: Props) => {
