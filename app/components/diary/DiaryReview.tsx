@@ -1,18 +1,8 @@
-import { Button, Paper, Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useEffect, useState } from 'react';
-import { ApiSpecialClient } from '../../api/ApiSpecialClient';
-import { RecordApi } from '../../api/RecordApi';
-import { StudyApi } from '../../api/StudyApi';
+import React from 'react';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
-import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
 import { Question } from '../../models/type/Question';
-import useLevelUp from '../../models/util-hooks/useLevelUp';
-import DictionarySearchSelector from '../common/DictionarySearchSelector';
-import NoteModal from '../mynote/NoteModal';
-import AddIcon from '@mui/icons-material/Add';
-import useSignin from '../../models/util-hooks/useSignin';
-import useUser from '../../models/util-hooks/useUser';
 import DetailScoreBoard from '../study/DetailScoreBoard';
 import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
 import SuggestWordsList from '../study/SuggestWordsList';
@@ -36,22 +26,6 @@ export default (props: Props) => {
     const translation = props.translation || _translation
     const activeQuestion = props.activeQuestion || _activeQuestion
 
-    const { addExp } = useLevelUp()
-    const [resultId, setResultId] = useState('')
-    const { user } = useUser()
-    const { openSignin } = useSignin()
-
-    const [isOpenNote, setIsOpenNote] = useState(false);
-
-    const openNote = () => {
-        if (!user) {
-            openSignin()
-            return
-        }
-        setIsOpenNote(true);
-    }
-
-
     if (!activeQuestion) {
         return null
     }
@@ -61,9 +35,8 @@ export default (props: Props) => {
             <DetailScoreBoard
                 text={english}
                 translation={translation}
-                resultId={resultId}
                 fromDiary={true}
-            />
+                resultId={''} />
 
             <Typography variant="h6" style={{ fontWeight: 700 }} >
                 {activeQuestion.title}
@@ -100,7 +73,6 @@ export default (props: Props) => {
 
             <div style={{ height: 15 }} />
 
-            {!isOpenNote && <DictionarySearchSelector />}
         </React.Fragment>
     );
 }
