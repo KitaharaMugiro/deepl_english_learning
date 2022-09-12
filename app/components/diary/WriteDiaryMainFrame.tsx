@@ -19,6 +19,7 @@ import { Exact, ListMyDiaryQuery, useCreateDiaryMutation, useListMyDiaryQuery } 
 import Review from '../study/Review';
 import WriteEnglish from '../study/WriteEnglish';
 import WriteJapanese from '../study/WriteJapanese';
+import DiaryReview from './DiaryReview';
 
 
 const japaneseFirstSteps = [
@@ -35,7 +36,7 @@ const japaneseFirstSteps = [
     {
         step: "Review",
         stepTitle: "お手本と比べる",
-        component: <Review fromDiary={true} />
+        component: <DiaryReview />
     }
 ]
 
@@ -48,7 +49,7 @@ const englishFirstSteps = [
     {
         step: "Review",
         stepTitle: "お手本と比べる",
-        component: <Review fromDiary={true} />
+        component: <DiaryReview />
     }
 ]
 

@@ -34,7 +34,7 @@ export default (props: Props) => {
         <TwitterShareButton
             style={{ width: "100%" }}
             title={title}
-            hashtags={["Englister", "英語力診断"]}
+            hashtags={["Englister", "英語力診断", "英語学習"]}
             url={url}
         >
             <Button

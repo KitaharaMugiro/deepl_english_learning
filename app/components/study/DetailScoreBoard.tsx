@@ -12,6 +12,7 @@ interface Props {
     text: string
     translation: string
     resultId: string
+    fromDiary: boolean
 }
 
 export default (props: Props) => {
@@ -55,9 +56,9 @@ export default (props: Props) => {
                 <Typography variant="h5">英語年齢: {age} </Typography>
                 <div style={{ width: 10 }}></div>
                 <TwitterShareButton
-                    title={`Englisterで勉強したよ。\n回答はこちら↓`}
-                    hashtags={["Englister", "英語年齢"]}
-                    url={`https://englister.yunomy.com/q/result/${props.resultId}`}
+                    title={`Englisterで勉強したよ。${props.fromDiary ? '英語日記を書いてみませんか↓' : '\n回答はこちら↓'}`}
+                    hashtags={props.fromDiary ? ["Englister", "英語学習", "英語日記"] : ["Englister", "英語年齢", "英語学習"]}
+                    url={props.fromDiary ? 'https://englister.yunomy.com/diary' : `https://englister.yunomy.com/q/result/${props.resultId}`}
                 ><TwitterIcon size={30} round={false} /></TwitterShareButton>
             </div>
         </div>

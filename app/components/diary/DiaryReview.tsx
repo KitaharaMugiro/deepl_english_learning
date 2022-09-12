@@ -10,18 +10,19 @@ import { Question } from '../../models/type/Question';
 import useLevelUp from '../../models/util-hooks/useLevelUp';
 import DictionarySearchSelector from '../common/DictionarySearchSelector';
 import NoteModal from '../mynote/NoteModal';
-import DetailScoreBoard from './DetailScoreBoard';
-import SuggestWordsList from './SuggestWordsList';
-import YourEnglishAndTranslationView from './YourEnglishAndTranslationView';
 import AddIcon from '@mui/icons-material/Add';
 import useSignin from '../../models/util-hooks/useSignin';
 import useUser from '../../models/util-hooks/useUser';
+import DetailScoreBoard from '../study/DetailScoreBoard';
+import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
+import SuggestWordsList from '../study/SuggestWordsList';
 interface Props {
     english?: string
     japanese?: string
     translation?: string
     activeQuestion?: Question
     fromResultPage?: boolean
+    fromDiary?: boolean
 }
 
 export default (props: Props) => {
@@ -39,36 +40,6 @@ export default (props: Props) => {
     const [resultId, setResultId] = useState('')
     const { user } = useUser()
     const { openSignin } = useSignin()
-
-    useEffect(() => {
-        //スコアや年齢を取得する
-        const client = new ApiSpecialClient()
-        client.englishScore(english, translation).then(res => {
-            const _score = Math.round(res.scoreRaw)
-            const _age = res.age
-
-            //結果を送信(結果ページから飛んできている場合は送信しない)
-            if (!props.fromResultPage) {
-                StudyApi.sendResult(
-                    _score,
-                    activeQuestion.topicId,
-                    english,
-                    translation,
-                    japanese,
-                    _age
-                ).then(res => {
-                    setResultId(res.resultId)
-                })
-
-                //初回のスコアを送信する
-                RecordApi.submitScore(_score, _age)
-                RecordApi.submitDashboard(_score, english, translation, activeQuestion.topicId, japanese, _age)
-
-                //経験値を加算する
-                addExp(_age, LocalStorageHelper.getStudySessionId() || activeQuestion.topicId)
-            }
-        })
-    }, [])
 
     const [isOpenNote, setIsOpenNote] = useState(false);
 
@@ -91,6 +62,7 @@ export default (props: Props) => {
                 text={english}
                 translation={translation}
                 resultId={resultId}
+                fromDiary={true}
             />
 
             <Typography variant="h6" style={{ fontWeight: 700 }} >
@@ -104,7 +76,7 @@ export default (props: Props) => {
             <Typography
                 variant="subtitle2"
                 style={{ marginBottom: 0, marginTop: 10 }}>
-                日本語で書いた意見
+                英語から自動生成された日本語
             </Typography>
             <Paper elevation={0} style={{ backgroundColor: "#eeeeee", padding: "20px" }}>
                 {japanese}
@@ -113,33 +85,14 @@ export default (props: Props) => {
             <Typography
                 variant="subtitle2"
                 style={{ marginBottom: 0, marginTop: 10 }}>
-                英語で書いた意見
+                お手本の英語と比較
             </Typography>
 
             <YourEnglishAndTranslationView
                 english={english}
                 translation={translation}
+                fromDiary={true}
             />
-
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Button variant="contained"
-                    disableElevation={true}
-                    startIcon={<AddIcon />}
-                    onClick={openNote}>
-                    マイノートに登録する
-                </Button>
-            </div>
-            <NoteModal
-                open={isOpenNote}
-                onClose={() => setIsOpenNote(false)}
-                question={activeQuestion}
-                japanese={japanese || ""}
-                english={english || ""}
-                translation={translation || ""}
-            />
-
-            <div style={{ height: 25 }} />
-
 
             <SuggestWordsList
                 english={english}
