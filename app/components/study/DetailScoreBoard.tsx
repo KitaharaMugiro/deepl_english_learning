@@ -57,7 +57,7 @@ export default (props: Props) => {
                 <div style={{ width: 10 }}></div>
                 <TwitterShareButton
                     title={`Englisterで勉強したよ。${props.fromDiary ? '英語日記を書いてみませんか↓' : '\n回答はこちら↓'}`}
-                    hashtags={props.fromDiary ? ["Englister", "英語学習", "英語日記"] : ["Englister", "英語年齢", "英語学習"]}
+                    hashtags={["Englister", "英語学習", "英語日記"]}
                     url={props.fromDiary ? 'https://englister.yunomy.com/diary' : `https://englister.yunomy.com/q/result/${props.resultId}`}
                 ><TwitterIcon size={30} round={false} /></TwitterShareButton>
             </div>

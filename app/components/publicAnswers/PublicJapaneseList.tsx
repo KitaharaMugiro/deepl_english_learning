@@ -8,6 +8,7 @@ import TappablePublicAnswerCard from "./TappablePublicAnswerCard";
 
 interface Props {
     topicId: number
+    clickable?: boolean
 }
 
 export default (props: Props) => {
@@ -18,6 +19,7 @@ export default (props: Props) => {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
     const { openPhraseList } = usePhrase()
+    const clickable = props.clickable || false
 
     const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
         setOpen(true);
@@ -29,12 +31,14 @@ export default (props: Props) => {
     };
 
     const onClickCard = (text: string) => {
+        if (!clickable) return
         setJapanese(text);
         setOpen(false);
     }
 
     const renderCards = () => {
-        return data?.englister_PublicAnswers.map(d => {
+        const publicAnswers = data?.englister_PublicAnswers || []
+        return publicAnswers.map(d => {
             return <TappablePublicAnswerCard
                 key={d.id}
                 answer={d.japanese || ""}
@@ -60,7 +64,7 @@ export default (props: Props) => {
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
         >
-            <DialogTitle id="scroll-dialog-title">他の人の意見(クリックでコピー)</DialogTitle>
+            <DialogTitle id="scroll-dialog-title">他の人の意見 {clickable ? "(クリックでコピー)" : ""}</DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
                 {renderCards()}
             </DialogContent>

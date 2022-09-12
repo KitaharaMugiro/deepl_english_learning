@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
+import { DiaryApi } from '../../api/DiaryApi';
 import { StudyApi } from '../../api/StudyApi';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
@@ -20,42 +21,6 @@ import Review from './Review';
 import WriteEnglish from './WriteEnglish';
 import WriteJapanese from './WriteJapanese';
 
-
-const japaneseFirstSteps = [
-    {
-        step: "Japanese",
-        stepTitle: "日本語で意見を書く",
-        component: <WriteJapanese />
-    },
-    {
-        step: "English",
-        stepTitle: "英語で意見を書く",
-        component: <WriteEnglish />
-    },
-    {
-        step: "Review",
-        stepTitle: "お手本と比べる",
-        component: <Review />
-    }
-]
-
-const englishFirstSteps = [
-    {
-        step: "English",
-        stepTitle: "英語で意見を書く",
-        component: <WriteEnglish englishFirst={true} />
-    },
-    {
-        step: "Japanese",
-        stepTitle: "日本語で意見を書く",
-        component: <WriteJapanese englishFirst={true} />
-    },
-    {
-        step: "Review",
-        stepTitle: "お手本と比べる",
-        component: <Review />
-    }
-]
 
 interface Props {
     categorySlug?: string
@@ -75,6 +40,43 @@ export default function StudyMainFrame(props: Props) {
     const [___, setAtomAge] = useAtom(AtomAge)
     const { savePrevStudiedCategory } = useStudy()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
+
+    const japaneseFirstSteps = [
+        {
+            step: "Japanese",
+            stepTitle: "日本語で意見を書く",
+            component: <WriteJapanese englishFirst={false} setEnglishFirst={(englishFirst) => setEnglishFirst(englishFirst)} />
+        },
+        {
+            step: "English",
+            stepTitle: "英語で意見を書く",
+            component: <WriteEnglish englishFirst={false} />
+        },
+        {
+            step: "Review",
+            stepTitle: "お手本と比べる",
+            component: <Review />
+        }
+    ]
+
+    const englishFirstSteps = [
+        {
+            step: "English",
+            stepTitle: "英語で意見を書く",
+            component: <WriteEnglish englishFirst={true} />
+        },
+        {
+            step: "Japanese",
+            stepTitle: "日本語で意見を書く",
+            component: <WriteJapanese englishFirst={true} />
+        },
+        {
+            step: "Review",
+            stepTitle: "お手本と比べる",
+            component: <Review />
+        }
+    ]
+
 
     const steps = englishFirst ? englishFirstSteps : japaneseFirstSteps
     const activeStep = steps[activeStepIndex]
@@ -178,10 +180,14 @@ export default function StudyMainFrame(props: Props) {
                 return
             }
 
+            if (englishFirst) {
+                const resTranslation = await DiaryApi.translateDiary(english);
+                setJapanese(resTranslation.translatedJapanese)
+                setTranslation(resTranslation.translatedEnglish)
+            }
         }
 
         if (activeStepIndex === 1) {
-            //ここに持っていく(WHY??)
             await endStudy(activeQuestion.topicId)
         }
 
@@ -190,6 +196,14 @@ export default function StudyMainFrame(props: Props) {
     };
 
     const handleBack = () => {
+        if (activeStepIndex === 0) {
+            setEnglishFirst(false)
+            setActiveStepIndex(0)
+            if (englishFirst === false) {
+                window.location.reload()
+            }
+            return
+        }
         setEnglish("")
         setActiveStepIndex(activeStepIndex - 1);
     };
@@ -227,6 +241,12 @@ export default function StudyMainFrame(props: Props) {
                     }}>
                         英語入力に戻る
                     </Button>}
+                    {!englishFirst && <Button onClick={handleBack} style={{
+                        marginTop: "30px",
+                        marginLeft: "10px",
+                    }}>
+                        選択画面に戻る
+                    </Button>}
                     {NextButton("次へ進む", japanese.length === 0)}
                 </>
             )
@@ -238,6 +258,12 @@ export default function StudyMainFrame(props: Props) {
                         marginLeft: "10px",
                     }}>
                         日本語入力に戻る
+                    </Button>}
+                    {englishFirst && <Button onClick={handleBack} style={{
+                        marginTop: "30px",
+                        marginLeft: "10px",
+                    }}>
+                        選択画面に戻る
                     </Button>}
                     {NextButton("次へ進む", english.length === 0)}
                 </>
@@ -265,21 +291,12 @@ export default function StudyMainFrame(props: Props) {
                 marginRight: "auto",
                 marginLeft: "auto"
             }}>
-                <FormControlLabel
-                    style={{
-                        marginTop: "30px",
-                    }}
-                    checked={englishFirst}
-                    onChange={() => setEnglishFirst(!englishFirst)}
-                    control={
-                        <Switch />
-                    } label={<b
-                        onClick={() => setEnglishFirst(!englishFirst)}>英→日で書く</b>} />
                 <Paper style={{
                     padding: "20px",
                     maxWidth: "600px",
                     marginRight: "auto",
-                    marginLeft: "auto"
+                    marginLeft: "auto",
+                    marginTop: "30px",
                 }}>
                     {/* タイトル(ご希望あれば) */}
                     <Typography component="h1" variant="h4" align="center" style={{ marginBottom: 10 }}>
