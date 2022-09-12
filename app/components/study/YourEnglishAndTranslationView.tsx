@@ -9,11 +9,12 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 interface Props {
     english: string
     translation: string
+    fromDiary: boolean
 }
 
 export default (props: Props) => {
     const [hideOtehon, setHideOtehon] = useState(false)
-    const [visibleDiff, setVisibleDiff] = useState(false)
+    const [visibleDiff, setVisibleDiff] = useState(props.fromDiary)
 
     const changeView = () => {
         setVisibleDiff(!visibleDiff)
