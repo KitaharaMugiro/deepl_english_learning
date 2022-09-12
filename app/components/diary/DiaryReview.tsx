@@ -6,6 +6,7 @@ import { Question } from '../../models/type/Question';
 import DetailScoreBoard from '../study/DetailScoreBoard';
 import YourEnglishAndTranslationView from '../study/YourEnglishAndTranslationView';
 import SuggestWordsList from '../study/SuggestWordsList';
+import DictionarySearchSelector from '../common/DictionarySearchSelector';
 interface Props {
     english?: string
     japanese?: string
@@ -72,6 +73,7 @@ export default (props: Props) => {
                 translation={translation} />
 
             <div style={{ height: 15 }} />
+            <DictionarySearchSelector />
 
         </React.Fragment>
     );
