@@ -4,6 +4,7 @@
 .serverless_nextjs
 node_modules
 package-lock.json
+next.config.js
 
 secrets.json
 memo.md
