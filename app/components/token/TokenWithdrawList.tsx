@@ -21,6 +21,7 @@ export default () => {
                     token={request.token}
                     tokenRate={request.tokenRate}
                     price={request.price}
+                    address={request.address}
                     createdAt={request.createdAt}
                     status={request.status}
                     amazonGiftCode={request.amazonGiftCode}

@@ -1,7 +1,6 @@
 import { Button, Card, Grid, Link, TextField, Tooltip, Typography } from "@mui/material"
 import useToken from "../../models/util-hooks/useToken"
 import DiamondIcon from '@mui/icons-material/Diamond';
-import { WindowSharp } from "@mui/icons-material";
 import TokenWithdrawList from "../../components/token/TokenWithdrawList";
 import { TokenApi } from "../../api/TokenApi";
 import Seo from "../../components/common/Seo";
@@ -10,7 +9,7 @@ import { isAddress } from "ethers/lib/utils";
 
 export default () => {
     const MINIMUM_WITHDRAW_AMOUNT = 300
-    const { token, tokenRateYen, tokenRateMatic, createdAt } = useToken()
+    const { token, tokenRateJpy, tokenRateMatic, createdAt } = useToken()
     const createdAtString = new Date(createdAt).toLocaleString()
     const disabled = (token) < MINIMUM_WITHDRAW_AMOUNT
     const [openDetail, setOpenDetail] = useState(false)
@@ -22,7 +21,7 @@ export default () => {
 
     const onClickConfirmWithdraw = () => {
         if (window.confirm("出金申請をしてもよろしいですか？")) {
-            TokenApi.requestWithdraw().then(() => {
+            TokenApi.requestWithdraw(address).then(() => {
                 window.location.reload()
             })
         }
@@ -81,7 +80,7 @@ export default () => {
                         受取可能な合計残高(暫定値)
                     </Typography>
                     <Typography variant="h5">
-                        ¥ {Math.floor(token * tokenRateYen)}
+                        ¥ {Math.floor(token * tokenRateJpy)}
                     </Typography>
                     <div style={{ height: 20 }}></div>
 
@@ -114,7 +113,7 @@ export default () => {
                         トークン価値 ({createdAtString}更新)
                     </Typography>
                     <Typography variant="h5">
-                        ¥{tokenRateYen} / 1トークン
+                        ¥{tokenRateJpy} / 1トークン
                     </Typography>
 
                     <div style={{ height: 20 }}></div>

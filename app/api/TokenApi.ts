@@ -7,6 +7,7 @@ export type WithdrawRequest = {
     token: number
     tokenRate: number
     price: number
+    address: string
     userId: string
     createdAt: number
     status: string
@@ -23,7 +24,7 @@ export class TokenApi {
                 userId: LocalStorageHelper.getUserId()
             }
         )
-        return res.data as { token: number, tokenRate: number, createdAt: number }
+        return res.data as { token: number, tokenRateJpy: number, tokenRateMatic: number, createdAt: number }
     }
 
     static async listWaitingWithdrawRequest() {
@@ -50,29 +51,29 @@ export class TokenApi {
     }
 
 
-    static async requestWithdraw() {
+    static async requestWithdraw(address: string) {
         const client = new ApiClient()
         const res = await client.post(
             "token/request",
-            {}
+            { address }
         )
         return res.data as {}
     }
 
-    static async setCode(requestUserId: string, range: string, amazonGiftCode: string, price: number) {
+    static async setCode(requestUserId: string, range: string, engToken: number) {
         const client = new ApiClient()
         const res = await client.post(
             "token/set-code",
-            { requestUserId, range, amazonGiftCode, price }
+            { requestUserId, range, engToken }
         )
         return res.data as {}
     }
 
-    static async setTokenRate(tokenRate: number) {
+    static async setTokenRate(tokenRateJpy: number, tokenRateMatic: number) {
         const client = new ApiClient()
         const res = await client.post(
             "token/set-token-rate",
-            { tokenRate }
+            { tokenRateJpy, tokenRateMatic }
         )
         return res.data as {}
     }

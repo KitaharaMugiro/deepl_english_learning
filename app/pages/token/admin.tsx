@@ -4,32 +4,32 @@ import { TokenApi, WithdrawRequest } from "../../api/TokenApi"
 import Seo from "../../components/common/Seo"
 import TokenRequestCard from "../../components/token/TokenRequestCard"
 import TokenRequestCardAdmin from "../../components/token/TokenRequestCardAdmin"
+import useToken from "../../models/util-hooks/useToken"
 import useUser from "../../models/util-hooks/useUser"
 
 export default () => {
     const { user } = useUser()
     const subs = ["45b76d16-ff9e-4190-acf6-240faae444fd"]
 
-    const [tokenRate, setTokenRate] = useState(0)
-    const [createdAt, setCreatedAt] = useState(0)
-    const [inputTokenRate, setInputTokenRate] = useState("0")
+    const { tokenRateJpy, tokenRateMatic, createdAt } = useToken()
+    const [inputTokenRate, setInputTokenRate] = useState<string | undefined>(undefined)
+    const [inputTokenRateMatic, setInputTokenRateMatic] = useState<string | undefined>(undefined)
     const [requests, setRequests] = useState<WithdrawRequest[]>([])
 
     const createdAtString = new Date(createdAt).toLocaleString()
     useEffect(() => {
         TokenApi.listWaitingWithdrawRequest().then(res => {
             const requests = res.requests
-            const tokenRate = res.tokenRate
-            const createdAt = res.createdAt
-            setTokenRate(tokenRate)
             setRequests(requests)
-            setCreatedAt(createdAt)
         })
 
     }, [])
 
     const onSetTokenRate = () => {
-        TokenApi.setTokenRate(Number(inputTokenRate)).then(res => {
+        TokenApi.setTokenRate(
+            Number(inputTokenRate),
+            Number(inputTokenRateMatic),
+        ).then(res => {
             window.location.reload()
         })
     }
@@ -46,8 +46,9 @@ export default () => {
                 <TokenRequestCardAdmin
                     userId={request.userId}
                     token={request.token}
-                    tokenRate={tokenRate}
+                    tokenRate={tokenRateJpy}
                     createdAt={request.createdAt}
+                    address={request.address}
                     status={request.status}
                     amazonGiftCode={request.amazonGiftCode}
                     range={request.range}
@@ -72,10 +73,10 @@ export default () => {
             <Typography variant="body1">
                 トークン価値 ({createdAtString}更新)
             </Typography>
-            <Typography variant="h5">
-                ¥{tokenRate} / 1トークン
-            </Typography>
-            <Input value={inputTokenRate} onChange={(e) => { setInputTokenRate(e.target.value) }}></Input>
+            <Input value={inputTokenRate === undefined ? tokenRateJpy : inputTokenRate} onChange={(e) => { setInputTokenRate(e.target.value) }}></Input> 円 / トークン
+            <br />
+            <Input value={inputTokenRateMatic === undefined ? tokenRateMatic : inputTokenRateMatic} onChange={(e) => { setInputTokenRateMatic(e.target.value) }}></Input> Matic / トークン
+            <br />
             <Button onClick={onSetTokenRate}>トークン価値を更新</Button>
         </Card>
 
