@@ -4,7 +4,7 @@ import DiamondIcon from '@mui/icons-material/Diamond';
 import { Button } from "@mui/material";
 
 export default () => {
-    const { token, tokenRate, createdAt } = useToken()
+    const { token } = useToken()
 
     return <div style={{ textAlign: "center", fontSize: 30 }}>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
