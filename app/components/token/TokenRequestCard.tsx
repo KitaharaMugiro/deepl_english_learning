@@ -6,14 +6,13 @@ interface Props {
     token: number
     tokenRate: number
     price: number
+    address: string
     createdAt: number
     status: string
     amazonGiftCode: string
 }
 
 export default (props: Props) => {
-    const [displayGiftCode, setDisplayGiftCode] = useState(false)
-
     const createdAtString = new Date(props.createdAt).toLocaleString()
     const statusText = props.status === "Waiting" ? "発行待ち" : "発行済み"
     return <Card variant="outlined">
@@ -30,13 +29,9 @@ export default (props: Props) => {
 
             {props.status !== "Waiting" &&
                 <Typography variant="body2">
-                    {props.token} × {props.tokenRate}円 - 手数料 = {props.price}円
+                    {props.price} ENG を {props.address}に送金しました。
                 </Typography>}
 
         </CardContent>
-        <CardActions>
-            {!displayGiftCode && <Button onClick={() => setDisplayGiftCode(true)} size="small" disabled={!props.amazonGiftCode}>ギフトコードを表示する</Button>}
-            {displayGiftCode && <Typography variant="body1">{props.amazonGiftCode}</Typography>}
-        </CardActions>
     </Card>
 }

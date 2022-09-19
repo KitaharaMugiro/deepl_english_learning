@@ -1,21 +1,68 @@
-import { Button, Card, Grid, Link, Tooltip, Typography } from "@mui/material"
+import { Button, Card, Grid, Link, TextField, Tooltip, Typography } from "@mui/material"
 import useToken from "../../models/util-hooks/useToken"
 import DiamondIcon from '@mui/icons-material/Diamond';
-import { WindowSharp } from "@mui/icons-material";
 import TokenWithdrawList from "../../components/token/TokenWithdrawList";
 import { TokenApi } from "../../api/TokenApi";
 import Seo from "../../components/common/Seo";
-export default () => {
-    const { token, tokenRate, createdAt } = useToken()
-    const createdAtString = new Date(createdAt).toLocaleString()
-    const disabled = (token * tokenRate) < 500
+import { useState } from "react";
+import { isAddress } from "ethers/lib/utils";
 
-    const onClickWithdraw = () => {
+export default () => {
+    const MINIMUM_WITHDRAW_AMOUNT = 300
+    const { token, tokenRateJpy, tokenRateMatic, createdAt } = useToken()
+    const createdAtString = new Date(createdAt).toLocaleString()
+    const disabled = (token) < MINIMUM_WITHDRAW_AMOUNT
+    const [openDetail, setOpenDetail] = useState(false)
+    const [address, setAddress] = useState("")
+
+    const onClickWithdrawApplication = () => {
+        setOpenDetail(true)
+    }
+
+    const onClickConfirmWithdraw = () => {
         if (window.confirm("出金申請をしてもよろしいですか？")) {
-            TokenApi.requestWithdraw().then(() => {
+            TokenApi.requestWithdraw(address).then(() => {
                 window.location.reload()
             })
         }
+    }
+
+    const renderWithdrawForm = () => {
+        const matic = 100
+        const commision = 100
+        const engToken = token - matic - commision
+        return <div>
+            <Typography variant="body2">
+                出金先のMetaMaskウォレットアドレスを入力してください。
+            </Typography>
+            <TextField
+                style={{ marginTop: 10, marginBottom: 10 }}
+                fullWidth
+                label="MetaMaskウォレットアドレス"
+                value={address}
+                onChange={e => setAddress(e.target.value)} />
+            <div style={{ height: 5 }}></div>
+            <Typography variant="body2">
+                Polygonネットワークに以下のトークンを送金します。
+            </Typography>
+            <div style={{ marginBottom: 20 }}>
+                ・ <span style={{ fontWeight: "bold", fontSize: 25 }}>{engToken} ENG</span>トークン <br />
+                ・ <span style={{ fontWeight: "bold", fontSize: 25 }}>{matic * tokenRateMatic} MATIC</span>トークン(暫定) <br />
+                <b>{commision + matic}ENG</b>の手数料を引いています <br />
+            </div>
+            <Tooltip title={!isAddress(address) ? "正しいウォレットアドレスを入力してください" : ""} >
+                <span>
+                    <Button
+                        style={{ marginBottom: 20 }}
+                        onClick={onClickConfirmWithdraw}
+                        variant="contained"
+                        disableElevation
+                        disabled={!isAddress(address)}
+                    >出金申請をする</Button>
+                </span>
+
+            </Tooltip>
+        </div>
     }
 
     return <div style={{ padding: 40 }}>
@@ -33,18 +80,28 @@ export default () => {
                         受取可能な合計残高(暫定値)
                     </Typography>
                     <Typography variant="h5">
-                        ¥ {Math.floor(token * tokenRate)}
+                        ¥ {Math.floor(token * tokenRateJpy)}
                     </Typography>
                     <div style={{ height: 20 }}></div>
 
-                    <Tooltip title={disabled ? "¥500以上で出金可能" : ""} >
-                        <span>
-                            <Button style={{ marginBottom: 20 }} onClick={onClickWithdraw} variant="contained" disableElevation disabled={disabled}>出金申請をする</Button>
+                    {!openDetail ?
+                        <Tooltip title={disabled ? `${MINIMUM_WITHDRAW_AMOUNT}トークン以上で出金可能` : ""} >
+                            <span>
+                                <Button
+                                    style={{ marginBottom: 20 }}
+                                    onClick={onClickWithdrawApplication}
+                                    variant="contained"
+                                    disableElevation
+                                    disabled={disabled}>トークンを引き出す</Button>
+                            </span>
+                        </Tooltip> :
+                        renderWithdrawForm()
 
-                        </span>
-                    </Tooltip>
+                    }
+
+
                     <br />
-                    <Link href="https://button-hearing-b81.notion.site/d617e2e723ce45979fe4be62a9dc011d">
+                    <Link target="_blank" href="https://button-hearing-b81.notion.site/Q-A-ver2-89e6815106f740298125bd8ca5b57cbc">
                         出金申請についてのQ&A →
                     </Link>
                 </Card>
@@ -56,7 +113,7 @@ export default () => {
                         トークン価値 ({createdAtString}更新)
                     </Typography>
                     <Typography variant="h5">
-                        ¥{tokenRate} / 1トークン
+                        ¥{tokenRateJpy} / 1トークン
                     </Typography>
 
                     <div style={{ height: 20 }}></div>

@@ -40,6 +40,7 @@
     "backo2": "^1.0.2",
     "date-fns": "^2.28.0",
     "draft-js": "^0.11.7",
+    "ethers": "^5.7.1",
     "highcharts": "^9.3.2",
     "highcharts-react-official": "^3.1.0",
     "howler": "^2.2.3",

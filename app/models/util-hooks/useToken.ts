@@ -4,18 +4,20 @@ import { TokenApi } from "../../api/TokenApi"
 
 export default () => {
     const [token, setToken] = useState(0)
-    const [tokenRate, setTokenRate] = useState(0)
+    const [tokenRateJpy, setTokenRateJpy] = useState(0)
+    const [tokenRateMatic, setTokenRateMatic] = useState(0)
     const [createdAt, setCreatedAt] = useState(0)
     useEffect(() => {
         const getToken = async () => {
             const res = await TokenApi.getToken()
             setToken(res.token)
-            setTokenRate(res.tokenRate)
+            setTokenRateJpy(res.tokenRateJpy)
+            setTokenRateMatic(res.tokenRateMatic)
             setCreatedAt(res.createdAt)
         }
 
         getToken()
     }, [])
 
-    return { token, tokenRate, createdAt }
+    return { token, tokenRateJpy, tokenRateMatic, createdAt }
 }

@@ -7,6 +7,7 @@ interface Props {
     range: string
     token: number
     tokenRate: number
+    address: string
     price?: number
     createdAt: number
     status: string
@@ -14,11 +15,11 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const [code, setCode] = useState("")
-
     const createdAtString = new Date(props.createdAt).toLocaleString()
-    const statusText = props.status === "Waiting" ? "発行待ち" : "発行済み"
-    const calculatedPrice = Math.floor(props.token * props.tokenRate - 200)
+    const COMMISION = 100
+    const MATIC_COMMISION = 100
+    const ENG_TOKEN = props.token - COMMISION - MATIC_COMMISION
+
 
     const handleSubmit = () => {
         if (!props.userId) {
@@ -27,13 +28,10 @@ export default (props: Props) => {
         if (!props.range) {
             throw new Error("range is required")
         }
-        if (!code) {
-            throw new Error("code is required")
+        if (!ENG_TOKEN) {
+            throw new Error("ENG_TOKEN is required")
         }
-        if (!calculatedPrice) {
-            throw new Error("calculatedPrice is required")
-        }
-        TokenApi.setCode(props.userId, props.range, code, calculatedPrice).then(() => {
+        TokenApi.setCode(props.userId, props.range, ENG_TOKEN).then(() => {
             window.location.reload()
         })
     }
@@ -47,18 +45,27 @@ export default (props: Props) => {
                 {createdAtString}
             </Typography>
             <Typography variant="body2">
-                {statusText}
+                ユーザID: (DashBoard#{props.userId})
             </Typography>
-
+            <br />
 
             <Typography variant="body2">
-                {props.token} × {props.tokenRate}円 - 手数料 = {calculatedPrice}円
+                ウォレットアドレス = {props.address}
             </Typography>
+            <Typography variant="body2">
+                ENGトークン = {props.token - 200} ENG
+            </Typography>
+            <Typography variant="body2">
+                MATICトークン = {100} ENG
+            </Typography>
+            <Typography variant="body2">
+                手数料 = {100} ENG
+            </Typography>
+
 
         </CardContent>
         <CardActions>
-            <Input value={code} onChange={(e) => setCode(e.target.value)}></Input>
-            <Button onClick={handleSubmit} size="small" >ギフトコードを登録する</Button>
+            <Button onClick={handleSubmit} size="small" >送付済み</Button>
         </CardActions>
     </Card>
 }
