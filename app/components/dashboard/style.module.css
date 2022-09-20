@@ -1,0 +1,63 @@
+.root {
+    display: 'flex';
+}
+
+.toolbar {
+    padding-right: 24;
+}
+
+.toolbarIcon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 8px
+}
+
+.appBar {
+    z-index: 100;
+}
+
+.menuButton {
+    margin-right: 36;
+}
+
+.menuButtonHidden {
+    display: 'none';
+}
+
+.title {
+    flex-grow: 1;
+}
+
+.drawerPaper {
+    position: relative;
+    white-space: nowrap;
+}
+
+.content {
+    flex-grow: 1;
+    height: '100vh';
+    overflow: 'auto';
+}
+
+.container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.paper {
+    padding: 20px;
+    display: 'flex';
+    overflow: 'auto';
+    flex-direction: 'column';
+    margin-bottom: 20px;
+}
+
+.fixedHeight {
+    height: 240;
+    max-width: 700px;
+}
+
+.appBarSpacer {
+    height: 40px;
+}

@@ -6,11 +6,11 @@ import { TokenApi } from "../../api/TokenApi";
 import Seo from "../../components/common/Seo";
 import { useState } from "react";
 import { isAddress } from "ethers/lib/utils";
+import TokenValueCard from "../../components/token/TokenValueCard";
 
 export default () => {
     const MINIMUM_WITHDRAW_AMOUNT = 300
-    const { token, tokenRateJpy, tokenRateMatic, createdAt } = useToken()
-    const createdAtString = new Date(createdAt).toLocaleString()
+    const { token, tokenRateJpy, tokenRateMatic } = useToken()
     const disabled = (token) < MINIMUM_WITHDRAW_AMOUNT
     const [openDetail, setOpenDetail] = useState(false)
     const [address, setAddress] = useState("")
@@ -92,7 +92,7 @@ export default () => {
                                     onClick={onClickWithdrawApplication}
                                     variant="contained"
                                     disableElevation
-                                    disabled={disabled}>トークンを引き出す</Button>
+                                    disabled={disabled}>トークンを出金する</Button>
                             </span>
                         </Tooltip> :
                         renderWithdrawForm()
@@ -108,24 +108,7 @@ export default () => {
             </Grid>
 
             <Grid item xs={12} md={6} lg={6}>
-                <Card style={{ padding: 20, flexGrow: 1 }}>
-                    <Typography variant="body1">
-                        トークン価値 ({createdAtString}更新)
-                    </Typography>
-                    <Typography variant="h5">
-                        ¥{tokenRateJpy} / 1トークン
-                    </Typography>
-
-                    <div style={{ height: 20 }}></div>
-
-                    <Typography variant="body1">
-                        保有トークン数
-                    </Typography>
-                    <Typography style={{ display: "flex", alignItems: "center" }} variant="h5">
-                        {token}
-                        <DiamondIcon color="primary" />
-                    </Typography>
-                </Card>
+                <TokenValueCard />
             </Grid>
         </Grid>
 

@@ -4,7 +4,7 @@ import Title from './Title';
 
 interface Props {
     title: string
-    score: number
+    score: any
 }
 
 export default function Deposits(props: Props) {

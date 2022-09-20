@@ -4,16 +4,16 @@ import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 const images = [
     {
-        original: "/static/service_description/1.png"
+        original: "/static/service_description/1.jpg"
     },
     {
-        original: "/static/service_description/2.png"
+        original: "/static/service_description/2.jpg"
     },
     {
-        original: "/static/service_description/3.png"
+        original: "/static/service_description/3.jpg"
     },
     {
-        original: "/static/service_description/4.png"
+        original: "/static/service_description/4.jpg"
     },
 ]
 
