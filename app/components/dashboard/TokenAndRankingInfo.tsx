@@ -23,7 +23,7 @@ export default () => {
 
     return <>
         <Grid container spacing={1}>
-            <Grid item xs={4} md={4} lg={4}>
+            <Grid item xs={6} md={6} lg={6}>
                 <Paper className={fixedHeightPaper}>
                     <Deposits
                         title='保有トークン'
@@ -39,7 +39,7 @@ export default () => {
             </Grid>
 
 
-            <Grid item xs={4} md={4} lg={4}>
+            <Grid item xs={6} md={6} lg={6}>
                 <Paper className={fixedHeightPaper}>
                     <Deposits
                         title='週間ランキング'
