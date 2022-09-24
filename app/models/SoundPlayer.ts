@@ -6,7 +6,7 @@ export class SoundPlayer {
         const url = this.baseUrl + "/" + filename
         const sound = new Howl({
             src: [url],
-            volume: 0.4,
+            volume: 0.1,
         });
         sound.play();
     }
