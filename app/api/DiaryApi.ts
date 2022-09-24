@@ -2,13 +2,14 @@ import { ApiClient } from "./ApiClient";
 
 export class DiaryApi {
 
-    static async translateDiary(userInputText: string) {
+    static async translateDiary(userInputText: string, addContextualSentence: boolean) {
         const client = new ApiClient()
         if (!userInputText) console.error("userInputTextがありません") //ローカルではエラーにする
         const res = await client.post(
             "/diary/translate",
             {
-                userInputText
+                userInputText,
+                addContextualSentence
             }
         )
         console.log("translateDiary", res)

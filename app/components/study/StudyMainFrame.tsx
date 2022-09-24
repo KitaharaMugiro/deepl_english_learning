@@ -181,7 +181,7 @@ export default function StudyMainFrame(props: Props) {
             }
 
             if (englishFirst) {
-                const resTranslation = await DiaryApi.translateDiary(english);
+                const resTranslation = await DiaryApi.translateDiary(english, false);
                 setJapanese(resTranslation.translatedJapanese)
                 setTranslation(resTranslation.translatedEnglish)
             }

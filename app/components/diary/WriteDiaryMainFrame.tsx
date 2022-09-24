@@ -158,7 +158,7 @@ export default function WriteDiaryMainFrame(props: Props) {
             }
 
             if (englishFirst) {
-                const resTranslation = await DiaryApi.translateDiary(english);
+                const resTranslation = await DiaryApi.translateDiary(english, true);
                 setJapanese(resTranslation.translatedJapanese)
                 setTranslation(resTranslation.translatedEnglish)
                 console.log("resTranslation", resTranslation)
