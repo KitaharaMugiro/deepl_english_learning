@@ -164,7 +164,6 @@ export default (props: Props) => {
         } else {
             return (
                 <div style={{ position: "relative" }}>
-
                     <TextField
                         label={textFieldPlaceholder}
                         multiline
@@ -175,8 +174,6 @@ export default (props: Props) => {
                         onChange={e => setEnglish(e.target.value)}
                     >
                     </TextField>
-
-
                     {renderOtherOptionIcons()}
                 </div>
             )
@@ -199,6 +196,7 @@ export default (props: Props) => {
                     className={styles.ready_modal} onClick={onClickModal}>
                     {firstDescription()}
                 </div>
+
                 <GrammarlyEditorPlugin clientId="client_RaLmowYRtNRZnuGckN9duD">
                     {renderInputView()}
                 </GrammarlyEditorPlugin>
