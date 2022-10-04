@@ -1,3 +1,4 @@
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
@@ -163,6 +164,7 @@ export default (props: Props) => {
         } else {
             return (
                 <div style={{ position: "relative" }}>
+
                     <TextField
                         label={textFieldPlaceholder}
                         multiline
@@ -173,6 +175,8 @@ export default (props: Props) => {
                         onChange={e => setEnglish(e.target.value)}
                     >
                     </TextField>
+
+
                     {renderOtherOptionIcons()}
                 </div>
             )
@@ -195,8 +199,9 @@ export default (props: Props) => {
                     className={styles.ready_modal} onClick={onClickModal}>
                     {firstDescription()}
                 </div>
-
-                {renderInputView()}
+                <GrammarlyEditorPlugin clientId="client_RaLmowYRtNRZnuGckN9duD">
+                    {renderInputView()}
+                </GrammarlyEditorPlugin>
 
                 {displayTime ?
                     <div><span style={{ width: 50 }}>
