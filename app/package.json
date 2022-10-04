@@ -25,6 +25,7 @@
     "@apollo/client": "^3.5.7",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@grammarly/editor-sdk-react": "^2.0.2",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.7",
     "@mui/styles": "^5.2.3",

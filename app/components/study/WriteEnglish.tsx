@@ -1,3 +1,4 @@
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
@@ -196,7 +197,9 @@ export default (props: Props) => {
                     {firstDescription()}
                 </div>
 
-                {renderInputView()}
+                <GrammarlyEditorPlugin clientId="client_RaLmowYRtNRZnuGckN9duD">
+                    {renderInputView()}
+                </GrammarlyEditorPlugin>
 
                 {displayTime ?
                     <div><span style={{ width: 50 }}>
