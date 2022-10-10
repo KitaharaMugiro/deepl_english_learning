@@ -40,6 +40,18 @@ export default class MyDocument extends Document {
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
+                    {/* Microsoft Clarity */}
+                    <script
+                        dangerouslySetInnerHTML={
+                            {
+                                __html: `
+                        (function(c,l,a,r,i,t,y){
+                            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+                        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                        })(window, document, "clarity", "script", "dte0j84rmv");
+                    `}} />
+
                 </Head>
                 {/* WARN: 背景色ここでつけてる */}
                 <body style={{ backgroundColor: "#fafafa" }}>

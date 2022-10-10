@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const todayTopicResult = await TodayApi.getResult(resultId as string)
         const ogpInfo: MetaData = {
-            title: "毎日英作文チャレンジ | あなたはネイティブ何歳並みの英語を話せるか診断します",
+            title: "毎日英作文チャレンジ(結果画面) | ネイティブ何歳並みの英語を話せるか診断します",
             description: todayTopicResult.question.title + " ←これに英語で答えてみましょう。",
             image: `/static/ogp/slide_${(todayTopicResult.answer?.age || 0) + 1}.png`,
             pagePath: `/today`

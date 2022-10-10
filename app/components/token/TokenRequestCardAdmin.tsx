@@ -45,7 +45,7 @@ export default (props: Props) => {
                 {createdAtString}
             </Typography>
             <Typography variant="body2">
-                ユーザID: (DashBoard#{props.userId})
+                ユーザID: (Dashboard#{props.userId})
             </Typography>
             <br />
 
