@@ -14,6 +14,7 @@ import { DiaryApi } from '../../api/DiaryApi';
 import { RecordApi } from '../../api/RecordApi';
 import { StudyApi } from '../../api/StudyApi';
 import { GetTodayTopicResponse, TodayApi } from '../../api/TodayApi';
+import { FireGaEvent } from '../../models/gtag';
 import { BackdropAtom } from '../../models/jotai/Backdrop';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomNameWithPersistence, AtomTranslation } from '../../models/jotai/StudyJotai';
 import { LocalStorageHelper } from '../../models/localstorage/LocalStorageHelper';
@@ -143,6 +144,7 @@ export default function TodayStudyMainFrame(props: Props) {
             StudyApi.translate(japanese, props.todayTopic.question.title).then(resTranslation => {
                 setTranslation(resTranslation.translation)
             })
+            FireGaEvent({ action: "click", category: "today", label: "japanese" + (englishFirst ? "(englishfirst)" : "(japanesefirst)") })
         }
 
         if (activeStep.step === "English") {
@@ -157,9 +159,13 @@ export default function TodayStudyMainFrame(props: Props) {
                 setJapanese(resTranslation.translatedJapanese)
                 setTranslation(resTranslation.translatedEnglish)
             }
+            FireGaEvent({ action: "click", category: "today", label: "english" + (englishFirst ? "(englishfirst)" : "(japanesefirst)") })
+
         }
 
         if (activeStepIndex == 2) {
+            FireGaEvent({ action: "click", category: "today", label: "submit" + (englishFirst ? "(englishfirst)" : "(japanesefirst)") })
+
             //最後のステップ
             //スコア算出
             const res = await StudyApi.translate(japanese, props.todayTopic.question.title)
@@ -206,6 +212,7 @@ export default function TodayStudyMainFrame(props: Props) {
             setEnglish("")
             setTranslation("")
             router.push("/today/" + resultId + "?result=true")
+
             return
         }
 
