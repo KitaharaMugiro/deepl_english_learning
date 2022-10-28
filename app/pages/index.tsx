@@ -30,12 +30,6 @@ export default function TopPage() {
           <UserTweets />
         </Grid>
 
-
-        <div style={{ height: 40 }}></div>
-        <Grid container alignItems="center" justifyContent="center">
-          <HowToUseCard />
-        </Grid>
-
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">
           <TargetUserCard />
