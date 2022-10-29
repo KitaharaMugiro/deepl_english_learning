@@ -10,6 +10,6 @@ export default () => {
         router.push("/")
     }, [])
     return <div>
-        <Seo ogpInfo={{}} />
+        <Seo ogpInfo={{ title: "購入完了" }} />
     </div>
 }
