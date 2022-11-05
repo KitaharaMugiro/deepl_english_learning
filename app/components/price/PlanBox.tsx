@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import style from "./style.module.css"
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import Link from "next/link";
 
 interface Props {
     planName: string
@@ -48,7 +49,6 @@ export default (props: Props) => {
                 </span>
             </Typography>
         </Box>
-
         {renderFeatures()}
     </div>
 }

@@ -25,20 +25,15 @@ export default function TopPage() {
           <SummaryHeroCard />
         </Grid>
 
-        <div style={{ height: 40 }}></div>
-        <Grid container alignItems="center" justifyContent="center">
-          <UserTweets />
-        </Grid>
-
-
-        <div style={{ height: 40 }}></div>
-        <Grid container alignItems="center" justifyContent="center">
-          <HowToUseCard />
-        </Grid>
 
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">
           <TargetUserCard />
+        </Grid>
+
+        <div style={{ height: 40 }}></div>
+        <Grid container alignItems="center" justifyContent="center">
+          <UserTweets />
         </Grid>
 
         <PlanBoxGroup />

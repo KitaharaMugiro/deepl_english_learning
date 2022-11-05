@@ -33,6 +33,7 @@ export default function StudyMainFrame(props: Props) {
 
     const [activeStepIndex, setActiveStepIndex] = useState(0);
     const [errorMessage, setErrorMessage] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
@@ -135,6 +136,7 @@ export default function StudyMainFrame(props: Props) {
     }
 
     const handleNext = async () => {
+        setLoading(true)
         if (activeStepIndex === steps.length - 1) {
             //最後のステップ
 
@@ -144,6 +146,7 @@ export default function StudyMainFrame(props: Props) {
             setTranslation("")
             setAtomAge(0)
             router.push(`/record/${props.categorySlug}`)
+            setLoading(false)
             return
         }
 
@@ -156,12 +159,14 @@ export default function StudyMainFrame(props: Props) {
 
             if (isAlphabet(japanese)) {
                 setErrorMessage("日本語で記載してください(先頭がアルファベットです)")
+                setLoading(false)
                 return
             }
 
             const res = await StudyApi.sendJapanese(japanese)
             if (!res.success) {
                 setErrorMessage(res.message)
+                setLoading(false)
                 return
             }
 
@@ -171,12 +176,14 @@ export default function StudyMainFrame(props: Props) {
 
             if (!isAlphabet(english)) {
                 setErrorMessage("英語で記載してください(先頭がアルファベットでないです)")
+                setLoading(false)
                 return
             }
 
             const res = await StudyApi.sendEnglish(english)
             if (!res.success) {
                 setErrorMessage(res.message)
+                setLoading(false)
                 return
             }
 
@@ -193,6 +200,7 @@ export default function StudyMainFrame(props: Props) {
 
         setErrorMessage("")
         setActiveStepIndex(activeStepIndex + 1);
+        setLoading(false)
     };
 
     const handleBack = () => {
@@ -213,7 +221,7 @@ export default function StudyMainFrame(props: Props) {
             variant="contained"
             color="primary"
             onClick={handleNext}
-            disabled={disable}
+            disabled={disable || loading}
             style={{
                 marginTop: "30px",
                 marginLeft: "10px",

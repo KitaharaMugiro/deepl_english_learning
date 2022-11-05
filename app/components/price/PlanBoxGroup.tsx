@@ -6,6 +6,7 @@ import { FireGaEvent } from "../../models/gtag"
 import usePlan from "../../models/util-hooks/usePlan"
 import useSignin from "../../models/util-hooks/useSignin"
 import useUser from "../../models/util-hooks/useUser"
+import NFTLink from "./NFTLink"
 import PlanBox from "./PlanBox"
 import style from "./style.module.css"
 
@@ -73,9 +74,10 @@ export default () => {
                 />
             } label={<b>お得な年間プラン(2ヶ月分無料!)</b>} />
 
-        <Grid container columnSpacing={3}>
+        <Grid container columnSpacing={3} style={{ marginBottom: 10 }}>
             {alignPlanBox()}
         </Grid>
+        <NFTLink />
 
     </Container>
 
