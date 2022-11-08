@@ -4,6 +4,7 @@ import React from 'react';
 import FloatingDaoInvitation from '../components/common/FloatingDaoInvitation';
 import FloatingLoginButton from '../components/common/FloatingLoginButton';
 import Seo from '../components/common/Seo';
+import FirstViewLearning from '../components/hero/FirstViewLearning';
 import HowToUseCard from '../components/hero/HowToUseCard';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
@@ -22,7 +23,7 @@ export default function TopPage() {
         {/* Hero unit */}
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">
-          <SummaryHeroCard />
+          <FirstViewLearning />
         </Grid>
 
 
