@@ -100,7 +100,9 @@ export default function TodayStudyMainFrame(props: Props) {
         if (fromTop) {
             //トップページからきている場合は、名前と日本語を設定済みとする
             if (!name) {
-                setName("Guest")
+                //4桁のランダムな数字を名前にする
+                const randomNumber = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+                setName(`Guest#${randomNumber}`)
             }
             if (japanese) {
                 //非同期で翻訳する
