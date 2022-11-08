@@ -4,6 +4,7 @@ import { useAtom } from "jotai"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { GetTodayTopicResponse, TodayApi } from "../../api/TodayApi"
+import { FireGaEvent } from "../../models/gtag"
 import { AtomActiveQuestion, AtomJapanse } from "../../models/jotai/StudyJotai"
 import PublicJapaneseList from "../publicAnswers/PublicJapaneseList"
 import QuestionText from "../study/QuestionText"
@@ -31,6 +32,8 @@ export default () => {
     const handleNext = () => {
         router.push(`/today?fromTop=true`)
         setDisable(true)
+        FireGaEvent({ action: "click", category: "today", label: "fromTop" })
+
     }
 
     if (!topicId) {

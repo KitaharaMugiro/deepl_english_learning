@@ -103,6 +103,10 @@ export default function TodayStudyMainFrame(props: Props) {
                 setName("Guest")
             }
             if (japanese) {
+                //非同期で翻訳する
+                StudyApi.translate(japanese, props.todayTopic.question.title).then(resTranslation => {
+                    setTranslation(resTranslation.translation)
+                })
                 setActiveStepIndex(2)
             }
         }
