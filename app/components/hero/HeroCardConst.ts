@@ -1,1 +1,1 @@
-export const HeroCardWidth = 700
+export const HeroCardWidth = 850
