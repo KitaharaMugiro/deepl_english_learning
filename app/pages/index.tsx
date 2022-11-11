@@ -32,7 +32,7 @@ export default function TopPage() {
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">
           <Paper>
-            <Grid container p={4} spacing={2} alignItems="center" justifyContent="center">
+            <Grid container p={5} spacing={2} alignItems="center" justifyContent="center">
               <ServiceDescription />
               <div style={{ width: 20 }} />
               <img src="/static/category/playful_cat.png"
