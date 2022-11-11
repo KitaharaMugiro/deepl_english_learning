@@ -1,3 +1,4 @@
+import { Card, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import React from 'react';
@@ -29,18 +30,19 @@ export default function TopPage() {
         </Grid>
 
         <div style={{ height: 40 }}></div>
-        <Grid container p={4} spacing={2} alignItems="center" justifyContent="center">
-
-          <ServiceDescription />
-          <div style={{ width: 20 }} />
-          <img src="/static/category/playful_cat.png"
-            style={{
-              width: 300,
-              height: 250,
-              objectFit: "cover"
-            }} />
-
-
+        <Grid container alignItems="center" justifyContent="center">
+          <Paper>
+            <Grid container p={4} spacing={2} alignItems="center" justifyContent="center">
+              <ServiceDescription />
+              <div style={{ width: 20 }} />
+              <img src="/static/category/playful_cat.png"
+                style={{
+                  width: 300,
+                  height: 250,
+                  objectFit: "cover"
+                }} />
+            </Grid>
+          </Paper>
         </Grid>
 
         <div style={{ height: 40 }}></div>

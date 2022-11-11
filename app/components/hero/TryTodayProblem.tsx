@@ -11,7 +11,7 @@ import QuestionText from "../study/QuestionText"
 import WriteJapanese from "../study/WriteJapanese"
 
 export default () => {
-    const textFieldPlaceholder = "日本語で意見を書いてください"
+    const textFieldPlaceholder = "お題に沿って、まずは日本語であなたの意見を書いてみましょう"
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [isLoading, setIsLoading] = useState(false)
     const [todayTopic, setTodayTopic] = useState<GetTodayTopicResponse>()
