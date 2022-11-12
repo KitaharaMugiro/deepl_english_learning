@@ -42,12 +42,14 @@ export default function TodayStudyMainFrame(props: Props) {
     const [errorMessage, setErrorMessage] = useState("")
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english, setEnglish] = useAtom(AtomEnglish)
-    const [name] = useAtom(AtomNameWithPersistence)
+    const [name, setName] = useAtom(AtomNameWithPersistence)
     const [translation, setTranslation] = useAtom(AtomTranslation)
     const [submitPublicAnswer] = useSubmitTodayPublicAnswerMutation()
     const [activeQuestion, setActiveQuestion] = useAtom(AtomActiveQuestion)
     const { submitToday } = useEventSubmit()
     const { user } = useUser()
+    const router = useRouter()
+    const { fromTop } = router.query
 
 
     const japaneseFirstSteps = [
@@ -95,6 +97,24 @@ export default function TodayStudyMainFrame(props: Props) {
     const [_, setOpenLoading] = useAtom(BackdropAtom)
 
     useEffect(() => {
+        if (fromTop) {
+            //トップページからきている場合は、名前と日本語を設定済みとする
+            if (!name) {
+                //4桁のランダムな数字を名前にする
+                const randomNumber = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+                setName(`Guest#${randomNumber}`)
+            }
+            if (japanese) {
+                //非同期で翻訳する
+                StudyApi.translate(japanese, props.todayTopic.question.title).then(resTranslation => {
+                    setTranslation(resTranslation.translation)
+                })
+                setActiveStepIndex(2)
+            }
+        }
+    }, [fromTop])
+
+    useEffect(() => {
         const getTopic = async () => {
             try {
                 const { question } = props.todayTopic
@@ -113,8 +133,6 @@ export default function TodayStudyMainFrame(props: Props) {
         getTopic()
     }, [props.todayTopic])
 
-    //router
-    const router = useRouter()
 
 
     function getStepContent(step: number) {
@@ -315,7 +333,6 @@ export default function TodayStudyMainFrame(props: Props) {
                         }}>
                             {renderButtons()}
                         </div>
-
                     </React.Fragment>
                 </Paper>
                 <div style={{ height: 10 }} />
