@@ -73,7 +73,7 @@ export default () => {
         return <div style={{ marginTop: 20 }}>
             <Typography variant="h5" align="center">
                 <Link href="/today" style={{ cursor: "pointer" }}>
-                    とりあえず無料で試してみる
+                    フリープラン用の問題に回答する (回答済みの場合は結果画面へ)
                 </Link>
             </Typography>
         </div>
@@ -97,7 +97,7 @@ export default () => {
                     marginTop: 40,
                 }}
                 gutterBottom>
-                <b>プレミアムプラン</b>
+                <b>料金プラン</b>
             </Typography>
             <Typography
                 align="center" color="textSecondary"

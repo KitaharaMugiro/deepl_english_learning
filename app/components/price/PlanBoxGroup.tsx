@@ -46,7 +46,7 @@ export default () => {
     const alignPlanBox = () => {
         return plans.map(p => {
             return <Grid item xs={12} sm={3} lg={3} key={p.title}>
-                <div onClick={() => {if(!p.isFree){ return payment(p.priceId)}}}>
+                <div onClick={() => {if(p.priceId){ return payment(p.priceId)}}}>
                     <PlanBox
                         planName={p.title}
                         price={p.price}
@@ -67,7 +67,7 @@ export default () => {
                 marginTop: 40,
             }}
             gutterBottom>
-            <b>プレミアムプラン</b>
+            <b>料金プラン</b>
         </Typography>
         <Typography
             align="center" color="textSecondary"
