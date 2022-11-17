@@ -12,7 +12,7 @@ import style from "./style.module.css"
 
 export default () => {
     const [yearly, setYearly] = useState(false)
-    const plans = yearly ? [YearlyTier1Plan, YearlyTier2Plan, YearlyTier3Plan] : [Tier1Plan, Tier2Plan, Tier3Plan]
+    const plans = yearly ? [YearlyTier3Plan, YearlyTier2Plan, YearlyTier1Plan] : [Tier3Plan, Tier2Plan, Tier1Plan]
     const numberOfFeatures = Math.max(...plans.map(plan => plan.features.length))
 
     const { user } = useUser()
@@ -73,7 +73,7 @@ export default () => {
         return <div style={{ marginTop: 20 }}>
             <Typography variant="h5" align="center">
                 <Link href="/today" style={{ cursor: "pointer" }}>
-                    とりあえず無料で試してみる
+                    フリープラン用の問題に回答する (回答済みの場合は結果画面へ)
                 </Link>
             </Typography>
         </div>
@@ -97,7 +97,7 @@ export default () => {
                     marginTop: 40,
                 }}
                 gutterBottom>
-                <b>プレミアムプラン</b>
+                <b>料金プラン</b>
             </Typography>
             <Typography
                 align="center" color="textSecondary"

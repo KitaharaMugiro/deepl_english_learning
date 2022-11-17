@@ -1,3 +1,9 @@
+export const Tier4Plan = {
+    title: "無料プラン",
+    price: 0,
+    features: ["お試し問題1問/日","英語日記","まずはお試し"],
+    priceId: null
+}
 export const Tier3Plan = {
     title: "継続プラン",
     price: 330,
@@ -15,6 +21,12 @@ export const Tier1Plan = {
     price: 2200,
     features: ["問題解き放題", "復習し放題", "制限が嫌いな人", "もっとEnglister開発して欲しい人"],
     priceId: process.env.NODE_ENV === "development" ? "price_1KFP15FZt1qcfPgxHlnLFBKo" : "price_1KFP5sFZt1qcfPgx9DimiUnU"
+}
+export const YearlyTier4Plan = {
+    title: "無料プラン",
+    price: 0,
+    features: ["お試し問題1問/日","英語日記","まずはお試し"],
+    priceId: null
 }
 export const YearlyTier3Plan = {
     title: "継続プラン",
