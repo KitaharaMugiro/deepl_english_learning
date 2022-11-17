@@ -21,7 +21,7 @@ export default () => {
     }
 
     return (
-        <div style={{ padding: 20, paddingBottom: 30, width: "100%", maxWidth: HeroCardWidth }}>
+        <div style={{ marginBottom: 30, width: "100%", maxWidth: HeroCardWidth }}>
             <Typography
                 component="h1" variant="h3"
                 align="center" color="textPrimary"

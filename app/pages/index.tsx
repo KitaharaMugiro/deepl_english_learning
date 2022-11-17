@@ -1,14 +1,11 @@
-import { Card, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import FloatingDaoInvitation from '../components/common/FloatingDaoInvitation';
-import FloatingLoginButton from '../components/common/FloatingLoginButton';
 import Seo from '../components/common/Seo';
 import FirstViewLearning from '../components/hero/FirstViewLearning';
-import { HeroCardWidth } from '../components/hero/HeroCardConst';
-import HowToUseCard from '../components/hero/HowToUseCard';
-import ServiceDescription from '../components/hero/ServiceDescription';
+import ServiceDescriptionCard from '../components/hero/ServiceDescriptionCard';
 import SummaryHeroCard from '../components/hero/SummaryHeroCard';
 import TargetUserCard from '../components/hero/TargetUserCard';
 import UserTweets from '../components/hero/UserTweets';
@@ -16,6 +13,35 @@ import PlanBoxGroup from '../components/price/PlanBoxGroup';
 
 
 export default function TopPage() {
+  const [_isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(isMobile);
+  }, [isMobile])
+
+  const renderPCHero = () => {
+
+    return <div style={{ display: _isMobile ? "none" : undefined }}>
+      <div style={{ height: 40 }}></div>
+      <Grid container alignItems="center" justifyContent="center">
+        <FirstViewLearning />
+      </Grid>
+
+      <div style={{ height: 40 }}></div>
+      <Grid container alignItems="center" justifyContent="center">
+        <ServiceDescriptionCard />
+      </Grid>
+    </div>
+
+  }
+
+  const renderMobileHero = () => {
+    return <div style={{ display: _isMobile ? undefined : "none" }}>
+      <div style={{ height: 40 }}></div>
+      <Grid container alignItems="center" justifyContent="center">
+        <SummaryHeroCard />
+      </Grid>
+    </div>
+  }
 
   return (
     <React.Fragment>
@@ -24,26 +50,8 @@ export default function TopPage() {
           ogpInfo={{}}
         />
         {/* Hero unit */}
-        <div style={{ height: 40 }}></div>
-        <Grid container alignItems="center" justifyContent="center">
-          <FirstViewLearning />
-        </Grid>
-
-        <div style={{ height: 40 }}></div>
-        <Grid container alignItems="center" justifyContent="center">
-          <Paper>
-            <Grid container p={5} spacing={2} alignItems="center" justifyContent="center">
-              <ServiceDescription />
-              <div style={{ width: 20 }} />
-              <img src="/static/category/playful_cat.png"
-                style={{
-                  width: 300,
-                  height: 250,
-                  objectFit: "cover"
-                }} />
-            </Grid>
-          </Paper>
-        </Grid>
+        {renderPCHero()}
+        {renderMobileHero()}
 
         <div style={{ height: 40 }}></div>
         <Grid container alignItems="center" justifyContent="center">
