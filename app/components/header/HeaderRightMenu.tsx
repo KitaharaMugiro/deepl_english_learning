@@ -133,7 +133,7 @@ export default () => {
             onClick={openSignin}
             //href="https://docs.google.com/forms/d/e/1FAIpQLSdu4iiOKOyb1Pj7RKXnmUX2l_ZlDqRaX57P3i9q3Afvedzv9g/viewform?usp=sf_link"
             style={{ marginRight: 20, textTransform: "none" }} size="small" variant="contained" disableElevation>
-            Log in
+            会員登録/ログインはこちら
         </Button>
     }
 
