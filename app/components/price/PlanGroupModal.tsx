@@ -58,12 +58,12 @@ export default () => {
         return <div style={{ marginTop: 20 }}>
             <Typography variant="body1" align="center">
                 <Link onClick={bye} style={{ cursor: "pointer" }}>
-                    退会する
+                    プランを解約する
                 </Link>
             </Typography>
 
             <Typography variant="body1" align="center">
-                ※ プランを変更する場合は必ず１度退会してからプランを変更してください。
+                ※ プランを変更する場合は、必ず１度プランを解約してから変更してください。
             </Typography>
         </div>
     }
