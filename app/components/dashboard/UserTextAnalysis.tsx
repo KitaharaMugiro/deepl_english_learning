@@ -76,7 +76,7 @@ export default () => {
                 }
                 return <Card key={i} style={{ margin: 10, padding: 10 }}>
                     <Typography sx={{ fontWeight: 'bold' }} variant="h6">{a.analysisQuestion}</Typography>
-                    <Typography variant="body1">{a.analysisAnswer}</Typography>
+                    <Typography style={{ whiteSpace: "pre" }} variant="body1">{a.analysisAnswer}</Typography>
                 </Card>
             })}
         </div>

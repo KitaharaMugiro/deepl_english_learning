@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "serverless",
+    "deploy": "components-v1",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "graphql-codegen"
   },
