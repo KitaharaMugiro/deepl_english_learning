@@ -1,6 +1,6 @@
 import { Button, IconButton, Paper, TextField } from '@mui/material';
 import { useAtom } from 'jotai';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { AtomActiveQuestion, AtomEnglish, AtomJapanse } from '../../models/jotai/StudyJotai';
 import useTimer from '../timer/useTimer';
 import QuestionText from './QuestionText';
@@ -22,12 +22,14 @@ export default function WriteJapanese(props: Props) {
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english] = useAtom(AtomEnglish)
     const [activeQuestion] = useAtom(AtomActiveQuestion)
+    const inputRef = useRef(null);
 
     const textFieldPlaceholder = englishFirst ? "上の文章を日本語にしてください" : "日本語で意見を書いてください"
 
     const onClickModal = (mode: "Japanese" | "English" | undefined) => {
         start()
         setDisplayModal(false)
+        FocusTextField()
         if (mode === "Japanese") {
             props.setEnglishFirst && props.setEnglishFirst(false)
         } else if (mode === "English") {
@@ -53,6 +55,7 @@ export default function WriteJapanese(props: Props) {
 
     }
 
+    const FocusTextField = () => inputRef.current.focus()
 
     const onChangeJapanese = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         event.preventDefault()
@@ -77,6 +80,7 @@ export default function WriteJapanese(props: Props) {
                 {firstDescription()}
 
                 <TextField
+                    inputRef={inputRef}
                     label={textFieldPlaceholder}
                     multiline
                     rows={4}
