@@ -22,7 +22,7 @@ export default function WriteJapanese(props: Props) {
     const [japanese, setJapanese] = useAtom(AtomJapanse)
     const [english] = useAtom(AtomEnglish)
     const [activeQuestion] = useAtom(AtomActiveQuestion)
-    const inputRef = useRef(null);
+    const inputRef = useRef<any>(null);
 
     const textFieldPlaceholder = englishFirst ? "上の文章を日本語にしてください" : "日本語で意見を書いてください"
 
@@ -55,7 +55,10 @@ export default function WriteJapanese(props: Props) {
 
     }
 
-    const FocusTextField = () => inputRef.current.focus()
+    const FocusTextField = () => {
+        if (inputRef.current)
+            inputRef.current.focus()
+    }
 
     const onChangeJapanese = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         event.preventDefault()
