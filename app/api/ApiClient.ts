@@ -16,7 +16,7 @@ export class ApiClient {
     public async get(path: string, params: Object) {
         const instance = axios.create({
             baseURL: this.BASE_URL,
-            timeout: 10000
+            timeout: 100000
         });
         try {
             const token = await Auth.currentSession()
@@ -34,7 +34,7 @@ export class ApiClient {
     public async post(path: string, body: Object) {
         const instance = axios.create({
             baseURL: this.BASE_URL,
-            timeout: 10000
+            timeout: 100000
         });
         try {
             const token = await Auth.currentSession()

@@ -10,7 +10,7 @@ export class ApiSpecialClient {
     constructor() {
         this.instance = axios.create({
             baseURL: BASE_URL,
-            timeout: 10000
+            timeout: 100000
         });
     }
 

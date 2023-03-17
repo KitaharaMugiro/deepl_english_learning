@@ -183,6 +183,8 @@ export default function TodayStudyMainFrame(props: Props) {
 
         if (activeStepIndex == 2) {
             FireGaEvent({ action: "click", category: "today", label: "submit" + (englishFirst ? "(englishfirst)" : "(japanesefirst)") })
+            FireGaEvent({ action: (englishFirst ? "EnglishLearnSubmit" : "JapaneseLearnSubmit"), category: "today", label: "" })
+
 
             //最後のステップ
             //スコア算出

@@ -10,6 +10,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import { DiaryApi } from '../../api/DiaryApi';
 import { StudyApi } from '../../api/StudyApi';
+import { FireGaEvent } from '../../models/gtag';
 import { AtomActiveQuestion, AtomAge, AtomEnglish, AtomJapanse, AtomTranslation } from '../../models/jotai/StudyJotai';
 import endStudy from '../../models/process/endStudy';
 import useStudy from '../../models/util-hooks/useStudy';
@@ -139,6 +140,9 @@ export default function StudyMainFrame(props: Props) {
         setLoading(true)
         if (activeStepIndex === steps.length - 1) {
             //最後のステップ
+            FireGaEvent({ action: (englishFirst ? "EnglishLearnSubmit" : "JapaneseLearnSubmit"), category: "today", label: "" })
+
+
 
             //初期化
             setJapanese("")

@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,6 +10,7 @@ import Seo, { MetaData } from '../../components/common/Seo';
 import ScoreList from '../../components/dashboard/ScoreList';
 import StudyRecordList from '../../components/dashboard/StudyRecordList';
 import TokenAndRankingInfo from '../../components/dashboard/TokenAndRankingInfo';
+import UserTextAnalysis from '../../components/dashboard/UserTextAnalysis';
 import LevelUpInformation from '../../components/levelup/LevelUpInformation';
 import QuestList from '../../components/quest/QuestList';
 import FloatingTryTodayQuestion from '../../components/today/FloatingTryTodayQuestion';
@@ -41,13 +42,22 @@ function Dashboard({ categoryInfo, ogpInfo }: {
                         <b>ダッシュボード</b>
                     </Typography>
 
+                    <Box sx={{
+                        border: "10px solid #FFD700",
+                        borderRadius: 10,
+                        padding: 2
+                    }}>
+                        <Typography variant="h6">今週の分析結果</Typography>
+                        <Typography variant="subtitle2">毎週金曜日18:00にリセットされます。</Typography>
+                        <UserTextAnalysis />
+                    </Box>
 
-                    <TokenAndRankingInfo />
+                    {/* <TokenAndRankingInfo />
 
 
                     <Paper className={fixedHeightPaper}>
                         <LevelUpInformation />
-                    </Paper>
+                    </Paper> */}
 
 
 
@@ -75,7 +85,7 @@ function Dashboard({ categoryInfo, ogpInfo }: {
                 </Container >
             </main>
             <FloatingTryTodayQuestion />
-        </div>
+        </div >
     );
 }
 
