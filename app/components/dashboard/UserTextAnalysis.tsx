@@ -76,13 +76,13 @@ export default () => {
                 }
                 return <Card key={i} style={{ margin: 10, padding: 10 }}>
                     <Typography sx={{ fontWeight: 'bold' }} variant="h6">{a.analysisQuestion}</Typography>
-                    <Typography style={{ whiteSpace: "pre" }} variant="body1">{a.analysisAnswer}</Typography>
+                    <Typography style={{ whiteSpace: "pre-wrap" }} variant="body1">{a.analysisAnswer}</Typography>
                 </Card>
             })}
         </div>
 
         <Typography variant="h6">分析に利用した文章</Typography>
-        <div style={{ whiteSpace: "pre" }}>
+        <div style={{ whiteSpace: "pre-wrap" }}>
             {analysis[0].userText}
         </div>
     </div>
